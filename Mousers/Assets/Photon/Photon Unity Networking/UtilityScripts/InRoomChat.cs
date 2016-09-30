@@ -7,7 +7,7 @@ public class InRoomChat : Photon.MonoBehaviour
 {
     public Rect GuiRect = new Rect(0,0, 250,300);
     public bool IsVisible = true;
-    public bool AlignBottom = false;
+    public bool AlignBottom = true;
     public List<string> messages = new List<string>();
     private string inputLine = "";
     private Vector2 scrollPos = Vector2.zero;
