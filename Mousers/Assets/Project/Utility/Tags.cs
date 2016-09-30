@@ -7,11 +7,11 @@ using System.Collections;
 public static class Tags{
     public const string Player = "Player";
 
-    //public static class Axis
-    //{
-    //    //public const string horizontal = "Horizontal";
-    //    //public const string vertical = "Vertical";
-    //}
+    public static class Axis
+    {
+        public const string Horizontal = "Horizontal";
+        public const string Vertical = "Vertical";
+    }
 
     public static class LayerNumbers
     {
