@@ -83,5 +83,4 @@ $RECYCLE.BIN/
 *.pri.meta
 
 #Files
-Photon/Assets/Photon/Photon Unity Networking/Demos.meta
-Photon/ProjectSettings/ProjectVersion.txt
+Mousers/ProjectSettings/ProjectVersion.txt
