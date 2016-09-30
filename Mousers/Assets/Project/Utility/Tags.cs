@@ -5,7 +5,7 @@ using System.Collections;
 // for the autocomplete!
 
 public static class Tags{
-    public const string player = "Player";
+    public const string Player = "Player";
 
     //public static class Axis
     //{
@@ -15,17 +15,15 @@ public static class Tags{
 
     public static class LayerNumbers
     {
-        public const int Static = 18;
     }
 
     public static class Layers
     {
-        public const string Static = "Static Geometry";
     }
 
     public class SortingLayers
     {
-        public const string overlay = "Overlay";
+        public const string Overlay = "Overlay";
     }
 
     public static class AnimatorParams
@@ -34,6 +32,11 @@ public static class Tags{
 
     public static class PlayerPrefKeys
     {
+    }
+
+    public static class Resources
+    {
+        public const string Player = "Player";
     }
 
     public static class Options
