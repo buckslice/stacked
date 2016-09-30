@@ -22,6 +22,7 @@ GameObject:
   - 135: {fileID: 135000012838532816}
   - 114: {fileID: 114000011266902496}
   - 114: {fileID: 114000012209394322}
+  - 114: {fileID: 114000010866469888}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -176,6 +177,20 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014041888156}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114000010866469888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010629781014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65be4c66d84204f46b518cafbb02ecb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bindings:
+    horizontalMovementAxis: Horizontal
+    verticalMovementAxis: Vertical
 --- !u!114 &114000011266902496
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -213,6 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
+  rotationSpeedDegrees: 360
   acceleration: 50
   bufferDelaySecs: 0
 --- !u!135 &135000012838532816

@@ -2,10 +2,27 @@
 using System.Collections.Generic;
 
 [RequireComponent(typeof(PhotonView))]
+[RequireComponent(typeof(IPlayerInput))]
 public class PlayerMovement : MonoBehaviour
 {
+
+    [SerializeField]
+    protected float speed = 6;
+
+    [SerializeField]
+    protected float rotationSpeedDegrees = 360;
+
+    [SerializeField]
+    protected float acceleration = 50;
+
+    [SerializeField]
+    protected double bufferDelaySecs = 0.2f;
+    public double BufferDelaySecs { get { return bufferDelaySecs; } }
+
+
     PhotonView view;
-    Vector3 movementInput;
+    IPlayerInput input;
+
     /// <summary>
     /// Photon timestamp of the most recent data, used to warn if data is being received out of order.
     /// </summary>
@@ -34,20 +51,11 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     TimestampedData<float> nextTargetRotation;
 
-    [SerializeField]
-    protected float speed = 3;
-
-    [SerializeField]
-    protected float acceleration = 200;
-
-    [SerializeField]
-    protected double bufferDelaySecs = 0.2f;
-    public double BufferDelaySecs { get { return bufferDelaySecs; } }
-
     // Use this for initialization
     void Awake()
     {
         view = GetComponent<PhotonView>();
+        input = GetComponent<IPlayerInput>();
 
         //set up tracked data to match to our current position and rotation
         previousTargetPosition = new TimestampedData<Vector3>(PhotonNetwork.time - 1, this.transform.position);
@@ -77,7 +85,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void UpdateUsingInput()
     {
-        Vector3 movementInput = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")); //pull from input script
+        Vector3 movementInput = input.movementDirection;
 
         Vector3 velocityXZ = velocity;
         velocityXZ.y = 0;
@@ -87,10 +95,12 @@ public class PlayerMovement : MonoBehaviour
         velocity.x = movementXZ.x;
         velocity.z = movementXZ.z;
 
-        //TODO: rotation
-
         //update position
         transform.position += Time.deltaTime * velocity;
+
+        //update rotation
+        Quaternion targetRotation = input.rotationDirection;
+        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeedDegrees * Time.deltaTime);
     }
 
     /// <summary>

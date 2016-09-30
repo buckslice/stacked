@@ -37,17 +37,17 @@ public class KeyboardMousePlayerInput : IPlayerInput
             return result;
         }
     }
-    public Vector3 rotationDirection
+    public Quaternion rotationDirection
     {
         get
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float distance = (mouseRay.origin.y / mouseRay.direction.y);
-            Vector3 pointInWorld = Vector3.zero;
+            float distance = (-mouseRay.origin.y / mouseRay.direction.y);
+            Vector3 pointInWorld = mouseRay.origin + (distance * mouseRay.direction);
 
-            //fix
+            Assert.AreApproximatelyEqual(pointInWorld.y, 0);
 
-            return pointInWorld;
+            return Quaternion.LookRotation(pointInWorld);
         }
     }
 }

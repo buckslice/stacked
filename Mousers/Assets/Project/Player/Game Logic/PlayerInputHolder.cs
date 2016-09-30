@@ -15,7 +15,7 @@ public interface IPlayerInput
     /// <summary>
     /// A vector representing the direction the player should face.
     /// </summary>
-    Vector3 rotationDirection { get; }
+    Quaternion rotationDirection { get; }
 }
 
 /// <summary>
@@ -25,5 +25,5 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInput {
     protected virtual IPlayerInput heldInput { get; set; }
 
     public Vector3 movementDirection { get { return heldInput.movementDirection; } }
-    public Vector3 rotationDirection { get { return heldInput.rotationDirection; } }
+    public Quaternion rotationDirection { get { return heldInput.rotationDirection; } }
 }
