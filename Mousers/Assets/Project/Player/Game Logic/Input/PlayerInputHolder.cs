@@ -47,6 +47,9 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
 
     protected void Start()
     {
-        heldInput.Player = this.transform;
+        if (heldInput != null)
+        {
+            heldInput.Player = this.transform;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using UnityEngine.Assertions;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(IPlayerInputHolder))]
 public class PlayerMovement : MonoBehaviour
@@ -20,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     protected double bufferDelaySecs = 0.2f;
     public double BufferDelaySecs { get { return bufferDelaySecs; } }
 
-
+    Rigidbody rigid;
     PhotonView view;
     IPlayerInputHolder input;
 
@@ -28,7 +29,6 @@ public class PlayerMovement : MonoBehaviour
     /// Photon timestamp of the most recent data, used to warn if data is being received out of order.
     /// </summary>
     double latestData = 0;
-    Vector3 velocity = Vector3.zero;
 
     Queue<TimestampedData<Vector3>> bufferedTargetPositions = new Queue<TimestampedData<Vector3>>();
 
@@ -55,14 +55,21 @@ public class PlayerMovement : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        rigid = GetComponent<Rigidbody>();
         view = GetComponent<PhotonView>();
         input = GetComponent<IPlayerInputHolder>();
 
         //set up tracked data to match to our current position and rotation
-        previousTargetPosition = new TimestampedData<Vector3>(PhotonNetwork.time - 1, this.transform.position);
-        nextTargetPosition = new TimestampedData<Vector3>(PhotonNetwork.time, this.transform.position);
+        previousTargetPosition = new TimestampedData<Vector3>(PhotonNetwork.time - 1, rigid.position);
+        nextTargetPosition = new TimestampedData<Vector3>(PhotonNetwork.time, rigid.position);
         previousTargetRotation = new TimestampedData<float>(PhotonNetwork.time - 1, this.rotation);
         nextTargetRotation = new TimestampedData<float>(PhotonNetwork.time, this.rotation);
+
+        if (!view.isMine)
+        {
+            Destroy(rigid);
+            rigid = null;
+        }
     }
 
     void Update()
@@ -80,21 +87,28 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    float rotation { get { return this.transform.rotation.eulerAngles.y; } }
+    float rotation { get { return rigid.rotation.eulerAngles.y; } }
 
     /// <summary>
     /// Updates our current position based off of player input.
     /// </summary>
     void UpdatePositionInput()
     {
+        Vector3 velocity = rigid.velocity;
+        //we do not control vertical movement through this script. Negate it so it doesn't affect normalization or MoveTowards.
+        velocity.y = 0;
         Vector2 movementInput = input.movementDirection;
         //transform the movement from player screen space to world space.
         Vector3 targetXZ = speed * movementInput.ConvertFromInputToWorld();
+        Assert.AreApproximatelyEqual(targetXZ.y, 0);
 
-        velocity = Vector3.MoveTowards(velocity, targetXZ, Time.deltaTime * acceleration);
+        velocity = Vector3.MoveTowards(velocity, targetXZ, Time.deltaTime * acceleration); //TODO: look into using AddForce, with the ignore-mass acceleration force-mode?
 
-        //update position using velocity
-        transform.position += Time.deltaTime * velocity;
+        //we do not control vertical movement through this script; reset to the rigidbody-controlled value.
+        velocity.y = rigid.velocity.y;
+
+        //update actual velocity
+        rigid.velocity = velocity;
     }
 
     /// <summary>
@@ -107,7 +121,7 @@ public class PlayerMovement : MonoBehaviour
         if (rotationInput.sqrMagnitude > 0) //if input has no magnitude, do no rotation.
         {
             Quaternion targetRotation = Quaternion.LookRotation(rotationInput);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeedDegrees * Time.deltaTime);
+            rigid.MoveRotation(Quaternion.RotateTowards(rigid.rotation, targetRotation, rotationSpeedDegrees * Time.deltaTime));
         }
     }
 
@@ -153,7 +167,10 @@ public class PlayerMovement : MonoBehaviour
         }
 
         float lerpValue = Mathd.InverseLerp(previousTargetRotation.outputTime, nextTargetRotation.outputTime, PhotonNetwork.time);
-        Quaternion newRotation = Quaternion.AngleAxis(Mathf.LerpAngle(previousTargetRotation, nextTargetRotation, lerpValue), Vector3.up);
+        Quaternion targetRotation = Quaternion.AngleAxis(Mathf.LerpAngle(previousTargetRotation, nextTargetRotation, lerpValue), Vector3.up);
+
+        //limit our movement each frame to our max rotation speed. This prevents the jittery appearance of extrapolated data.
+        Quaternion newRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * rotationSpeedDegrees);
 
         transform.localRotation = newRotation;
     }
@@ -165,7 +182,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (stream.isWriting)
         {
-            positionData = new TimestampedData<Vector3>(info.timestamp, transform.position);
+            positionData = new TimestampedData<Vector3>(info.timestamp, rigid.position);
             rotationData = new TimestampedData<float>(info.timestamp, this.rotation);
 
             // We own this player: send the others our data
