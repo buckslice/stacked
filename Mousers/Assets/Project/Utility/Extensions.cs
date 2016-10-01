@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.Assertions;
 
 //single file for all utility extensions
 
@@ -102,6 +102,22 @@ public static class VectorExtension
     public static Vector3 toWorldPoint(this Vector3 screenPoint, Camera camera)
     {
         return camera.ScreenToWorldPoint(screenPoint);
+    }
+
+    /// <summary>
+    /// Uses the main camera to convert a vector from player screen space to world space, while maintaining scaling.
+    /// </summary>
+    /// <param name="input">Screen space input vector.</param>
+    /// <returns>World Space input vector.</returns>
+    public static Vector3 ConvertFromInputToWorld(this Vector2 input)
+    {
+        Vector3 forward = Vector3.ProjectOnPlane(Camera.main.transform.forward, Vector3.up);
+        forward.Normalize();
+        Vector3 right = Vector3.ProjectOnPlane(Camera.main.transform.right, Vector3.up);
+        right.Normalize();
+        Assert.AreApproximatelyEqual(Vector3.Dot(forward, right), 0);
+
+        return right * input.x + forward * input.y;
     }
 
     /// <summary>

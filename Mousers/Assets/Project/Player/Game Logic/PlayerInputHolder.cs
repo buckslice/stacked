@@ -6,24 +6,41 @@ using System.Collections.Generic;
 /// <summary>
 /// Interface used to denote a class which provides player input.
 /// </summary>
-public interface IPlayerInput
+public interface IPlayerInput : IPlayerInputHolder
 {
     /// <summary>
-    /// A vector representing the direction the player should move in. Magnitude should be in the range [0, 1]
+    /// The transform component of the player.
     /// </summary>
-    Vector3 movementDirection { get; }
+    Transform Player { set; }
+}
+
+/// <summary>
+/// Interface used to denote a class which is or holds an IPlayerInput.
+/// </summary>
+public interface IPlayerInputHolder
+{
     /// <summary>
-    /// A vector representing the direction the player should face.
+    /// A vector representing the direction the player should move in. Magnitude should be in the range [0, 1]. Vector is in screen space.
     /// </summary>
-    Quaternion rotationDirection { get; }
+    Vector2 movementDirection { get; }
+    /// <summary>
+    /// A vector representing the direction the player should face. Vector is in world space.
+    /// </summary>
+    Vector3 rotationDirection { get; }
 }
 
 /// <summary>
 /// This is the script through which all final gameplay input will be handled. Child classes are for drag-drop construction.
 /// </summary>
-public class PlayerInputHolder : MonoBehaviour, IPlayerInput {
+public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
+{
     protected virtual IPlayerInput heldInput { get; set; }
 
-    public Vector3 movementDirection { get { return heldInput.movementDirection; } }
-    public Quaternion rotationDirection { get { return heldInput.rotationDirection; } }
+    public Vector2 movementDirection { get { return heldInput.movementDirection; } }
+    public Vector3 rotationDirection { get { return heldInput.rotationDirection; } }
+
+    protected void Start()
+    {
+        heldInput.Player = this.transform;
+    }
 }

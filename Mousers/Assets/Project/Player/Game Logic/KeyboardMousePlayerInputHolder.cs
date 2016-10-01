@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class KeyboardMousePlayerInputHolder : PlayerInputHolder, IPlayerInput
+public class KeyboardMousePlayerInputHolder : PlayerInputHolder
 {
     [SerializeField]
     protected KeyboardMousePlayerInput bindings;
@@ -16,6 +16,7 @@ public class KeyboardMousePlayerInputHolder : PlayerInputHolder, IPlayerInput
         set
         {
             bindings = (KeyboardMousePlayerInput)value;
+            bindings.Player = this.transform;
         }
     }
 }
@@ -28,26 +29,29 @@ public class KeyboardMousePlayerInput : IPlayerInput
     [SerializeField]
     public string verticalMovementAxis = Tags.Axis.Vertical;
 
-    public Vector3 movementDirection
+    Transform player;
+    public Transform Player { set { player = value; } }
+
+    public Vector2 movementDirection
     {
         get
         {
-            Vector3 result = new Vector3(Input.GetAxisRaw(horizontalMovementAxis), 0, Input.GetAxisRaw(verticalMovementAxis));
-            result = Vector3.ClampMagnitude(result, 1f);
+            Vector2 result = new Vector3(Input.GetAxisRaw(horizontalMovementAxis), Input.GetAxisRaw(verticalMovementAxis));
+            result = Vector2.ClampMagnitude(result, 1f);
             return result;
         }
     }
-    public Quaternion rotationDirection
+    public Vector3 rotationDirection
     {
         get
         {
             Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float distance = (-mouseRay.origin.y / mouseRay.direction.y);
+            float distance = ((player.position.y - mouseRay.origin.y) / mouseRay.direction.y);
             Vector3 pointInWorld = mouseRay.origin + (distance * mouseRay.direction);
 
-            Assert.AreApproximatelyEqual(pointInWorld.y, 0);
+            Assert.AreApproximatelyEqual(pointInWorld.y, player.position.y);
 
-            return Quaternion.LookRotation(pointInWorld);
+            return pointInWorld - player.position;
         }
     }
 }

@@ -37,6 +37,8 @@ public class PlayerSetup : MonoBehaviour {
         GameObject healthBar = (GameObject)Instantiate(healthBarPrefab, playerHealthBarGroup.transform);
         HealthBar bar = healthBar.GetComponent<HealthBar>();
         player.GetComponent<Health>().bar = bar;
+
+        player.AddComponent<DerpAbility>();
     }
 
 }

@@ -208,6 +208,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012033755794, guid: 9746dbe808fe8fb4eb1e9b54fea252ae,
+        type: 2}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012033755794, guid: 9746dbe808fe8fb4eb1e9b54fea252ae,
+        type: 2}
+      propertyPath: instantiationId
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9746dbe808fe8fb4eb1e9b54fea252ae, type: 2}
   m_IsPrefabParent: 0
@@ -462,6 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefabName: Player
+  player1SpawnPoint: {fileID: 0}
 --- !u!114 &1204484922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,10 +632,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1634730364}
-  m_LocalRotation: {x: 0.31737882, y: -0, z: -0, w: 0.9482988}
+  m_LocalRotation: {x: 0.29568332, y: 0.3442454, z: -0.11519294, w: 0.88362724}
   m_LocalPosition: {x: 0, y: 16.3, z: -21.2}
   m_LocalScale: {x: 0, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 37.003002, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 37.003002, y: 42.57, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
