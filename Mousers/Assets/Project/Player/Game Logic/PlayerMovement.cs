@@ -21,6 +21,12 @@ public class PlayerMovement : MonoBehaviour
     protected double bufferDelaySecs = 0.2f;
     public double BufferDelaySecs { get { return bufferDelaySecs; } }
 
+    /// <summary>
+    /// If disabled, this will not make any modifications at all to the player's position or velocity. Only applies to players using input.
+    /// </summary>
+    [SerializeField]
+    public bool controlEnabled = true;
+
     [SerializeField]
     public bool movementInputEnabled = true;
 
@@ -87,8 +93,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            UpdatePositionInput();
-            UpdateRotationInput();
+            if (controlEnabled)
+            {
+                UpdatePositionInput();
+                UpdateRotationInput();
+            }
         }
 
     }
