@@ -7,7 +7,8 @@ using System.Collections.Generic;
 /// If the player is not a masterClient, disable this gameObject.
 /// </summary>
 public class MasterOnly : MonoBehaviour {
-	void Start () {
+    public void OnJoinedRoom()
+    {
         if (!PhotonNetwork.isMasterClient)
         {
             this.gameObject.SetActive(false);

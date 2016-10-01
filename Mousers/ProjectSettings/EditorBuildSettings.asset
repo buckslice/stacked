@@ -6,6 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Project/PlayerRegistration.unity
+  - enabled: 1
     path: Assets/Project/Main.unity
   - enabled: 1
     path: Assets/Project/DevelopmentOnly/Derek.unity
