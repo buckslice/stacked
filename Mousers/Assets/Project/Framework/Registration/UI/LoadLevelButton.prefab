@@ -23,6 +23,7 @@ GameObject:
   - 114: {fileID: 114000014114390678}
   - 114: {fileID: 114000013189080698}
   - 114: {fileID: 114000011468334900}
+  - 114: {fileID: 114000011485210514}
   m_Layer: 5
   m_Name: LoadLevelButton
   m_TagString: Untagged
@@ -58,6 +59,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0126d57619f5f784794094476e5c3f80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000011485210514
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010069259676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb550080818fcc442b55c0b681bfa0d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: 337
 --- !u!114 &114000013189080698
 MonoBehaviour:
   m_ObjectHideFlags: 1
