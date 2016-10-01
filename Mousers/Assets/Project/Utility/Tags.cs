@@ -73,6 +73,10 @@ public static class Tags {
         /// Path from the canvas root to the layout group for player health bars.
         /// </summary>
         public const string PlayerHealthBarGroup = "PlayerHealthBarGroup";
+        /// <summary>
+        /// Path from the canvas root to the layout group for player health bars.
+        /// </summary>
+        public const string PlayerRegistrationGroup = "PlayerRegistrationGroup";
     }
 
     public static class LayerNumbers
@@ -100,6 +104,7 @@ public static class Tags {
     {
         public const string Player = "Player";
         public const string Boss = "Boss"; // this is temp, later we will have specific actual boss prefabs for each boss
+        public const string RegistrationUI = "RegistrationUI";
     }
 
     public static class Options

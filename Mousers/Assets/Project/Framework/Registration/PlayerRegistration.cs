@@ -8,6 +8,9 @@ public class PlayerRegistration : MonoBehaviour {
     [SerializeField]
     protected GameObject playerSetupPrefab;
 
+    [SerializeField]
+    protected string playerRegistrationUIPrefabName = Tags.Resources.RegistrationUI;
+
 
     [SerializeField]
     protected PlayerInputHolder[] possibleBindings;
@@ -32,6 +35,7 @@ public class PlayerRegistration : MonoBehaviour {
                 registeredPlayers[i] = instantiatedPlayerSetup.GetComponent<PlayerSetup>();
                 registeredPlayers[i].Initalize(possibleBindings[i].heldInput);
 
+                PhotonNetwork.Instantiate(playerRegistrationUIPrefabName, Vector3.zero, Quaternion.identity, 0);
                     //TODO: spawn visuals as well, using PhotonNetwork.Instantiate to show on all connected computers
             }
         }

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 public abstract class AbstractAbilityAction : MonoBehaviour {
 
     /// <summary>
-    /// name of our RPC method. might want to move this to IAbilityActivation scripts?
+    /// name of our RPC method. TODO : might want to move this to IAbilityActivation scripts?
     /// </summary>
     protected const string activate = "RPCActivate";
 
@@ -33,6 +33,7 @@ public abstract class AbstractAbilityAction : MonoBehaviour {
     {
         //view.RPC(activate, PhotonTargets.All);
         //skip the networking RPC for now
+
         Activate();
     }
 

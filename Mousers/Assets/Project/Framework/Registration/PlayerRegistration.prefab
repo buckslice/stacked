@@ -75,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerSetupPrefab: {fileID: 1000011991781076, guid: 106696cdffc26f94192c76dbd2d8457d,
     type: 2}
+  playerRegistrationUIPrefabName: RegistrationUI
   possibleBindings:
   - {fileID: 114000011048380482}
   - {fileID: 114000012135036892}
