@@ -57,7 +57,7 @@ public class CooldownActivation : MonoBehaviour, IAbilityActivation
                 inputValue = playerInput.getAbility1;
                 break;
             case AbilityKeybinding.ABILITY2:
-                inputValue = playerInput.getAbility1;
+                inputValue = playerInput.getAbility2;
                 break;
             default:
                 inputValue = false;
