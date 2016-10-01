@@ -27,6 +27,11 @@ public interface IPlayerInputHolder
     /// A vector representing the direction the player should face. Vector is in world space.
     /// </summary>
     Vector3 rotationDirection { get; }
+    /// <summary>
+    /// GetKey for the registration binding.
+    /// </summary>
+    /// <returns></returns>
+    bool getRegistering { get; }
 }
 
 /// <summary>
@@ -34,10 +39,11 @@ public interface IPlayerInputHolder
 /// </summary>
 public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
 {
-    protected virtual IPlayerInput heldInput { get; set; }
+    public virtual IPlayerInput heldInput { get; set; }
 
     public Vector2 movementDirection { get { return heldInput.movementDirection; } }
     public Vector3 rotationDirection { get { return heldInput.rotationDirection; } }
+    public bool getRegistering { get { return heldInput.getRegistering; } }
 
     protected void Start()
     {

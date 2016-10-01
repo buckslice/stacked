@@ -3,12 +3,16 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Intended to be used only in development to create players using the inspector. For all other purposes, use a PlayerInputHolder and set heldInput via script.
+/// </summary>
 public class KeyboardMousePlayerInputHolder : PlayerInputHolder
 {
     [SerializeField]
     protected KeyboardMousePlayerInput bindings;
 
-    protected override IPlayerInput heldInput {
+    public override IPlayerInput heldInput
+    {
         get
         {
             return bindings;
@@ -25,9 +29,12 @@ public class KeyboardMousePlayerInputHolder : PlayerInputHolder
 public class KeyboardMousePlayerInput : IPlayerInput
 {
     [SerializeField]
-    public string horizontalMovementAxis = Tags.Axis.Horizontal;
+    public string horizontalMovementAxis = Tags.Input.Horizontal;
     [SerializeField]
-    public string verticalMovementAxis = Tags.Axis.Vertical;
+    public string verticalMovementAxis = Tags.Input.Vertical;
+
+    [SerializeField]
+    public KeyCode registeringKey = Tags.Input.Registering;
 
     Transform player;
     public Transform Player { set { player = value; } }
@@ -54,4 +61,5 @@ public class KeyboardMousePlayerInput : IPlayerInput
             return pointInWorld - player.position;
         }
     }
+    public bool getRegistering { get { return Input.GetKey(registeringKey); } }
 }

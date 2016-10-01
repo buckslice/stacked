@@ -12,10 +12,12 @@ public static class Tags {
     /// </summary>
     public const string CanvasRoot = "CanvasRoot";
 
-    public static class Axis
+    public static class Input
     {
         public const string Horizontal = "Horizontal";
         public const string Vertical = "Vertical";
+
+        public const KeyCode Registering = KeyCode.Space;
 
         public static class Joystick1
         {
@@ -23,6 +25,8 @@ public static class Tags {
             public const string VerticalMovement = "J1_VerticalMovement";
             public const string HorizontalAiming = "J1_HorizontalAiming";
             public const string VerticalAiming = "J1_VerticalAiming";
+
+            public const KeyCode Registering = KeyCode.Joystick1Button0; //A
         }
         public static class Joystick2
         {
@@ -30,6 +34,8 @@ public static class Tags {
             public const string VerticalMovement = "J2_VerticalMovement";
             public const string HorizontalAiming = "J2_HorizontalAiming";
             public const string VerticalAiming = "J2_VerticalAiming";
+
+            public const KeyCode Registering = KeyCode.Joystick2Button0; //A
         }
         public static class Joystick3
         {
@@ -37,6 +43,8 @@ public static class Tags {
             public const string VerticalMovement = "J3_VerticalMovement";
             public const string HorizontalAiming = "J3_HorizontalAiming";
             public const string VerticalAiming = "J3_VerticalAiming";
+
+            public const KeyCode Registering = KeyCode.Joystick3Button0; //A
         }
         public static class Joystick4
         {
@@ -44,6 +52,8 @@ public static class Tags {
             public const string VerticalMovement = "J4_VerticalMovement";
             public const string HorizontalAiming = "J4_HorizontalAiming";
             public const string VerticalAiming = "J4_VerticalAiming";
+
+            public const KeyCode Registering = KeyCode.Joystick4Button0; //A
         }
     }
 

@@ -16,10 +16,24 @@ public class PlayerSetup : MonoBehaviour {
     [SerializeField]
     private GameObject healthBarPrefab;
 
+    private IPlayerInput input;
+    public IPlayerInput inputBindings { set { input = value; } }
+
+    //additional player data goes here
+
     void Start () { //move to be awake
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         DontDestroyOnLoad(this.transform.root.gameObject);
 	}
+
+    /// <summary>
+    /// A constructor-style initializer.
+    /// </summary>
+    /// <param name="inputBindings"></param>
+    public void Initalize(IPlayerInput inputBindings)
+    {
+        this.inputBindings = inputBindings;
+    }
 
     void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
@@ -43,6 +57,7 @@ public class PlayerSetup : MonoBehaviour {
     {
         // spawn player and healthbar and link them up
         GameObject player = PhotonNetwork.Instantiate(playerPrefabName, Vector3.zero, Quaternion.identity, 0); //TODO: use spawn point
+        player.GetComponent<PlayerInputHolder>().heldInput = input;
         Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
         Transform playerHealthBarGroup = canvasRoot.Find(Tags.UIPaths.PlayerHealthBarGroup);
         GameObject healthBar = (GameObject)Instantiate(healthBarPrefab, playerHealthBarGroup);

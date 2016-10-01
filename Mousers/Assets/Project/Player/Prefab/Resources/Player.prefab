@@ -37,9 +37,9 @@ GameObject:
   - 4: {fileID: 4000011678190840}
   - 114: {fileID: 114000012442423696}
   - 114: {fileID: 114000012287730970}
-  - 114: {fileID: 114000012787333556}
   - 136: {fileID: 136000013093668674}
   - 114: {fileID: 114000014173949902}
+  - 114: {fileID: 114000013097996470}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -88,7 +88,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010161308532}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.99, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
@@ -248,7 +248,7 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
---- !u!114 &114000012787333556
+--- !u!114 &114000013097996470
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -256,12 +256,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013947083138}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65be4c66d84204f46b518cafbb02ecb3, type: 3}
+  m_Script: {fileID: 11500000, guid: ce0691de8b87f134398cfb9b06eed4ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bindings:
-    horizontalMovementAxis: Horizontal
-    verticalMovementAxis: Vertical
 --- !u!114 &114000014173949902
 MonoBehaviour:
   m_ObjectHideFlags: 1

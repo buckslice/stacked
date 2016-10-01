@@ -3,12 +3,15 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Intended to be used only in development to create players using the inspector. For all other purposes, use a PlayerInputHolder and set heldInput via script.
+/// </summary>
 public class ControllerPlayerInputHolder : PlayerInputHolder
 {
     [SerializeField]
     protected ControllerPlayerInput bindings;
 
-    protected override IPlayerInput heldInput
+    public override IPlayerInput heldInput
     {
         get
         {
@@ -26,17 +29,20 @@ public class ControllerPlayerInputHolder : PlayerInputHolder
 public class ControllerPlayerInput : IPlayerInput
 {
     [SerializeField]
-    public string horizontalMovementAxis = Tags.Axis.Joystick1.HorizontalMovement;
+    public string horizontalMovementAxis = Tags.Input.Joystick1.HorizontalMovement;
     [SerializeField]
-    public string verticalMovementAxis = Tags.Axis.Joystick1.VerticalMovement;
+    public string verticalMovementAxis = Tags.Input.Joystick1.VerticalMovement;
     [SerializeField]
-    public string horizontalAimingAxis = Tags.Axis.Joystick1.HorizontalAiming;
+    public string horizontalAimingAxis = Tags.Input.Joystick1.HorizontalAiming;
     [SerializeField]
-    public string verticalAimingAxis = Tags.Axis.Joystick1.VerticalAiming;
+    public string verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
+
+    [SerializeField]
+    public KeyCode registeringKey = Tags.Input.Joystick1.Registering;
 
     [SerializeField]
     [Range(0, 0.5f)]
-    protected float deadZone = 0.025f;
+    protected float deadZone = 0.05f;
 
     Transform player;
     public Transform Player { set { player = value; } }
@@ -101,4 +107,5 @@ public class ControllerPlayerInput : IPlayerInput
             return getSmoothedJoystickInput(horizontalAimingAxis, verticalAimingAxis, deadZone).ConvertFromInputToWorld();
         }
     }
+    public bool getRegistering { get { return Input.GetKey(registeringKey); } }
 }
