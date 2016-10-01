@@ -32,6 +32,16 @@ public interface IPlayerInputHolder
     /// </summary>
     /// <returns></returns>
     bool getRegistering { get; }
+    /// <summary>
+    /// GetKey for the player's first ability.
+    /// </summary>
+    /// <returns></returns>
+    bool getAbility1 { get; }
+    /// <summary>
+    /// GetKey for the player's second ability.
+    /// </summary>
+    /// <returns></returns>
+    bool getAbility2 { get; }
 }
 
 /// <summary>
@@ -44,6 +54,8 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public Vector2 movementDirection { get { return heldInput.movementDirection; } }
     public Vector3 rotationDirection { get { return heldInput.rotationDirection; } }
     public bool getRegistering { get { return heldInput.getRegistering; } }
+    public bool getAbility1 { get { return heldInput.getAbility1; } }
+    public bool getAbility2 { get { return heldInput.getAbility2; } }
 
     protected void Start()
     {

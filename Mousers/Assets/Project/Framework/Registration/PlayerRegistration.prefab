@@ -60,6 +60,8 @@ MonoBehaviour:
     horizontalMovementAxis: Horizontal
     verticalMovementAxis: Vertical
     registeringKey: 32
+    ability1Key: 350
+    ability2Key: 351
 --- !u!114 &114000011249166826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,6 +98,8 @@ MonoBehaviour:
     horizontalAimingAxis: J1_HorizontalAiming
     verticalAimingAxis: J1_VerticalAiming
     registeringKey: 350
+    ability1Key: 350
+    ability2Key: 351
     deadZone: 0.05
 --- !u!114 &114000012135036892
 MonoBehaviour:
@@ -114,6 +118,8 @@ MonoBehaviour:
     horizontalAimingAxis: J2_HorizontalAiming
     verticalAimingAxis: J2_VerticalAiming
     registeringKey: 370
+    ability1Key: 370
+    ability2Key: 371
     deadZone: 0.05
 --- !u!114 &114000012219358892
 MonoBehaviour:
@@ -132,6 +138,8 @@ MonoBehaviour:
     horizontalAimingAxis: J3_HorizontalAiming
     verticalAimingAxis: J3_VerticalAiming
     registeringKey: 390
+    ability1Key: 390
+    ability2Key: 391
     deadZone: 0.05
 --- !u!114 &114000012855562620
 MonoBehaviour:
@@ -150,4 +158,6 @@ MonoBehaviour:
     horizontalAimingAxis: J4_HorizontalAiming
     verticalAimingAxis: J4_VerticalAiming
     registeringKey: 410
+    ability1Key: 410
+    ability2Key: 411
     deadZone: 0.05

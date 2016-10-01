@@ -39,13 +39,17 @@ public class ControllerPlayerInput : IPlayerInput
 
     [SerializeField]
     public KeyCode registeringKey = Tags.Input.Joystick1.Registering;
+    [SerializeField]
+    public KeyCode ability1Key = Tags.Input.Joystick1.Ability1;
+    [SerializeField]
+    public KeyCode ability2Key = Tags.Input.Joystick1.Ability2;
 
     [SerializeField]
     [Range(0, 0.5f)]
     protected float deadZone = 0.05f;
 
-    Transform player;
-    public Transform Player { set { player = value; } }
+    //Transform player; //not needed yet
+    public Transform Player { set { ; } } //set { player = value; }
 
     /// <summary>
     /// Maps a value to account for a dead zone.
@@ -108,4 +112,6 @@ public class ControllerPlayerInput : IPlayerInput
         }
     }
     public bool getRegistering { get { return Input.GetKey(registeringKey); } }
+    public bool getAbility1 { get { return Input.GetKey(ability1Key); } }
+    public bool getAbility2 { get { return Input.GetKey(ability2Key); } }
 }

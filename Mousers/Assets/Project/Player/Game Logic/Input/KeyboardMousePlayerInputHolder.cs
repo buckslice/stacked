@@ -35,6 +35,10 @@ public class KeyboardMousePlayerInput : IPlayerInput
 
     [SerializeField]
     public KeyCode registeringKey = Tags.Input.Registering;
+    [SerializeField]
+    public KeyCode ability1Key = Tags.Input.Joystick1.Ability1;
+    [SerializeField]
+    public KeyCode ability2Key = Tags.Input.Joystick1.Ability2;
 
     Transform player;
     public Transform Player { set { player = value; } }
@@ -62,4 +66,6 @@ public class KeyboardMousePlayerInput : IPlayerInput
         }
     }
     public bool getRegistering { get { return Input.GetKey(registeringKey); } }
+    public bool getAbility1 { get { return Input.GetKey(ability1Key) || Input.GetMouseButton(0); } }
+    public bool getAbility2 { get { return Input.GetKey(ability2Key) || Input.GetMouseButton(1); } }
 }

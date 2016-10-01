@@ -14,7 +14,10 @@ public class PlayerSetup : MonoBehaviour {
     //public GameObject player1SpawnPoint; //TODO: add a class for spawn points, which register themselves in a static dictionary
 
     [SerializeField]
-    private GameObject healthBarPrefab;
+    protected GameObject healthBarPrefab;
+
+    [SerializeField]
+    protected GameObject[] abilities;
 
     private IPlayerInput input;
     public IPlayerInput inputBindings { set { input = value; } }
@@ -55,15 +58,23 @@ public class PlayerSetup : MonoBehaviour {
 
     public void CreatePlayer()
     {
-        // spawn player and healthbar and link them up
         GameObject player = PhotonNetwork.Instantiate(playerPrefabName, Vector3.zero, Quaternion.identity, 0); //TODO: use spawn point
+
+        //assign input bindings
         player.GetComponent<PlayerInputHolder>().heldInput = input;
+
+        //link health bar and UI
         Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
         Transform playerHealthBarGroup = canvasRoot.Find(Tags.UIPaths.PlayerHealthBarGroup);
         GameObject healthBar = (GameObject)Instantiate(healthBarPrefab, playerHealthBarGroup);
         HealthBar bar = healthBar.GetComponent<HealthBar>();
         player.GetComponent<Health>().bar = bar;
 
-        player.AddComponent<DerpAbility>();
+        //add abilities
+        foreach (GameObject ability in abilities)
+        {
+            GameObject instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
+            instantiatedAbility.transform.Reset();
+        }
     }
 }

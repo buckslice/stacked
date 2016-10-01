@@ -18,6 +18,8 @@ public static class Tags {
         public const string Vertical = "Vertical";
 
         public const KeyCode Registering = KeyCode.Space;
+        public const KeyCode Ability1 = KeyCode.Q; 
+        public const KeyCode Ability2 = KeyCode.E; 
 
         public static class Joystick1
         {
@@ -27,6 +29,8 @@ public static class Tags {
             public const string VerticalAiming = "J1_VerticalAiming";
 
             public const KeyCode Registering = KeyCode.Joystick1Button0; //A
+            public const KeyCode Ability1 = KeyCode.Joystick1Button0; //also A
+            public const KeyCode Ability2 = KeyCode.Joystick1Button1; //B
         }
         public static class Joystick2
         {
@@ -36,6 +40,8 @@ public static class Tags {
             public const string VerticalAiming = "J2_VerticalAiming";
 
             public const KeyCode Registering = KeyCode.Joystick2Button0; //A
+            public const KeyCode Ability1 = KeyCode.Joystick2Button0; //also A
+            public const KeyCode Ability2 = KeyCode.Joystick2Button1; //B
         }
         public static class Joystick3
         {
@@ -45,6 +51,8 @@ public static class Tags {
             public const string VerticalAiming = "J3_VerticalAiming";
 
             public const KeyCode Registering = KeyCode.Joystick3Button0; //A
+            public const KeyCode Ability1 = KeyCode.Joystick3Button0; //also A
+            public const KeyCode Ability2 = KeyCode.Joystick3Button1; //B
         }
         public static class Joystick4
         {
@@ -54,6 +62,8 @@ public static class Tags {
             public const string VerticalAiming = "J4_VerticalAiming";
 
             public const KeyCode Registering = KeyCode.Joystick4Button0; //A
+            public const KeyCode Ability1 = KeyCode.Joystick4Button0; //also A
+            public const KeyCode Ability2 = KeyCode.Joystick4Button1; //B
         }
     }
 
