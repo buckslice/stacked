@@ -28,6 +28,7 @@ public class PlayerSetup : MonoBehaviour {
         Debug.LogFormat("Ping: {0}", PhotonNetwork.GetPing());
 
         GameObject player = PhotonNetwork.Instantiate(playerPrefabName, player1SpawnPoint.transform.position, player1SpawnPoint.transform.rotation, 0);
+        player.AddComponent<DerpAbility>();
     }
 
 }
