@@ -9,7 +9,12 @@ public class PlayerSetup : MonoBehaviour {
     protected string playerPrefabName = Tags.Resources.Player;
     public GameObject player1SpawnPoint;
 
-	void Start () {
+    [SerializeField]
+    private Object healthBarPrefab;
+    [SerializeField]
+    private GameObject playerHealthBarGroup;
+
+    void Start () {
 	
 	}
 	
@@ -27,7 +32,11 @@ public class PlayerSetup : MonoBehaviour {
         Debug.Log(PhotonNetwork.isMasterClient ? "You are the master client" : "You are not the master client");
         Debug.LogFormat("Ping: {0}", PhotonNetwork.GetPing());
 
+        // spawn player and healthbar and link them up
         GameObject player = PhotonNetwork.Instantiate(playerPrefabName, player1SpawnPoint.transform.position, player1SpawnPoint.transform.rotation, 0);
+        GameObject healthBar = (GameObject)Instantiate(healthBarPrefab, playerHealthBarGroup.transform);
+        HealthBar bar = healthBar.GetComponent<HealthBar>();
+        player.GetComponent<Health>().bar = bar;
     }
 
 }
