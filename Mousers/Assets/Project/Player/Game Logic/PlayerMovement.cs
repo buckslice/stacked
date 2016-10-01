@@ -21,6 +21,12 @@ public class PlayerMovement : MonoBehaviour
     protected double bufferDelaySecs = 0.2f;
     public double BufferDelaySecs { get { return bufferDelaySecs; } }
 
+    [SerializeField]
+    public bool movementInputEnabled = true;
+
+    [SerializeField]
+    public bool RotationInputEnabled = true;
+
     Rigidbody rigid;
     PhotonView view;
     IPlayerInputHolder input;
@@ -90,15 +96,27 @@ public class PlayerMovement : MonoBehaviour
     float rotation { get { return rigid.rotation.eulerAngles.y; } }
 
     /// <summary>
+    /// Causes the player to stop all movement, instead of the short slowdown that occurs when input goes to zero
+    /// </summary>
+    void haltMovement()
+    {
+        rigid.velocity = Vector3.zero;
+    }
+
+    /// <summary>
     /// Updates our current position based off of player input.
     /// </summary>
     void UpdatePositionInput()
     {
+        if (!movementInputEnabled)
+        {
+            rigid.velocity = Vector3.MoveTowards(rigid.velocity, Vector3.zero, Time.deltaTime * acceleration);
+            return;
+        }
         Vector3 velocity = rigid.velocity;
         //we do not control vertical movement through this script. Negate it so it doesn't affect normalization or MoveTowards.
         velocity.y = 0;
         Vector2 movementInput = input.movementDirection;
-        Vector3 directionInput = input.rotationDirection;
 
         Vector3 targetXZ;
 
@@ -120,6 +138,10 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void UpdateRotationInput()
     {
+        if (!RotationInputEnabled)
+        {
+            return;
+        }
         Vector3 rotationInput = input.rotationDirection;
         Quaternion targetRotation;
         if (rotationInput.sqrMagnitude != 0)
