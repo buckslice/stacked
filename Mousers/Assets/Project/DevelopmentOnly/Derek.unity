@@ -208,6 +208,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012033755794, guid: 9746dbe808fe8fb4eb1e9b54fea252ae,
+        type: 2}
+      propertyPath: viewIdField
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012033755794, guid: 9746dbe808fe8fb4eb1e9b54fea252ae,
+        type: 2}
+      propertyPath: instantiationId
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9746dbe808fe8fb4eb1e9b54fea252ae, type: 2}
   m_IsPrefabParent: 0
@@ -462,6 +472,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefabName: Player
+  player1SpawnPoint: {fileID: 0}
 --- !u!114 &1204484922
 MonoBehaviour:
   m_ObjectHideFlags: 0

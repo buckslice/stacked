@@ -67,6 +67,7 @@ public static class Tags {
     public static class Resources
     {
         public const string Player = "Player";
+        public const string Boss = "Boss"; // this is temp, later we will have specific actual boss prefabs for each boss
     }
 
     public static class Options
