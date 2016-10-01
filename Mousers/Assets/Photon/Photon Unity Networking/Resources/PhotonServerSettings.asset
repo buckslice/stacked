@@ -16,6 +16,7 @@ MonoBehaviour:
   ServerAddress: 
   ServerPort: 5055
   AppID: c29ebbbd-3cca-4979-abe7-f921ed9c879f
+  VoiceAppID: 
   PreferredRegion: 0
   EnabledRegions: -1
   JoinLobby: 0
@@ -40,4 +41,6 @@ MonoBehaviour:
   - FireWeapon
   - SetLevelSeed
   - InitializeLevel
+  - Activate
+  - RPCActivate
   DisableAutoOpenWizard: 1

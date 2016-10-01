@@ -60,8 +60,8 @@ MonoBehaviour:
     horizontalMovementAxis: Horizontal
     verticalMovementAxis: Vertical
     registeringKey: 32
-    ability1Key: 350
-    ability2Key: 351
+    ability1Key: 113
+    ability2Key: 101
 --- !u!114 &114000011249166826
 MonoBehaviour:
   m_ObjectHideFlags: 1

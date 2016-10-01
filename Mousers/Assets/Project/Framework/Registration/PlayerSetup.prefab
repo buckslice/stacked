@@ -54,3 +54,5 @@ MonoBehaviour:
   playerPrefabName: Player
   healthBarPrefab: {fileID: 1000010670680214, guid: a07551bda06d03343b763e75df2ac96a,
     type: 2}
+  abilities:
+  - {fileID: 1000010313918382, guid: 5d22f0f9f6fdac5408b35f55e6e8d32e, type: 2}

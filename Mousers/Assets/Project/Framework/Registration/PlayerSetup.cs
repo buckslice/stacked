@@ -56,6 +56,9 @@ public class PlayerSetup : MonoBehaviour {
             
 	}
 
+    /// <summary>
+    /// TODO: at some point, make this networked with an RPC instead of using PhotonNetwork.Instantiate. Will also need a data-lookup script.
+    /// </summary>
     public void CreatePlayer()
     {
         GameObject player = PhotonNetwork.Instantiate(playerPrefabName, Vector3.zero, Quaternion.identity, 0); //TODO: use spawn point
@@ -73,7 +76,15 @@ public class PlayerSetup : MonoBehaviour {
         //add abilities
         foreach (GameObject ability in abilities)
         {
-            GameObject instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
+            GameObject instantiatedAbility;
+            /*if (ability.GetComponent<PhotonView>() != null)
+            {
+                instantiatedAbility = PhotonNetwork.insta
+            }
+            else
+            {*/
+                instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
+            //}
             instantiatedAbility.transform.Reset();
         }
     }

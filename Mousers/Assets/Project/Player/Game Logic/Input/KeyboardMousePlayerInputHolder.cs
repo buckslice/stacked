@@ -36,9 +36,9 @@ public class KeyboardMousePlayerInput : IPlayerInput
     [SerializeField]
     public KeyCode registeringKey = Tags.Input.Registering;
     [SerializeField]
-    public KeyCode ability1Key = Tags.Input.Joystick1.Ability1;
+    public KeyCode ability1Key = Tags.Input.Ability1;
     [SerializeField]
-    public KeyCode ability2Key = Tags.Input.Joystick1.Ability2;
+    public KeyCode ability2Key = Tags.Input.Ability2;
 
     Transform player;
     public Transform Player { set { player = value; } }

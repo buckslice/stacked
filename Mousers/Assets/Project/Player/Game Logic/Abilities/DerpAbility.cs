@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DerpAbility : MonoBehaviour {
+public class DerpAbility : AbstractAbilityAction {
+    /*
     public string buttonName = "Fire1";
     private CameraShakeScript cameraShakeScript;
 
@@ -16,4 +17,17 @@ public class DerpAbility : MonoBehaviour {
             cameraShakeScript.screenShake(.5f);
         }
 	}
+     * */
+    CameraShakeScript cameraShakeScript;
+
+    protected override void Start()
+    {
+        base.Start();
+        cameraShakeScript = Camera.main.GetComponent<CameraShakeScript>();
+    }
+
+    public override void Activate()
+    {
+        cameraShakeScript.screenShake(.5f);
+    }
 }
