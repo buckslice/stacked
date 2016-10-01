@@ -20,8 +20,12 @@ public class Boss : MonoBehaviour {
         players = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.Player));
         int numPlayers = players.Count;
         Debug.Assert(numPlayers > 0);
-        
+
+        // give everyone zero aggro
         aggroTable = new List<float>(numPlayers);
+        for(int i = 0; i < numPlayers; ++i) {
+            aggroTable.Add(0.0f);
+        }
 
         topAggroPlayer = Random.Range(0, numPlayers);    // give random player aggro
 	}
