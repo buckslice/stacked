@@ -12,6 +12,9 @@ public class Boss : MonoBehaviour {
 
     NavMeshAgent agent;
 
+    //temporary boss health
+    public float health = 100;
+
 	// Use this for initialization
 	void Start () {
         agent = GetComponent<NavMeshAgent>();
@@ -38,7 +41,11 @@ public class Boss : MonoBehaviour {
         Vector3 targetPos = players[topAggroPlayer].transform.position;
 
         agent.destination = targetPos;
-
+        //temporary death system
+        if (this.health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
 	}
 
     void CheckAggro() {
