@@ -98,10 +98,23 @@ public class PlayerMovement : MonoBehaviour
         //we do not control vertical movement through this script. Negate it so it doesn't affect normalization or MoveTowards.
         velocity.y = 0;
         Vector2 movementInput = input.movementDirection;
-        //transform the movement from player screen space to world space.
-        Vector3 targetXZ = speed * movementInput.ConvertFromInputToWorld();
-        Assert.AreApproximatelyEqual(targetXZ.y, 0);
 
+        /*
+         * Older version which uses up as forward from the camera's perspective
+         */
+        //transform the movement from player screen space to world space.
+        //Vector3 targetXZ = speed * movementInput.ConvertFromInputToWorld();
+        
+
+        /*
+         * New version which uses up as forward in the direction the player is looking
+         */
+        //transform the movement from player screen space to player's local space.
+        Vector3 targetXZ = transform.right * movementInput.x + transform.forward * movementInput.y;
+        targetXZ *= speed;
+
+
+        Assert.AreApproximatelyEqual(targetXZ.y, 0);
         velocity = Vector3.MoveTowards(velocity, targetXZ, Time.deltaTime * acceleration); //TODO: look into using AddForce, with the ignore-mass acceleration force-mode?
 
         //we do not control vertical movement through this script; reset to the rigidbody-controlled value.
