@@ -74,6 +74,7 @@ public class PlayerSetup : MonoBehaviour {
     {
         foreach (IAbilityKeybound binding in ability.GetComponentsInChildren<IAbilityKeybound>())
         {
+            binding.Binding = newBinding;
         }
     }
 
