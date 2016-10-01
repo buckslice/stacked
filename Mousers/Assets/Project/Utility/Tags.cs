@@ -85,6 +85,8 @@ public static class Tags {
 
     public static class Layers
     {
+        public const string Player = "Player";
+        public const string StaticGeometry = "Static Geometry";
     }
 
     public class SortingLayers

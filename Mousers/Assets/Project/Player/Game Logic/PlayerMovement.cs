@@ -2,7 +2,6 @@
 using UnityEngine.Assertions;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(IPlayerInputHolder))]
 public class PlayerMovement : MonoBehaviour
