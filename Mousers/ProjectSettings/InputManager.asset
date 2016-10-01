@@ -32,7 +32,7 @@ InputManager:
     gravity: 9999
     dead: 0.001
     sensitivity: 9999
-    snap: 0
+    snap: 1
     invert: 0
     type: 0
     axis: 0
@@ -324,6 +324,38 @@ InputManager:
     invert: 0
     type: 1
     axis: 1
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: HorizontalKeyboard
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: left
+    positiveButton: right
+    altNegativeButton: a
+    altPositiveButton: d
+    gravity: 9999
+    dead: 0
+    sensitivity: 9999
+    snap: 1
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: VerticalKeyboard
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 9999
+    dead: 0
+    sensitivity: 9999
+    snap: 1
+    invert: 0
+    type: 0
+    axis: 0
     joyNum: 0
   - serializedVersion: 3
     m_Name: J1_HorizontalMovement

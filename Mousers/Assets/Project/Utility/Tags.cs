@@ -14,8 +14,8 @@ public static class Tags {
 
     public static class Input
     {
-        public const string Horizontal = "Horizontal";
-        public const string Vertical = "Vertical";
+        public const string Horizontal = "HorizontalKeyboard";
+        public const string Vertical = "VerticalKeyboard";
 
         public const KeyCode Registering = KeyCode.Space;
         public const KeyCode Ability1 = KeyCode.Q; 
