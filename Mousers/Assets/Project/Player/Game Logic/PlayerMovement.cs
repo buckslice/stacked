@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(PhotonView))]
-[RequireComponent(typeof(IPlayerInput))]
+[RequireComponent(typeof(IPlayerInputHolder))]
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -21,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     PhotonView view;
-    IPlayerInput input;
+    IPlayerInputHolder input;
 
     /// <summary>
     /// Photon timestamp of the most recent data, used to warn if data is being received out of order.
@@ -55,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
     void Awake()
     {
         view = GetComponent<PhotonView>();
-        input = GetComponent<IPlayerInput>();
+        input = GetComponent<IPlayerInputHolder>();
 
         //set up tracked data to match to our current position and rotation
         previousTargetPosition = new TimestampedData<Vector3>(PhotonNetwork.time - 1, this.transform.position);
@@ -73,7 +74,8 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            UpdateUsingInput();
+            UpdatePositionInput();
+            UpdateRotationInput();
         }
 
     }
@@ -81,26 +83,32 @@ public class PlayerMovement : MonoBehaviour
     float rotation { get { return this.transform.rotation.eulerAngles.y; } }
 
     /// <summary>
-    /// Update the position and rotation of this object by obtaining and processing player input.
+    /// Updates our current position based off of player input.
     /// </summary>
-    void UpdateUsingInput()
+    void UpdatePositionInput()
     {
-        Vector3 movementInput = input.movementDirection;
+        Vector2 movementInput = input.movementDirection;
+        //transform the movement from player screen space to world space.
+        Vector3 targetXZ = speed * movementInput.ConvertFromInputToWorld();
 
-        Vector3 velocityXZ = velocity;
-        velocityXZ.y = 0;
-        Vector3 movementXZ = Vector3.MoveTowards(velocityXZ, movementInput * speed, Time.deltaTime * acceleration);
+        velocity = Vector3.MoveTowards(velocity, targetXZ, Time.deltaTime * acceleration);
 
-        //update our velocity
-        velocity.x = movementXZ.x;
-        velocity.z = movementXZ.z;
-
-        //update position
+        //update position using velocity
         transform.position += Time.deltaTime * velocity;
+    }
 
-        //update rotation
-        Quaternion targetRotation = input.rotationDirection;
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeedDegrees * Time.deltaTime);
+    /// <summary>
+    /// Updates our current rotation based off of player input.
+    /// </summary>
+    void UpdateRotationInput()
+    {
+        Vector3 rotationInput = input.rotationDirection;
+        //transform the movement from player screen space to world space.
+        if (rotationInput.sqrMagnitude > 0) //if input has no magnitude, do no rotation.
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(rotationInput);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeedDegrees * Time.deltaTime);
+        }
     }
 
     /// <summary>
