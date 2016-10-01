@@ -102,18 +102,8 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 targetXZ;
 
-        if (directionInput.sqrMagnitude == 0)
-        {
-            //no aiming input, use camera direction
-            targetXZ = speed * movementInput.ConvertFromInputToWorld();
-        }
-        else
-        {
-            //aiming input exists, use input direction as forward
-            Quaternion inputDirection = Quaternion.LookRotation(directionInput);
-            targetXZ = inputDirection * Vector3.right * movementInput.x + inputDirection * Vector3.forward * movementInput.y;
-            targetXZ *= speed;
-        }
+        //Move in camera direction
+        targetXZ = speed * movementInput.ConvertFromInputToWorld();
 
         Assert.AreApproximatelyEqual(targetXZ.y, 0);
         velocity = Vector3.MoveTowards(velocity, targetXZ, Time.deltaTime * acceleration); //TODO: look into using AddForce, with the ignore-mass acceleration force-mode?

@@ -632,6 +632,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011737676832, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: bindings.deadZone
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 165651d3cf48f954c8be33449e450713, type: 2}
   m_IsPrefabParent: 0

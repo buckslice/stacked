@@ -101,7 +101,7 @@ MonoBehaviour:
     registeringKey: 350
     ability1Key: 350
     ability2Key: 351
-    deadZone: 0.05
+    deadZone: 0.1
 --- !u!114 &114000012135036892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,7 +121,7 @@ MonoBehaviour:
     registeringKey: 370
     ability1Key: 370
     ability2Key: 371
-    deadZone: 0.05
+    deadZone: 0.1
 --- !u!114 &114000012219358892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,7 +141,7 @@ MonoBehaviour:
     registeringKey: 390
     ability1Key: 390
     ability2Key: 391
-    deadZone: 0.05
+    deadZone: 0.1
 --- !u!114 &114000012855562620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,4 +161,4 @@ MonoBehaviour:
     registeringKey: 410
     ability1Key: 410
     ability2Key: 411
-    deadZone: 0.05
+    deadZone: 0.1
