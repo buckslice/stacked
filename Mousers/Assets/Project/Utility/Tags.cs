@@ -7,6 +7,10 @@ using System.Collections;
 public static class Tags {
     public const string Player = "Player";
     public const string Boss = "Boss";
+    /// <summary>
+    /// The only object which should be tagged with this tag is the root gameobject of the UI canvas tree.
+    /// </summary>
+    public const string CanvasRoot = "CanvasRoot";
 
     public static class Axis
     {
@@ -41,6 +45,14 @@ public static class Tags {
             public const string HorizontalAiming = "J4_HorizontalAiming";
             public const string VerticalAiming = "J4_VerticalAiming";
         }
+    }
+
+    public static class UIPaths
+    {
+        /// <summary>
+        /// Path from the canvas root to the layout group for player health bars.
+        /// </summary>
+        public const string PlayerHealthBarGroup = "PlayerHealthBarGroup";
     }
 
     public static class LayerNumbers

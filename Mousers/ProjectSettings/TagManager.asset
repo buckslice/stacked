@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Boss
+  - CanvasRoot
   layers:
   - Default
   - TransparentFX

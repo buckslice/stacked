@@ -8,6 +8,8 @@ using System.Collections.Generic;
 /// </summary>
 public class MouserNetworking : MonoBehaviour {
 
+    static MouserNetworking main = null;
+
     [SerializeField]
     protected MouserNetworkingMode networkingMode;
 
@@ -18,8 +20,20 @@ public class MouserNetworking : MonoBehaviour {
     protected string version = "1";
 
 	void Awake () {
+        if (main != null)
+        {
+            DestroyImmediate(this.transform.root.gameObject);
+            return;
+        }
+        else
+        {
+            main = this;
+            DontDestroyOnLoad(this.transform.root.gameObject);
+        }
+
         PhotonNetwork.offlineMode = networkingMode == MouserNetworkingMode.ONEMACHINE;
-        PhotonNetwork.autoJoinLobby = false;
+        PhotonNetwork.autoJoinLobby = false; //might want to change this when we leave prototyping
+        PhotonNetwork.automaticallySyncScene = true;
 
         if (!PhotonNetwork.connected)
         {
@@ -27,19 +41,14 @@ public class MouserNetworking : MonoBehaviour {
         }
 	}
 
-    void ConnectOnline()
+    /// <summary>
+    /// Wrapper for PhotonNetwork.LoadLevel(), intended to be used directly by Buttons. This is intended for development only; for non-development use, call PhotonNetwork.LoadLevel(int) directly.
+    /// </summary>
+    /// <param name="levelName">Name of the level to load.</param>
+    public void LoadLevel(string levelName)
     {
-        
+        PhotonNetwork.LoadLevel(levelName);
     }
-
-    void ConnectOffline()
-    {
-
-    }
-
-	void Update () {
-	
-	}
 
     public virtual void OnConnectedToMaster()
     {
@@ -62,6 +71,12 @@ public class MouserNetworking : MonoBehaviour {
     public void OnFailedToConnectToPhoton(DisconnectCause cause)
     {
         Debug.LogError("Cause: " + cause);
+    }
+
+    public void OnJoinedRoom()
+    {
+        Debug.Log(PhotonNetwork.isMasterClient ? "You are the master client" : "You are not the master client");
+        Debug.LogFormat("Ping: {0}", PhotonNetwork.GetPing());
     }
 }
 
