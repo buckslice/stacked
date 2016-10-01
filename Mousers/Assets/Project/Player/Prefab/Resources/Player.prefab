@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011569943300}
   - 212: {fileID: 212000010048160716}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Ring
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,12 +35,13 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011678190840}
+  - 54: {fileID: 54000011540002138}
   - 114: {fileID: 114000012442423696}
   - 114: {fileID: 114000012287730970}
   - 136: {fileID: 136000013093668674}
   - 114: {fileID: 114000014173949902}
   - 114: {fileID: 114000013097996470}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -57,7 +58,7 @@ GameObject:
   - 4: {fileID: 4000013563675372}
   - 33: {fileID: 33000011781840464}
   - 23: {fileID: 23000013598435690}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +75,7 @@ GameObject:
   - 4: {fileID: 4000013132483600}
   - 33: {fileID: 33000011364056656}
   - 23: {fileID: 23000011251627172}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,6 +209,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014198642058}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &54000011540002138
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013947083138}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 80
+  m_CollisionDetection: 0
 --- !u!114 &114000012287730970
 MonoBehaviour:
   m_ObjectHideFlags: 1
