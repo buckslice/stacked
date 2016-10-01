@@ -17,6 +17,15 @@ public class PlayerSetup : MonoBehaviour {
     protected GameObject healthBarPrefab;
 
     [SerializeField]
+    [Tooltip("These abilities will be rebound as a firstAbility")]
+    protected GameObject[] firstAbilities;
+
+    [SerializeField]
+    [Tooltip("These abilities will be rebound as a secondAbility")]
+    protected GameObject[] secondAbilities;
+
+    [SerializeField]
+    [Tooltip("These abilities will retain their default bindings")]
     protected GameObject[] abilities;
 
     private IPlayerInput input;
@@ -57,6 +66,18 @@ public class PlayerSetup : MonoBehaviour {
 	}
 
     /// <summary>
+    /// rebinds the ability to use the specified binding.
+    /// </summary>
+    /// <param name="ability"></param>
+    /// <param name="binding"></param>
+    void Rebind(GameObject ability, AbilityKeybinding newBinding)
+    {
+        foreach (IAbilityKeybound binding in ability.GetComponentsInChildren<IAbilityKeybound>())
+        {
+        }
+    }
+
+    /// <summary>
     /// TODO: at some point, make this networked with an RPC instead of using PhotonNetwork.Instantiate. Will also need a data-lookup script.
     /// </summary>
     public void CreatePlayer()
@@ -85,6 +106,24 @@ public class PlayerSetup : MonoBehaviour {
             {*/
                 instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
             //}
+            instantiatedAbility.transform.Reset();
+        }
+
+        foreach (GameObject ability in firstAbilities)
+        {
+            GameObject instantiatedAbility;
+
+            instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
+            Rebind(instantiatedAbility, AbilityKeybinding.ABILITY1);
+            instantiatedAbility.transform.Reset();
+        }
+
+        foreach (GameObject ability in secondAbilities)
+        {
+            GameObject instantiatedAbility;
+
+            instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
+            Rebind(instantiatedAbility, AbilityKeybinding.ABILITY2);
             instantiatedAbility.transform.Reset();
         }
     }

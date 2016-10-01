@@ -13,16 +13,21 @@ public interface IAbilityActivation
     event ActivateAbility abilityActivationEvent;
 }
 
+public enum AbilityKeybinding { ABILITY1, ABILITY2 };
+
+public interface IAbilityKeybound
+{
+    AbilityKeybinding Binding { get; set; }
+}
+
 /// <summary>
 /// An activation with a cooldown.
 /// </summary>
-public class CooldownActivation : MonoBehaviour, IAbilityActivation
+public class CooldownActivation : MonoBehaviour, IAbilityActivation, IAbilityKeybound
 {
-
-    public enum AbilityKeybinding { ABILITY1, ABILITY2 };
-
     [SerializeField]
     protected AbilityKeybinding binding = AbilityKeybinding.ABILITY1;
+    public AbilityKeybinding Binding { get { return binding; } set { binding = value; } }
 
     [SerializeField]
     protected float cooldownSecs;
@@ -57,7 +62,7 @@ public class CooldownActivation : MonoBehaviour, IAbilityActivation
                 inputValue = playerInput.getAbility1;
                 break;
             case AbilityKeybinding.ABILITY2:
-                inputValue = playerInput.getAbility1;
+                inputValue = playerInput.getAbility2;
                 break;
             default:
                 inputValue = false;

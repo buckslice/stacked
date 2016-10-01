@@ -140,9 +140,16 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             //use movement input as rotation input
-            Vector3 movementInput = input.movementDirection.ConvertFromInputToWorld();
-            Assert.AreApproximatelyEqual(movementInput.y, 0);
-            targetRotation = Quaternion.LookRotation(movementInput);
+            Vector2 movementInput = input.movementDirection;
+            if(movementInput.sqrMagnitude == 0)
+            {
+                //no input at all, do nothing
+                return;
+            }
+            //convert from screen space to world space
+            Vector3 targetDirection = movementInput.ConvertFromInputToWorld();
+            Assert.AreApproximatelyEqual(targetDirection.y, 0);
+            targetRotation = Quaternion.LookRotation(targetDirection);
         }
 
         rigid.MoveRotation(Quaternion.RotateTowards(rigid.rotation, targetRotation, rotationSpeedDegrees * Time.deltaTime));
