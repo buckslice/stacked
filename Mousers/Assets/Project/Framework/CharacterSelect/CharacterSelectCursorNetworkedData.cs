@@ -12,8 +12,10 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
     public static CharacterSelectCursorNetworkedData Main { get { return main; } }
 
     [SerializeField]
-    private GameObject cursorPrefab;
+    protected GameObject cursorPrefab;
 
+    [SerializeField]
+    protected Transform[] spawnPoints;
 
 	void Awake () {
         if (main != null)
@@ -32,6 +34,7 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
         {
             main = null;
         }
+        Debug.Log("Main Deregistered");
         PhotonNetwork.OnEventCall -= OnEvent;
     }
 
@@ -62,7 +65,6 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
 
     public void OnEvent(byte eventcode, object content, int senderid)
     {
-        Debug.Log(eventcode);
         if (eventcode != (byte)Tags.EventCodes.CREATEREMOTECHARACTERSELECTCURSOR)
         {
             return;
@@ -80,7 +82,19 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
     /// <param name="allocatedViewId"></param>
     public void InstantiateCharacterSelectCursor(byte playerNumber, int allocatedViewId, IPlayerInput input)
     {
-        GameObject cursor = (GameObject)Instantiate(cursorPrefab, Vector3.zero, Quaternion.identity); //TODO: change spawn point based on player number
+        GameObject cursor;
+
+        Assert.IsTrue(playerNumber >= 0);
+        if (playerNumber < spawnPoints.Length)
+        {
+            //we have a spawn point, use it
+            Transform toCopy = spawnPoints[playerNumber];
+            cursor = (GameObject)Instantiate(cursorPrefab, toCopy.localPosition, toCopy.localRotation);
+        }
+        else
+        {
+            cursor = (GameObject)Instantiate(cursorPrefab, Vector3.zero, Quaternion.identity);
+        }
         PhotonView toInitialize = cursor.GetComponent<PhotonView>();
         toInitialize.viewID = allocatedViewId;
         cursor.GetComponent<PlayerInputHolder>().heldInput = input;
