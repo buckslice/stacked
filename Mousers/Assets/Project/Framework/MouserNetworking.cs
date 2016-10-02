@@ -9,6 +9,7 @@ using System.Collections.Generic;
 public class MouserNetworking : MonoBehaviour {
 
     static MouserNetworking main = null;
+    public static MouserNetworking Main { get { return main; } }
 
     [SerializeField]
     protected MouserNetworkingMode networkingMode;

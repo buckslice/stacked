@@ -17,6 +17,9 @@ public class PlayerSetup : MonoBehaviour {
     protected GameObject healthBarPrefab;
 
     [SerializeField]
+    protected int playerNumber = -1;
+
+    [SerializeField]
     [Tooltip("These abilities will be rebound as a firstAbility")]
     protected GameObject[] firstAbilities;
 
@@ -42,9 +45,11 @@ public class PlayerSetup : MonoBehaviour {
     /// A constructor-style initializer.
     /// </summary>
     /// <param name="inputBindings"></param>
-    public void Initalize(IPlayerInput inputBindings)
+    /// <param name="playerNumber"></param>
+    public void Initalize(IPlayerInput inputBindings, int playerNumber)
     {
         this.inputBindings = inputBindings;
+        this.playerNumber = playerNumber;
     }
 
     void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)

@@ -74,11 +74,10 @@ public class Boss : MonoBehaviour {
         }
     }
 
-    public void GetTaunted(GameObject taunter)
+    public void SetTaunt(GameObject taunter)
     {
         topAggroPlayer = players.IndexOf(taunter);
         aggroTable[topAggroPlayer] = 100;
-        Debug.Log("Taunted");
     }
 
     void OnCollisionEnter() {

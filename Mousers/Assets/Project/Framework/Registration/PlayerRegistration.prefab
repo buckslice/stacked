@@ -73,7 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2676dc00de53248bef7542785f35de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSetupPrefab: {fileID: 1000011991781076, guid: 106696cdffc26f94192c76dbd2d8457d,
+  registeredPlayerPrefab: {fileID: 1000013470432026, guid: b06cb6c7b52354c4ca8d947421baa44c,
     type: 2}
   playerRegistrationUIPrefabName: RegistrationUI
   possibleBindings:
