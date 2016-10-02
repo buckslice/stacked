@@ -103,6 +103,7 @@ public static class Tags {
     public static class Resources
     {
         public const string Player = "Player";
+        public const string Cursor = "PlaceholderCursor";
         public const string Boss = "Boss"; // this is temp, later we will have specific actual boss prefabs for each boss
         public const string RegistrationUI = "RegistrationUI";
     }
@@ -124,5 +125,11 @@ public static class Tags {
         public static int rangeMax = Shader.PropertyToID("_RangeMax");
         public static int imageStrength = Shader.PropertyToID("_ImageStrength");
         public static int alpha = Shader.PropertyToID("_MainTexAlpha");
+    }
+
+    public static class Scenes
+    {
+        public const string CharacterSelect = "CharacterSelect";
+        public const string PlayerRegistration = "PlayerRegistration";
     }
 }
