@@ -15,3 +15,5 @@ EditorBuildSettings:
     path: Assets/Project/DevelopmentOnly/Roldan.unity
   - enabled: 1
     path: Assets/Project/DevelopmentOnly/John.unity
+  - enabled: 1
+    path: Assets/Project/Framework/CharacterSelect/CharacterSelect.unity

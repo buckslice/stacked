@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class PlayerRegistration : MonoBehaviour {
 
     [SerializeField]
-    protected GameObject playerSetupPrefab;
+    protected GameObject registeredPlayerPrefab;
 
     [SerializeField]
     protected string playerRegistrationUIPrefabName = Tags.Resources.RegistrationUI;
@@ -18,25 +18,37 @@ public class PlayerRegistration : MonoBehaviour {
     /// <summary>
     /// Collection of all the players who have registered. The index of a registeredPlayer is the same as the index of its binding in possibleBindings.
     /// </summary>
-    PlayerSetup[] registeredPlayers;
+    /// 
+    private bool[] registeredBindings; 
+
+    private RegisteredPlayer[] registeredPlayers;
 
     void Start()
     {
-        registeredPlayers = new PlayerSetup[possibleBindings.Length];
+        registeredPlayers = new RegisteredPlayer[4];
+        registeredBindings = new bool[possibleBindings.Length];
     }
 
     void Update()
     {
-        for (int i = 0; i < possibleBindings.Length; i++)
+        for (int i=0; i<possibleBindings.Length; i++)
         {
-            if (possibleBindings[i].getRegistering && registeredPlayers[i] == null)
+            if (possibleBindings[i].getRegistering && !registeredBindings[i])
             {
-                GameObject instantiatedPlayerSetup = (GameObject)Instantiate(playerSetupPrefab, Vector3.zero, Quaternion.identity);
-                registeredPlayers[i] = instantiatedPlayerSetup.GetComponent<PlayerSetup>();
-                registeredPlayers[i].Initalize(possibleBindings[i].heldInput);
+                for (int j = 0; j<registeredPlayers.Length; j++)
+                {
+                    if (registeredPlayers[j]== null)
+                    {
+                        GameObject instantiatedRegisteredPlayer = (GameObject)Instantiate(registeredPlayerPrefab, Vector3.zero, Quaternion.identity);
+                        registeredPlayers[j] = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();
+                        registeredPlayers[j].Initalize(possibleBindings[i].heldInput, j);
 
-                PhotonNetwork.Instantiate(playerRegistrationUIPrefabName, Vector3.zero, Quaternion.identity, 0);
-                    //TODO: spawn visuals as well, using PhotonNetwork.Instantiate to show on all connected computers
+                        PhotonNetwork.Instantiate(playerRegistrationUIPrefabName, new Vector3(0,0,0), Quaternion.identity, 0);
+                        //TODO: spawn visuals as well, using PhotonNetwork.Instantiate to show on all connected computers
+                        registeredBindings[i] = true;
+                        break;
+                    }
+                }
             }
         }
     }
