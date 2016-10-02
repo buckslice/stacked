@@ -30,16 +30,23 @@ public class Boss : MonoBehaviour {
             aggroTable.Add(0.0f);
         }
 
-        topAggroPlayer = Random.Range(0, numPlayers);    // give random player aggro
+        //topAggroPlayer = Random.Range(0, numPlayers);    // give random player aggro
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        CheckAggro();
+        //CheckAggro();
 
         // walk towards top aggro player
-        Vector3 targetPos = players[topAggroPlayer].transform.position;
-
+        Vector3 targetPos;
+        if (aggroTable[topAggroPlayer] > 0)
+        {
+            targetPos = players[topAggroPlayer].transform.position;
+        }
+        else
+        {
+            targetPos = this.gameObject.transform.position;
+        }
         agent.destination = targetPos;
         //temporary death system
         if (this.health <= 0)
@@ -67,8 +74,11 @@ public class Boss : MonoBehaviour {
         }
     }
 
-    public void GetTaunted() {
-        // sets topAggroPlayer directly
+    public void GetTaunted(GameObject taunter)
+    {
+        topAggroPlayer = players.IndexOf(taunter);
+        aggroTable[topAggroPlayer] = 100;
+        Debug.Log("Taunted");
     }
 
     void OnCollisionEnter() {
