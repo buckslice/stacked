@@ -33,7 +33,7 @@ public class CameraController : MonoBehaviour {
         mainCam.transform.parent.LookAt(bounds.center);
 
         Vector3 pos = mainCam.transform.position;
-        Debug.DrawRay(pos, bounds.center - pos, Color.green, 5.0f);
+        Debug.DrawRay(pos, bounds.center - pos, Color.green, 0.5f);
         
 	}
 }

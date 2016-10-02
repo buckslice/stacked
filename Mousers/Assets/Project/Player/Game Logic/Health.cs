@@ -21,14 +21,16 @@ public class Health : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        bar.SetPercent(health / maxHealth);
-
-        // this is temp!!!!! for testing...
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            health -= Random.Range(5.0f, 50.0f);
-            if(health < 0.0f) {
-                health = maxHealth;
-            }
+        if (bar) {
+            bar.SetPercent(health / maxHealth);
         }
+
+        //// this is temp!!!!! for testing...
+        //if (Input.GetKeyDown(KeyCode.Space)) {
+        //    health -= Random.Range(5.0f, 50.0f);
+        //    if(health < 0.0f) {
+        //        health = maxHealth;
+        //    }
+        //}
 	}
 }
