@@ -18,20 +18,21 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
 	void Awake () {
         if (main != null)
         {
-            Destroy(main.transform.root.gameObject);
+            PhotonNetwork.OnEventCall -= Main.OnEvent;
+            Destroy(Main.transform.root.gameObject);
         }
         main = this;
         DontDestroyOnLoad(this.transform.root.gameObject);
-        Debug.Log("Main Set!");
+        PhotonNetwork.OnEventCall += OnEvent;
 	}
 
     void OnDestroy()
     {
-        if (main == this)
+        if (Main == this)
         {
             main = null;
-            Debug.Log("Main Unset!");
         }
+        PhotonNetwork.OnEventCall -= OnEvent;
     }
 
     /// <summary>
@@ -39,47 +40,50 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
     /// </summary>
     /// <param name="input"></param>
     /// <param name="playerNumber"></param>
-    public void CreateCharacterSelectCursor(IPlayerInput input, int playerNumber)
+    public void CreateCharacterSelectCursor(IPlayerInput input, byte playerNumber)
     {
         int allocatedViewId = PhotonNetwork.AllocateViewID();
-        GameObject cursor = (GameObject)Instantiate(cursorPrefab, Vector3.zero, Quaternion.identity); //TODO: change spawn point based on player number
-        PhotonView toInitialize = cursor.GetComponent<PhotonView>();
-        toInitialize.viewID = allocatedViewId;
-        cursor.GetComponent<PlayerInputHolder>().heldInput = input;
-        cursor.GetComponent<CharacterSelectCursor>().Initialize(playerNumber);
 
+        //Create our local copy
+        InstantiateCharacterSelectCursor(playerNumber, allocatedViewId, input);
+
+        //Create the network payload to send for remote copies
         byte[] data = new byte[5];
-        data[0] = (byte)playerNumber;
+        data[0] = playerNumber;
         System.BitConverter.GetBytes(allocatedViewId).CopyTo(data, 1);
 
-
+        //We already created our copy, so don't send to self
         RaiseEventOptions options = new RaiseEventOptions();
         options.Receivers = ReceiverGroup.Others;
+
+        //Send the event to create the remote copies
         PhotonNetwork.RaiseEvent((byte)Tags.EventCodes.CREATEREMOTECHARACTERSELECTCURSOR, data, true, options);
     }
 
-    private void OnEvent(byte eventcode, object content, int senderid)
+    public void OnEvent(byte eventcode, object content, int senderid)
     {
-        if (eventcode != (int)Tags.EventCodes.CREATEREMOTECHARACTERSELECTCURSOR)
+        Debug.Log(eventcode);
+        if (eventcode != (byte)Tags.EventCodes.CREATEREMOTECHARACTERSELECTCURSOR)
         {
             return;
         }
 
         byte[] data = (byte[])content;
         Assert.AreEqual(data.Length, 5);
-        CreateRemoteCharacterSelectCursor(data[0], System.BitConverter.ToInt32(data, 1));
+        InstantiateCharacterSelectCursor(data[0], System.BitConverter.ToInt32(data, 1), new NullInput());
     }
 
     /// <summary>
-    /// Creates a CharacterSelectCursor that is not owned by the local client.
+    /// Creates and initializes a CharacterSelectCursor.
     /// </summary>
     /// <param name="playerNumber"></param>
     /// <param name="allocatedViewId"></param>
-    public void CreateRemoteCharacterSelectCursor(byte playerNumber, int allocatedViewId)
+    public void InstantiateCharacterSelectCursor(byte playerNumber, int allocatedViewId, IPlayerInput input)
     {
         GameObject cursor = (GameObject)Instantiate(cursorPrefab, Vector3.zero, Quaternion.identity); //TODO: change spawn point based on player number
         PhotonView toInitialize = cursor.GetComponent<PhotonView>();
         toInitialize.viewID = allocatedViewId;
+        cursor.GetComponent<PlayerInputHolder>().heldInput = input;
         cursor.GetComponent<CharacterSelectCursor>().Initialize(playerNumber);
     }
 }

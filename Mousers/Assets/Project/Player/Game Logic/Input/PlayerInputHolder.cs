@@ -65,3 +65,17 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
         }
     }
 }
+
+/// <summary>
+/// An input which always returns no.
+/// </summary>
+[System.Serializable]
+public class NullInput : IPlayerInput
+{
+    public Transform Player { set { ;} }
+    public Vector2 movementDirection { get { return Vector2.zero; } }
+    public Vector3 rotationDirection { get { return Vector3.zero; } }
+    public bool getRegistering { get { return false; } }
+    public bool getAbility1 { get { return false; } }
+    public bool getAbility2 { get { return false; } }
+}

@@ -48,6 +48,10 @@ public class CharacterSelectCursor : MonoBehaviour {
         view = GetComponent<PhotonView>();
         input = GetComponent<IPlayerInputHolder>();
         currentSelection = null;
+
+        //set up tracked data to match to our current position and rotation
+        previousTargetPosition = new TimestampedData<Vector2>(PhotonNetwork.time - 1, rigid.position);
+        nextTargetPosition = new TimestampedData<Vector2>(PhotonNetwork.time, rigid.position);
     }
 
     public void Initialize(int playerNumber)

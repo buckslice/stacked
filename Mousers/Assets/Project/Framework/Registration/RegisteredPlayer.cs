@@ -30,8 +30,7 @@ public class RegisteredPlayer : MonoBehaviour {
     {
         if (arg0.name == Tags.Scenes.CharacterSelect)
         {
-            Debug.Log(CharacterSelectCursorNetworkedData.Main);
-            CharacterSelectCursorNetworkedData.Main.CreateCharacterSelectCursor(input, playerNumber);
+            CharacterSelectCursorNetworkedData.Main.CreateCharacterSelectCursor(input, (byte)playerNumber);
         }
     }
 }
