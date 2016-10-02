@@ -12,6 +12,11 @@ public static class Tags {
     /// </summary>
     public const string CanvasRoot = "CanvasRoot";
 
+    public enum EventCodes : byte
+    {
+        CREATEREMOTECHARACTERSELECTCURSOR
+    };
+
     public static class Input
     {
         public const string Horizontal = "HorizontalKeyboard";

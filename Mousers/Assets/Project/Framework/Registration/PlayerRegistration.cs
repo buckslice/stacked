@@ -5,6 +5,18 @@ using System.Collections.Generic;
 
 public class PlayerRegistration : MonoBehaviour {
 
+    class RegisteredPlayerGrouping
+    {
+        //TODO: add references to the containing RegisteredPlayerGrouping to its component objects
+        public readonly RegisteredPlayer registeredPlayer;
+        public readonly GameObject registrationUI;
+        public RegisteredPlayerGrouping(RegisteredPlayer registeredPlayer, GameObject registrationUI)
+        {
+            this.registeredPlayer = registeredPlayer;
+            this.registrationUI = registrationUI;
+        }
+    }
+
     [SerializeField]
     protected GameObject registeredPlayerPrefab;
 
@@ -19,13 +31,13 @@ public class PlayerRegistration : MonoBehaviour {
     /// Collection of all the players who have registered. The index of a registeredPlayer is the same as the index of its binding in possibleBindings.
     /// </summary>
     /// 
-    private bool[] registeredBindings; 
+    private bool[] registeredBindings;
 
-    private RegisteredPlayer[] registeredPlayers;
+    private RegisteredPlayerGrouping[] registeredPlayers;
 
     void Start()
     {
-        registeredPlayers = new RegisteredPlayer[4];
+        registeredPlayers = new RegisteredPlayerGrouping[4];
         registeredBindings = new bool[possibleBindings.Length];
     }
 
@@ -35,16 +47,18 @@ public class PlayerRegistration : MonoBehaviour {
         {
             if (possibleBindings[i].getRegistering && !registeredBindings[i])
             {
-                for (int j = 0; j<registeredPlayers.Length; j++)
+                for (int j = 0; j < registeredPlayers.Length; j++)
                 {
-                    if (registeredPlayers[j]== null)
+                    if (registeredPlayers[j] == null)
                     {
                         GameObject instantiatedRegisteredPlayer = (GameObject)Instantiate(registeredPlayerPrefab, Vector3.zero, Quaternion.identity);
-                        registeredPlayers[j] = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();
-                        registeredPlayers[j].Initalize(possibleBindings[i].heldInput, j);
+                        RegisteredPlayer registeredPlayer = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();
+                        registeredPlayer.Initalize(possibleBindings[i].heldInput, j);
 
-                        PhotonNetwork.Instantiate(playerRegistrationUIPrefabName, new Vector3(0,0,0), Quaternion.identity, 0);
-                        //TODO: spawn visuals as well, using PhotonNetwork.Instantiate to show on all connected computers
+                        GameObject instantiatedRegistrationUI = PhotonNetwork.Instantiate(playerRegistrationUIPrefabName, new Vector3(0, 0, 0), Quaternion.identity, 0);
+
+                        registeredPlayers[j] = new RegisteredPlayerGrouping(registeredPlayer, instantiatedRegistrationUI);
+
                         registeredBindings[i] = true;
                         break;
                     }

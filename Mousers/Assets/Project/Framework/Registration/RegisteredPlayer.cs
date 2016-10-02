@@ -7,9 +7,6 @@ public class RegisteredPlayer : MonoBehaviour {
     [SerializeField]
     protected int playerNumber;
 
-    [SerializeField]
-    private string cursorPrefabName = Tags.Resources.Cursor;
-
     private IPlayerInput input;
     public IPlayerInput inputBindings { set { input = value; } }
 
@@ -33,19 +30,8 @@ public class RegisteredPlayer : MonoBehaviour {
     {
         if (arg0.name == Tags.Scenes.CharacterSelect)
         {
-            CreateCharacterSelectCursor();
+            Debug.Log(CharacterSelectCursorNetworkedData.Main);
+            CharacterSelectCursorNetworkedData.Main.CreateCharacterSelectCursor(input, playerNumber);
         }
     }
-
-    private void CreateCharacterSelectCursor()
-    {
-        GameObject cursor = PhotonNetwork.Instantiate(cursorPrefabName, Vector3.zero, Quaternion.identity, 0); //TODO: change spawn point based on player number
-        cursor.GetComponent<PlayerInputHolder>().heldInput = input;
-        cursor.GetComponent<CharacterSelectCursor>().Initialize(playerNumber);
-    }
-
-    // Update is called once per frame
-    void Update () {
-	
-	}
 }

@@ -12,10 +12,10 @@ public class SelectAbility : AbstractAbilityAction {
     }
     public override void Activate()
     {
-        if (!selected && cursor.getCurrentSelection() != null)
+        if (!selected && cursor.CurrentSelection != null)
         {
             print("Derp");
-            GameObject instantiatedPlayerSetup = (GameObject)Instantiate(cursor.getCurrentSelection(), Vector3.zero, Quaternion.identity);
+            GameObject instantiatedPlayerSetup = (GameObject)Instantiate(cursor.CurrentSelection, Vector3.zero, Quaternion.identity);
             instantiatedPlayerSetup.GetComponent<PlayerSetup>().Initalize(cursor.GetComponent<PlayerInputHolder>().heldInput, cursor.playerNumber);
             selected = true;
         }

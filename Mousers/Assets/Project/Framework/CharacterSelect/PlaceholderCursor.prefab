@@ -21,30 +21,14 @@ GameObject:
   - 4: {fileID: 4000012999940420}
   - 212: {fileID: 212000013070824990}
   - 50: {fileID: 50000010571116854}
+  - 114: {fileID: 114000013171150896}
   - 114: {fileID: 114000012433322918}
   - 114: {fileID: 114000014144618182}
-  - 114: {fileID: 114000013171150896}
   - 61: {fileID: 61000011378471426}
+  - 114: {fileID: 114000010396036066}
+  - 114: {fileID: 114000010401743576}
   m_Layer: 0
   m_Name: PlaceholderCursor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1000013329143646
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000013575467516}
-  - 114: {fileID: 114000013221971430}
-  - 114: {fileID: 114000011526524704}
-  - 114: {fileID: 114000010932984066}
-  m_Layer: 0
-  m_Name: SelectAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,22 +44,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 4000013575467516}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
---- !u!4 &4000013575467516
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013329143646}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
-  m_Father: {fileID: 4000012999940420}
+  m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!50 &50000010571116854
 Rigidbody2D:
@@ -108,23 +78,12 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
---- !u!114 &114000010932984066
+--- !u!114 &114000010396036066
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013329143646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b90b3d60afba9249b1047277488ce32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000011526524704
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013329143646}
+  m_GameObject: {fileID: 1000013117158502}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0021636dd9b5c341ba19d11a8f6cb76, type: 3}
@@ -132,6 +91,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   binding: 0
   cooldownSecs: 0
+--- !u!114 &114000010401743576
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013117158502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b90b3d60afba9249b1047277488ce32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012433322918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -146,6 +116,8 @@ MonoBehaviour:
   speed: 6
   acceleration: 50
   playerNumber: 0
+  bufferDelaySecs: 0.20000000298023224
+  controlEnabled: 1
 --- !u!114 &114000013171150896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,31 +139,6 @@ MonoBehaviour:
   ownershipTransfer: 0
   ObservedComponents:
   - {fileID: 114000012433322918}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  isRuntimeInstantiated: 0
---- !u!114 &114000013221971430
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013329143646}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
   instantiationId: -1

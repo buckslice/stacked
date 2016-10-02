@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000011991781076}
+  m_RootGameObject: {fileID: 1000010001954262}
   m_IsPrefabParent: 1
---- !u!1 &1000011991781076
+--- !u!1 &1000010001954262
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000013505220272}
-  - 114: {fileID: 114000010016977382}
+  - 4: {fileID: 4000012340469498}
+  - 114: {fileID: 114000013222957148}
   m_Layer: 0
-  m_Name: PlayerSetup
+  m_Name: DontDestroyOnLoadDataScripts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000013505220272
+--- !u!4 &4000012340469498
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011991781076}
+  m_GameObject: {fileID: 1000010001954262}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,23 +40,16 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000010016977382
+--- !u!114 &114000013222957148
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011991781076}
+  m_GameObject: {fileID: 1000010001954262}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c125fc2823044044c8fe00e66cc3966e, type: 3}
+  m_Script: {fileID: 11500000, guid: 8f599c9d9e8a0884cb43482964a3262b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefabName: Player
-  playerNumber: 0
-  healthBarPrefab: {fileID: 1000010670680214, guid: a07551bda06d03343b763e75df2ac96a,
+  cursorPrefab: {fileID: 1000013117158502, guid: 908565f3c5a164f4bb55aab53591bfbb,
     type: 2}
-  firstAbilities: []
-  secondAbilities: []
-  abilities:
-  - {fileID: 1000010313918382, guid: 5d22f0f9f6fdac5408b35f55e6e8d32e, type: 2}
-  - {fileID: 1000010313918382, guid: 5d22f0f9f6fdac5408b35f55e6e8d32e, type: 2}
