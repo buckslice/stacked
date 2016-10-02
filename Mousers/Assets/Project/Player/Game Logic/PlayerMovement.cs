@@ -2,7 +2,6 @@
 using UnityEngine.Assertions;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(IPlayerInputHolder))]
 public class PlayerMovement : MonoBehaviour
@@ -20,6 +19,18 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     protected double bufferDelaySecs = 0.2f;
     public double BufferDelaySecs { get { return bufferDelaySecs; } }
+
+    /// <summary>
+    /// If disabled, this will not make any modifications at all to the player's position or velocity. Only applies to players using input.
+    /// </summary>
+    [SerializeField]
+    public bool controlEnabled = true;
+
+    [SerializeField]
+    public bool movementInputEnabled = true;
+
+    [SerializeField]
+    public bool RotationInputEnabled = true;
 
     Rigidbody rigid;
     PhotonView view;
@@ -81,8 +92,11 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            UpdatePositionInput();
-            UpdateRotationInput();
+            if (controlEnabled)
+            {
+                UpdatePositionInput();
+                UpdateRotationInput();
+            }
         }
 
     }
@@ -90,15 +104,33 @@ public class PlayerMovement : MonoBehaviour
     float rotation { get { return rigid.rotation.eulerAngles.y; } }
 
     /// <summary>
+    /// Causes the player to stop all movement, instead of the short slowdown that occurs when input goes to zero
+    /// </summary>
+    public void haltMovement()
+    {
+        rigid.velocity = Vector3.zero;
+    }
+
+    public void setVelocity(Vector3 worldDirectionNormalized)
+    {
+        Assert.AreApproximatelyEqual(worldDirectionNormalized.y, 0);
+        rigid.velocity = speed * worldDirectionNormalized;
+    }
+
+    /// <summary>
     /// Updates our current position based off of player input.
     /// </summary>
     void UpdatePositionInput()
     {
+        if (!movementInputEnabled)
+        {
+            rigid.velocity = Vector3.MoveTowards(rigid.velocity, Vector3.zero, Time.deltaTime * acceleration);
+            return;
+        }
         Vector3 velocity = rigid.velocity;
         //we do not control vertical movement through this script. Negate it so it doesn't affect normalization or MoveTowards.
         velocity.y = 0;
         Vector2 movementInput = input.movementDirection;
-        Vector3 directionInput = input.rotationDirection;
 
         Vector3 targetXZ;
 
@@ -120,6 +152,10 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void UpdateRotationInput()
     {
+        if (!RotationInputEnabled)
+        {
+            return;
+        }
         Vector3 rotationInput = input.rotationDirection;
         Quaternion targetRotation;
         if (rotationInput.sqrMagnitude != 0)
@@ -142,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
             targetRotation = Quaternion.LookRotation(targetDirection);
         }
 
-        rigid.MoveRotation(Quaternion.RotateTowards(rigid.rotation, targetRotation, rotationSpeedDegrees * Time.deltaTime));
+        rigid.MoveRotation(targetRotation);
     }
 
     /// <summary>

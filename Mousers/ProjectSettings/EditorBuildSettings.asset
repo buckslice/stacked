@@ -11,3 +11,7 @@ EditorBuildSettings:
     path: Assets/Project/Main.unity
   - enabled: 1
     path: Assets/Project/DevelopmentOnly/Derek.unity
+  - enabled: 1
+    path: Assets/Project/DevelopmentOnly/Roldan.unity
+  - enabled: 1
+    path: Assets/Project/DevelopmentOnly/John.unity

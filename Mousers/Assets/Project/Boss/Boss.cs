@@ -12,6 +12,9 @@ public class Boss : MonoBehaviour {
 
     NavMeshAgent agent;
 
+    //temporary boss health
+    public float health = 100;
+
 	// Use this for initialization
 	void Start () {
         agent = GetComponent<NavMeshAgent>();
@@ -27,18 +30,29 @@ public class Boss : MonoBehaviour {
             aggroTable.Add(0.0f);
         }
 
-        topAggroPlayer = Random.Range(0, numPlayers);    // give random player aggro
+        //topAggroPlayer = Random.Range(0, numPlayers);    // give random player aggro
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        CheckAggro();
+        //CheckAggro();
 
         // walk towards top aggro player
-        Vector3 targetPos = players[topAggroPlayer].transform.position;
-
+        Vector3 targetPos;
+        if (aggroTable[topAggroPlayer] > 0)
+        {
+            targetPos = players[topAggroPlayer].transform.position;
+        }
+        else
+        {
+            targetPos = this.gameObject.transform.position;
+        }
         agent.destination = targetPos;
-
+        //temporary death system
+        if (this.health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
 	}
 
     void CheckAggro() {
@@ -60,8 +74,10 @@ public class Boss : MonoBehaviour {
         }
     }
 
-    public void GetTaunted() {
-        // sets topAggroPlayer directly
+    public void SetTaunt(GameObject taunter)
+    {
+        topAggroPlayer = players.IndexOf(taunter);
+        aggroTable[topAggroPlayer] = 100;
     }
 
     void OnCollisionEnter() {

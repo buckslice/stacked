@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014070986834}
+  - 114: {fileID: 114000010462251516}
   m_Layer: 0
   m_Name: MainCameraHolder
   m_TagString: Untagged
@@ -121,6 +122,17 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013823788200}
   m_Enabled: 1
+--- !u!114 &114000010462251516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010720952264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2fbfc9b690053c41bf1727980caa374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012663679526
 MonoBehaviour:
   m_ObjectHideFlags: 1

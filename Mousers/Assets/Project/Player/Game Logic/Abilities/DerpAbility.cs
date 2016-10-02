@@ -29,5 +29,16 @@ public class DerpAbility : AbstractAbilityAction {
     public override void Activate()
     {
         cameraShakeScript.screenShake(.5f);
+        DoDamage();
+    }
+
+
+    //temporary
+    private void DoDamage()
+    {
+        GameObject[] listToHit = GameObject.FindGameObjectsWithTag(Tags.Boss);
+        foreach(GameObject enemy in listToHit){
+            enemy.GetComponent<Boss>().health = enemy.GetComponent<Boss>().health - 10;
+        }
     }
 }
