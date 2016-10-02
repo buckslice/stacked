@@ -101,6 +101,8 @@ public class PlayerSetup : MonoBehaviour {
         HealthBar bar = healthBar.GetComponent<HealthBar>();
         player.GetComponent<Health>().bar = bar;
 
+        AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
+
         //add abilities
         foreach (GameObject ability in abilities)
         {
@@ -114,6 +116,7 @@ public class PlayerSetup : MonoBehaviour {
                 instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
             //}
             instantiatedAbility.transform.Reset();
+            abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<NetworkedAbilityActivation>());
         }
 
         foreach (GameObject ability in firstAbilities)
@@ -123,6 +126,7 @@ public class PlayerSetup : MonoBehaviour {
             instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
             Rebind(instantiatedAbility, AbilityKeybinding.ABILITY1);
             instantiatedAbility.transform.Reset();
+            abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<NetworkedAbilityActivation>());
         }
 
         foreach (GameObject ability in secondAbilities)
@@ -132,6 +136,7 @@ public class PlayerSetup : MonoBehaviour {
             instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
             Rebind(instantiatedAbility, AbilityKeybinding.ABILITY2);
             instantiatedAbility.transform.Reset();
+            abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<NetworkedAbilityActivation>());
         }
     }
 }
