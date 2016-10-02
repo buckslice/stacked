@@ -25,4 +25,9 @@ public class TauntAbility : AbstractAbilityAction
             }
         }
     }
+
+    public override void ActivateRemote()
+    {
+        networkedActivation.ActivateRemote();
+    }
 }

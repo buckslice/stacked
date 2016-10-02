@@ -11,6 +11,24 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1000013117158502}
   m_IsPrefabParent: 1
+--- !u!1 &1000010664146774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012801021562}
+  - 114: {fileID: 114000014039374012}
+  - 114: {fileID: 114000010991929708}
+  - 114: {fileID: 114000011851592172}
+  m_Layer: 0
+  m_Name: Selection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000013117158502
 GameObject:
   m_ObjectHideFlags: 0
@@ -19,14 +37,13 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012999940420}
-  - 212: {fileID: 212000013070824990}
-  - 50: {fileID: 50000010571116854}
   - 114: {fileID: 114000013171150896}
-  - 114: {fileID: 114000012433322918}
+  - 50: {fileID: 50000010571116854}
   - 114: {fileID: 114000014144618182}
+  - 114: {fileID: 114000012433322918}
+  - 114: {fileID: 114000013037090738}
+  - 212: {fileID: 212000013070824990}
   - 61: {fileID: 61000011378471426}
-  - 114: {fileID: 114000010396036066}
-  - 114: {fileID: 114000010401743576}
   m_Layer: 0
   m_Name: PlaceholderCursor
   m_TagString: Untagged
@@ -34,6 +51,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4000012801021562
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010664146774}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000012999940420}
+  m_RootOrder: 0
 --- !u!4 &4000012999940420
 Transform:
   m_ObjectHideFlags: 1
@@ -44,7 +74,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 4000012801021562}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!50 &50000010571116854
@@ -78,25 +109,25 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1.28, y: 1.28}
---- !u!114 &114000010396036066
+--- !u!114 &114000010991929708
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013117158502}
+  m_GameObject: {fileID: 1000010664146774}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0021636dd9b5c341ba19d11a8f6cb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   binding: 0
-  cooldownSecs: 0
---- !u!114 &114000010401743576
+  cooldownSecs: 1
+--- !u!114 &114000011851592172
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013117158502}
+  m_GameObject: {fileID: 1000010664146774}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8b90b3d60afba9249b1047277488ce32, type: 3}
@@ -118,6 +149,19 @@ MonoBehaviour:
   playerNumber: 0
   bufferDelaySecs: 0.20000000298023224
   controlEnabled: 1
+--- !u!114 &114000013037090738
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013117158502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18bd26e37daa15459adfb1a50ded01b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilities:
+  - {fileID: 1000010664146774}
 --- !u!114 &114000013171150896
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -143,6 +187,17 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114000014039374012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010664146774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0861e864d8ba4459b818165d7f22e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000014144618182
 MonoBehaviour:
   m_ObjectHideFlags: 1

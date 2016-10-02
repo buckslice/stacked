@@ -39,6 +39,10 @@ public class DashAbility : AbstractAbilityAction
         }
     }
 
+    public override void ActivateRemote()
+    {
+    }
+
     protected IEnumerator DurationRoutine()
     {
         Vector3 direction = rigid.transform.forward;

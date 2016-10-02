@@ -20,4 +20,9 @@ public class SelectAbility : AbstractAbilityAction {
             selected = true;
         }
     }
+
+    public override void ActivateRemote()
+    {
+        networkedActivation.ActivateRemote();
+    }
 }

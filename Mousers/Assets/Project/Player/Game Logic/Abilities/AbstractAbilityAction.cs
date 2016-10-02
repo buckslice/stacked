@@ -6,19 +6,16 @@ using System.Collections.Generic;
 /// <summary>
 /// Component designed to receive events from IAbilityActivations, and perform actions. There can and should be many of these making up a single ability.
 /// </summary>
-[RequireComponent(typeof(PhotonView))]
+[RequireComponent(typeof(NetworkedAbilityActivation))]
 public abstract class AbstractAbilityAction : MonoBehaviour {
 
-    /// <summary>
-    /// name of our RPC method. TODO : might want to move this to IAbilityActivation scripts?
-    /// </summary>
-    protected const string activate = "RPCActivate";
-
     protected PhotonView view;
+    protected NetworkedAbilityActivation networkedActivation;
 
     protected virtual void Awake()
     {
-        view = GetComponent<PhotonView>();
+        view = GetComponentInParent<PhotonView>();
+        networkedActivation = GetComponent<NetworkedAbilityActivation>();
     }
 
 	protected virtual void Start () {
@@ -31,17 +28,14 @@ public abstract class AbstractAbilityAction : MonoBehaviour {
     //delegate for IAbilityActivation.abilityActivationEvent
     public void activation_abilityActivationEvent()
     {
-        //view.RPC(activate, PhotonTargets.All);
-        //skip the networking RPC for now
-
         Activate();
-    }
-
-    [PunRPC]
-    public void RPCActivate()
-    {
-        Activate();
+        ActivateRemote();
     }
 
     public abstract void Activate();
+
+    /// <summary>
+    /// In this function, do all code related to activating the ability on other clients. Can be empty.
+    /// </summary>
+    public abstract void ActivateRemote();
 }

@@ -13,9 +13,17 @@ public interface IAbilityActivation
     event ActivateAbility abilityActivationEvent;
 }
 
+/// <summary>
+/// An IAbilityActivation that triggers based on player input.
+/// </summary>
+public interface IAbilityInputActivation {}
+
 public enum AbilityKeybinding { ABILITY1, ABILITY2 };
 
-public interface IAbilityKeybound
+/// <summary>
+/// Interface indicating that this has a keybinding
+/// </summary>
+public interface IAbilityKeybound : IAbilityInputActivation, IAbilityActivation
 {
     AbilityKeybinding Binding { get; set; }
 }
@@ -30,7 +38,7 @@ public class CooldownActivation : MonoBehaviour, IAbilityActivation, IAbilityKey
     public AbilityKeybinding Binding { get { return binding; } set { binding = value; } }
 
     [SerializeField]
-    protected float cooldownSecs;
+    protected float cooldownSecs = 1;
 
     public event ActivateAbility abilityActivationEvent = delegate { };
 

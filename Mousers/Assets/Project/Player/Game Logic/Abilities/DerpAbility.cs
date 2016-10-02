@@ -32,6 +32,11 @@ public class DerpAbility : AbstractAbilityAction {
         DoDamage();
     }
 
+    public override void ActivateRemote()
+    {
+        networkedActivation.ActivateRemote();
+    }
+
 
     //temporary
     private void DoDamage()

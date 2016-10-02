@@ -34,7 +34,6 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
         {
             main = null;
         }
-        Debug.Log("Main Deregistered");
         PhotonNetwork.OnEventCall -= OnEvent;
     }
 
