@@ -500,7 +500,11 @@ Prefab:
     - target: {fileID: 114000013189080698, guid: f678855c7e7fb8c4f9250e6f84bab918,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: Roldan
+      value: John
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010069259676, guid: f678855c7e7fb8c4f9250e6f84bab918, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f678855c7e7fb8c4f9250e6f84bab918, type: 2}

@@ -48,7 +48,7 @@ Material:
     - first:
         name: _ShadowTex
       second:
-        m_Texture: {fileID: 2800000, guid: 1f86523e0d082eb4bbf61c6b48af9981, type: 3}
+        m_Texture: {fileID: 2800000, guid: a43a2596bca0d6646a814361480d5153, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -60,14 +60,14 @@ Material:
       second: 0
     - first:
         name: _PulseRate
-      second: 0.73
+      second: 1
     m_Colors:
     - first:
         name: BumpMapScale
       second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _Color
-      second: {r: 0, g: 1, b: 0.6689658, a: 1}
+      second: {r: 1, g: 0, b: 0, a: 1}
     - first:
         name: _ProjectorClip_0
       second: {r: -0.015438232, g: -0.025866693, b: 0.14460614, a: 0.29360974}

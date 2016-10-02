@@ -113,7 +113,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void setVelocity(Vector3 worldDirectionNormalized)
     {
-        Assert.IsTrue(0 <= worldDirectionNormalized.magnitude && worldDirectionNormalized.magnitude <= 1);
         Assert.AreApproximatelyEqual(worldDirectionNormalized.y, 0);
         rigid.velocity = speed * worldDirectionNormalized;
     }

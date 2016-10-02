@@ -92,6 +92,7 @@ public class PlayerSetup : MonoBehaviour {
         Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
         Transform playerHealthBarGroup = canvasRoot.Find(Tags.UIPaths.PlayerHealthBarGroup);
         GameObject healthBar = (GameObject)Instantiate(healthBarPrefab, playerHealthBarGroup);
+        healthBar.transform.localScale = Vector3.one;
         HealthBar bar = healthBar.GetComponent<HealthBar>();
         player.GetComponent<Health>().bar = bar;
 
