@@ -275,7 +275,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 486555971}
   - 65: {fileID: 486555972}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -318,7 +318,7 @@ GameObject:
   - 33: {fileID: 557879860}
   - 65: {fileID: 557879859}
   - 23: {fileID: 557879858}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -665,7 +665,7 @@ GameObject:
   - 4: {fileID: 1207835303}
   - 33: {fileID: 1207835305}
   - 23: {fileID: 1207835304}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -792,7 +792,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1692882313}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -860,7 +860,7 @@ GameObject:
   - 33: {fileID: 2024678476}
   - 65: {fileID: 2024678475}
   - 23: {fileID: 2024678474}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -936,7 +936,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2066348728}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -969,7 +969,7 @@ GameObject:
   - 33: {fileID: 2128042713}
   - 65: {fileID: 2128042712}
   - 23: {fileID: 2128042711}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1048,7 +1048,7 @@ GameObject:
   - 33: {fileID: 2144715611}
   - 65: {fileID: 2144715610}
   - 23: {fileID: 2144715609}
-  m_Layer: 0
+  m_Layer: 18
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

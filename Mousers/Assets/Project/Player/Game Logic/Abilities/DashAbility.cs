@@ -48,7 +48,9 @@ public class DashAbility : AbstractAbilityAction
         float startTime = Time.time;
         RaycastHit hit;
         float distance;
-        if (Physics.CapsuleCast(rigid.position + Vector3.up * coll.radius, rigid.position + Vector3.up * (coll.height - coll.radius), coll.radius, direction, out hit, dashDistance, layermask))
+        if (Physics.CapsuleCast(rigid.position + Vector3.up * coll.radius, 
+                                rigid.position + Vector3.up * (coll.height - coll.radius), 
+                                coll.radius - 0.05f, direction, out hit, dashDistance, layermask))
         {
             distance = hit.distance;
         }
