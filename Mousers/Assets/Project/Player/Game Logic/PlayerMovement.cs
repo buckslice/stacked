@@ -106,9 +106,16 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Causes the player to stop all movement, instead of the short slowdown that occurs when input goes to zero
     /// </summary>
-    void haltMovement()
+    public void haltMovement()
     {
         rigid.velocity = Vector3.zero;
+    }
+
+    public void setVelocity(Vector3 worldDirectionNormalized)
+    {
+        Assert.IsTrue(0 <= worldDirectionNormalized.magnitude && worldDirectionNormalized.magnitude <= 1);
+        Assert.AreApproximatelyEqual(worldDirectionNormalized.y, 0);
+        rigid.velocity = speed * worldDirectionNormalized;
     }
 
     /// <summary>
@@ -172,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
             targetRotation = Quaternion.LookRotation(targetDirection);
         }
 
-        rigid.MoveRotation(Quaternion.RotateTowards(rigid.rotation, targetRotation, rotationSpeedDegrees * Time.deltaTime));
+        rigid.MoveRotation(targetRotation);
     }
 
     /// <summary>

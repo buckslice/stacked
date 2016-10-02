@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections;
 
 public class DashAbility : AbstractAbilityAction
@@ -36,16 +37,18 @@ public class DashAbility : AbstractAbilityAction
             }
             activeRoutine = StartCoroutine(DurationRoutine());
         }
-        transform.root.GetComponent<Rigidbody>().position = (transform.root.position + transform.root.forward * dashDistance);
     }
 
     protected IEnumerator DurationRoutine()
     {
+        Vector3 direction = rigid.transform.forward;
+        Assert.AreApproximatelyEqual(direction.magnitude, 1);
+        Assert.AreApproximatelyEqual(direction.y, 0);
         Vector3 startPosition = rigid.position;
         float startTime = Time.time;
         RaycastHit hit;
         float distance;
-        if (Physics.CapsuleCast(rigid.position + Vector3.up * coll.radius, rigid.position + Vector3.up * (coll.height - coll.radius), coll.radius, rigid.transform.forward, out hit, dashDistance, layermask))
+        if (Physics.CapsuleCast(rigid.position + Vector3.up * coll.radius, rigid.position + Vector3.up * (coll.height - coll.radius), coll.radius, direction, out hit, dashDistance, layermask))
         {
             distance = hit.distance;
         }
@@ -54,10 +57,11 @@ public class DashAbility : AbstractAbilityAction
             distance = dashDistance; //max distance
         }
 
-        Vector3 endPosition = startPosition + distance * rigid.transform.forward;
+        Vector3 endPosition = startPosition + distance * direction;
         float endTime = startTime + (distance / dashDistance) * dashDuration;
 
         movement.controlEnabled = false;
+        movement.haltMovement();
 
         while (Time.time <= endTime)
         {
@@ -69,5 +73,6 @@ public class DashAbility : AbstractAbilityAction
 
         rigid.MovePosition(endPosition);
         movement.controlEnabled = true;
+        movement.setVelocity(direction);
     }
 }
