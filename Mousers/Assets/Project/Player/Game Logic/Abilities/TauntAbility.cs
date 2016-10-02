@@ -3,30 +3,26 @@ using System.Collections;
 
 public class TauntAbility : AbstractAbilityAction
 {
+    [SerializeField]
+    protected float tauntRad = 20;
 
-    public float tauntRad = 20;
-    private Collider[] taunted;
+    int layermask;
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
+        layermask = LayerMask.GetMask(Tags.Layers.Default, Tags.Layers.Boss, Tags.Layers.Enemy);
     }
 
     public override void Activate()
     {
-        Debug.Log("Taunting");
-        taunted = Physics.OverlapSphere(this.gameObject.transform.position, tauntRad);
-        Debug.Log(taunted.Length);
-        foreach(Collider col in taunted){
+        Collider[] taunted = Physics.OverlapSphere(this.gameObject.transform.position, tauntRad, layermask);
+        foreach (Collider col in taunted)
+        {
             if (col.transform.root.CompareTag(Tags.Boss))
             {
-                col.gameObject.GetComponent<Boss>().GetTaunted(this.transform.root.gameObject);
-            }
-            else
-            {
-                Debug.Log(col.transform.root.tag);
+                col.gameObject.GetComponent<Boss>().SetTaunt(this.transform.root.gameObject);
             }
         }
     }
-
 }

@@ -85,8 +85,11 @@ public static class Tags {
 
     public static class Layers
     {
+        public const string Default = "Default";
         public const string Player = "Player";
         public const string StaticGeometry = "Static Geometry";
+        public const string Enemy = "Enemy";
+        public const string Boss = "Boss";
     }
 
     public class SortingLayers
