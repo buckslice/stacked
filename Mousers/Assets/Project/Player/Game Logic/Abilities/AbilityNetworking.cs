@@ -19,9 +19,14 @@ public class AbilityNetworking : MonoBehaviour {
     protected GameObject[] abilities;
 
     /// <summary>
-    /// An ability's networkedAbilityId is its index in this list.
+    /// An ability's networkedAbilityId is its index in this list. Elements can be removed, but indices are not shifted down.
     /// </summary>
     List<NetworkedAbilityActivation> abilityActivations = new List<NetworkedAbilityActivation>();
+
+    /// <summary>
+    /// Secondary data structure to look up the index (and thus the networkedAbilityId) of an element in abilityActivations
+    /// </summary>
+    Dictionary<NetworkedAbilityActivation, int> abilityActivationIndices = new Dictionary<NetworkedAbilityActivation, int>();
 
     PhotonView view;
 
@@ -53,22 +58,46 @@ public class AbilityNetworking : MonoBehaviour {
     /// <param name="ability">The ability to add.</param>
     public void AddNetworkedAbility(NetworkedAbilityActivation ability)
     {
-        abilityActivations.Add(ability);
+        //default value
+        int index = abilityActivations.Count;
+
+        for (int i = 0; i < abilityActivations.Count; i++)
+        {
+            //find first open spot, if any
+            if (abilityActivations[i] == null)
+            {
+                //index value is the first open spot
+                index = i;
+                break;
+            }
+        }
+
+        abilityActivations.Insert(index, ability);
+        abilityActivationIndices[ability] = index;
         ability.Initialize(this);
     }
 
-    //todo: add ability removal
+    /// <summary>
+    /// Removes an ability as a networked ability. ORDER MATTERS! Does not modify the networkeAbilityIds of other abilities. If the ability is re-added, it can have a different index than it currently does.
+    /// </summary>
+    /// <param name="ability"></param>
+    public void RemoveNetworkedAbility(NetworkedAbilityActivation ability)
+    {
+        int index = getNetworkedAbilityId(ability);
+        abilityActivations[index] = null;
+        abilityActivationIndices.Remove(ability);
+    }
 
     public byte getNetworkedAbilityId(NetworkedAbilityActivation ability)
     {
-        int result = abilityActivations.IndexOf(ability);
-        if (result < 0)
+        if (!abilityActivationIndices.ContainsKey(ability))
         {
-            Debug.LogErrorFormat(this, "{0} is not a networked ability of {1}", ability.ToString(), this.ToString());
+            Debug.LogErrorFormat(this, "{0} is not present as a networked ability on {1}", ability.ToString(), this.ToString());
             return byte.MaxValue;
         }
         else
         {
+            int result = abilityActivationIndices[ability];
             return (byte)result;
         }
     }
