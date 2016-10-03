@@ -92,8 +92,10 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
         }
         else
         {
+            //default spawn location
             cursor = (GameObject)Instantiate(cursorPrefab, Vector3.zero, Quaternion.identity);
         }
+        //assign view ID
         PhotonView toInitialize = cursor.GetComponent<PhotonView>();
         toInitialize.viewID = allocatedViewId;
         cursor.GetComponent<PlayerInputHolder>().heldInput = input;

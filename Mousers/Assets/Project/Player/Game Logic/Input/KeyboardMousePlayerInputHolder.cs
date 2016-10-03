@@ -66,6 +66,6 @@ public class KeyboardMousePlayerInput : IPlayerInput
         }
     }
     public bool getRegistering { get { return Input.GetKey(registeringKey); } }
-    public bool getAbility1 { get { return Input.GetKey(ability1Key) || Input.GetMouseButton(0); } }
-    public bool getAbility2 { get { return Input.GetKey(ability2Key) || Input.GetMouseButton(1); } }
+    public bool getAbility1 { get { return Input.GetKey(ability1Key); } }// || Input.GetMouseButton(0); } }
+    public bool getAbility2 { get { return Input.GetKey(ability2Key); } }// || Input.GetMouseButton(1); } }
 }

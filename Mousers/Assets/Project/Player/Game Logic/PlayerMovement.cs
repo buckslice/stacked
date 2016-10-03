@@ -75,12 +75,6 @@ public class PlayerMovement : MonoBehaviour
         nextTargetPosition = new TimestampedData<Vector3>(PhotonNetwork.time, rigid.position);
         previousTargetRotation = new TimestampedData<float>(PhotonNetwork.time - 1, this.rotation);
         nextTargetRotation = new TimestampedData<float>(PhotonNetwork.time, this.rotation);
-
-        if (!view.isMine)
-        {
-            Destroy(rigid);
-            rigid = null;
-        }
     }
 
     void Update()
@@ -197,7 +191,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 targetPosition = Vector3.LerpUnclamped(previousTargetPosition, nextTargetPosition, lerpValue);
 
         //limit our movement each frame to our max speed (with respect to the different dimensions). This prevents the jittery appearance of extrapolated data.
-        Vector3 currentPositionXZ = transform.position;
+        Vector3 currentPositionXZ = rigid.position;
         currentPositionXZ.y = 0;
         Vector3 targetPositionXZ = targetPosition;
         targetPositionXZ.y = 0;
@@ -207,7 +201,7 @@ public class PlayerMovement : MonoBehaviour
         //interpolate the y axis without limitation
         newPosition.y = targetPosition.y;
 
-        transform.position = newPosition;
+        rigid.MovePosition(newPosition);
     }
 
     /// <summary>
@@ -226,9 +220,9 @@ public class PlayerMovement : MonoBehaviour
         Quaternion targetRotation = Quaternion.AngleAxis(Mathf.LerpAngle(previousTargetRotation, nextTargetRotation, lerpValue), Vector3.up);
 
         //limit our movement each frame to our max rotation speed. This prevents the jittery appearance of extrapolated data.
-        Quaternion newRotation = Quaternion.RotateTowards(transform.localRotation, targetRotation, Time.deltaTime * rotationSpeedDegrees);
+        Quaternion newRotation = Quaternion.RotateTowards(rigid.rotation, targetRotation, Time.deltaTime * rotationSpeedDegrees);
 
-        transform.localRotation = newRotation;
+        rigid.MoveRotation(newRotation);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

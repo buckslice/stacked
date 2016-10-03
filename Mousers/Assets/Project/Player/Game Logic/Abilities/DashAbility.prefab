@@ -19,7 +19,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014039844362}
-  - 114: {fileID: 114000013532119720}
+  - 114: {fileID: 114000014183890708}
   - 114: {fileID: 114000011382864308}
   - 114: {fileID: 114000011024181888}
   m_Layer: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashDistance: 10
   dashDuration: 0.15
---- !u!114 &114000013532119720
+--- !u!114 &114000014183890708
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -76,20 +76,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010448150684}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Script: {fileID: 11500000, guid: 4f0861e864d8ba4459b818165d7f22e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  isRuntimeInstantiated: 0

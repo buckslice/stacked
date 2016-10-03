@@ -271,7 +271,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 528735190}
   m_Layer: 0
-  m_Name: SpawnPoint1
+  m_Name: CharacterSelectSpawnPoint1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,7 +283,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 528735189}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5, y: 5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -299,7 +299,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 597606009}
   m_Layer: 0
-  m_Name: SpawnPoint3
+  m_Name: CharacterSelectSpawnPoint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -405,7 +405,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 735564315}
   m_Layer: 0
-  m_Name: SpawnPoint2
+  m_Name: CharacterSelectSpawnPoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -431,11 +431,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114000013222957148, guid: 1d3ecae7dd160534a9493004a7b022d6,
-        type: 2}
-      propertyPath: spawnPoints.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4000012340469498, guid: 1d3ecae7dd160534a9493004a7b022d6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -671,7 +666,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 1534980930}
   m_Layer: 0
-  m_Name: SpawnPoint4
+  m_Name: CharacterSelectSpawnPoint4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

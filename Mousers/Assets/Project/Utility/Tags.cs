@@ -14,7 +14,8 @@ public static class Tags {
 
     public enum EventCodes : byte
     {
-        CREATEREMOTECHARACTERSELECTCURSOR
+        CREATEREMOTECHARACTERSELECTCURSOR,
+        CREATEPLAYER
     };
 
     public static class Input

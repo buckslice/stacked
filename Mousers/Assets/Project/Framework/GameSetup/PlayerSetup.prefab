@@ -51,11 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c125fc2823044044c8fe00e66cc3966e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefabName: Player
-  healthBarPrefab: {fileID: 1000010670680214, guid: a07551bda06d03343b763e75df2ac96a,
-    type: 2}
-  firstAbilities:
-  - {fileID: 1000010448150684, guid: 053f279c3eae91940b612700c5387587, type: 2}
-  secondAbilities:
-  - {fileID: 1000010313918382, guid: 5d22f0f9f6fdac5408b35f55e6e8d32e, type: 2}
-  abilities: []
+  playerNumber: -1
+  playerData:
+    firstAbilities: 01
+    secondAbilities: 00
+    abilities: 

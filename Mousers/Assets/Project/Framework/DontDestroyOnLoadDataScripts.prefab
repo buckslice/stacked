@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012340469498}
   - 114: {fileID: 114000013222957148}
+  - 114: {fileID: 114000012569888046}
   m_Layer: 0
   m_Name: DontDestroyOnLoadDataScripts
   m_TagString: Untagged
@@ -40,6 +41,26 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000012569888046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010001954262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1276be105e7204f4a83e1d33b2e2f7cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basePlayerPrefab: {fileID: 1000013947083138, guid: c3d98dc2b9ec2784c9af2be72f74d714,
+    type: 2}
+  healthBarPrefab: {fileID: 1000010670680214, guid: a07551bda06d03343b763e75df2ac96a,
+    type: 2}
+  spawnPoints: []
+  abilityPrefabs:
+  - {fileID: 1000010313918382, guid: 5d22f0f9f6fdac5408b35f55e6e8d32e, type: 2}
+  - {fileID: 1000010448150684, guid: 053f279c3eae91940b612700c5387587, type: 2}
+  - {fileID: 1000011145814480, guid: b8b2f63a1c352ae429fe37a405e1e834, type: 2}
 --- !u!114 &114000013222957148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,3 +74,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cursorPrefab: {fileID: 1000013117158502, guid: 908565f3c5a164f4bb55aab53591bfbb,
     type: 2}
+  spawnPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

@@ -37,6 +37,7 @@ GameObject:
   - 4: {fileID: 4000011678190840}
   - 54: {fileID: 54000011540002138}
   - 114: {fileID: 114000012442423696}
+  - 114: {fileID: 114000010790980418}
   - 114: {fileID: 114000012287730970}
   - 136: {fileID: 136000013093668674}
   - 114: {fileID: 114000014173949902}
@@ -224,6 +225,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &114000010790980418
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013947083138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18bd26e37daa15459adfb1a50ded01b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilities: []
 --- !u!114 &114000012287730970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -239,6 +252,9 @@ MonoBehaviour:
   rotationSpeedDegrees: 360
   acceleration: 50
   bufferDelaySecs: 0
+  controlEnabled: 1
+  movementInputEnabled: 1
+  RotationInputEnabled: 1
 --- !u!114 &114000012442423696
 MonoBehaviour:
   m_ObjectHideFlags: 1

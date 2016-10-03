@@ -9,27 +9,27 @@ using System.Collections.Generic;
 /// </summary>
 public class PlayerSetup : MonoBehaviour {
 
-    [SerializeField]
-    protected string playerPrefabName = Tags.Resources.Player;
-    //public GameObject player1SpawnPoint; //TODO: add a class for spawn points, which register themselves in a static dictionary
+    [System.Serializable]
+    public class PlayerSetupData
+    {
+        [SerializeField]
+        [Tooltip("These abilities will be rebound as a firstAbility")]
+        public PlayerSetupNetworkedData.AbilityId[] firstAbilities;
 
-    [SerializeField]
-    protected GameObject healthBarPrefab;
+        [SerializeField]
+        [Tooltip("These abilities will be rebound as a secondAbility")]
+        public PlayerSetupNetworkedData.AbilityId[] secondAbilities;
+
+        [SerializeField]
+        [Tooltip("These abilities will retain their default bindings")]
+        public PlayerSetupNetworkedData.AbilityId[] abilities;
+    }
 
     [SerializeField]
     protected int playerNumber = -1;
 
     [SerializeField]
-    [Tooltip("These abilities will be rebound as a firstAbility")]
-    protected GameObject[] firstAbilities;
-
-    [SerializeField]
-    [Tooltip("These abilities will be rebound as a secondAbility")]
-    protected GameObject[] secondAbilities;
-
-    [SerializeField]
-    [Tooltip("These abilities will retain their default bindings")]
-    protected GameObject[] abilities;
+    protected PlayerSetupData playerData;
 
     private IPlayerInput input;
     public IPlayerInput inputBindings { set { input = value; } }
@@ -55,7 +55,7 @@ public class PlayerSetup : MonoBehaviour {
     void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         //TODO: maybe make sure it's the right scene?
-        CreatePlayer();
+        PlayerSetupNetworkedData.Main.CreatePlayer((byte)playerNumber, input, playerData);
         SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
         Destroy(this.transform.root.gameObject);
         //player was created, our job is done. May want to change this so that the player's spawning data is persisted.
@@ -69,74 +69,4 @@ public class PlayerSetup : MonoBehaviour {
         }
             
 	}
-
-    /// <summary>
-    /// rebinds the ability to use the specified binding.
-    /// </summary>
-    /// <param name="ability"></param>
-    /// <param name="binding"></param>
-    void Rebind(GameObject ability, AbilityKeybinding newBinding)
-    {
-        foreach (IAbilityKeybound binding in ability.GetComponentsInChildren<IAbilityKeybound>())
-        {
-            binding.Binding = newBinding;
-        }
-    }
-
-    /// <summary>
-    /// TODO: at some point, make this networked with an RPC instead of using PhotonNetwork.Instantiate. Will also need a data-lookup script.
-    /// </summary>
-    public void CreatePlayer()
-    {
-        GameObject player = PhotonNetwork.Instantiate(playerPrefabName, Vector3.zero, Quaternion.identity, 0); //TODO: use spawn point
-
-        //assign input bindings
-        player.GetComponent<PlayerInputHolder>().heldInput = input;
-
-        //link health bar and UI
-        Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
-        Transform playerHealthBarGroup = canvasRoot.Find(Tags.UIPaths.PlayerHealthBarGroup);
-        GameObject healthBar = (GameObject)Instantiate(healthBarPrefab, playerHealthBarGroup);
-        healthBar.transform.localScale = Vector3.one;
-        HealthBar bar = healthBar.GetComponent<HealthBar>();
-        player.GetComponent<Health>().bar = bar;
-
-        AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
-
-        //add abilities
-        foreach (GameObject ability in abilities)
-        {
-            GameObject instantiatedAbility;
-            /*if (ability.GetComponent<PhotonView>() != null)
-            {
-                instantiatedAbility = PhotonNetwork.insta
-            }
-            else
-            {*/
-                instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
-            //}
-            instantiatedAbility.transform.Reset();
-            abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<NetworkedAbilityActivation>());
-        }
-
-        foreach (GameObject ability in firstAbilities)
-        {
-            GameObject instantiatedAbility;
-
-            instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
-            Rebind(instantiatedAbility, AbilityKeybinding.ABILITY1);
-            instantiatedAbility.transform.Reset();
-            abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<NetworkedAbilityActivation>());
-        }
-
-        foreach (GameObject ability in secondAbilities)
-        {
-            GameObject instantiatedAbility;
-
-            instantiatedAbility = (GameObject)Instantiate(ability, player.transform);
-            Rebind(instantiatedAbility, AbilityKeybinding.ABILITY2);
-            instantiatedAbility.transform.Reset();
-            abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<NetworkedAbilityActivation>());
-        }
-    }
 }
