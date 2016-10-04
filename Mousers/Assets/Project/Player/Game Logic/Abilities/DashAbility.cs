@@ -32,8 +32,6 @@ public class DashAbility : AbstractAbilityAction
         Vector3 direction = rigid.transform.forward;
         Assert.AreApproximatelyEqual(direction.magnitude, 1);
         Assert.AreApproximatelyEqual(direction.y, 0);
-        Vector3 startPosition = rigid.position;
-        float startTime = Time.time;
         RaycastHit hit;
         float distance;
         if (Physics.CapsuleCast(rigid.position + Vector3.up * coll.radius,
@@ -47,14 +45,9 @@ public class DashAbility : AbstractAbilityAction
             distance = dashDistance; //max distance
         }
 
-        Vector3 endPosition = startPosition + distance * direction;
-        float endTime = startTime + (distance / dashDistance) * dashDuration;
+        Vector3 endPosition = rigid.position + distance * direction;
 
-        if (activeRoutine != null)
-        {
-            StopCoroutine(activeRoutine);
-        }
-        activeRoutine = StartCoroutine(DurationRoutine(startPosition, endPosition, startTime, endTime));
+        ActivateWithData(endPosition);
 
         //TODO: possibly use a vector2, since dash never has a vertical (y) component
         networkedActivation.ActivateRemoteWithData(endPosition);
@@ -62,7 +55,6 @@ public class DashAbility : AbstractAbilityAction
 
     public override void ActivateWithData(object data)
     {
-        Debug.Log("Activate With Data");
         Vector3 startPosition = rigid.position;
         Vector3 endPosition = (Vector3)data;
         Vector3 direction = endPosition - startPosition;
