@@ -26,7 +26,7 @@ public class PlayerSetup : MonoBehaviour {
     }
 
     [SerializeField]
-    protected int playerNumber = -1;
+    protected int playerID = -1;
 
     [SerializeField]
     protected PlayerSetupData playerData;
@@ -49,13 +49,13 @@ public class PlayerSetup : MonoBehaviour {
     public void Initalize(IPlayerInput inputBindings, int playerNumber)
     {
         this.inputBindings = inputBindings;
-        this.playerNumber = playerNumber;
+        this.playerID = playerNumber;
     }
 
     void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         //TODO: maybe make sure it's the right scene?
-        PlayerSetupNetworkedData.Main.CreatePlayer((byte)playerNumber, input, playerData);
+        PlayerSetupNetworkedData.Main.CreatePlayer((byte)playerID, input, playerData);
         SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
         Destroy(this.transform.root.gameObject);
         //player was created, our job is done. May want to change this so that the player's spawning data is persisted.

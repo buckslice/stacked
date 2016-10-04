@@ -147,13 +147,16 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     /// </summary>
     /// <param name="playerNumber"></param>
     /// <param name="allocatedViewId"></param>
-    public void InstantiatePlayer(byte playerNumber, int allocatedViewId, IPlayerInput input, PlayerSetup.PlayerSetupData playerData)
+    public void InstantiatePlayer(byte playerID, int allocatedViewId, IPlayerInput input, PlayerSetup.PlayerSetupData playerData)
     {
         GameObject player = (GameObject)Instantiate(basePlayerPrefab, Vector3.zero, Quaternion.identity); //TODO: use spawn point
 
         //assign view ID
         PhotonView toInitialize = player.GetComponent<PhotonView>();
         toInitialize.viewID = allocatedViewId;
+
+        //assign playerID
+        player.GetComponent<Player>().Initialize(playerID);
 
         //assign input bindings
         player.GetComponent<PlayerInputHolder>().heldInput = input;
