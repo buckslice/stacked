@@ -8,17 +8,32 @@ using System.Collections.Generic;
 /// </summary>
 public class Player : MonoBehaviour {
 
-    [SerializeField]
-    protected float playerID = -1;
+    static Dictionary<int, Player> allPlayers;
 
-    public float PlayerID { get { return playerID; } }
+    void OnDestroy()
+    {
+        allPlayers.Remove(playerID);
+    }
+
+    [SerializeField]
+    protected int playerID = -1;
+
+    public int PlayerID { get { return playerID; } }
 
     /// <summary>
     /// Constructor-like function to set up this class.
     /// </summary>
     /// <param name="playerID"></param>
-    public void Initialize(float playerID)
+    public void Initialize(int playerID)
     {
+        if (playerID != -1)
+        {
+            Debug.LogError("Already initialized.");
+            return;
+        }
+
         this.playerID = playerID;
+        Assert.IsFalse(allPlayers.ContainsKey(playerID), "Duplicate PlayerIDs");
+        allPlayers[playerID] = this;
     }
 }
