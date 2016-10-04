@@ -36,7 +36,7 @@ public class PlayerSetup : MonoBehaviour {
 
     //additional player data goes here
 
-    void Start () { //move to be awake
+    void Awake () {
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         DontDestroyOnLoad(this.transform.root.gameObject);
 	}
