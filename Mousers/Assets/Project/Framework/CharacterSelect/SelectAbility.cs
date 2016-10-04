@@ -15,8 +15,11 @@ public class SelectAbility : AbstractAbilityAction {
         if (!selected && cursor.CurrentSelection != null)
         {
             print("Derp");
-            GameObject instantiatedPlayerSetup = (GameObject)Instantiate(cursor.CurrentSelection, Vector3.zero, Quaternion.identity);
-            instantiatedPlayerSetup.GetComponent<PlayerSetup>().Initalize(cursor.GetComponent<PlayerInputHolder>().heldInput, cursor.playerNumber);
+            if (view.isMine)
+            {
+                GameObject instantiatedPlayerSetup = (GameObject)Instantiate(cursor.CurrentSelection, Vector3.zero, Quaternion.identity);
+                instantiatedPlayerSetup.GetComponent<PlayerSetup>().Initalize(cursor.GetComponent<PlayerInputHolder>().heldInput, cursor.playerNumber);
+            }
             selected = true;
         }
     }

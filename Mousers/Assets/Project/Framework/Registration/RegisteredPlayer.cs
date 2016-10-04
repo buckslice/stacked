@@ -5,10 +5,10 @@ using System.Collections;
 public class RegisteredPlayer : MonoBehaviour {
 
     [SerializeField]
-    protected int playerNumber;
+    protected int playerID;
 
     private IPlayerInput input;
-    public IPlayerInput inputBindings { set { input = value; } }
+    public IPlayerInput inputBindings { get { return input; } set { input = value; } }
 
     // Use this for initialization
     void Start () {
@@ -20,17 +20,17 @@ public class RegisteredPlayer : MonoBehaviour {
     /// A constructor-style initializer.
     /// </summary>
     /// <param name="inputBindings"></param>
-    public void Initalize(IPlayerInput inputBindings, int playerNumber)
+    public void Initalize(IPlayerInput inputBindings, int playerID)
     {
         this.inputBindings = inputBindings;
-        this.playerNumber = playerNumber;
+        this.playerID = playerID;
     }
 
     void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         if (arg0.name == Tags.Scenes.CharacterSelect)
         {
-            CharacterSelectCursorNetworkedData.Main.CreateCharacterSelectCursor(input, (byte)playerNumber);
+            CharacterSelectCursorNetworkedData.Main.CreateCharacterSelectCursor(input, (byte)playerID);
         }
     }
 }

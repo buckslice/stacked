@@ -118,14 +118,11 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         options.Receivers = ReceiverGroup.Others;
 
         //Send the event to create the remote copies
-        Debug.Log("BeforeRaiseEvent");
         PhotonNetwork.RaiseEvent((byte)Tags.EventCodes.CREATEPLAYER, payloadData, true, options);
-        Debug.Log("AfterRaiseEvent");
     }
 
     public void OnEvent(byte eventcode, object content, int senderid)
     {
-        Debug.Log("Event Raised " + eventcode);
         if (eventcode != (byte)Tags.EventCodes.CREATEPLAYER)
         {
             return;
