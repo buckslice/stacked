@@ -75,7 +75,7 @@ public class DashAbility : AbstractAbilityAction
 
     protected IEnumerator DurationRoutine(Vector3 startPosition, Vector3 endPosition, float startTime, float endTime)
     {
-        movement.controlEnabled = false;
+        movement.controlEnabled += false;
         movement.haltMovement();
         rigid.rotation = Quaternion.LookRotation(endPosition - startPosition);
 
@@ -84,11 +84,10 @@ public class DashAbility : AbstractAbilityAction
             float lerpProgress = Mathf.InverseLerp(startTime, endTime, Time.time);
             rigid.MovePosition(Vector3.Lerp(startPosition, endPosition, lerpProgress));
             yield return null;
-            movement.controlEnabled = false;
         }
 
         rigid.MovePosition(endPosition);
-        movement.controlEnabled = true;
+        movement.controlEnabled -= false;
         movement.setVelocity((endPosition - startPosition).normalized);
     }
 }

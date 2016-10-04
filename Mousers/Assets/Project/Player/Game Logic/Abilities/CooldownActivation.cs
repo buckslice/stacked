@@ -48,7 +48,7 @@ public class CooldownActivation : MonoBehaviour, IAbilityActivation, IAbilityKey
     public AbilityKeybinding Binding { get { return binding; } set { binding = value; } }
 
     [SerializeField]
-    protected float cooldownSecs = 1;
+    protected MultiplierFloatStat cooldownSecs = new MultiplierFloatStat(1);
 
     public event ActivateAbility abilityActivationEvent = delegate { };
 

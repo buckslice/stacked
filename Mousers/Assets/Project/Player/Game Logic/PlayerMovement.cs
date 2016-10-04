@@ -8,13 +8,13 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField]
-    protected float speed = 6;
+    protected MultiplierFloatStat speed = new MultiplierFloatStat(6);
 
     [SerializeField]
-    protected float rotationSpeedDegrees = 360;
+    protected MultiplierFloatStat rotationSpeedDegrees = new MultiplierFloatStat(360);
 
     [SerializeField]
-    protected float acceleration = 50;
+    protected MultiplierFloatStat acceleration = new MultiplierFloatStat(50);
 
     [SerializeField]
     protected double bufferDelaySecs = 0.2f;
@@ -24,13 +24,13 @@ public class PlayerMovement : MonoBehaviour
     /// If disabled, this will not make any modifications at all to the player's position or velocity.
     /// </summary>
     [SerializeField]
-    public bool controlEnabled = true;
+    public AllBoolStat controlEnabled = new AllBoolStat(true);
 
     [SerializeField]
-    public bool movementInputEnabled = true;
+    public AllBoolStat movementInputEnabled = new AllBoolStat(true);
 
     [SerializeField]
-    public bool RotationInputEnabled = true;
+    public AllBoolStat RotationInputEnabled = new AllBoolStat(true);
 
     Rigidbody rigid;
     PhotonView view;
