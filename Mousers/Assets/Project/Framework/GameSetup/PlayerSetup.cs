@@ -36,10 +36,15 @@ public class PlayerSetup : MonoBehaviour {
 
     //additional player data goes here
 
-    void Awake () {
+    protected virtual void Awake () {
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         DontDestroyOnLoad(this.transform.root.gameObject);
 	}
+
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
+    }
 
     /// <summary>
     /// A constructor-style initializer.
@@ -56,11 +61,11 @@ public class PlayerSetup : MonoBehaviour {
     {
         //TODO: maybe make sure it's the right scene?
         PlayerSetupNetworkedData.Main.CreatePlayer((byte)playerID, input, playerData);
-        SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
         Destroy(this.transform.root.gameObject);
         //player was created, our job is done. May want to change this so that the player's spawning data is persisted.
     }
 	
+    /*
 	void Update () {
         // temp to just test spawning a boss
 
@@ -69,4 +74,5 @@ public class PlayerSetup : MonoBehaviour {
         }
             
 	}
+     * */
 }

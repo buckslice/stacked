@@ -2,20 +2,20 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 /// <summary>
-/// Intended to be used for development only, in order to mock a registered player isntead of going through player registration.
+/// Intended to be used for development only, in order to mock a player isntead of going through character select.
 /// </summary>
-public class AutomaticallyRegisteredKeyboardPlayer : RegisteredPlayer {
+public class AutomaticKeyboardPlayerSetup : PlayerSetup
+{
     protected override void Awake()
     {
         base.Awake();
         Assert.IsTrue(MouserNetworking.Main.NetworkingMode != MouserNetworkingMode.ONLINE); //we aren't hooked up correctly for online
-        RegisteredPlayer[] otherRegisteredPlayers = GameObject.FindObjectsOfType<RegisteredPlayer>();
-        foreach (RegisteredPlayer otherRegisteredPlayer in otherRegisteredPlayers)
+        PlayerSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<PlayerSetup>();
+        foreach (PlayerSetup otherPlayerSetup in otherPlayerSetups)
         {
-            if (this != otherRegisteredPlayer)
+            if (this != otherPlayerSetup)
             {
                 DestroyImmediate(this.transform.root.gameObject);
             }

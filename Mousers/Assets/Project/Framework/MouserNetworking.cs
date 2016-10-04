@@ -13,6 +13,7 @@ public class MouserNetworking : MonoBehaviour {
 
     [SerializeField]
     protected MouserNetworkingMode networkingMode;
+    public MouserNetworkingMode NetworkingMode { get { return networkingMode; } }
 
     /// <summary>
     /// Version number used to filter rooms and prevent version mis-matches.
