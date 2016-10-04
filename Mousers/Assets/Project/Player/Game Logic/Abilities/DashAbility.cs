@@ -20,7 +20,7 @@ public class DashAbility : AbstractAbilityAction
     protected override void Start()
     {
         base.Start();
-        coll = GetComponentInParent<CapsuleCollider>();
+        coll = transform.root.GetComponentInChildren<CapsuleCollider>();
         rigid = GetComponentInParent<Rigidbody>();
         movement = GetComponentInParent<PlayerMovement>();
 

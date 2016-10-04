@@ -33,4 +33,9 @@ public class Health : MonoBehaviour {
         //    }
         //}
 	}
+
+    public void Damage(float amount)
+    {
+        health -= amount;
+    }
 }
