@@ -45,4 +45,5 @@ MonoBehaviour:
   - RPCActivate
   - CreateRemoteCharacterSelectCursor
   - NetworkedActivationRPC
+  - NetworkedActivationWithDataRPC
   DisableAutoOpenWizard: 1

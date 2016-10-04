@@ -13,6 +13,16 @@ public interface IAbilityActivation
     event ActivateAbility abilityActivationEvent;
 }
 
+public delegate void ActivateAbilityWithData(object data);
+
+/// <summary>
+/// Anything which sends out an event, designed to be used when activating abilities
+/// </summary>
+public interface IAbilityActivationWithData
+{
+    event ActivateAbilityWithData abilityActivationWithDataEvent;
+}
+
 /// <summary>
 /// An IAbilityActivation that triggers based on player input.
 /// </summary>

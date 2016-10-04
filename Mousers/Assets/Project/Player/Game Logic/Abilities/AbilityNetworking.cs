@@ -11,6 +11,7 @@ using System.Collections.Generic;
 public class AbilityNetworking : MonoBehaviour {
 
     const string networkedActivationRPCName = "NetworkedActivationRPC";
+    const string networkedActivationWithDataRPC = "NetworkedActivationWithDataRPC";
 
     /// <summary>
     /// A collection of abilities to add as networkedAbilities. If an ability is in this collection, do not add it again via scripting. Intended for drag-and-drop inspector initialization.
@@ -129,9 +130,28 @@ public class AbilityNetworking : MonoBehaviour {
         ActivateRemote(getNetworkedAbilityId(ability));
     }
 
+    /// <summary>
+    /// Tells other clients to activate the ability on their end.
+    /// </summary>
+    public void ActivateRemoteWithData(byte networkedAbilityId, object data)
+    {
+        view.RPC(networkedActivationWithDataRPC, PhotonTargets.Others, networkedAbilityId, data);
+    }
+
+    public void ActivateRemoteWithData(NetworkedAbilityActivation ability, object data)
+    {
+        ActivateRemoteWithData(getNetworkedAbilityId(ability), data);
+    }
+
     [PunRPC]
     public void NetworkedActivationRPC(byte networkedAbilityId, PhotonMessageInfo info)
     {
         abilityActivations[networkedAbilityId].ActivateLocal();
+    }
+
+    [PunRPC]
+    public void NetworkedActivationWithDataRPC(byte networkedAbilityId, object data, PhotonMessageInfo info)
+    {
+        abilityActivations[networkedAbilityId].ActivateLocalWithData(data);
     }
 }

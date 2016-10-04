@@ -6,9 +6,11 @@ using System.Collections.Generic;
 /// <summary>
 /// Networking component placed on an ability. 
 /// </summary>
-public class NetworkedAbilityActivation : MonoBehaviour, IAbilityActivation {
+public class NetworkedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityActivationWithData {
 
     public event ActivateAbility abilityActivationEvent = delegate { };
+
+    public event ActivateAbilityWithData abilityActivationWithDataEvent = delegate { };
 
     AbilityNetworking abilityNetwork;
 
@@ -30,10 +32,26 @@ public class NetworkedAbilityActivation : MonoBehaviour, IAbilityActivation {
     }
 
     /// <summary>
+    /// Activates the ability on this local client.
+    /// </summary>
+    public void ActivateLocalWithData(object data)
+    {
+        abilityActivationWithDataEvent(data);
+    }
+
+    /// <summary>
     /// Tells other clients to activate this ability on their end.
     /// </summary>
     public void ActivateRemote()
     {
         abilityNetwork.ActivateRemote(this);
+    }
+
+    /// <summary>
+    /// Tells other clients to activate this ability on their end.
+    /// </summary>
+    public void ActivateRemoteWithData(object data)
+    {
+        abilityNetwork.ActivateRemoteWithData(this, data);
     }
 }

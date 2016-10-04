@@ -23,7 +23,18 @@ public abstract class AbstractAbilityAction : MonoBehaviour {
         {
             activation.abilityActivationEvent += activation_abilityActivationEvent;
         }
+
+        foreach (IAbilityActivationWithData activation in GetComponentsInParent<IAbilityActivationWithData>())
+        {
+            activation.abilityActivationWithDataEvent += activation_abilityActivationWithDataEvent;
+        }
 	}
+
+    //delegate for IAbilityActivationWithData.abilityActivationWithDataEvent
+    void activation_abilityActivationWithDataEvent(object data)
+    {
+        ActivateWithData(data);
+    }
 
     //delegate for IAbilityActivation.abilityActivationEvent
     public void activation_abilityActivationEvent()
@@ -33,6 +44,11 @@ public abstract class AbstractAbilityAction : MonoBehaviour {
     }
 
     public abstract void Activate();
+
+    /// <summary>
+    /// Can just call activate, if no data is used. The only intended use is for networking, where local data is not available.
+    /// </summary>
+    public abstract void ActivateWithData(object data);
 
     /// <summary>
     /// In this function, do all code related to activating the ability on other clients. Can be empty.

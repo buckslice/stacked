@@ -4,12 +4,14 @@ using System.Collections;
 public class SelectAbility : AbstractAbilityAction {
     private bool selected;
     private CharacterSelectCursor cursor;
+
     protected override void Start()
     {
         base.Start();
         cursor = GetComponentInParent<CharacterSelectCursor>();
         selected = false;
     }
+
     public override void Activate()
     {
         if (!selected && cursor.CurrentSelection != null)
@@ -22,6 +24,11 @@ public class SelectAbility : AbstractAbilityAction {
             }
             selected = true;
         }
+    }
+
+    public override void ActivateWithData(object data)
+    {
+        Activate();
     }
 
     public override void ActivateRemote()
