@@ -11,15 +11,17 @@ public class AutomaticKeyboardPlayerSetup : PlayerSetup
     protected override void Awake()
     {
         base.Awake();
-        Assert.IsTrue(MouserNetworking.Main.NetworkingMode != MouserNetworkingMode.ONLINE); //we aren't hooked up correctly for online
         PlayerSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<PlayerSetup>();
         foreach (PlayerSetup otherPlayerSetup in otherPlayerSetups)
         {
             if (this != otherPlayerSetup)
             {
                 DestroyImmediate(this.transform.root.gameObject);
+                return;
             }
         }
         inputBindings = new KeyboardMousePlayerInput();
+
+        Assert.IsTrue(MouserNetworking.Main.NetworkingMode != MouserNetworkingMode.ONLINE); //we aren't hooked up correctly for online
     }
 }

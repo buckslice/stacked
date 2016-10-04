@@ -11,15 +11,17 @@ public class AutomaticallyRegisteredKeyboardPlayer : RegisteredPlayer {
     protected override void Awake()
     {
         base.Awake();
-        Assert.IsTrue(MouserNetworking.Main.NetworkingMode != MouserNetworkingMode.ONLINE); //we aren't hooked up correctly for online
         RegisteredPlayer[] otherRegisteredPlayers = GameObject.FindObjectsOfType<RegisteredPlayer>();
         foreach (RegisteredPlayer otherRegisteredPlayer in otherRegisteredPlayers)
         {
             if (this != otherRegisteredPlayer)
             {
                 DestroyImmediate(this.transform.root.gameObject);
+                return;
             }
         }
         inputBindings = new KeyboardMousePlayerInput();
+
+        Assert.IsTrue(MouserNetworking.Main.NetworkingMode != MouserNetworkingMode.ONLINE); //we aren't hooked up correctly for online
     }
 }

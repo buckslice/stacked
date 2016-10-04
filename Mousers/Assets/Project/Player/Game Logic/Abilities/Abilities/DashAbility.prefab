@@ -19,9 +19,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014039844362}
-  - 114: {fileID: 114000014183890708}
-  - 114: {fileID: 114000011382864308}
   - 114: {fileID: 114000011024181888}
+  - 114: {fileID: 114000014183890708}
+  - 114: {fileID: 114000011455461776}
+  - 114: {fileID: 114000011621025010}
+  - 114: {fileID: 114000011382864308}
   m_Layer: 0
   m_Name: DashAbility
   m_TagString: Untagged
@@ -53,8 +55,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0021636dd9b5c341ba19d11a8f6cb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  binding: 0
-  cooldownSecs: 1
 --- !u!114 &114000011382864308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -68,6 +68,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashDistance: 10
   dashDuration: 0.15
+--- !u!114 &114000011455461776
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010448150684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3ad46a3f5ccc94dab71c68ed665c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  binding: 0
+--- !u!114 &114000011621025010
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010448150684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf36f703a73ffe4fba72f46c8efa423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownSecs:
+    baseValue: 1
 --- !u!114 &114000014183890708
 MonoBehaviour:
   m_ObjectHideFlags: 1

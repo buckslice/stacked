@@ -21,6 +21,8 @@ GameObject:
   - 4: {fileID: 4000012801021562}
   - 114: {fileID: 114000014039374012}
   - 114: {fileID: 114000010991929708}
+  - 114: {fileID: 114000012625083602}
+  - 114: {fileID: 114000012624550474}
   - 114: {fileID: 114000011851592172}
   m_Layer: 0
   m_Name: Selection
@@ -120,8 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0021636dd9b5c341ba19d11a8f6cb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  binding: 0
-  cooldownSecs: 1
 --- !u!114 &114000011851592172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,6 +149,31 @@ MonoBehaviour:
   playerNumber: 0
   bufferDelaySecs: 0.20000000298023224
   controlEnabled: 1
+--- !u!114 &114000012624550474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010664146774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf36f703a73ffe4fba72f46c8efa423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownSecs:
+    baseValue: 1
+--- !u!114 &114000012625083602
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010664146774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca3ad46a3f5ccc94dab71c68ed665c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  binding: 0
 --- !u!114 &114000013037090738
 MonoBehaviour:
   m_ObjectHideFlags: 1

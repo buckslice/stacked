@@ -6,6 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Component designed to receive events from IAbilityActivations, and perform actions. There can and should be many of these making up a single ability.
 /// </summary>
+[RequireComponent(typeof(AbilityActivation))]
 [RequireComponent(typeof(NetworkedAbilityActivation))]
 public abstract class AbstractAbilityAction : MonoBehaviour {
 
