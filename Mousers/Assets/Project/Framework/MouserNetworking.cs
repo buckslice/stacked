@@ -80,6 +80,18 @@ public class MouserNetworking : MonoBehaviour {
         Debug.Log(PhotonNetwork.isMasterClient ? "You are the master client" : "You are not the master client");
         Debug.LogFormat("Ping: {0}", PhotonNetwork.GetPing());
     }
+
+    public static void RaiseEvent(byte eventCode, object eventContent, bool sendReliable, RaiseEventOptions options)
+    {
+        if (!PhotonNetwork.RaiseEvent(eventCode, eventContent, sendReliable, options))
+        {
+            //raise event doesn't properly support offline mode *grumble* *grumble*
+            if (options.Receivers != ReceiverGroup.Others)
+            {
+                PhotonNetwork.OnEventCall(eventCode, eventContent, PhotonNetwork.player.ID);
+            }
+        }
+    }
 }
 
 /// <summary>
