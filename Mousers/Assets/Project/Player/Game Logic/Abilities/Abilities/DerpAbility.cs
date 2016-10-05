@@ -48,7 +48,10 @@ public class DerpAbility : AbstractAbilityAction {
     {
         GameObject[] listToHit = GameObject.FindGameObjectsWithTag(Tags.Boss);
         foreach(GameObject enemy in listToHit){
-            enemy.GetComponent<Boss>().health = enemy.GetComponent<Boss>().health - 10;
+            Health enemyHealth = enemy.GetComponent<Health>();
+            if (enemyHealth) {
+                enemyHealth.Damage(10);
+            }
         }
     }
 }

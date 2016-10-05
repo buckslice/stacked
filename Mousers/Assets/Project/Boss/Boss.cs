@@ -12,9 +12,6 @@ public class Boss : MonoBehaviour {
 
     NavMeshAgent agent;
 
-    //temporary boss health
-    public float health = 100;
-
     // Use this for initialization
     void Start() {
         agent = GetComponent<NavMeshAgent>();
@@ -39,10 +36,6 @@ public class Boss : MonoBehaviour {
 
         ChaseAggroHolder();
 
-        //temporary death system
-        if (health <= 0) {
-            Destroy(gameObject);
-        }
     }
 
     // this function changes aggro if a player has surpassed current aggro holder by more than the threshold

@@ -64,15 +64,5 @@ public class PlayerSetup : MonoBehaviour {
         Destroy(this.transform.root.gameObject);
         //player was created, our job is done. May want to change this so that the player's spawning data is persisted.
     }
-	
-    /*
-	void Update () {
-        // temp to just test spawning a boss
 
-        if (Input.GetKeyDown(KeyCode.P)) {
-            PhotonNetwork.Instantiate(Tags.Resources.Boss, new Vector3(Random.Range(-40, 40), 0.0f, Random.Range(-40, 40)), Quaternion.identity, 0);
-        }
-            
-	}
-     * */
 }

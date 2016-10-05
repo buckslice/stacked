@@ -5,6 +5,7 @@ using System.Collections;
 public class SpawnPrefab : MonoBehaviour {
     
     public Object prefab;
+    public string gameObjectName;
     public float spawnDelay = 5.0f;
 
 	// Use this for initialization
@@ -15,6 +16,9 @@ public class SpawnPrefab : MonoBehaviour {
 	}
 	
 	void Spawn() {
-        Instantiate(prefab, transform.position, transform.rotation);
+        GameObject go = (GameObject)Instantiate(prefab, transform.position, transform.rotation);
+        if (gameObjectName.Length > 0) {
+            go.name = gameObjectName;
+        }
     }
 }

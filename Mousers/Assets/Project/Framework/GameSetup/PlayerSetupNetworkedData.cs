@@ -150,6 +150,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     public void InstantiatePlayer(byte playerID, int allocatedViewId, IPlayerInput input, PlayerSetup.PlayerSetupData playerData)
     {
         GameObject player = (GameObject)Instantiate(basePlayerPrefab, Vector3.zero, Quaternion.identity); //TODO: use spawn point
+        player.name = "Player" + playerID;
 
         //assign view ID
         PhotonView toInitialize = player.GetComponent<PhotonView>();
@@ -160,14 +161,6 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
 
         //assign input bindings
         player.GetComponent<PlayerInputHolder>().heldInput = input;
-
-        //link health bar and UI
-        Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
-        Transform playerHealthBarGroup = canvasRoot.Find(Tags.UIPaths.PlayerHealthBarGroup);
-        GameObject healthBar = (GameObject)Instantiate(healthBarPrefab, playerHealthBarGroup);
-        healthBar.transform.localScale = Vector3.one;
-        HealthBar bar = healthBar.GetComponent<HealthBar>();
-        player.GetComponent<Health>().bar = bar;
 
         AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
 
