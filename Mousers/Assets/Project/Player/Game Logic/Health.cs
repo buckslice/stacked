@@ -13,11 +13,6 @@ public class Health : MonoBehaviour {
     void Awake() {
         maxHealth = health;
     }
-
-	// Use this for initialization
-	void Start () {
-
-	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -37,5 +32,19 @@ public class Health : MonoBehaviour {
     public void Damage(float amount)
     {
         health -= amount;
+        bar.SetPercent(health / maxHealth);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(health);
+        }
+        else
+        {
+            health = (float)stream.ReceiveNext();
+            bar.SetPercent(health / maxHealth);
+        }
     }
 }
