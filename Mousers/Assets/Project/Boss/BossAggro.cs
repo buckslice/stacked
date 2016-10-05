@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class Boss : MonoBehaviour {
+public class BossAggro : MonoBehaviour {
 
     List<float> aggroTable = new List<float>(); // a float for each player showing their current aggro to boss. The index is the player's playerID.
     int topAggroPlayer = -1;     // playerID of player who has most aggro. -1 for no player.
@@ -20,14 +20,16 @@ public class Boss : MonoBehaviour {
     void Start() {
         agent = GetComponent<NavMeshAgent>();
 
-        if (Player.AllPlayers.Count == 0)
+        foreach (Health health in GetComponentsInChildren<Health>())
         {
-            //nothing to do
-            return;
+            health.onDamage += health_onDamage;
         }
 
-        Player_playerListResized();
-        CheckAggro();
+        if (Player.AllPlayers.Count > 0)
+        {
+            Player_playerListResized();
+            CheckAggro();
+        }
     }
 
     void OnDestroy()
@@ -108,7 +110,9 @@ public class Boss : MonoBehaviour {
         aggroTable[topAggroPlayer] = 100;
     }
 
-    void OnCollisionEnter() {
-        // update aggro table based on damage taken from each player
+    //delegate called when we take damage, used to update aggro
+    void health_onDamage(float amount, int playerID)
+    {
+        aggroTable[playerID] += amount;
     }
 }

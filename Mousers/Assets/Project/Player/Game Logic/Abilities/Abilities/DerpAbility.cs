@@ -18,11 +18,13 @@ public class DerpAbility : AbstractAbilityAction {
         }
 	}
      * */
+    Player playerReference;
     CameraShakeScript cameraShakeScript;
 
     protected override void Start()
     {
         base.Start();
+        playerReference = GetComponentInParent<Player>();
         cameraShakeScript = Camera.main.GetComponent<CameraShakeScript>();
     }
 
@@ -47,10 +49,12 @@ public class DerpAbility : AbstractAbilityAction {
     private void DoDamage()
     {
         GameObject[] listToHit = GameObject.FindGameObjectsWithTag(Tags.Boss);
-        foreach(GameObject enemy in listToHit){
+        foreach (GameObject enemy in listToHit)
+        {
             Health enemyHealth = enemy.GetComponent<Health>();
-            if (enemyHealth) {
-                enemyHealth.Damage(10);
+            if (enemyHealth)
+            {
+                enemyHealth.Damage(10, playerReference);
             }
         }
     }

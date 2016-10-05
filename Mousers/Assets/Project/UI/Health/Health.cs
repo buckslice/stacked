@@ -5,6 +5,10 @@ using UnityEngine.UI;
 // add this script to anything that should have health and be damageable
 public class Health : MonoBehaviour {
 
+    public delegate void OnDamage(float amount, int playerID);
+
+    public event OnDamage onDamage = delegate { };
+
     [SerializeField]
     private float health = 100f;     // current health
     private float maxHealth;
@@ -76,6 +80,18 @@ public class Health : MonoBehaviour {
         if (bar) {
             bar.SetPercent(health / maxHealth);
         }
+    }
+
+    public void Damage(float amount, int playerID)
+    {
+        Damage(amount);
+        onDamage(amount, playerID);
+    }
+
+    public void Damage(float amount, Player playerReference)
+    {
+        Damage(amount);
+        onDamage(amount, playerReference.PlayerID);
     }
 
     public void Heal(float amount) {

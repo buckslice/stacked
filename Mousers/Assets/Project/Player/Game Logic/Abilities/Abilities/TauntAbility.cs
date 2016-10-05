@@ -28,7 +28,7 @@ public class TauntAbility : AbstractAbilityAction
         {
             if (col.transform.root.CompareTag(Tags.Boss))
             {
-                col.gameObject.GetComponentInParent<Boss>().SetTaunt(playerReference);
+                col.gameObject.GetComponentInParent<BossAggro>().SetTaunt(playerReference);
             }
         }
     }
