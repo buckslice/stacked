@@ -26,6 +26,7 @@ public static class Tags {
         public const string Vertical = "VerticalKeyboard";
 
         public const KeyCode Registering = KeyCode.Space;
+        public const KeyCode Starting = KeyCode.Return;
         public const KeyCode Ability1 = KeyCode.Q; 
         public const KeyCode Ability2 = KeyCode.E; 
 
@@ -37,6 +38,7 @@ public static class Tags {
             public const string VerticalAiming = "J1_VerticalAiming";
 
             public const KeyCode Registering = KeyCode.Joystick1Button0; //A
+            public const KeyCode Starting = KeyCode.Joystick1Button7; //Start
             public const KeyCode Ability1 = KeyCode.Joystick1Button0; //also A
             public const KeyCode Ability2 = KeyCode.Joystick1Button1; //B
         }
@@ -48,6 +50,7 @@ public static class Tags {
             public const string VerticalAiming = "J2_VerticalAiming";
 
             public const KeyCode Registering = KeyCode.Joystick2Button0; //A
+            public const KeyCode Starting = KeyCode.Joystick2Button7; //Start
             public const KeyCode Ability1 = KeyCode.Joystick2Button0; //also A
             public const KeyCode Ability2 = KeyCode.Joystick2Button1; //B
         }
@@ -59,6 +62,7 @@ public static class Tags {
             public const string VerticalAiming = "J3_VerticalAiming";
 
             public const KeyCode Registering = KeyCode.Joystick3Button0; //A
+            public const KeyCode Starting = KeyCode.Joystick3Button7; //Start
             public const KeyCode Ability1 = KeyCode.Joystick3Button0; //also A
             public const KeyCode Ability2 = KeyCode.Joystick3Button1; //B
         }
@@ -70,6 +74,7 @@ public static class Tags {
             public const string VerticalAiming = "J4_VerticalAiming";
 
             public const KeyCode Registering = KeyCode.Joystick4Button0; //A
+            public const KeyCode Starting = KeyCode.Joystick4Button7; //Start
             public const KeyCode Ability1 = KeyCode.Joystick4Button0; //also A
             public const KeyCode Ability2 = KeyCode.Joystick4Button1; //B
         }

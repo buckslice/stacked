@@ -15,6 +15,31 @@ public interface IPlayerInput : IPlayerInputHolder
 }
 
 /// <summary>
+/// Contains extension methods for PlayerInput.
+/// </summary>
+public static class PlayerInputExtension
+{
+    public static bool AnyKey(this IPlayerInputHolder self)
+    {
+        return self.getAbility1 ||
+            self.getAbility2 ||
+            self.getRegistering ||
+            self.getStarting;
+    }
+
+    public static bool AnyAxis(this IPlayerInputHolder self)
+    {
+        return self.movementDirection != Vector2.zero ||
+            self.rotationDirection != Vector3.zero;
+    }
+
+    public static bool AnyInput(this IPlayerInputHolder self)
+    {
+        return self.AnyKey() || self.AnyAxis();
+    }
+}
+
+/// <summary>
 /// Interface used to denote a class which is or holds an IPlayerInput.
 /// </summary>
 public interface IPlayerInputHolder
@@ -32,6 +57,11 @@ public interface IPlayerInputHolder
     /// </summary>
     /// <returns></returns>
     bool getRegistering { get; }
+    /// <summary>
+    /// GetKey for the start binding.
+    /// </summary>
+    /// <returns></returns>
+    bool getStarting { get; }
     /// <summary>
     /// GetKey for the player's first ability.
     /// </summary>
@@ -54,6 +84,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public Vector2 movementDirection { get { return heldInput.movementDirection; } }
     public Vector3 rotationDirection { get { return heldInput.rotationDirection; } }
     public bool getRegistering { get { return heldInput.getRegistering; } }
+    public bool getStarting { get { return heldInput.getStarting; } }
     public bool getAbility1 { get { return heldInput.getAbility1; } }
     public bool getAbility2 { get { return heldInput.getAbility2; } }
 
@@ -76,6 +107,7 @@ public class NullInput : IPlayerInput
     public Vector2 movementDirection { get { return Vector2.zero; } }
     public Vector3 rotationDirection { get { return Vector3.zero; } }
     public bool getRegistering { get { return false; } }
+    public bool getStarting { get { return false; } }
     public bool getAbility1 { get { return false; } }
     public bool getAbility2 { get { return false; } }
 }

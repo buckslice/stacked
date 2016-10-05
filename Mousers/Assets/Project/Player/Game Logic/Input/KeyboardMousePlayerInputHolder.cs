@@ -36,6 +36,8 @@ public class KeyboardMousePlayerInput : IPlayerInput
     [SerializeField]
     public KeyCode registeringKey = Tags.Input.Registering;
     [SerializeField]
+    public KeyCode startingKey = Tags.Input.Starting;
+    [SerializeField]
     public KeyCode ability1Key = Tags.Input.Ability1;
     [SerializeField]
     public KeyCode ability2Key = Tags.Input.Ability2;
@@ -66,6 +68,7 @@ public class KeyboardMousePlayerInput : IPlayerInput
         }
     }
     public bool getRegistering { get { return Input.GetKey(registeringKey); } }
+    public bool getStarting { get { return Input.GetKey(startingKey); } }
     public bool getAbility1 { get { return Input.GetKey(ability1Key); } }// || Input.GetMouseButton(0); } }
     public bool getAbility2 { get { return Input.GetKey(ability2Key); } }// || Input.GetMouseButton(1); } }
 }
