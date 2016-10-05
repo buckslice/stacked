@@ -8,11 +8,16 @@ using System.Collections.Generic;
 /// </summary>
 public class Player : MonoBehaviour {
 
-    static Dictionary<int, Player> allPlayers = new Dictionary<int, Player>();
+    public delegate void PlayerListResized();
+
+    static List<Player> allPlayers = new List<Player>();
+    public static List<Player> AllPlayers { get { return allPlayers; } }
+
+    public static event PlayerListResized playerListResized = delegate { };
 
     void OnDestroy()
     {
-        allPlayers.Remove(playerID);
+        allPlayers[playerID] = null;
     }
 
     [SerializeField]
@@ -33,7 +38,36 @@ public class Player : MonoBehaviour {
         }
 
         this.playerID = newPlayerID;
-        Assert.IsFalse(allPlayers.ContainsKey(playerID), "Duplicate PlayerIDs");
+
+        //ensure that our list-based lookup dictionary is large enough
+        if(playerID >= allPlayers.Count)
+        {
+            do
+            {
+                allPlayers.Add(null);
+            } 
+            while (playerID >= allPlayers.Count);
+
+            playerListResized();
+        }
+
+        Assert.IsTrue(allPlayers[playerID] == null, "Duplicate PlayerIDs");
         allPlayers[playerID] = this;
+    }
+
+    /// <summary>
+    /// Returns the first empty spot in the mapping of playerIDs
+    /// </summary>
+    /// <returns></returns>
+    public int getFirstFreePlayerID()
+    {
+        for (int i = 0; i < allPlayers.Count; i++)
+        {
+            if (allPlayers[i] == null)
+            {
+                return i;
+            }
+        }
+        return allPlayers.Count;
     }
 }

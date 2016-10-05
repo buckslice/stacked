@@ -5,29 +5,34 @@ using System.Collections.Generic;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Boss : MonoBehaviour {
 
-    List<GameObject> players;
-    List<float> aggroTable; // a float for each player showing their current aggro to boss
-    int topAggroPlayer;     // index of player who has most aggro
+    List<float> aggroTable = new List<float>(); // a float for each player showing their current aggro to boss. The index is the player's playerID.
+    int topAggroPlayer = -1;     // playerID of player who has most aggro. -1 for no player.
     const float aggroToSurpass = 1.0f; // amount of additional aggro needed to pull aggro
 
     NavMeshAgent agent;
+
+    void Awake()
+    {
+        Player.playerListResized += Player_playerListResized;
+    }
 
     // Use this for initialization
     void Start() {
         agent = GetComponent<NavMeshAgent>();
 
-        // find list of players (TODO REMOVE THIS AND USE A GLOBAL SYSTEM TO GET PLAYER LIST)
-        players = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.Player));
-        int numPlayers = players.Count;
-        Debug.Assert(numPlayers > 0);
-
-        // give everyone zero aggro
-        aggroTable = new List<float>(numPlayers);
-        for (int i = 0; i < numPlayers; ++i) {
-            aggroTable.Add(0.0f);
+        if (Player.AllPlayers.Count == 0)
+        {
+            //nothing to do
+            return;
         }
 
-        topAggroPlayer = Random.Range(0, numPlayers);    // give random player aggro
+        Player_playerListResized();
+        CheckAggro();
+    }
+
+    void OnDestroy()
+    {
+        Player.playerListResized -= Player_playerListResized;
     }
 
     // Update is called once per frame
@@ -38,9 +43,29 @@ public class Boss : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Delegate to increase the size of our aggro table when the player table expands
+    /// </summary>
+    void Player_playerListResized()
+    {
+        while (aggroTable.Count < Player.AllPlayers.Count)
+        {
+            if (Player.AllPlayers[aggroTable.Count] == null)
+            {
+                aggroTable.Add(0);
+            }
+            else
+            {
+                aggroTable.Add(aggroToSurpass * Random.value);
+            }
+        }
+
+        CheckAggro();
+    }
+
     // this function changes aggro if a player has surpassed current aggro holder by more than the threshold
     void CheckAggro() {
-        float topAggro = aggroTable[topAggroPlayer];
+        float topAggro = topAggroPlayer >= 0 ? aggroTable[topAggroPlayer] : 0;
 
         // find highest aggro in table
         int maxIndex = -1;
@@ -66,11 +91,20 @@ public class Boss : MonoBehaviour {
         //    targetPos = gameObject.transform.position;
         //}
         //agent.destination = targetPos;
-        agent.destination = players[topAggroPlayer].transform.position;
+        if (topAggroPlayer >= 0)
+        {
+            agent.destination = Player.AllPlayers[topAggroPlayer].transform.position;
+        }
     }
 
-    public void SetTaunt(GameObject taunter) {
-        topAggroPlayer = players.IndexOf(taunter);
+    public void SetTaunt(Player taunter) {
+        //reset and randomize all existing aggro
+        for (int i = 0; i < aggroTable.Count; i++)
+        {
+            aggroTable[i] = aggroToSurpass * Random.value;
+        }
+
+        topAggroPlayer = taunter.PlayerID;
         aggroTable[topAggroPlayer] = 100;
     }
 

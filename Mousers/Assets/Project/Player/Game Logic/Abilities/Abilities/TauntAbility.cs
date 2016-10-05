@@ -7,11 +7,18 @@ public class TauntAbility : AbstractAbilityAction
     protected float tauntRad = 20;
 
     int layermask;
+    Player playerReference;
 
     protected override void Awake()
     {
         base.Awake();
         layermask = LayerMask.GetMask(Tags.Layers.Default, Tags.Layers.Boss, Tags.Layers.Enemy);
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        playerReference = GetComponentInParent<Player>();
     }
 
     public override void Activate()
@@ -21,7 +28,7 @@ public class TauntAbility : AbstractAbilityAction
         {
             if (col.transform.root.CompareTag(Tags.Boss))
             {
-                col.gameObject.GetComponent<Boss>().SetTaunt(this.transform.root.gameObject);
+                col.gameObject.GetComponentInParent<Boss>().SetTaunt(playerReference);
             }
         }
     }
