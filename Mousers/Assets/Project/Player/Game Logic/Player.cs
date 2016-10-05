@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /// </summary>
 public class Player : MonoBehaviour {
 
-    static Dictionary<int, Player> allPlayers;
+    static Dictionary<int, Player> allPlayers = new Dictionary<int, Player>();
 
     void OnDestroy()
     {

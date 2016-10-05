@@ -12,7 +12,7 @@ public class CameraController : MonoBehaviour {
 
     // TODO make this change based on size of players bounds
     // that way if players are far apart camera will zoom out more to see them all
-    private const float camFollowDist = 30.0f;
+    public float camFollowDist = 30.0f;
 
 	// Use this for initialization
 	void Start () {

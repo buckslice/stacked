@@ -13,36 +13,23 @@ public class Health : MonoBehaviour {
     void Awake() {
         maxHealth = health;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         if (bar) {
             bar.SetPercent(health / maxHealth);
         }
+    }
 
-        //// this is temp!!!!! for testing...
-        //if (Input.GetKeyDown(KeyCode.Space)) {
-        //    health -= Random.Range(5.0f, 50.0f);
-        //    if(health < 0.0f) {
-        //        health = maxHealth;
-        //    }
-        //}
-	}
-
-    public void Damage(float amount)
-    {
+    public void Damage(float amount) {
         health -= amount;
         bar.SetPercent(health / maxHealth);
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.isWriting)
-        {
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
+        if (stream.isWriting) {
             stream.SendNext(health);
-        }
-        else
-        {
+        } else {
             health = (float)stream.ReceiveNext();
             bar.SetPercent(health / maxHealth);
         }

@@ -15,67 +15,68 @@ public class Boss : MonoBehaviour {
     //temporary boss health
     public float health = 100;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
         agent = GetComponent<NavMeshAgent>();
 
-        // find list of players
+        // find list of players (TODO REMOVE THIS AND USE A GLOBAL SYSTEM TO GET PLAYER LIST)
         players = new List<GameObject>(GameObject.FindGameObjectsWithTag(Tags.Player));
         int numPlayers = players.Count;
         Debug.Assert(numPlayers > 0);
 
         // give everyone zero aggro
         aggroTable = new List<float>(numPlayers);
-        for(int i = 0; i < numPlayers; ++i) {
+        for (int i = 0; i < numPlayers; ++i) {
             aggroTable.Add(0.0f);
         }
 
-        //topAggroPlayer = Random.Range(0, numPlayers);    // give random player aggro
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        //CheckAggro();
+        topAggroPlayer = Random.Range(0, numPlayers);    // give random player aggro
+    }
 
-        // walk towards top aggro player
-        Vector3 targetPos;
-        if (aggroTable[topAggroPlayer] > 0)
-        {
-            targetPos = players[topAggroPlayer].transform.position;
-        }
-        else
-        {
-            targetPos = this.gameObject.transform.position;
-        }
-        agent.destination = targetPos;
+    // Update is called once per frame
+    void Update() {
+        CheckAggro();
+
+        ChaseAggroHolder();
+
         //temporary death system
-        if (this.health <= 0)
-        {
-            Destroy(this.gameObject);
+        if (health <= 0) {
+            Destroy(gameObject);
         }
-	}
+    }
 
+    // this function changes aggro if a player has surpassed current aggro holder by more than the threshold
     void CheckAggro() {
         float topAggro = aggroTable[topAggroPlayer];
 
         // find highest aggro in table
         int maxIndex = -1;
         float maxAggro = -1;
-        for(int i = 0; i < aggroTable.Count; ++i) {
-            if(aggroTable[i] > maxAggro) {
+        for (int i = 0; i < aggroTable.Count; ++i) {
+            if (aggroTable[i] > maxAggro) {
                 maxIndex = i;
                 maxAggro = aggroTable[i];
             }
         }
 
         // pull aggro if surpass top players aggro
-        if(maxIndex != -1 && maxIndex != topAggroPlayer && maxAggro > topAggro + aggroToSurpass) {
+        if (maxIndex != -1 && maxIndex != topAggroPlayer && maxAggro > topAggro + aggroToSurpass) {
             topAggroPlayer = maxIndex;
         }
     }
 
-    public void SetTaunt(GameObject taunter)
-    {
+    void ChaseAggroHolder() {
+        //Vector3 targetPos;
+        //if (aggroTable[topAggroPlayer] > 0) {
+        //    targetPos = players[topAggroPlayer].transform.position;
+        //} else {
+        //    targetPos = gameObject.transform.position;
+        //}
+        //agent.destination = targetPos;
+        agent.destination = players[topAggroPlayer].transform.position;
+    }
+
+    public void SetTaunt(GameObject taunter) {
         topAggroPlayer = players.IndexOf(taunter);
         aggroTable[topAggroPlayer] = 100;
     }
