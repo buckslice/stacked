@@ -6,6 +6,7 @@ public class TitleScreen : MonoBehaviour {
 
     public void GoToMainMenu()
     {
+        SceneManager.LoadScene("MainMenu");
     }
     public void Play()
     {
