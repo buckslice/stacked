@@ -46,7 +46,7 @@ public class AbilityNetworking : MonoBehaviour {
         if (!view.isMine)
         {
             //we need to disable all input-related ability activation scripts
-            foreach (IAbilityInput inputActivation in GetComponentsInChildren<IAbilityInput>())
+            foreach (IAbilityTrigger inputActivation in GetComponentsInChildren<IAbilityTrigger>())
             {
                 ((MonoBehaviour)inputActivation).enabled = false;
             }

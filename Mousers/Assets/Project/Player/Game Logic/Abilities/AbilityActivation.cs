@@ -25,10 +25,12 @@ public interface IAbilityActivationWithData
     event ActivateAbilityWithData abilityActivationWithDataEvent;
 }
 
+/*
 /// <summary>
 /// An event that triggers based on player input.
 /// </summary>
 public interface IAbilityInput {}
+ * */
 
 public delegate void AbilityTrigger();
 
@@ -45,7 +47,7 @@ public enum AbilityKeybinding { ABILITY1, ABILITY2 };
 /// <summary>
 /// Interface indicating that this has a keybinding
 /// </summary>
-public interface IAbilityKeybound : IAbilityInput
+public interface IAbilityKeybound
 {
     AbilityKeybinding Binding { get; set; }
 }

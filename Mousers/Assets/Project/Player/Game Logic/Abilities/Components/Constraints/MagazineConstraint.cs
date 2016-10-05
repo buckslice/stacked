@@ -37,7 +37,8 @@ public class MagazineConstraint : AbstractAbilityConstraint {
         }
     }
 
-	void Awake () {
+	protected override void Awake () {
+        base.Awake();
         activationsRemaining = activationsInMagazine;
 	}
 
