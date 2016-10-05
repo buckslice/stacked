@@ -24,15 +24,15 @@ public class Player : MonoBehaviour {
     /// Constructor-like function to set up this class.
     /// </summary>
     /// <param name="playerID"></param>
-    public void Initialize(int playerID)
+    public void Initialize(int newPlayerID)
     {
         if (playerID != -1)
         {
-            Debug.LogError("Already initialized.");
+            Debug.LogErrorFormat(this, "Already initialized to {0}", playerID);
             return;
         }
 
-        this.playerID = playerID;
+        this.playerID = newPlayerID;
         Assert.IsFalse(allPlayers.ContainsKey(playerID), "Duplicate PlayerIDs");
         allPlayers[playerID] = this;
     }
