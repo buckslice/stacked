@@ -11,8 +11,9 @@ public class BossAggro : MonoBehaviour {
 
     NavMeshAgent agent;
 
-    void Awake()
-    {
+    float timer = 0.0f; // tracking time since creation
+
+    void Awake() {
         Player.playerListResized += Player_playerListResized;
     }
 
@@ -20,25 +21,25 @@ public class BossAggro : MonoBehaviour {
     void Start() {
         agent = GetComponent<NavMeshAgent>();
 
-        foreach (Health health in GetComponentsInChildren<Health>())
-        {
+        foreach (Health health in GetComponentsInChildren<Health>()) {
             health.onDamage += health_onDamage;
         }
 
-        if (Player.AllPlayers.Count > 0)
-        {
+        if (Player.AllPlayers.Count > 0) {
             Player_playerListResized();
-            CheckAggro();
         }
+
+        topAggroPlayer = Random.Range(0, Player.AllPlayers.Count);
     }
 
-    void OnDestroy()
-    {
+    void OnDestroy() {
         Player.playerListResized -= Player_playerListResized;
     }
 
     // Update is called once per frame
     void Update() {
+        timer += Time.deltaTime;
+
         CheckAggro();
 
         ChaseAggroHolder();
@@ -48,16 +49,11 @@ public class BossAggro : MonoBehaviour {
     /// <summary>
     /// Delegate to increase the size of our aggro table when the player table expands
     /// </summary>
-    void Player_playerListResized()
-    {
-        while (aggroTable.Count < Player.AllPlayers.Count)
-        {
-            if (Player.AllPlayers[aggroTable.Count] == null)
-            {
+    void Player_playerListResized() {
+        while (aggroTable.Count < Player.AllPlayers.Count) {
+            if (Player.AllPlayers[aggroTable.Count] == null) {
                 aggroTable.Add(0);
-            }
-            else
-            {
+            } else {
                 aggroTable.Add(aggroToSurpass * Random.value);
             }
         }
@@ -93,16 +89,14 @@ public class BossAggro : MonoBehaviour {
         //    targetPos = gameObject.transform.position;
         //}
         //agent.destination = targetPos;
-        if (topAggroPlayer >= 0)
-        {
+        if (topAggroPlayer >= 0) {
             agent.destination = Player.AllPlayers[topAggroPlayer].transform.position;
         }
     }
 
     public void SetTaunt(Player taunter) {
         //reset and randomize all existing aggro
-        for (int i = 0; i < aggroTable.Count; i++)
-        {
+        for (int i = 0; i < aggroTable.Count; i++) {
             aggroTable[i] = aggroToSurpass * Random.value;
         }
 
@@ -111,8 +105,7 @@ public class BossAggro : MonoBehaviour {
     }
 
     //delegate called when we take damage, used to update aggro
-    void health_onDamage(float amount, int playerID)
-    {
+    void health_onDamage(float amount, int playerID) {
         aggroTable[playerID] += amount;
     }
 }
