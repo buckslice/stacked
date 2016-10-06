@@ -17,7 +17,8 @@ public static class Tags {
         CREATEREMOTECHARACTERSELECTCURSOR,
         CREATEPLAYER,
         REQUESTREGISTRATION,
-        CREATEREGISTRATION
+        CREATEREGISTRATION,
+        CREATEBOSS,
     };
 
     public static class Input

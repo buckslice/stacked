@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000012340469498}
   - 114: {fileID: 114000013222957148}
   - 114: {fileID: 114000012569888046}
+  - 114: {fileID: 114000013090542758}
   m_Layer: 0
   m_Name: DontDestroyOnLoadDataScripts
   m_TagString: Untagged
@@ -61,6 +62,22 @@ MonoBehaviour:
   - {fileID: 1000010313918382, guid: 5d22f0f9f6fdac5408b35f55e6e8d32e, type: 2}
   - {fileID: 1000010448150684, guid: 053f279c3eae91940b612700c5387587, type: 2}
   - {fileID: 1000011145814480, guid: b8b2f63a1c352ae429fe37a405e1e834, type: 2}
+--- !u!114 &114000013090542758
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010001954262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62086a4f3388f1d469f2518af95f0306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseBossPrefab: {fileID: 1000012221291214, guid: 9746dbe808fe8fb4eb1e9b54fea252ae,
+    type: 2}
+  healthBarPrefab: {fileID: 1000011406441348, guid: cf67071413b28654ba45234c318dbf33,
+    type: 2}
+  abilityPrefabs: []
 --- !u!114 &114000013222957148
 MonoBehaviour:
   m_ObjectHideFlags: 1
