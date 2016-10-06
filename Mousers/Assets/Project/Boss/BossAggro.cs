@@ -26,11 +26,14 @@ public class BossAggro : MonoBehaviour {
             health.onDamage += health_onDamage;
         }
 
+        //ensure aggroTable matches playerList
         if (Player.AllPlayers.Count > 0) {
             Player_playerListResized();
         }
 
-        topAggroPlayer = Random.Range(0, Player.AllPlayers.Count);
+        do {
+            topAggroPlayer = Random.Range(0, Player.AllPlayers.Count);
+        } while (topAggroPlayer < 0 || Player.AllPlayers[topAggroPlayer] == null); //TODO: refactor to be a linear search for all non-null elements
     }
 
     void OnDestroy() {

@@ -11,15 +11,14 @@ public class CooldownConstraint : AbstractAbilityConstraint {
     [SerializeField]
     protected MultiplierFloatStat cooldownSecs = new MultiplierFloatStat(1);
 
-    float lastActivationTime = -9999;
+    protected float lastActivationTime = -9999;
+    public virtual float LastActivationTime { get { return lastActivationTime; } }
 
-    public override bool isAbilityActivatible()
-    {
+    public override bool isAbilityActivatible() {
         return Time.time >= lastActivationTime + cooldownSecs;
     }
 
-    public override void Activate()
-    {
+    public override void Activate() {
         lastActivationTime = Time.time;
     }
 }
