@@ -10,6 +10,7 @@ public class BossAggro : MonoBehaviour {
     const float aggroToSurpass = 1.0f; // amount of additional aggro needed to pull aggro
 
     NavMeshAgent agent;
+    public bool shouldChase = true;
 
     float timer = 0.0f; // tracking time since creation
 
@@ -42,7 +43,13 @@ public class BossAggro : MonoBehaviour {
 
         CheckAggro();
 
-        ChaseAggroHolder();
+        if (shouldChase) {
+            if (topAggroPlayer >= 0) {
+                agent.destination = Player.AllPlayers[topAggroPlayer].transform.position;
+            }
+        } else {
+            agent.ResetPath();
+        }
 
     }
 
@@ -78,19 +85,6 @@ public class BossAggro : MonoBehaviour {
         // pull aggro if surpass top players aggro
         if (maxIndex != -1 && maxIndex != topAggroPlayer && maxAggro > topAggro + aggroToSurpass) {
             topAggroPlayer = maxIndex;
-        }
-    }
-
-    void ChaseAggroHolder() {
-        //Vector3 targetPos;
-        //if (aggroTable[topAggroPlayer] > 0) {
-        //    targetPos = players[topAggroPlayer].transform.position;
-        //} else {
-        //    targetPos = gameObject.transform.position;
-        //}
-        //agent.destination = targetPos;
-        if (topAggroPlayer >= 0) {
-            agent.destination = Player.AllPlayers[topAggroPlayer].transform.position;
         }
     }
 
