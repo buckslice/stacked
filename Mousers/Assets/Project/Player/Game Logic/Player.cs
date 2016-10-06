@@ -25,6 +25,14 @@ public class Player : MonoBehaviour {
 
     public int PlayerID { get { return playerID; } }
 
+    public virtual bool isPlayer() { return true; }
+
+    [ReadOnly]
+    [SerializeField]
+    protected float damageDealt = 0;
+    public float DamageDealt { get { return damageDealt; } }
+    public void AddDamageDealt(float damage) { damageDealt += damage; }
+
     /// <summary>
     /// Constructor-like function to set up this class.
     /// </summary>

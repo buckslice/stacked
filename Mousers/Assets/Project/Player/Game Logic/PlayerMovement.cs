@@ -105,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
     public void haltMovement()
     {
         rigid.velocity = Vector3.zero;
+        rigid.angularVelocity = Vector3.zero;
     }
 
     public void setVelocity(Vector3 worldDirectionNormalized)
