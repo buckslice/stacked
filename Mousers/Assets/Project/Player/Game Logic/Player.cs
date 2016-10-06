@@ -31,7 +31,7 @@ public class Player : MonoBehaviour {
     [SerializeField]
     protected float damageDealt = 0;
     public float DamageDealt { get { return damageDealt; } }
-    public void AddDamageDealt(float damage) { damageDealt += damage; }
+    public virtual void AddDamageDealt(float damage) { damageDealt += damage; }
 
     /// <summary>
     /// Constructor-like function to set up this class.
@@ -39,6 +39,8 @@ public class Player : MonoBehaviour {
     /// <param name="playerID"></param>
     public void Initialize(int newPlayerID)
     {
+        Assert.IsTrue(newPlayerID < 256, "Too many players for byte networked IDs");
+
         if (playerID != -1)
         {
             Debug.LogErrorFormat(this, "Already initialized to {0}", playerID);
@@ -67,7 +69,7 @@ public class Player : MonoBehaviour {
     /// Returns the first empty spot in the mapping of playerIDs
     /// </summary>
     /// <returns></returns>
-    public int getFirstFreePlayerID()
+    public static int getFirstFreePlayerID()
     {
         for (int i = 0; i < allPlayers.Count; i++)
         {

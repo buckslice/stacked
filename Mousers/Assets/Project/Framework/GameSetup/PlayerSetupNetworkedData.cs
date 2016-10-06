@@ -13,8 +13,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     /// <summary>
     /// When an ability prefab is created, it needs to be registered here. Do not remove legacy abilities. Order matters.
     /// </summary>
-    public enum AbilityId : byte
-    {
+    public enum AbilityId : byte {
         DERP,
         DASH,
         TAUNT,
@@ -22,6 +21,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         SHIELD,
         RESIST,
         MACHINEGUN,
+        SPAWNADD,
     }
 
     static PlayerSetupNetworkedData main;
@@ -41,10 +41,8 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     /// </summary>
     public GameObject[] abilityPrefabs;
 
-    void Awake()
-    {   
-        if (main != null)
-        {
+    void Awake() {
+        if (main != null) {
             PhotonNetwork.OnEventCall -= Main.OnEvent;
             Destroy(Main.transform.root.gameObject);
         }
@@ -53,17 +51,14 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         PhotonNetwork.OnEventCall += OnEvent;
     }
 
-    void OnDestroy()
-    {
-        if (Main == this)
-        {
+    void OnDestroy() {
+        if (Main == this) {
             main = null;
         }
         PhotonNetwork.OnEventCall -= OnEvent;
     }
 
-    GameObject abilityIdToPrefab(AbilityId id)
-    {
+    GameObject abilityIdToPrefab(AbilityId id) {
         int index = (int)id;
         Assert.IsTrue(index < abilityPrefabs.Length); //check to make sure the ability ID data is self-consistent
         return abilityPrefabs[index];
@@ -74,16 +69,13 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     /// </summary>
     /// <param name="ability"></param>
     /// <param name="binding"></param>
-    void Rebind(GameObject ability, AbilityKeybinding newBinding)
-    {
-        foreach (IAbilityKeybound binding in ability.GetComponentsInChildren<IAbilityKeybound>())
-        {
+    void Rebind(GameObject ability, AbilityKeybinding newBinding) {
+        foreach (IAbilityKeybound binding in ability.GetComponentsInChildren<IAbilityKeybound>()) {
             binding.Binding = newBinding;
         }
     }
 
-    GameObject InstantiateAbility(AbilityId ability, Transform parent, AbilityNetworking abilityNetworking)
-    {
+    GameObject InstantiateAbility(AbilityId ability, Transform parent, AbilityNetworking abilityNetworking) {
         GameObject instantiatedAbility = (GameObject)Instantiate(abilityIdToPrefab(ability), parent);
         instantiatedAbility.transform.Reset();
         abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<NetworkedAbilityActivation>());
@@ -94,13 +86,13 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     /// Creates a Player on all clients, owned by the local client. Assumes all clients have already connected.
     /// </summary>
     /// <param name="input"></param>
-    /// <param name="playerNumber"></param>
-    public void CreatePlayer(byte playerNumber, IPlayerInput input, PlayerSetup.PlayerSetupData playerData)
+    /// <param name="playerID"></param>
+    public GameObject CreatePlayer(byte playerID, IPlayerInput input, PlayerSetup.PlayerSetupData playerData)
     {
         int allocatedViewId = PhotonNetwork.AllocateViewID();
 
         //Create our local copy
-        InstantiatePlayer(playerNumber, allocatedViewId, input, playerData);
+        GameObject player = InstantiatePlayer(playerID, allocatedViewId, input, playerData);
 
         //Create the network payload to send for remote copies
 
@@ -113,7 +105,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
             serializedData = memoryStream.ToArray();
         }
         byte[] payloadData = new byte[serializedData.Length + 5];
-        payloadData[0] = playerNumber;
+        payloadData[0] = playerID;
         System.BitConverter.GetBytes(allocatedViewId).CopyTo(payloadData, 1);
         serializedData.CopyTo(payloadData, 5);
 
@@ -123,12 +115,12 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
 
         //Send the event to create the remote copies
         MouserNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEPLAYER, payloadData, true, options);
+
+        return player;
     }
 
-    public void OnEvent(byte eventcode, object content, int senderid)
-    {
-        if (eventcode != (byte)Tags.EventCodes.CREATEPLAYER)
-        {
+    public void OnEvent(byte eventcode, object content, int senderid) {
+        if (eventcode != (byte)Tags.EventCodes.CREATEPLAYER) {
             return;
         }
 
@@ -136,8 +128,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         byte playerNumber = data[0];
         int allocatedViewId = System.BitConverter.ToInt32(data, 1);
         PlayerSetup.PlayerSetupData playerData;
-        using (MemoryStream memoryStream = new MemoryStream())
-        {
+        using (MemoryStream memoryStream = new MemoryStream()) {
             BinaryFormatter binaryFormatter = new BinaryFormatter();
             memoryStream.Write(data, 5, data.Length - 5);
             memoryStream.Seek(0, SeekOrigin.Begin);
@@ -151,8 +142,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     /// </summary>
     /// <param name="playerNumber"></param>
     /// <param name="allocatedViewId"></param>
-    public void InstantiatePlayer(byte playerID, int allocatedViewId, IPlayerInput input, PlayerSetup.PlayerSetupData playerData)
-    {
+    public GameObject InstantiatePlayer(byte playerID, int allocatedViewId, IPlayerInput input, PlayerSetup.PlayerSetupData playerData) {
         GameObject player = (GameObject)Instantiate(basePlayerPrefab, Vector3.zero, Quaternion.identity); //TODO: use spawn point
         player.name = "Player" + playerID;
 
@@ -169,21 +159,20 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
 
         //add abilities
-        foreach (AbilityId ability in playerData.abilities)
-        {
+        foreach (AbilityId ability in playerData.abilities) {
             InstantiateAbility(ability, player.transform, abilityNetworking);
         }
 
-        foreach (AbilityId ability in playerData.firstAbilities)
-        {
+        foreach (AbilityId ability in playerData.firstAbilities) {
             GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
             Rebind(instantiatedAbility, AbilityKeybinding.ABILITY1);
         }
 
-        foreach (AbilityId ability in playerData.secondAbilities)
-        {
+        foreach (AbilityId ability in playerData.secondAbilities) {
             GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
             Rebind(instantiatedAbility, AbilityKeybinding.ABILITY2);
         }
+
+        return player;
     }
 }

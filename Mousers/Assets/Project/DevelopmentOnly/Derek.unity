@@ -919,7 +919,7 @@ MonoBehaviour:
   playerID: 1
   playerData:
     firstAbilities: 01
-    secondAbilities: 06
+    secondAbilities: 07
     abilities: 
 --- !u!4 &2137640759
 Transform:
