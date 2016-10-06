@@ -34,7 +34,7 @@ public class DerpAbility : AbstractAbilityAction {
         DoDamage();
     }
 
-    public override void ActivateWithData(object data)
+    public override void ActivateWithRemoteData(object data)
     {
         Activate();
     }

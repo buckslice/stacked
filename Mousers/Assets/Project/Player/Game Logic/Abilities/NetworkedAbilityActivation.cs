@@ -10,7 +10,7 @@ public class NetworkedAbilityActivation : MonoBehaviour, IAbilityActivation, IAb
 
     public event ActivateAbility abilityActivationEvent = delegate { };
 
-    public event ActivateAbilityWithData abilityActivationWithDataEvent = delegate { };
+    public event ActivateAbilityWithRemoteData abilityActivationWithDataEvent = delegate { };
 
     AbilityNetworking abilityNetwork;
 
@@ -28,11 +28,11 @@ public class NetworkedAbilityActivation : MonoBehaviour, IAbilityActivation, IAb
     /// </summary>
     public void ActivateLocal()
     {
-        abilityActivationEvent();
+        abilityActivationWithDataEvent(null);
     }
 
     /// <summary>
-    /// Activates the ability on this local client.
+    /// Activates the ability on this local client. Used for networking.
     /// </summary>
     public void ActivateLocalWithData(object data)
     {

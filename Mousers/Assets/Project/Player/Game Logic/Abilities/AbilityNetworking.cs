@@ -146,12 +146,20 @@ public class AbilityNetworking : MonoBehaviour {
     [PunRPC]
     public void NetworkedActivationRPC(byte networkedAbilityId, PhotonMessageInfo info)
     {
+        if (view.isMine)
+        {
+            Debug.LogError("We own this object. All activations should originate from us. Discarding activation.");
+        }
         abilityActivations[networkedAbilityId].ActivateLocal();
     }
 
     [PunRPC]
     public void NetworkedActivationWithDataRPC(byte networkedAbilityId, object data, PhotonMessageInfo info)
     {
+        if (view.isMine)
+        {
+            Debug.LogError("We own this object. All activations should originate from us. Discarding activation.");
+        }
         abilityActivations[networkedAbilityId].ActivateLocalWithData(data);
     }
 }

@@ -47,13 +47,13 @@ public class DashAbility : AbstractAbilityAction
 
         Vector3 endPosition = rigid.position + distance * direction;
 
-        ActivateWithData(endPosition);
+        ActivateWithRemoteData(endPosition);
 
         //TODO: possibly use a vector2, since dash never has a vertical (y) component
         networkedActivation.ActivateRemoteWithData(endPosition);
     }
 
-    public override void ActivateWithData(object data)
+    public override void ActivateWithRemoteData(object data)
     {
         Vector3 startPosition = rigid.position;
         Vector3 endPosition = (Vector3)data;

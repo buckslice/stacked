@@ -14,7 +14,7 @@ public interface IAbilityActivation
     event ActivateAbility abilityActivationEvent;
 }
 
-public delegate void ActivateAbilityWithData(object data);
+public delegate void ActivateAbilityWithRemoteData(object data);
 
 /// <summary>
 /// Anything which fully activates an ability with data, designed to be used when activating abilities.
@@ -22,7 +22,7 @@ public delegate void ActivateAbilityWithData(object data);
 /// </summary>
 public interface IAbilityActivationWithData
 {
-    event ActivateAbilityWithData abilityActivationWithDataEvent;
+    event ActivateAbilityWithRemoteData abilityActivationWithDataEvent;
 }
 
 /*
@@ -83,7 +83,7 @@ public abstract class AbstractAbilityConstraint : AbstractAbilityAction, IAbilit
 
     public abstract bool isAbilityActivatible();
 
-    public override void ActivateWithData(object data) { }
+    public override void ActivateWithRemoteData(object data) { }
     public override void ActivateRemote() { }
     
 }

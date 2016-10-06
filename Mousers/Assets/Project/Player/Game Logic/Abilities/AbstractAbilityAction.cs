@@ -34,7 +34,7 @@ public abstract class AbstractAbilityAction : MonoBehaviour {
     //delegate for IAbilityActivationWithData.abilityActivationWithDataEvent
     void activation_abilityActivationWithDataEvent(object data)
     {
-        ActivateWithData(data);
+        ActivateWithRemoteData(data);
     }
 
     //delegate for IAbilityActivation.abilityActivationEvent
@@ -49,7 +49,7 @@ public abstract class AbstractAbilityAction : MonoBehaviour {
     /// <summary>
     /// Can just call activate, if no data is used. The only intended use is for networking, where local data is not available.
     /// </summary>
-    public abstract void ActivateWithData(object data);
+    public abstract void ActivateWithRemoteData(object data);
 
     /// <summary>
     /// In this function, do all code related to activating the ability on other clients. Can be empty.

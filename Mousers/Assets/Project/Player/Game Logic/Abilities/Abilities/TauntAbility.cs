@@ -33,7 +33,7 @@ public class TauntAbility : AbstractAbilityAction
         }
     }
 
-    public override void ActivateWithData(object data)
+    public override void ActivateWithRemoteData(object data)
     {
         Activate();
     }

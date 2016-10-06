@@ -26,7 +26,7 @@ public class SelectAbility : AbstractAbilityAction {
         }
     }
 
-    public override void ActivateWithData(object data)
+    public override void ActivateWithRemoteData(object data)
     {
         Activate();
     }

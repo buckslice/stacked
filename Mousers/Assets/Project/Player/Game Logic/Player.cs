@@ -51,7 +51,7 @@ public class Player : MonoBehaviour {
             playerListResized();
         }
 
-        Assert.IsTrue(allPlayers[playerID] == null, "Duplicate PlayerIDs");
+        Assert.IsTrue(allPlayers[playerID] == null, "Duplicate PlayerID " + playerID);
         allPlayers[playerID] = this;
     }
 

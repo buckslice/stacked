@@ -22,7 +22,7 @@ public class SpawnAbility : AbstractAbilityAction {
         PhotonNetwork.Instantiate(prefabName, transform.position, transform.rotation, 0);
     }
 
-    public override void ActivateWithData(object data)
+    public override void ActivateWithRemoteData(object data)
     {
         Activate();
     }
