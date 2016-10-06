@@ -17,7 +17,10 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     {
         DERP,
         DASH,
-        TAUNT
+        TAUNT,
+        BLOCK,
+        SHIELD,
+        RESIST
     }
 
     static PlayerSetupNetworkedData main;

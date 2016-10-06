@@ -28,4 +28,8 @@ public class Damageable : MonoBehaviour {
         health.Damage(actualDamageAmount);
         return actualDamageAmount;
     }
+
+    public MultiplierFloatStat getVulnerabilityMultiplier() {
+        return vulnerabilityMultiplier;
+    }
 }
