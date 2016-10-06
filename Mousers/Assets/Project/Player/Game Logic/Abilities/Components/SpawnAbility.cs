@@ -9,25 +9,16 @@ using System.Collections.Generic;
 public class SpawnAbility : AbstractAbilityAction {
 
     [SerializeField]
-    protected string prefabName;
+    protected GameObject prefab;
 
-    /// <summary>
-    /// Use PhotonNetwork.Instantiate if yes, else use SimplePool.Spawn.
-    /// </summary>
-    [SerializeField]
-    protected bool networkedPrefab;
-
-    public override void Activate()
-    {
-        PhotonNetwork.Instantiate(prefabName, transform.position, transform.rotation, 0);
+    public override void Activate() {
+        SimplePool.Spawn(prefab, transform.position, transform.rotation);
     }
 
-    public override void ActivateWithRemoteData(object data)
-    {
+    public override void ActivateWithRemoteData(object data) {
         Activate();
     }
 
-    public override void ActivateRemote()
-    {
+    public override void ActivateRemote() {
     }
 }

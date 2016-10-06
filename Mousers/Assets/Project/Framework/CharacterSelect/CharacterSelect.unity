@@ -512,6 +512,7 @@ MonoBehaviour:
   bossData:
     sceneName: Derek
     abilities: 
+  spawnPoints: []
 --- !u!4 &821395574
 Transform:
   m_ObjectHideFlags: 0

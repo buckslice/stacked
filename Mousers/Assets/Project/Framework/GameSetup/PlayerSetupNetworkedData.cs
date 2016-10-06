@@ -20,7 +20,8 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         TAUNT,
         BLOCK,
         SHIELD,
-        RESIST
+        RESIST,
+        MACHINEGUN,
     }
 
     static PlayerSetupNetworkedData main;
