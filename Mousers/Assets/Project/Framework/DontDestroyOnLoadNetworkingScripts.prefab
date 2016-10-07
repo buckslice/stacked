@@ -64,5 +64,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749918d09a99a14409ff365933e3a2a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  networkingMode: 0
+  networkingMode: 1
   version: 1

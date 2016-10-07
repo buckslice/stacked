@@ -11,15 +11,9 @@ public class SpawnAddAbility : AbstractAbilityAction {
     [SerializeField]
     protected PlayerSetup.PlayerSetupData addData;
 
-    public override void Activate() {
+    public override bool Activate(PhotonStream stream) {
         GameObject createdPlayer = PlayerSetupNetworkedData.Main.CreatePlayer((byte)Player.getFirstFreePlayerID(), new NullInput(), addData);
         createdPlayer.GetComponent<Rigidbody>().position = this.transform.position;
-    }
-
-    public override void ActivateWithRemoteData(object data) {
-        Activate();
-    }
-
-    public override void ActivateRemote() {
+        return false;
     }
 }

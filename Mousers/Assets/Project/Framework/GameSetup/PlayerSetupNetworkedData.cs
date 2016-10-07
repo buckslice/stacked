@@ -78,7 +78,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     GameObject InstantiateAbility(AbilityId ability, Transform parent, AbilityNetworking abilityNetworking) {
         GameObject instantiatedAbility = (GameObject)Instantiate(abilityIdToPrefab(ability), parent);
         instantiatedAbility.transform.Reset();
-        abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<NetworkedAbilityActivation>());
+        abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<AbilityActivation>());
         return instantiatedAbility;
     }
 

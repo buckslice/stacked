@@ -28,22 +28,12 @@ public class DerpAbility : AbstractAbilityAction {
         cameraShakeScript = Camera.main.GetComponent<CameraShakeScript>();
     }
 
-    public override void Activate()
+    public override bool Activate(PhotonStream stream)
     {
         cameraShakeScript.screenShake(.5f);
         DoDamage();
+        return true;
     }
-
-    public override void ActivateWithRemoteData(object data)
-    {
-        Activate();
-    }
-
-    public override void ActivateRemote()
-    {
-        networkedActivation.ActivateRemote();
-    }
-
 
     //temporary
     private void DoDamage()

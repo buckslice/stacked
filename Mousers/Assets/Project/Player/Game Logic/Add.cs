@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /// </summary>
 public class Add : Player {
 
-    public virtual bool isPlayer() { return false; }
+    public override bool isPlayer() { return false; }
 
     [SerializeField]
     protected Player owner;

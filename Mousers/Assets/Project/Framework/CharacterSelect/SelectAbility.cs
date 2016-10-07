@@ -12,27 +12,21 @@ public class SelectAbility : AbstractAbilityAction {
         selected = false;
     }
 
-    public override void Activate()
+    public override bool Activate(PhotonStream stream)
     {
-        if (!selected && cursor.CurrentSelection != null)
-        {
+        if (!selected && cursor.CurrentSelection != null) {
             print("Derp");
-            if (view.isMine)
-            {
+
+            if (stream.isWriting) {
                 GameObject instantiatedPlayerSetup = (GameObject)Instantiate(cursor.CurrentSelection, Vector3.zero, Quaternion.identity);
                 instantiatedPlayerSetup.GetComponent<PlayerSetup>().Initalize(cursor.GetComponent<PlayerInputHolder>().heldInput, cursor.playerNumber);
             }
+
             selected = true;
+
+            return true;
+        } else {
+            return false;
         }
-    }
-
-    public override void ActivateWithRemoteData(object data)
-    {
-        Activate();
-    }
-
-    public override void ActivateRemote()
-    {
-        networkedActivation.ActivateRemote();
     }
 }

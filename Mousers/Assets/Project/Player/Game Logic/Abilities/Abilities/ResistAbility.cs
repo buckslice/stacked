@@ -20,28 +20,19 @@ public class ResistAbility : AbstractAbilityAction {
         damageable = transform.root.GetComponentInChildren<CapsuleCollider>().GetComponent<Damageable>();
     }
 
-    public override void Activate() {
-        networkedActivation.ActivateRemote();
-    }
-
-    public override void ActivateWithRemoteData(object data) {
-    }
-
-    public override void ActivateRemote() {
-        float endTime = Time.time + duration;
+    public override bool Activate(PhotonStream stream) {
         if (activeRoutine != null) {
             StopCoroutine(activeRoutine);
         }
-        activeRoutine = StartCoroutine(DurationRoutine(endTime));
+        activeRoutine = StartCoroutine(DurationRoutine());
+        return true;
     }
 
-    protected IEnumerator DurationRoutine(float endTime) {
+    protected IEnumerator DurationRoutine() {
         MultiplierFloatStat multiplier = damageable.getVulnerabilityMultiplier();
         multiplier *= resistAmount;
 
-        while (Time.time <= endTime) {
-            yield return null;
-        }
+        yield return new WaitForSeconds(duration);
 
         multiplier /= resistAmount;
     }

@@ -27,50 +27,45 @@ public class DashAbility : AbstractAbilityAction
         layermask = LayerMask.GetMask(Tags.Layers.StaticGeometry);
     }
 
-    public override void Activate()
-    {
-        Vector3 direction = rigid.transform.forward;
-        Assert.AreApproximatelyEqual(direction.magnitude, 1);
-        Assert.AreApproximatelyEqual(direction.y, 0);
-        RaycastHit hit;
-        float distance;
-        if (Physics.CapsuleCast(rigid.position + Vector3.up * coll.radius,
-                                rigid.position + Vector3.up * (coll.height - coll.radius),
-                                coll.radius - 0.05f, direction, out hit, dashDistance, layermask))
-        {
-            distance = hit.distance;
+    public override bool Activate(PhotonStream stream) {
+        Vector3 endPosition;
+
+        if (stream.isWriting) {
+            //calculate end point of the dash from our current position and rotation
+            Vector3 playerDirection = rigid.transform.forward;
+            Assert.AreApproximatelyEqual(playerDirection.magnitude, 1);
+            Assert.AreApproximatelyEqual(playerDirection.y, 0);
+
+            RaycastHit hit;
+            float distance;
+            if (Physics.CapsuleCast(rigid.position + Vector3.up * coll.radius,
+                                    rigid.position + Vector3.up * (coll.height - coll.radius),
+                                    coll.radius - 0.05f, playerDirection, out hit, dashDistance, layermask)) {
+                distance = hit.distance;
+            } else {
+                distance = dashDistance; //max distance
+            }
+
+            endPosition = rigid.position + distance * playerDirection;
+            stream.SendNext(endPosition);
+            //TODO: possibly use a vector2, since dash never has a vertical (y) component
+
+        } else {
+            endPosition = (Vector3)stream.ReceiveNext();
         }
-        else
-        {
-            distance = dashDistance; //max distance
-        }
 
-        Vector3 endPosition = rigid.position + distance * direction;
-
-        ActivateWithRemoteData(endPosition);
-
-        //TODO: possibly use a vector2, since dash never has a vertical (y) component
-        networkedActivation.ActivateRemoteWithData(endPosition);
-    }
-
-    public override void ActivateWithRemoteData(object data)
-    {
         Vector3 startPosition = rigid.position;
-        Vector3 endPosition = (Vector3)data;
-        Vector3 direction = endPosition - startPosition;
+        Vector3 dashDirection = endPosition - startPosition;
         float startTime = Time.time;
-        float distance = direction.magnitude;
-        float endTime = startTime + (distance / dashDistance) * dashDuration;
+        float dashMagnitude = dashDirection.magnitude;
+        float endTime = startTime + (dashMagnitude / dashDistance) * dashDuration;
 
-        if (activeRoutine != null)
-        {
+        if (activeRoutine != null) {
             StopCoroutine(activeRoutine);
         }
         activeRoutine = StartCoroutine(DurationRoutine(startPosition, endPosition, startTime, endTime));
-    }
 
-    public override void ActivateRemote()
-    {
+        return true;
     }
 
     protected IEnumerator DurationRoutine(Vector3 startPosition, Vector3 endPosition, float startTime, float endTime)

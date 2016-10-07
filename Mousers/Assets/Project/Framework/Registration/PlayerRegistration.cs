@@ -164,13 +164,6 @@ public class PlayerRegistration : MonoBehaviour {
         if (owningClientActorID == PhotonNetwork.player.ID)
         {
             //if we own it, we need to create it
-            for (int i = 0; i < numPlayers; i++)
-            {
-                if (registeredPlayers[i] != null)
-                {
-                    Assert.IsFalse(registeredPlayers[i].bindingID == bindingID);
-                }
-            }
 
             GameObject instantiatedRegisteredPlayer = (GameObject)Instantiate(registeredPlayerPrefab, Vector3.zero, Quaternion.identity);
             RegisteredPlayer registeredPlayer = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();

@@ -18,30 +18,21 @@ public class BlockAbility : AbstractAbilityAction {
         movement = GetComponentInParent<PlayerMovement>();
     }
 
-    public override void Activate() {
-        networkedActivation.ActivateRemote();
-    }
-
-    public override void ActivateWithRemoteData(object data) {
-    }
-
-    public override void ActivateRemote() {
-        float endTime = Time.time + duration;
+    public override bool Activate(PhotonStream stream) {
         if (activeRoutine != null) {
             StopCoroutine(activeRoutine);
         }
-        activeRoutine = StartCoroutine(DurationRoutine(endTime));
+        activeRoutine = StartCoroutine(DurationRoutine());
+        return true;
     }
 
-    protected IEnumerator DurationRoutine(float endTime) {
+    protected IEnumerator DurationRoutine() {
         movement.controlEnabled += false;
         movement.haltMovement();
         MultiplierFloatStat multiplier = damageable.getVulnerabilityMultiplier();
         multiplier*=0;
 
-        while (Time.time <= endTime) {
-            yield return null;
-        }
+        yield return new WaitForSeconds(duration);
 
         movement.controlEnabled -= false;
         multiplier/=0;

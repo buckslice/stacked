@@ -2,57 +2,32 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Component designed to receive events from IAbilityActivations, and perform actions. There can and should be many of these making up a single ability.
 /// </summary>
 [RequireComponent(typeof(AbilityActivation))]
-[RequireComponent(typeof(NetworkedAbilityActivation))]
 public abstract class AbstractAbilityAction : MonoBehaviour {
 
-    protected PhotonView view;
-    protected NetworkedAbilityActivation networkedActivation;
+    protected AbilityActivation abilityActivation;
 
     protected virtual void Awake()
     {
-        view = GetComponentInParent<PhotonView>();
-        networkedActivation = GetComponent<NetworkedAbilityActivation>();
+        abilityActivation = GetComponent<AbilityActivation>();
+        if (!abilityActivation.AbilityActions.Contains(this)) {
+            Debug.LogError("Ability's AbilityActivation does not contain all of the ability's AbilityActions.", this);
+        }
     }
 
 	protected virtual void Start () {
-        foreach (IAbilityActivation activation in GetComponentsInParent<IAbilityActivation>())
-        {
-            activation.abilityActivationEvent += activation_abilityActivationEvent;
-        }
-
-        foreach (IAbilityActivationWithData activation in GetComponentsInParent<IAbilityActivationWithData>())
-        {
-            activation.abilityActivationWithDataEvent += activation_abilityActivationWithDataEvent;
-        }
 	}
 
-    //delegate for IAbilityActivationWithData.abilityActivationWithDataEvent
-    void activation_abilityActivationWithDataEvent(object data)
-    {
-        ActivateWithRemoteData(data);
-    }
-
-    //delegate for IAbilityActivation.abilityActivationEvent
-    public void activation_abilityActivationEvent()
-    {
-        Activate();
-        ActivateRemote();
-    }
-
-    public abstract void Activate();
-
     /// <summary>
-    /// Can just call activate, if no data is used. The only intended use is for networking, where local data is not available.
+    /// Called when the ability is activated. The photonStream is to send or recieve data from the network. You can use stream.isWriting / stream.isReading to figure out which.
+    /// Returns true if an activation needs to be sent over the network, false otherwise.
     /// </summary>
-    public abstract void ActivateWithRemoteData(object data);
-
-    /// <summary>
-    /// In this function, do all code related to activating the ability on other clients. Can be empty.
-    /// </summary>
-    public abstract void ActivateRemote();
+    /// <param name="stream"></param>
+    /// <returns></returns>
+    public abstract bool Activate(PhotonStream stream);
 }

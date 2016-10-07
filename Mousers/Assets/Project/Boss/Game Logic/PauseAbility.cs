@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections;
 
 public class PauseAbility : AbstractAbilityAction {
@@ -12,29 +13,21 @@ public class PauseAbility : AbstractAbilityAction {
     protected override void Start() {
         base.Start();
         boss = GetComponentInParent<BossAggro>();
+        Assert.IsNotNull(boss);
     }
 
-    public override void Activate() {
-        networkedActivation.ActivateRemote();
-    }
-
-    public override void ActivateWithRemoteData(object data) {
-    }
-
-    public override void ActivateRemote() {
-        float endTime = Time.time + pauseTime;
+    public override bool Activate(PhotonStream stream) {
         if (activeRoutine != null) {
             StopCoroutine(activeRoutine);
         }
-        activeRoutine = StartCoroutine(PauseRoutine(endTime));
+        activeRoutine = StartCoroutine(PauseRoutine());
+
+        return true;
     }
 
-    protected IEnumerator PauseRoutine(float endTime) {
+    protected IEnumerator PauseRoutine() {
         boss.shouldChase = false;
-        while (Time.time <= endTime) {
-            // TODO still should look at player with top aggro
-            yield return null;
-        }
+        yield return new WaitForSeconds(pauseTime);
         boss.shouldChase = true;
     }
 }

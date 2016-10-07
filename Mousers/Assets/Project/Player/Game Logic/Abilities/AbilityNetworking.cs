@@ -11,7 +11,6 @@ using System.Collections.Generic;
 public class AbilityNetworking : MonoBehaviour {
 
     const string networkedActivationRPCName = "NetworkedActivationRPC";
-    const string networkedActivationWithDataRPC = "NetworkedActivationWithDataRPC";
 
     /// <summary>
     /// A collection of abilities to add as networkedAbilities. If an ability is in this collection, do not add it again via scripting. Intended for drag-and-drop inspector initialization.
@@ -22,12 +21,12 @@ public class AbilityNetworking : MonoBehaviour {
     /// <summary>
     /// An ability's networkedAbilityId is its index in this list. Elements can be removed, but indices are not shifted down.
     /// </summary>
-    List<NetworkedAbilityActivation> abilityActivations = new List<NetworkedAbilityActivation>();
+    List<AbilityActivation> abilityActivations = new List<AbilityActivation>();
 
     /// <summary>
     /// Secondary data structure to look up the index (and thus the networkedAbilityId) of an element in abilityActivations
     /// </summary>
-    Dictionary<NetworkedAbilityActivation, int> abilityActivationIndices = new Dictionary<NetworkedAbilityActivation, int>();
+    Dictionary<AbilityActivation, int> abilityActivationIndices = new Dictionary<AbilityActivation, int>();
 
     PhotonView view;
 
@@ -40,7 +39,7 @@ public class AbilityNetworking : MonoBehaviour {
     {
         foreach (GameObject ability in abilities)
         {
-            AddNetworkedAbility(ability.GetComponent<NetworkedAbilityActivation>());
+            AddNetworkedAbility(ability.GetComponent<AbilityActivation>());
         }
 
         if (!view.isMine)
@@ -57,7 +56,7 @@ public class AbilityNetworking : MonoBehaviour {
     /// Adds an ability as a networked ability. ORDER MATTERS! I don't think this is reliable after initialization, but I haven't tested it.
     /// </summary>
     /// <param name="ability">The ability to add.</param>
-    public void AddNetworkedAbility(NetworkedAbilityActivation ability)
+    public void AddNetworkedAbility(AbilityActivation ability)
     {
         //default value
         int index = abilityActivations.Count;
@@ -82,14 +81,14 @@ public class AbilityNetworking : MonoBehaviour {
     /// Removes an ability as a networked ability. ORDER MATTERS! Does not modify the networkeAbilityIds of other abilities. If the ability is re-added, it can have a different index than it currently does.
     /// </summary>
     /// <param name="ability"></param>
-    public void RemoveNetworkedAbility(NetworkedAbilityActivation ability)
+    public void RemoveNetworkedAbility(AbilityActivation ability)
     {
         int index = getNetworkedAbilityId(ability);
         abilityActivations[index] = null;
         abilityActivationIndices.Remove(ability);
     }
 
-    public byte getNetworkedAbilityId(NetworkedAbilityActivation ability)
+    public byte getNetworkedAbilityId(AbilityActivation ability)
     {
         if (!abilityActivationIndices.ContainsKey(ability))
         {
@@ -105,7 +104,7 @@ public class AbilityNetworking : MonoBehaviour {
 
     public byte getNetworkedAbilityId(GameObject ability)
     {
-        NetworkedAbilityActivation networkedAbilityActivation = ability.GetComponent<NetworkedAbilityActivation>();
+        AbilityActivation networkedAbilityActivation = ability.GetComponent<AbilityActivation>();
         if (networkedAbilityActivation == null)
         {
             Debug.LogErrorFormat(this, "{0} does not have a NetworkedAbilityActivation component", ability.ToString());
@@ -120,46 +119,29 @@ public class AbilityNetworking : MonoBehaviour {
     /// <summary>
     /// Tells other clients to activate the ability on their end.
     /// </summary>
-    public void ActivateRemote(byte networkedAbilityId)
+    public void ActivateRemote(byte networkedAbilityId, object[] data)
     {
-        view.RPC(networkedActivationRPCName, PhotonTargets.Others, networkedAbilityId);
+        if (!view.isMine) {
+            Debug.LogError("We do not own this object. All activations should originate from the owner. Discarding activation.");
+            return;
+        }
+        view.RPC(networkedActivationRPCName, PhotonTargets.Others, networkedAbilityId, data);
     }
 
-    public void ActivateRemote(NetworkedAbilityActivation ability)
+    public void ActivateRemote(AbilityActivation ability, object[] data)
     {
-        ActivateRemote(getNetworkedAbilityId(ability));
-    }
-
-    /// <summary>
-    /// Tells other clients to activate the ability on their end.
-    /// </summary>
-    public void ActivateRemoteWithData(byte networkedAbilityId, object data)
-    {
-        view.RPC(networkedActivationWithDataRPC, PhotonTargets.Others, networkedAbilityId, data);
-    }
-
-    public void ActivateRemoteWithData(NetworkedAbilityActivation ability, object data)
-    {
-        ActivateRemoteWithData(getNetworkedAbilityId(ability), data);
+        ActivateRemote(getNetworkedAbilityId(ability), data);
     }
 
     [PunRPC]
-    public void NetworkedActivationRPC(byte networkedAbilityId, PhotonMessageInfo info)
+    public void NetworkedActivationRPC(byte networkedAbilityId, object[] incomingData, PhotonMessageInfo info)
     {
         if (view.isMine)
         {
             Debug.LogError("We own this object. All activations should originate from us. Discarding activation.");
+            return;
         }
-        abilityActivations[networkedAbilityId].ActivateLocal();
-    }
 
-    [PunRPC]
-    public void NetworkedActivationWithDataRPC(byte networkedAbilityId, object data, PhotonMessageInfo info)
-    {
-        if (view.isMine)
-        {
-            Debug.LogError("We own this object. All activations should originate from us. Discarding activation.");
-        }
-        abilityActivations[networkedAbilityId].ActivateLocalWithData(data);
+        abilityActivations[networkedAbilityId].Activate(incomingData);
     }
 }
