@@ -3,10 +3,15 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
+public interface IDamageTracker {
+    float DamageDealt { get; }
+    void AddDamageDealt(float damage);
+}
+
 /// <summary>
 /// Identifies the object as a player
 /// </summary>
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, IDamageTracker {
 
     public delegate void PlayerListResized();
 

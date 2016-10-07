@@ -2,13 +2,9 @@
 using UnityEngine.Assertions;
 using System.Collections;
 
-public class PauseAbility : AbstractAbilityAction {
-
-    [SerializeField]
-    float pauseTime = 3.0f;
+public class PauseAbility : DurationAbilityAction {
 
     BossAggro boss;
-    Coroutine activeRoutine;
 
     protected override void Start() {
         base.Start();
@@ -16,18 +12,16 @@ public class PauseAbility : AbstractAbilityAction {
         Assert.IsNotNull(boss);
     }
 
-    public override bool Activate(PhotonStream stream) {
-        if (activeRoutine != null) {
-            StopCoroutine(activeRoutine);
-        }
-        activeRoutine = StartCoroutine(PauseRoutine());
-
-        return true;
+    protected override void OnDurationBegin() {
+        boss.ShouldChase.AddModifier(false);
     }
 
-    protected IEnumerator PauseRoutine() {
-        boss.shouldChase = false;
-        yield return new WaitForSeconds(pauseTime);
-        boss.shouldChase = true;
+    protected override void OnDurationEnd() {
+        boss.ShouldChase.RemoveModifier(false);
+    }
+
+    protected override void OnDurationInterrupted() {
+        base.OnDurationInterrupted();
+        OnDurationEnd();
     }
 }

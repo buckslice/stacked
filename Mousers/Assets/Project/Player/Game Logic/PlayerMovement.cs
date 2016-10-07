@@ -24,13 +24,16 @@ public class PlayerMovement : MonoBehaviour
     /// If disabled, this will not make any modifications at all to the player's position or velocity.
     /// </summary>
     [SerializeField]
-    public AllBoolStat controlEnabled = new AllBoolStat(true);
+    protected AllBoolStat controlEnabled = new AllBoolStat(true);
+    public AllBoolStat ControlEnabled { get { return controlEnabled; } }
 
     [SerializeField]
     public AllBoolStat movementInputEnabled = new AllBoolStat(true);
+    public AllBoolStat MovementInputEnabled { get { return movementInputEnabled; } }
 
     [SerializeField]
-    public AllBoolStat RotationInputEnabled = new AllBoolStat(true);
+    public AllBoolStat rotationInputEnabled = new AllBoolStat(true);
+    public AllBoolStat RotationInputEnabled { get { return rotationInputEnabled; } }
 
     Rigidbody rigid;
     PhotonView view;

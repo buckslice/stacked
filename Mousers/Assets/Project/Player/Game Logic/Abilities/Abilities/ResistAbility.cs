@@ -2,38 +2,32 @@
 using UnityEngine.Assertions;
 using System.Collections;
 
-public class ResistAbility : AbstractAbilityAction {
-
-    [SerializeField]
-    protected float duration = 1.0f;
+public class ResistAbility : DurationAbilityAction {
 
     [SerializeField]
     protected float resistAmount = .5f;
 
-    Damageable damageable;
-
-    int layermask;
-    Coroutine activeRoutine;
+    Damageable[] damageables;
 
     protected override void Start() {
         base.Start();
-        damageable = transform.root.GetComponentInChildren<CapsuleCollider>().GetComponent<Damageable>();
+        damageables = transform.root.GetComponentsInChildren<Damageable>();
     }
 
-    public override bool Activate(PhotonStream stream) {
-        if (activeRoutine != null) {
-            StopCoroutine(activeRoutine);
+    protected override void OnDurationBegin() {
+        foreach (Damageable damageable in damageables) {
+            damageable.VulnerabilityMultiplier.AddModifier(resistAmount);
         }
-        activeRoutine = StartCoroutine(DurationRoutine());
-        return true;
     }
 
-    protected IEnumerator DurationRoutine() {
-        MultiplierFloatStat multiplier = damageable.getVulnerabilityMultiplier();
-        multiplier *= resistAmount;
+    protected override void OnDurationEnd() {
+        foreach (Damageable damageable in damageables) {
+            damageable.VulnerabilityMultiplier.RemoveModifier(resistAmount);
+        }
+    }
 
-        yield return new WaitForSeconds(duration);
-
-        multiplier /= resistAmount;
+    protected override void OnDurationInterrupted() {
+        base.OnDurationInterrupted();
+        OnDurationEnd();
     }
 }

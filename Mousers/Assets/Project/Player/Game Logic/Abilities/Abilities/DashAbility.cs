@@ -70,7 +70,7 @@ public class DashAbility : AbstractAbilityAction
 
     protected IEnumerator DurationRoutine(Vector3 startPosition, Vector3 endPosition, float startTime, float endTime)
     {
-        movement.controlEnabled += false;
+        movement.ControlEnabled.AddModifier(false);
         movement.haltMovement();
         rigid.rotation = Quaternion.LookRotation(endPosition - startPosition);
 
@@ -82,7 +82,7 @@ public class DashAbility : AbstractAbilityAction
         }
 
         rigid.MovePosition(endPosition);
-        movement.controlEnabled -= false;
+        movement.ControlEnabled.RemoveModifier(false);
         movement.setVelocity((endPosition - startPosition).normalized);
     }
 }
