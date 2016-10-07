@@ -1,40 +1,27 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections;
 
-public class PauseAbility : AbstractAbilityAction {
-
-    [SerializeField]
-    float pauseTime = 3.0f;
+public class PauseAbility : DurationAbilityAction {
 
     BossAggro boss;
-    Coroutine activeRoutine;
 
     protected override void Start() {
         base.Start();
         boss = GetComponentInParent<BossAggro>();
+        Assert.IsNotNull(boss);
     }
 
-    public override void Activate() {
-        networkedActivation.ActivateRemote();
+    protected override void OnDurationBegin() {
+        boss.ShouldChase.AddModifier(false);
     }
 
-    public override void ActivateWithRemoteData(object data) {
+    protected override void OnDurationEnd() {
+        boss.ShouldChase.RemoveModifier(false);
     }
 
-    public override void ActivateRemote() {
-        float endTime = Time.time + pauseTime;
-        if (activeRoutine != null) {
-            StopCoroutine(activeRoutine);
-        }
-        activeRoutine = StartCoroutine(PauseRoutine(endTime));
-    }
-
-    protected IEnumerator PauseRoutine(float endTime) {
-        boss.shouldChase = false;
-        while (Time.time <= endTime) {
-            // TODO still should look at player with top aggro
-            yield return null;
-        }
-        boss.shouldChase = true;
+    protected override void OnDurationInterrupted() {
+        base.OnDurationInterrupted();
+        OnDurationEnd();
     }
 }

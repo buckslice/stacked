@@ -21,7 +21,7 @@ public class TauntAbility : AbstractAbilityAction
         playerReference = GetComponentInParent<Player>();
     }
 
-    public override void Activate()
+    public override bool Activate(PhotonStream stream)
     {
         Collider[] taunted = Physics.OverlapSphere(this.gameObject.transform.position, tauntRad, layermask);
         foreach (Collider col in taunted)
@@ -31,15 +31,7 @@ public class TauntAbility : AbstractAbilityAction
                 col.gameObject.GetComponentInParent<BossAggro>().SetTaunt(playerReference);
             }
         }
-    }
 
-    public override void ActivateWithRemoteData(object data)
-    {
-        Activate();
-    }
-
-    public override void ActivateRemote()
-    {
-        networkedActivation.ActivateRemote();
+        return true;
     }
 }

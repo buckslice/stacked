@@ -4,15 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
-/// Represents a section of an object that can take damage
+/// Represents a section of an object that can take damage.
 /// </summary>
 [RequireComponent(typeof(Collider))]
 public class Damageable : MonoBehaviour {
     [SerializeField]
-    Health health;
+    [Tooltip("Can be null. If null, grabs a Health script via GetComponentInParent.")]
+    protected Health health;
 
     [SerializeField]
     protected MultiplierFloatStat vulnerabilityMultiplier = new MultiplierFloatStat(1);
+    public MultiplierFloatStat VulnerabilityMultiplier { get { return vulnerabilityMultiplier; } }
 
     void Start()
     {
@@ -34,9 +36,5 @@ public class Damageable : MonoBehaviour {
         health.Damage(actualDamageAmount, playerReference);
         playerReference.AddDamageDealt(actualDamageAmount);
         return actualDamageAmount;
-    }
-
-    public MultiplierFloatStat getVulnerabilityMultiplier() {
-        return vulnerabilityMultiplier;
     }
 }

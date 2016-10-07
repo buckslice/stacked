@@ -5,14 +5,32 @@ using System.Collections.Generic;
 [RequireComponent(typeof(NavMeshAgent))]
 public class BossAggro : MonoBehaviour {
 
-    List<float> aggroTable = new List<float>(); // a float for each player showing their current aggro to boss. The index is the player's playerID.
-    int topAggroPlayer = -1;     // playerID of player who has most aggro. -1 for no player.
-    const float aggroToSurpass = 1.0f; // amount of additional aggro needed to pull aggro
+    /// <summary>
+    /// Amount of additional aggro needed to pull aggro.
+    /// </summary>
+    [SerializeField]
+    protected float aggroToSurpass = 1.0f;
+
+    [SerializeField]
+    protected AllBoolStat shouldChase = new AllBoolStat(true);
+    public AllBoolStat ShouldChase { get { return shouldChase; } }
 
     NavMeshAgent agent;
-    public bool shouldChase = true;
 
-    float timer = 0.0f; // tracking time since creation
+    /// <summary>
+    /// A float for each player showing their current aggro to boss. The index is the player's playerID.
+    /// </summary>
+    List<float> aggroTable = new List<float>();
+
+    /// <summary>
+    /// PlayerID of player who has most aggro. -1 for no player.
+    /// </summary>
+    int topAggroPlayer = -1;
+
+    /// <summary>
+    /// Time this object was created, for tracking.
+    /// </summary>
+    float createTime;
 
     void Awake() {
         Player.playerListResized += Player_playerListResized;
@@ -21,6 +39,8 @@ public class BossAggro : MonoBehaviour {
     // Use this for initialization
     void Start() {
         agent = GetComponent<NavMeshAgent>();
+
+        createTime = Time.time;
 
         foreach (Health health in GetComponentsInChildren<Health>()) {
             health.onDamage += health_onDamage;
@@ -42,7 +62,6 @@ public class BossAggro : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        timer += Time.deltaTime;
 
         CheckAggro();
 
@@ -101,7 +120,11 @@ public class BossAggro : MonoBehaviour {
         aggroTable[topAggroPlayer] = 100;
     }
 
-    //delegate called when we take damage, used to update aggro
+    /// <summary>
+    /// delegate called when we take damage, used to update aggro table
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <param name="playerID"></param>
     void health_onDamage(float amount, int playerID) {
         aggroTable[playerID] += amount;
     }

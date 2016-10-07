@@ -11,14 +11,8 @@ public class SpawnAbility : AbstractAbilityAction {
     [SerializeField]
     protected GameObject prefab;
 
-    public override void Activate() {
+    public override bool Activate(PhotonStream stream) {
         SimplePool.Spawn(prefab, transform.position, transform.rotation);
-    }
-
-    public override void ActivateWithRemoteData(object data) {
-        Activate();
-    }
-
-    public override void ActivateRemote() {
+        return true;
     }
 }

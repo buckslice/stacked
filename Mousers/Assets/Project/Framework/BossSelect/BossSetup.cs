@@ -19,7 +19,7 @@ public class BossSetup : MonoBehaviour
         public string sceneName;
 
         [SerializeField]
-        public PlayerSetupNetworkedData.AbilityId[] abilities;
+        public BossSetupNetworkedData.AbilityId[] abilities;
     }
 
     [SerializeField]

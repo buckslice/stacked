@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012199365306}
   - 114: {fileID: 114000010577498672}
-  - 114: {fileID: 114000013219227376}
   - 114: {fileID: 114000012318372094}
   - 114: {fileID: 114000010344991372}
   - 114: {fileID: 114000013581462838}
@@ -68,6 +67,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0021636dd9b5c341ba19d11a8f6cb76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityActions:
+  - {fileID: 114000010344991372}
+  - {fileID: 114000013581462838}
 --- !u!114 &114000012318372094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -80,17 +82,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   binding: 0
---- !u!114 &114000013219227376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011145814480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f0861e864d8ba4459b818165d7f22e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000013581462838
 MonoBehaviour:
   m_ObjectHideFlags: 1

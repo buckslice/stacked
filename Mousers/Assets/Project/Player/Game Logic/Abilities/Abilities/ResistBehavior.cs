@@ -3,18 +3,12 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ResistBehavior : AbstractAbilityAction {
-
-    [SerializeField]
-    protected float duration = 1.0f;
+public class ResistBehavior : DurationAbilityAction {
 
     [SerializeField]
     protected float resistAmount = .5f;
 
-    Damageable damageable;
-
-    int layermask;
-    Coroutine activeRoutine;
+    Damageable[] damageables;
 
     public ResistBehavior(Dictionary<string, float> data) {
 
@@ -22,32 +16,23 @@ public class ResistBehavior : AbstractAbilityAction {
 
     protected override void Start() {
         base.Start();
-        damageable = transform.root.GetComponentInChildren<CapsuleCollider>().GetComponent<Damageable>();
+        damageables = transform.root.GetComponentsInChildren<Damageable>();
     }
 
-    public override void Activate() {
-        networkedActivation.ActivateRemote();
-    }
-
-    public override void ActivateWithRemoteData(object data) {
-    }
-
-    public override void ActivateRemote() {
-        float endTime = Time.time + duration;
-        if (activeRoutine != null) {
-            StopCoroutine(activeRoutine);
+    protected override void OnDurationBegin() {
+        foreach (Damageable damageable in damageables) {
+            damageable.VulnerabilityMultiplier.AddModifier(resistAmount);
         }
-        activeRoutine = StartCoroutine(DurationRoutine(endTime));
     }
 
-    protected IEnumerator DurationRoutine(float endTime) {
-        MultiplierFloatStat multiplier = damageable.getVulnerabilityMultiplier();
-        multiplier *= resistAmount;
-
-        while (Time.time <= endTime) {
-            yield return null;
+    protected override void OnDurationEnd() {
+        foreach (Damageable damageable in damageables) {
+            damageable.VulnerabilityMultiplier.RemoveModifier(resistAmount);
         }
+    }
 
-        multiplier /= resistAmount;
+    protected override void OnDurationInterrupted() {
+        base.OnDurationInterrupted();
+        OnDurationEnd();
     }
 }

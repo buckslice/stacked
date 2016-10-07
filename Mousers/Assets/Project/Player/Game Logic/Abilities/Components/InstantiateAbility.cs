@@ -11,17 +11,9 @@ public class InstantiateAbility : AbstractAbilityAction {
     [SerializeField]
     protected string prefabName;
 
-    public override void Activate()
+    public override bool Activate(PhotonStream stream)
     {
         PhotonNetwork.Instantiate(prefabName, transform.position, transform.rotation, 0);
-    }
-
-    public override void ActivateWithRemoteData(object data)
-    {
-        Activate();
-    }
-
-    public override void ActivateRemote()
-    {
+        return false;
     }
 }
