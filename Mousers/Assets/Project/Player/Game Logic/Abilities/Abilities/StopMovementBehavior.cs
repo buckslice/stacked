@@ -2,19 +2,17 @@
 using UnityEngine.Assertions;
 using System.Collections;
 
-public class BlockAbility : AbstractAbilityAction {
+public class StopMovementBehavior : AbstractAbilityAction {
 
     [SerializeField]
     protected float duration = 1.0f;
 
     PlayerMovement movement;
-    Damageable damageable;
 
     Coroutine activeRoutine;
 
     protected override void Start() {
         base.Start();
-        damageable = transform.root.GetComponentInChildren<CapsuleCollider>().GetComponent<Damageable>();
         movement = GetComponentInParent<PlayerMovement>();
     }
 
@@ -36,14 +34,11 @@ public class BlockAbility : AbstractAbilityAction {
     protected IEnumerator DurationRoutine(float endTime) {
         movement.controlEnabled += false;
         movement.haltMovement();
-        MultiplierFloatStat multiplier = damageable.getVulnerabilityMultiplier();
-        multiplier*=0;
 
         while (Time.time <= endTime) {
             yield return null;
         }
 
         movement.controlEnabled -= false;
-        multiplier/=0;
     }
 }

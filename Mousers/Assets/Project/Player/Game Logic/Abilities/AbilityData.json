@@ -1,0 +1,6 @@
+{"abilities":[
+	{"BlockAbility":[
+	{"CooldownConstraint":[{"cooldownSecs":2}]}
+	]}
+	]
+}

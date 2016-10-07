@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections;
+using System.Collections.Generic;
 
-public class ResistAbility : AbstractAbilityAction {
+public class ResistBehavior : AbstractAbilityAction {
 
     [SerializeField]
     protected float duration = 1.0f;
@@ -14,6 +15,10 @@ public class ResistAbility : AbstractAbilityAction {
 
     int layermask;
     Coroutine activeRoutine;
+
+    public ResistBehavior(Dictionary<string, float> data) {
+
+    }
 
     protected override void Start() {
         base.Start();
