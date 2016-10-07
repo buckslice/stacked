@@ -31,8 +31,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using System.Collections.Generic;
 
-public static class SimplePool
-{
+public static class SimplePool {
 
     // You can avoid resizing of the Stack's internal array by
     // setting this to a number equal to or greater to what you
@@ -45,12 +44,11 @@ public static class SimplePool
     /// <summary>
     /// The Pool class represents the pool for a particular prefab.
     /// </summary>
-    class Pool
-    {
+    class Pool {
         // We append an id to the name of anything we instantiate.
         // This is purely cosmetic.
 #if UNITY_EDITOR
-		int nextId=1;
+        int nextId = 1;
 #endif
         // The structure containing our inactive objects.
         // Why a Stack and not a List? Because we'll never need to
@@ -63,8 +61,7 @@ public static class SimplePool
         GameObject prefab;
 
         // Constructor
-        public Pool(GameObject prefab, int initialQty)
-        {
+        public Pool(GameObject prefab, int initialQty) {
             this.prefab = prefab;
 
             // If Stack uses a linked list internally, then this
@@ -74,28 +71,23 @@ public static class SimplePool
         }
 
         // Spawn an object from our pool
-        public GameObject Spawn(Vector3 pos, Quaternion rot)
-        {
+        public GameObject Spawn(Vector3 pos, Quaternion rot) {
             GameObject obj;
-            if (inactive.Count == 0)
-            {
+            if (inactive.Count == 0) {
                 // We don't have an object in our pool, so we
                 // instantiate a whole new object.
                 obj = (GameObject)GameObject.Instantiate(prefab, pos, rot);
 #if UNITY_EDITOR
-				obj.name = prefab.name + " ("+(nextId++)+")";
+                obj.name = prefab.name + " (" + (nextId++) + ")";
 #endif
                 // Add a PoolMember component so we know what pool
                 // we belong to.
                 obj.AddComponent<PoolMember>().myPool = this;
-            }
-            else
-            {
+            } else {
                 // Grab the last object in the inactive array
                 obj = inactive.Pop();
 
-                if (obj == null)
-                {
+                if (obj == null) {
                     // The inactive object we expected to find no longer exists.
                     // The most likely causes are:
                     //   - Someone calling Destroy() on our object
@@ -111,15 +103,16 @@ public static class SimplePool
             obj.transform.position = pos;
             obj.transform.rotation = rot;
             obj.SetActive(true);
-            foreach (ISpawnable spawnScript in obj.GetComponents<ISpawnable>())
+
+            foreach (ISpawnable spawnScript in obj.GetComponentsInChildren<ISpawnable>()) {
                 spawnScript.Spawn();
+            }
             return obj;
 
         }
 
         // Return an object to the inactive pool.
-        public void Despawn(GameObject obj)
-        {
+        public void Despawn(GameObject obj) {
             obj.SetActive(false);
 
             // Since Stack doesn't have a Capacity member, we can't control
@@ -137,8 +130,7 @@ public static class SimplePool
     /// Added to freshly instantiated objects, so we can link back
     /// to the correct pool on despawn.
     /// </summary>
-    class PoolMember : MonoBehaviour
-    {
+    class PoolMember : MonoBehaviour {
         public Pool myPool;
     }
 
@@ -148,14 +140,12 @@ public static class SimplePool
     /// <summary>
     /// Init our dictionary.
     /// </summary>
-    static void Init(GameObject prefab = null, int qty = DEFAULT_POOL_SIZE)
-    {
-        if (pools == null)
-        {
+    static void Init(GameObject prefab = null, int qty = DEFAULT_POOL_SIZE) {
+        if (pools == null) {
             pools = new Dictionary<GameObject, Pool>();
         }
-        if (prefab != null && pools.ContainsKey(prefab) == false)
-        {
+
+        if (prefab != null && pools.ContainsKey(prefab) == false) {
             pools[prefab] = new Pool(prefab, qty);
         }
     }
@@ -168,20 +158,17 @@ public static class SimplePool
     /// Spawn/Despawn sequence is going to be pretty darn quick and
     /// this avoids code duplication.
     /// </summary>
-    static public void Preload(GameObject prefab, int qty = 1)
-    {
+    static public void Preload(GameObject prefab, int qty = 1) {
         Init(prefab, qty);
 
         // Make an array to grab the objects we're about to pre-spawn.
         GameObject[] obs = new GameObject[qty];
-        for (int i = 0; i < qty; i++)
-        {
+        for (int i = 0; i < qty; i++) {
             obs[i] = Spawn(prefab);
         }
 
         // Now despawn them all.
-        for (int i = 0; i < qty; i++)
-        {
+        for (int i = 0; i < qty; i++) {
             Despawn(obs[i]);
         }
     }
@@ -193,8 +180,7 @@ public static class SimplePool
     /// after spawning -- but remember that toggling IsActive will also
     /// call that function.
     /// </summary>
-    static public GameObject Spawn(GameObject prefab, Vector3 pos, Quaternion rot)
-    {
+    static public GameObject Spawn(GameObject prefab, Vector3 pos, Quaternion rot) {
         Init(prefab);
         Assert.IsNotNull(prefab, "You forgot to link up the prefab");
         return pools[prefab].Spawn(pos, rot);
@@ -205,28 +191,27 @@ public static class SimplePool
         return Spawn(prefab, pos, Quaternion.identity);
     }
 
-    static public GameObject Spawn(GameObject prefab)
-    {
+    static public GameObject Spawn(GameObject prefab) {
         return Spawn(prefab, Vector3.zero, Quaternion.identity);
     }
 
     /// <summary>
     /// Despawn the specified gameobject back into its pool.
     /// </summary>
-    static public void Despawn(GameObject obj)
-    {
+    static public void Despawn(GameObject obj) {
         PoolMember pm = obj.GetComponent<PoolMember>();
-        if (pm == null)
-        {
+
+        if (pm == null) {
             Debug.LogWarningFormat(obj, "Object '{0}' wasn't spawned from a pool. Destroying it instead.", obj.name);
             GameObject.Destroy(obj);
-        }
-        else
-        {
+        } else {
+            foreach (IDespawnable despawnScript in obj.GetComponentsInChildren<IDespawnable>()) {
+                despawnScript.Despawn();
+            }
+
             pm.myPool.Despawn(obj);
         }
     }
-
 }
 
 /// <summary>
@@ -238,4 +223,14 @@ public interface ISpawnable
     /// Called when the poolable object is spawned.
     /// </summary>
     void Spawn();
+}
+
+/// <summary>
+/// An object which reacts to object pooling events.
+/// </summary>
+public interface IDespawnable {
+    /// <summary>
+    /// Called when the poolable object is despawned.
+    /// </summary>
+    void Despawn();
 }

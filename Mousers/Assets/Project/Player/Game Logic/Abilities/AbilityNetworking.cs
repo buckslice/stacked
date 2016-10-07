@@ -3,12 +3,16 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
+public interface IActivationNetworking {
+    void ActivateRemote(AbilityActivation ability, object[] data);
+}
+
 /// <summary>
 /// TODO: refactor rename?
 /// Photon requires that the target of an RPC be on the same gameObject as the photonview. This class fills that role.
 /// </summary>
 [RequireComponent(typeof(PhotonView))]
-public class AbilityNetworking : MonoBehaviour {
+public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
 
     const string networkedActivationRPCName = "NetworkedActivationRPC";
 

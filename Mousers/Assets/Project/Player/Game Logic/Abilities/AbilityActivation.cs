@@ -94,13 +94,13 @@ public class AbilityActivation : MonoBehaviour
     public void AddConstraint(IAbilityConstraint toAdd) { constraints.Add(toAdd); }
     public bool RemoveConstraint(IAbilityConstraint toRemove) { return constraints.Remove(toRemove); }
 
-    AbilityNetworking abilityNetwork;
+    IActivationNetworking abilityNetwork;
 
     /// <summary>
     /// Constructor-like method for initialization.
     /// </summary>
     /// <param name="abilityNetwork"></param>
-    public void Initialize(AbilityNetworking abilityNetwork) {
+    public void Initialize(IActivationNetworking abilityNetwork) {
         this.abilityNetwork = abilityNetwork;
     }
 
