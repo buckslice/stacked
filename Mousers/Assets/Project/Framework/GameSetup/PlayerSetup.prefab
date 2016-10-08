@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c125fc2823044044c8fe00e66cc3966e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: -1
+  playerID: -1
   playerData:
     firstAbilities: 01
-    secondAbilities: 00
+    secondAbilities: 09
     abilities: 

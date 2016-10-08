@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public interface IActivationNetworking {
-    void ActivateRemote(AbilityActivation ability, object[] data);
+    void ActivateRemote(IAbilityActivation ability, object[] data);
 }
 
 /// <summary>
@@ -25,12 +25,12 @@ public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
     /// <summary>
     /// An ability's networkedAbilityId is its index in this list. Elements can be removed, but indices are not shifted down.
     /// </summary>
-    List<AbilityActivation> abilityActivations = new List<AbilityActivation>();
+    List<IAbilityActivation> abilityActivations = new List<IAbilityActivation>();
 
     /// <summary>
     /// Secondary data structure to look up the index (and thus the networkedAbilityId) of an element in abilityActivations
     /// </summary>
-    Dictionary<AbilityActivation, int> abilityActivationIndices = new Dictionary<AbilityActivation, int>();
+    Dictionary<IAbilityActivation, int> abilityActivationIndices = new Dictionary<IAbilityActivation, int>();
 
     PhotonView view;
 
@@ -43,7 +43,7 @@ public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
     {
         foreach (GameObject ability in abilities)
         {
-            AddNetworkedAbility(ability.GetComponent<AbilityActivation>());
+            AddNetworkedAbility(ability);
         }
 
         if (!view.isMine)
@@ -60,7 +60,7 @@ public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
     /// Adds an ability as a networked ability. ORDER MATTERS! I don't think this is reliable after initialization, but I haven't tested it.
     /// </summary>
     /// <param name="ability">The ability to add.</param>
-    public void AddNetworkedAbility(AbilityActivation ability)
+    public void AddNetworkedAbility(IAbilityActivation ability)
     {
         //default value
         int index = abilityActivations.Count;
@@ -81,18 +81,34 @@ public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
         ability.Initialize(this);
     }
 
+    public void AddNetworkedAbility(GameObject ability) {
+        Assert.IsTrue(ability.GetComponentsInChildren<AbilityActivation>().Length <= 1);
+        Assert.IsTrue(ability.GetComponentsInChildren<TargetedAbilityActivation>().Length <= 1);
+        Assert.IsTrue(ability.GetComponentsInChildren<IAbilityActivation>().Length > 0);
+
+        AbilityActivation untargetedActivation = ability.GetComponentInChildren<AbilityActivation>();
+        if (untargetedActivation != null) {
+            AddNetworkedAbility(untargetedActivation);
+        }
+
+        TargetedAbilityActivation targetedActivation = ability.GetComponentInChildren<TargetedAbilityActivation>();
+        if (targetedActivation != null) {
+            AddNetworkedAbility(targetedActivation);
+        }
+    }
+
     /// <summary>
     /// Removes an ability as a networked ability. ORDER MATTERS! Does not modify the networkeAbilityIds of other abilities. If the ability is re-added, it can have a different index than it currently does.
     /// </summary>
     /// <param name="ability"></param>
-    public void RemoveNetworkedAbility(AbilityActivation ability)
+    public void RemoveNetworkedAbility(IAbilityActivation ability)
     {
         int index = getNetworkedAbilityId(ability);
         abilityActivations[index] = null;
         abilityActivationIndices.Remove(ability);
     }
 
-    public byte getNetworkedAbilityId(AbilityActivation ability)
+    public byte getNetworkedAbilityId(IAbilityActivation ability)
     {
         if (!abilityActivationIndices.ContainsKey(ability))
         {
@@ -108,7 +124,7 @@ public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
 
     public byte getNetworkedAbilityId(GameObject ability)
     {
-        AbilityActivation networkedAbilityActivation = ability.GetComponent<AbilityActivation>();
+        IAbilityActivation networkedAbilityActivation = ability.GetComponent<IAbilityActivation>();
         if (networkedAbilityActivation == null)
         {
             Debug.LogErrorFormat(this, "{0} does not have a NetworkedAbilityActivation component", ability.ToString());
@@ -132,7 +148,7 @@ public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
         view.RPC(networkedActivationRPCName, PhotonTargets.Others, networkedAbilityId, data);
     }
 
-    public void ActivateRemote(AbilityActivation ability, object[] data)
+    public void ActivateRemote(IAbilityActivation ability, object[] data)
     {
         ActivateRemote(getNetworkedAbilityId(ability), data);
     }

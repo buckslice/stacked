@@ -8,6 +8,7 @@ using System.Collections.Generic;
 /// </summary>
 public interface IAbilityActivation {
     void Initialize(IActivationNetworking abilityNetwork);
+    void Activate(object[] data);
 }
 
 /// <summary>
@@ -65,7 +66,10 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
             send |= abilityAction.Activate(stream);
             Assert.IsTrue(send || (stream.Count == 0), string.Format("Data written to stream but not flagged to be sent. {0}", abilityAction));
         }
-        abilityNetwork.ActivateRemote(this, stream.ToArray());
+
+        if (send) {
+            abilityNetwork.ActivateRemote(this, stream.ToArray());
+        }
     }
 
     public void Activate(object[] incomingData) {
