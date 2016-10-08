@@ -16,7 +16,7 @@ public class InputTrigger : MonoBehaviour, IUntargetedAbilityTrigger, IAbilityKe
     void Start()
     {
         playerInput = GetComponentInParent<IPlayerInputHolder>();
-        Assert.IsNotNull(playerInput);
+        Assert.IsNotNull(playerInput, "Input not found.");
     }
 
     void Update()

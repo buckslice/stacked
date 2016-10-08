@@ -36,6 +36,13 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
     }
 
     public void Start() {
+        if (transform.parent == null) {
+            Debug.LogErrorFormat("Ability {0} has no parent; Destroying it.", this);
+            Destroy(this.gameObject);
+        }
+
+        Assert.IsNull(GetComponent<AbilityActivation>());
+
         foreach (TargetedAbilityTrigger trigger in GetComponentsInParent<TargetedAbilityTrigger>()) {
             trigger.targetedAbilityTriggerEvent += trigger_targetedAbilityTriggerEvent;
         }
