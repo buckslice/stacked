@@ -29,13 +29,13 @@ public abstract class TypedTargetedAbilityAction : TargetedAbilityAction, ITarge
         removeActivation();
     }
 
-    protected virtual void linkActivation() {
+    protected void linkActivation() {
         activation = GetComponent<TargetedAbilityActivation>();
 
         ((TargetedAbilityActivation)activation).AddConstraint(this);
     }
 
-    protected virtual void removeActivation() {
+    protected void removeActivation() {
         if (activation != null) {
             ((TargetedAbilityActivation)activation).RemoveConstraint(this);
         }

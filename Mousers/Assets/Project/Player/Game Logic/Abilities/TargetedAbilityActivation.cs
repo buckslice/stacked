@@ -43,15 +43,17 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
 
         Assert.IsNull(GetComponent<AbilityActivation>());
 
-        foreach (TargetedAbilityTrigger trigger in GetComponentsInParent<TargetedAbilityTrigger>()) {
+        foreach (ITargetedAbilityTrigger trigger in GetComponentsInParent<ITargetedAbilityTrigger>()) {
+            Debug.Log(trigger);
             trigger.targetedAbilityTriggerEvent += trigger_targetedAbilityTriggerEvent;
         }
     }
 
     void trigger_targetedAbilityTriggerEvent(GameObject target) {
-        foreach (TargetedAbilityConstraint constraint in constraints) {
+        foreach (ITargetedAbilityConstraint constraint in constraints) {
             if (!constraint.isAbilityActivatible(target)) {
                 //cannot activate, do nothing
+                Debug.Log(constraint);
                 return;
             }
         }

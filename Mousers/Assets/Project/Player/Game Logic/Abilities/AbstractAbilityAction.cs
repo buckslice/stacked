@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-[RequireComponent(typeof(TargetedAbilityActivation))]
 public abstract class TargetedAbilityAction : MonoBehaviour {
 
     protected virtual void Awake() {
@@ -39,7 +38,7 @@ public abstract class AbstractAbilityAction : TargetedAbilityAction {
         }
     }
 
-    public sealed override bool Activate(GameObject context, PhotonStream stream) {
+    public sealed override bool Activate(GameObject target, PhotonStream stream) {
         return Activate(stream);
     }
 

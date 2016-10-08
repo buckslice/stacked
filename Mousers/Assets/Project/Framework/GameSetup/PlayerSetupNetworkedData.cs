@@ -23,6 +23,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         MACHINEGUN,
         SPAWNADD,
         BLINK,
+        MELEECONEBASICATTACK,
     }
 
     static PlayerSetupNetworkedData main;

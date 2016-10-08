@@ -31,6 +31,13 @@ public class Damageable : MonoBehaviour {
         return actualDamageAmount;
     }
 
+    public float Damage(float incomingAmount, IDamageTracker trackerReference) {
+        float actualDamageAmount = incomingAmount * vulnerabilityMultiplier;
+        health.Damage(actualDamageAmount, trackerReference);
+        trackerReference.AddDamageDealt(actualDamageAmount);
+        return actualDamageAmount;
+    }
+
     public float Damage(float incomingAmount, Player playerReference) {
         float actualDamageAmount = incomingAmount * vulnerabilityMultiplier;
         health.Damage(actualDamageAmount, playerReference);

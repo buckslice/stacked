@@ -94,6 +94,14 @@ public class Health : MonoBehaviour {
         onDamage(amount, playerReference.PlayerID);
     }
 
+    public void Damage(float amount, IDamageTracker trackerReference) {
+        if (trackerReference is Player) {
+            Damage(amount, (Player)trackerReference);
+        } else {
+            Damage(amount);
+        }
+    }
+
     public void Heal(float amount) {
         Damage(-amount);
     }
