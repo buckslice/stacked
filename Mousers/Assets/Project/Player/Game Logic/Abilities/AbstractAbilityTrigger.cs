@@ -20,6 +20,13 @@ public interface IUntargetedAbilityTrigger {
     event UntargetedAbilityTrigger abilityTriggerEvent;
 }
 
+/// <summary>
+/// 
+/// </summary>
+public interface ITargetedAbilityTrigger : IUntargetedAbilityTrigger {
+    event TargetedTrigger targetedAbilityTriggerEvent;
+}
+
 public enum AbilityKeybinding { ABILITY1, ABILITY2 };
 
 /// <summary>
@@ -32,7 +39,7 @@ public interface IAbilityKeybound {
 /// <summary>
 /// Ability trigger which also supplies a target
 /// </summary>
-public abstract class TargetedAbilityTrigger : MonoBehaviour, IUntargetedAbilityTrigger {
+public abstract class TargetedAbilityTrigger : MonoBehaviour, ITargetedAbilityTrigger {
 
     public event UntargetedAbilityTrigger abilityTriggerEvent = delegate { };
     private void FireUntargetedEvent(GameObject target) { abilityTriggerEvent(); }
@@ -44,4 +51,26 @@ public abstract class TargetedAbilityTrigger : MonoBehaviour, IUntargetedAbility
     }
 
     protected void FireTrigger(GameObject target) { targetedAbilityTriggerEvent(target); }
+}
+
+/// <summary>
+/// An action which triggers a set of targeted actions via raycasting.
+/// </summary>
+public abstract class AbstractAreaCast : AbstractAbilityAction, ITargetedAbilityTrigger {
+
+    [SerializeField]
+    protected LayerMask layermask;
+
+    public event UntargetedAbilityTrigger abilityTriggerEvent = delegate { };
+    public event TargetedTrigger targetedAbilityTriggerEvent = (target) => { };
+
+    public sealed override bool Activate(PhotonStream stream) {
+        foreach (Collider collider in performCast()) {
+            targetedAbilityTriggerEvent(collider.gameObject);
+        }
+
+        return false; //any networking action is handled by the child ativation
+    }
+
+    protected abstract Collider[] performCast();
 }

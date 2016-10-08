@@ -11,10 +11,14 @@ public interface IAbilityConstrained {
     bool RemoveConstraint(UntargetedAbilityConstraint toRemove);
 }
 
+public interface ITargetedAbilityConstraint {
+    bool isAbilityActivatible(GameObject target);
+}
+
 /// <summary>
-/// Abstract class to contain functionality that almost all ability constraints will use
+/// A targeted ability action that imposes constraints on what it can be activated with.
 /// </summary>
-public abstract class TargetedAbilityConstraint : AbstractAbilityAction {
+public abstract class TypedTargetedAbilityAction : TargetedAbilityAction, ITargetedAbilityConstraint {
     protected IAbilityConstrained activation = null;
     protected override void Start() {
         base.Start();
@@ -38,21 +42,37 @@ public abstract class TargetedAbilityConstraint : AbstractAbilityAction {
     }
 
     public abstract bool isAbilityActivatible(GameObject target);
+}
 
-    public override bool Activate(PhotonStream stream) {
-        Activate();
+/// <summary>
+/// A targeted constraint which has no meaningful action.
+/// </summary>
+public abstract class TargetedAbilityConstraint : TypedTargetedAbilityAction {
+
+    public sealed override bool Activate(GameObject context, PhotonStream stream) {
+        Activate(context);
         return false;
     }
 
-    public abstract void Activate();
+    public abstract void Activate(GameObject context);
 }
 
 /// <summary>
 /// Ability constraint which does not need a reference target.
 /// </summary>
-public abstract class UntargetedAbilityConstraint : TargetedAbilityConstraint {
+public abstract class UntargetedAbilityConstraint : AbstractAbilityAction, ITargetedAbilityConstraint {
 
-    protected sealed override void linkActivation() {
+    protected IAbilityConstrained activation = null;
+    protected override void Start() {
+        base.Start();
+        linkActivation();
+    }
+
+    protected virtual void OnDestroy() {
+        removeActivation();
+    }
+
+    protected void linkActivation() {
         activation = GetComponent<TargetedAbilityActivation>();
 
         if (activation == null) {
@@ -66,15 +86,26 @@ public abstract class UntargetedAbilityConstraint : TargetedAbilityConstraint {
         activation.AddConstraint(this);
     }
 
-    protected sealed override void removeActivation() {
+    protected void removeActivation() {
         if (activation != null) {
             activation.RemoveConstraint(this);
         }
     }
 
-    public sealed override bool isAbilityActivatible(GameObject target) {
+    public bool isAbilityActivatible(GameObject context) {
         return isAbilityActivatible();
     }
 
     public abstract bool isAbilityActivatible();
+
+    public void Activate(GameObject context) {
+        Activate();
+    }
+
+    public sealed override bool Activate(PhotonStream stream) {
+        Activate();
+        return false;
+    }
+
+    public abstract void Activate();
 }

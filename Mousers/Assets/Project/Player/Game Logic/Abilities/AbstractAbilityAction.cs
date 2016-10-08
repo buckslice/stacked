@@ -6,11 +6,10 @@ using System.Linq;
 
 [RequireComponent(typeof(TargetedAbilityActivation))]
 public abstract class TargetedAbilityAction : MonoBehaviour {
-    protected AbilityActivation abilityActivation;
 
     protected virtual void Awake() {
-        abilityActivation = GetComponent<AbilityActivation>();
-        if (!abilityActivation.AbilityActions.Contains(this)) {
+        TargetedAbilityActivation abilityActivation = GetComponent<TargetedAbilityActivation>();
+        if (abilityActivation != null && !abilityActivation.AbilityActions.Contains(this)) {
             Debug.LogError("Ability's AbilityActivation does not contain all of the ability's AbilityActions.", this);
         }
     }
@@ -31,6 +30,14 @@ public abstract class TargetedAbilityAction : MonoBehaviour {
 /// Component designed to receive events from IAbilityActivations, and perform actions. There can and should be many of these making up a single ability. This one can activate without a target.
 /// </summary>
 public abstract class AbstractAbilityAction : TargetedAbilityAction {
+
+    protected override void Awake() {
+        base.Awake();
+        TargetedAbilityActivation abilityActivation = GetComponent<TargetedAbilityActivation>();
+        if (abilityActivation != null && !abilityActivation.AbilityActions.Contains(this)) {
+            Debug.LogError("Ability's AbilityActivation does not contain all of the ability's AbilityActions.", this);
+        }
+    }
 
     public sealed override bool Activate(GameObject context, PhotonStream stream) {
         return Activate(stream);

@@ -54,7 +54,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2b1443f3512768418b2700d98dd8778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 1
+  duration:
+    baseValue: 1
   resistAmount: 0.5
 --- !u!114 &114000011038005484
 MonoBehaviour:

@@ -14,16 +14,16 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
     protected TargetedAbilityAction[] abilityActions;
     public TargetedAbilityAction[] AbilityActions { get { return abilityActions; } }
 
-    protected List<TargetedAbilityConstraint> constraints = new List<TargetedAbilityConstraint>();
+    protected List<ITargetedAbilityConstraint> constraints = new List<ITargetedAbilityConstraint>();
 
-    public void AddConstraint(TargetedAbilityConstraint toAdd) { constraints.Add(toAdd); }
-    public bool RemoveConstraint(TargetedAbilityConstraint toRemove) { return constraints.Remove(toRemove); }
+    public void AddConstraint(ITargetedAbilityConstraint toAdd) { constraints.Add(toAdd); }
+    public bool RemoveConstraint(ITargetedAbilityConstraint toRemove) { return constraints.Remove(toRemove); }
 
     /// <summary>
     /// For covariance.
     /// </summary>
-    public void AddConstraint(UntargetedAbilityConstraint toAdd) { AddConstraint((TargetedAbilityConstraint)toAdd); }
-    public bool RemoveConstraint(UntargetedAbilityConstraint toRemove) { return RemoveConstraint((TargetedAbilityConstraint)toRemove); }
+    public void AddConstraint(UntargetedAbilityConstraint toAdd) { AddConstraint((ITargetedAbilityConstraint)toAdd); }
+    public bool RemoveConstraint(UntargetedAbilityConstraint toRemove) { return RemoveConstraint((ITargetedAbilityConstraint)toRemove); }
 
     IActivationNetworking abilityNetwork;
 

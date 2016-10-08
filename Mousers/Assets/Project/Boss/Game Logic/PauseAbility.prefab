@@ -20,8 +20,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011665290682}
   - 114: {fileID: 114000012180045160}
-  - 114: {fileID: 114000011746022008}
   - 114: {fileID: 114000010165304628}
+  - 114: {fileID: 114000011746022008}
   - 114: {fileID: 114000013526225586}
   m_Layer: 0
   m_Name: PauseAbility
@@ -82,6 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000011746022008}
+  - {fileID: 114000013526225586}
 --- !u!114 &114000013526225586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,4 +94,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5048ef9b6bba7804d8eb77c64a2ec950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseTime: 3
+  duration:
+    baseValue: 1
