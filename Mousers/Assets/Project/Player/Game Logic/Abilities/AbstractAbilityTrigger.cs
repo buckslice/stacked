@@ -1,0 +1,47 @@
+﻿using UnityEngine;
+using UnityEngine.Assertions;
+using System.Collections;
+using System.Collections.Generic;
+
+/*
+/// <summary>
+/// An event that triggers based on player input.
+/// </summary>
+public interface IAbilityInput {}
+ * */
+
+public delegate void UntargetedAbilityTrigger();
+public delegate void TargetedTrigger(GameObject target);
+
+/// <summary>
+/// Anything which sends out an event which can possibly activate the ability.
+/// </summary>
+public interface IUntargetedAbilityTrigger {
+    event UntargetedAbilityTrigger abilityTriggerEvent;
+}
+
+public enum AbilityKeybinding { ABILITY1, ABILITY2 };
+
+/// <summary>
+/// Interface indicating that this has a keybinding
+/// </summary>
+public interface IAbilityKeybound {
+    AbilityKeybinding Binding { get; set; }
+}
+
+/// <summary>
+/// Ability trigger which also supplies a target
+/// </summary>
+public abstract class TargetedAbilityTrigger : MonoBehaviour, IUntargetedAbilityTrigger {
+
+    public event UntargetedAbilityTrigger abilityTriggerEvent = delegate { };
+    private void FireUntargetedEvent(GameObject target) { abilityTriggerEvent(); }
+
+    public event TargetedTrigger targetedAbilityTriggerEvent = (target) => { };
+
+    protected virtual void Awake() {
+        targetedAbilityTriggerEvent += FireUntargetedEvent;
+    }
+
+    protected void FireTrigger(GameObject target) { targetedAbilityTriggerEvent(target); }
+}

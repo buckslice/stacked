@@ -3,13 +3,13 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class InputTrigger : MonoBehaviour, IAbilityTrigger, IAbilityKeybound
+public class InputTrigger : MonoBehaviour, IUntargetedAbilityTrigger, IAbilityKeybound
 {
     [SerializeField]
     protected AbilityKeybinding binding = AbilityKeybinding.ABILITY1;
     public AbilityKeybinding Binding { get { return binding; } set { binding = value; } }
 
-    public event AbilityTrigger abilityTriggerEvent = delegate { };
+    public event UntargetedAbilityTrigger abilityTriggerEvent = delegate { };
 
     IPlayerInputHolder playerInput;
 

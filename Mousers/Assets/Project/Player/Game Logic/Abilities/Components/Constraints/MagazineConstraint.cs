@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class MagazineConstraint : AbstractAbilityConstraint {
+public class MagazineConstraint : UntargetedAbilityConstraint {
 
     /// <summary>
     /// How many activations there are in a single magazine.

@@ -25,9 +25,9 @@ public class ProjectileActivationNetworking : MonoBehaviour, IActivationNetworki
         abilityActivation.Initialize(this);
 
         if (view != null && !view.isMine) {
-            //we need to disable all input-related ability activation scripts
-            foreach (IAbilityTrigger inputActivation in GetComponentsInChildren<IAbilityTrigger>()) {
-                ((MonoBehaviour)inputActivation).enabled = false;
+            //we need to disable all ability activation scripts
+            foreach (IUntargetedAbilityTrigger trigger in GetComponentsInChildren<IUntargetedAbilityTrigger>()) {
+                ((MonoBehaviour)trigger).enabled = false;
             }
         }
     }

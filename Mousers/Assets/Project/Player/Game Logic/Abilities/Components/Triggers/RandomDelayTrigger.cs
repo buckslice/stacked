@@ -2,7 +2,7 @@
 using System.Collections;
 
 // intended to be used for bosses primarily for them to use their abilities
-public class RandomDelayTrigger : MonoBehaviour, IAbilityTrigger {
+public class RandomDelayTrigger : MonoBehaviour, IUntargetedAbilityTrigger {
 
     [SerializeField]
     private float minDelay = 0.0f;
@@ -14,7 +14,7 @@ public class RandomDelayTrigger : MonoBehaviour, IAbilityTrigger {
     CooldownConstraint cc;
     float nextTriggerTime = -1.0f;
 
-    public event AbilityTrigger abilityTriggerEvent = delegate { };
+    public event UntargetedAbilityTrigger abilityTriggerEvent = delegate { };
 
     // Use this for initialization
     void Start() {
