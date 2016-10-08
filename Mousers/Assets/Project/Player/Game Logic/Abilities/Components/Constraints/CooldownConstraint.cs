@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Requires a minimum amount of time between activations.
 /// </summary>
-public class CooldownConstraint : AbstractAbilityConstraint {
+public class CooldownConstraint : UntargetedAbilityConstraint {
 
     [SerializeField]
     protected MultiplierFloatStat cooldownSecs = new MultiplierFloatStat(1);

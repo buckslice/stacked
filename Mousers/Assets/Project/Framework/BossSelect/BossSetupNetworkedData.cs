@@ -64,7 +64,7 @@ public class BossSetupNetworkedData : MonoBehaviour
     {
         GameObject instantiatedAbility = (GameObject)Instantiate(abilityIdToPrefab(ability), parent);
         instantiatedAbility.transform.Reset();
-        abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<AbilityActivation>());
+        abilityNetworking.AddNetworkedAbility(instantiatedAbility);
         return instantiatedAbility;
     }
 

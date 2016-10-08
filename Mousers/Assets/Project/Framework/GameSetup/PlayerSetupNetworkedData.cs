@@ -22,6 +22,8 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         RESIST,
         MACHINEGUN,
         SPAWNADD,
+        BLINK,
+        MELEECONEBASICATTACK,
     }
 
     static PlayerSetupNetworkedData main;
@@ -78,7 +80,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     GameObject InstantiateAbility(AbilityId ability, Transform parent, AbilityNetworking abilityNetworking) {
         GameObject instantiatedAbility = (GameObject)Instantiate(abilityIdToPrefab(ability), parent);
         instantiatedAbility.transform.Reset();
-        abilityNetworking.AddNetworkedAbility(instantiatedAbility.GetComponent<AbilityActivation>());
+        abilityNetworking.AddNetworkedAbility(instantiatedAbility);
         return instantiatedAbility;
     }
 

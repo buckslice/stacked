@@ -6,9 +6,9 @@ using System.Collections.Generic;
 /// <summary>
 /// An ability that is always triggering. Useful for passive or always-on abilities
 /// </summary>
-public class AlwaysTrigger : MonoBehaviour, IAbilityTrigger {
+public class AlwaysTrigger : MonoBehaviour, IUntargetedAbilityTrigger {
 
-    public event AbilityTrigger abilityTriggerEvent = delegate { };
+    public event UntargetedAbilityTrigger abilityTriggerEvent = delegate { };
 
     void Update()
     {

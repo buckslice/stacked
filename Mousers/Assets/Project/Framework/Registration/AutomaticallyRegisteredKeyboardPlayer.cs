@@ -22,6 +22,6 @@ public class AutomaticallyRegisteredKeyboardPlayer : RegisteredPlayer {
         }
         inputBindings = new KeyboardMousePlayerInput();
 
-        Assert.IsTrue(MouserNetworking.Main.NetworkingMode != MouserNetworkingMode.ONLINE); //we aren't hooked up correctly for online
+        Assert.IsTrue(MouserNetworking.Main.NetworkingMode != MouserNetworkingMode.ONLINE, "Automatic Setups will not work correctly over the network."); //we aren't hooked up correctly for online
     }
 }

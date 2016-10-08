@@ -11,7 +11,7 @@ public class ProjectileActivationNetworking : MonoBehaviour, IActivationNetworki
     const string networkedActivationRPCName = "NetworkedActivationRPC";
 
     PhotonView view;
-    AbilityActivation abilityActivation;
+    IAbilityActivation abilityActivation;
 
     void Awake() {
         view = GetComponent<PhotonView>();
@@ -19,20 +19,20 @@ public class ProjectileActivationNetworking : MonoBehaviour, IActivationNetworki
 
     void Start() {
 
-        Assert.IsTrue(GetComponentsInChildren<AbilityActivation>().Length == 1);
-        abilityActivation = GetComponentInChildren<AbilityActivation>();
+        Assert.IsTrue(GetComponentsInChildren<IAbilityActivation>().Length == 1);
+        abilityActivation = GetComponentInChildren<IAbilityActivation>();
 
         abilityActivation.Initialize(this);
 
         if (view != null && !view.isMine) {
-            //we need to disable all input-related ability activation scripts
-            foreach (IAbilityTrigger inputActivation in GetComponentsInChildren<IAbilityTrigger>()) {
-                ((MonoBehaviour)inputActivation).enabled = false;
+            //we need to disable all ability activation scripts
+            foreach (IUntargetedAbilityTrigger trigger in GetComponentsInChildren<IUntargetedAbilityTrigger>()) {
+                ((MonoBehaviour)trigger).enabled = false;
             }
         }
     }
 
-    public void ActivateRemote(AbilityActivation ability, object[] data) {
+    public void ActivateRemote(IAbilityActivation ability, object[] data) {
         if (view == null)
             return;
 

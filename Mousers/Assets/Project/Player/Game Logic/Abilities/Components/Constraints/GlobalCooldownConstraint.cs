@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GlobalCooldownConstraint : AbstractAbilityConstraint {
+public class GlobalCooldownConstraint : UntargetedAbilityConstraint {
 
     [SerializeField]
     protected MultiplierFloatStat cooldownSecs = new MultiplierFloatStat(1);
