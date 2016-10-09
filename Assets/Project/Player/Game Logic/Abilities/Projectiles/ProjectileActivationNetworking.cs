@@ -6,7 +6,6 @@ using System.Collections.Generic;
 /// <summary>
 /// Script for ability structures which only have one ability and do not need a mltiplexing system. Common on projectiles.
 /// </summary>
-[RequireComponent(typeof(PhotonView))]
 public class ProjectileActivationNetworking : AbstractActivationNetworking {
 
     IAbilityActivation abilityActivation;

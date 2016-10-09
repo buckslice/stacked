@@ -57,10 +57,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010580956130}
-  - 114: {fileID: 114000013218042672}
   - 54: {fileID: 54000011593570458}
   - 114: {fileID: 114000011129702358}
   - 114: {fileID: 114000013116727130}
+  - 114: {fileID: 114000011371509312}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -197,6 +197,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f492db19569d444bd21f000b8790c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000011371509312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014041105046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05692c7b008393343b0604581f93460e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration:
+    baseValue: 10
 --- !u!114 &114000011488700720
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -223,31 +236,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03922c74779f1974a903ae791c24414a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000013218042672
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014041105046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerId: 0
-  group: 0
-  prefixBackup: -1
-  observed: {fileID: 0}
-  synchronization: 0
-  onSerializeTransformOption: 3
-  onSerializeRigidBodyOption: 2
-  ownershipTransfer: 0
-  ObservedComponents:
-  - {fileID: 0}
-  ObservedComponentsFoldoutOpen: 1
-  viewIdField: 0
-  instantiationId: -1
-  isRuntimeInstantiated: 0
 --- !u!114 &114000013665024618
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -3,7 +3,11 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public interface IDamageTracker {
+public interface IDamageHolder {
+    IDamageTracker DamageTracker { get; }
+}
+
+public interface IDamageTracker : IDamageHolder {
     float DamageDealt { get; }
     void AddDamageDealt(float damage);
 }
@@ -85,4 +89,6 @@ public class Player : MonoBehaviour, IDamageTracker {
         }
         return allPlayers.Count;
     }
+
+    public IDamageTracker DamageTracker { get { return this; } }
 }

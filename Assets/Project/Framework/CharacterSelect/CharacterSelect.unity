@@ -422,7 +422,7 @@ MonoBehaviour:
   bossData:
     sceneName: Derek
     abilities: 00
-  spawnPoints: []
+  spawnPoint: {fileID: 821395574}
 --- !u!4 &821395574
 Transform:
   m_ObjectHideFlags: 0

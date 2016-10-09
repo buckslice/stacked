@@ -19,11 +19,12 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
 
     PhotonView view;
     AbstractActivationNetworking abilityNetwork;
+    IDamageHolder trackerReference;
 
     /// <summary>
     /// The index of an object in this list is its spawnedObjectID.
     /// </summary>
-    List<IActivationNetworking> activeObjects = new List<IActivationNetworking>();
+    List<SpawnedObjectTracker> activeObjects = new List<SpawnedObjectTracker>();
 
     /// <summary>
     /// Secondary data structure to look up the index (and thus the spawnedObjectID) of an element in activeObjects
@@ -33,6 +34,12 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
     public void Initialize(AbstractActivationNetworking abilityNetwork) {
         this.abilityNetwork = abilityNetwork;
         view = abilityNetwork.GetComponent<PhotonView>();
+    }
+
+    protected override void Start() {
+        base.Start();
+        trackerReference = GetComponentInParent<IDamageHolder>();
+        Assert.IsNotNull(trackerReference);
     }
 
     /// <summary>
@@ -47,6 +54,7 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
 
         if (stream.isWriting) {
             spawnedObjectID = (byte)firstOpenIndex();
+            stream.SendNext(spawnedObjectID);
 
             position = transform.position;
             if (networkPosition) {
@@ -65,13 +73,29 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
             rotation = networkRotation ? (float)stream.ReceiveNext() : transform.eulerAngles.y;
         }
 
-        Assert.IsNull(activeObjects[spawnedObjectID]);
-        IActivationNetworking spawnedObject = SimplePool.Spawn(prefab, transform.position, transform.rotation).GetComponent<IActivationNetworking>();
-        spawnedObject.Initialize(this, view);
-        activeObjects.Insert(spawnedObjectID, spawnedObject);
-        activeObjectIndices[spawnedObject] = spawnedObjectID;
+        Assert.IsTrue(spawnedObjectID == activeObjects.Count || activeObjects[spawnedObjectID] == null);
+        GameObject spawnedObject = SimplePool.Spawn(prefab, transform.position, transform.rotation);
+        IActivationNetworking spawnedNetworking = spawnedObject.GetComponent<IActivationNetworking>();
+        spawnedNetworking.Initialize(this, view);
+
+        SpawnedObjectTracker objectTracker = spawnedObject.GetComponent<SpawnedObjectTracker>();
+        if (objectTracker == null) {
+            objectTracker = spawnedObject.AddComponent<SpawnedObjectTracker>();
+        }
+        objectTracker.Initialize(trackerReference);
+        objectTracker.onProjectileDestroyed += objectTracker_onProjectileDestroyed;
+
+        activeObjects.Insert(spawnedObjectID, objectTracker);
+        activeObjectIndices[spawnedNetworking] = spawnedObjectID;
         //other initialization using the stream?
         return true;
+    }
+
+    void objectTracker_onProjectileDestroyed(SpawnedObjectTracker self) {
+        self.onProjectileDestroyed -= objectTracker_onProjectileDestroyed;
+        byte spawnedObjectID = getSpawnedObjectID(self.ActivationNetworking);
+        activeObjects[spawnedObjectID] = null;
+        activeObjectIndices.Remove(self.ActivationNetworking);
     }
 
     /// <summary>
@@ -83,11 +107,12 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
         object[] unjoinedData = new object[data.Length - 1];
         System.Array.Copy(data, 1, unjoinedData, 0, unjoinedData.Length);
         Assert.IsNotNull(activeObjects[spawnedObjectID]);
-        activeObjects[spawnedObjectID].NetworkedActivationRPC(unjoinedData, info);
+        activeObjects[spawnedObjectID].ActivationNetworking.NetworkedActivationRPC(unjoinedData, info);
     }
 
     public void ActivateRemote(IActivationNetworking requester, object[] outboundData) {
-        
+        byte spawnedObjectID = getSpawnedObjectID(requester);
+        ActivateRemote(spawnedObjectID, outboundData);
     }
 
     void ActivateRemote(byte spawnedObjectID, object[] outboundData) {
@@ -113,7 +138,7 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
     /// <returns></returns>
     int firstOpenIndex() {
         int i = 0;
-        while (activeObjects[i] != null && i < activeObjects.Count) {
+        while (i < activeObjects.Count && activeObjects[i] != null) {
             i++;
         }
 

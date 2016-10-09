@@ -23,8 +23,14 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable {
         OnProjectileCreated();
     }
 
+    protected void OnApplicationQuit() {
+        this.enabled = false;
+    }
+
     protected void OnDestroy() {
-        OnProjectileDestroyed();
+        if (enabled) {
+            OnProjectileDestroyed();
+        }
     }
 
     public void Despawn() {

@@ -42,6 +42,7 @@ GameObject:
   - 50: {fileID: 50000010571116854}
   - 114: {fileID: 114000014144618182}
   - 114: {fileID: 114000012433322918}
+  - 114: {fileID: 114000013044286282}
   - 114: {fileID: 114000013037090738}
   - 212: {fileID: 212000013070824990}
   - 61: {fileID: 61000011378471426}
@@ -189,6 +190,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilities:
   - {fileID: 1000010664146774}
+--- !u!114 &114000013044286282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013117158502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757a496c6f5d89845b23b113b6b90bdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013171150896
 MonoBehaviour:
   m_ObjectHideFlags: 1

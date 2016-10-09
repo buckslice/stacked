@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class DamageAction : TypedTargetedAbilityAction {
 
     //TODO: refactor these to be more universal
-    IDamageTracker trackerReference;
+    IDamageHolder trackerReference;
 
     //TODO; refactor to include damage type
     [SerializeField]
@@ -14,7 +14,7 @@ public class DamageAction : TypedTargetedAbilityAction {
 
     protected override void Start() {
         base.Start();
-        trackerReference = GetComponentInParent<IDamageTracker>();
+        trackerReference = GetComponentInParent<IDamageHolder>();
 
         if (trackerReference == null) {
             PhotonView view = GetComponentInParent<PhotonView>();
@@ -28,7 +28,7 @@ public class DamageAction : TypedTargetedAbilityAction {
     }
 
     public override bool Activate(GameObject target, PhotonStream stream) {
-        target.GetComponent<Damageable>().Damage(damage, trackerReference);
+        target.GetComponent<Damageable>().Damage(damage, trackerReference.DamageTracker);
         return true;
     }
 }
