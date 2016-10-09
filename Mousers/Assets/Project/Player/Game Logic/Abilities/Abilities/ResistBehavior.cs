@@ -17,13 +17,15 @@ public class ResistBehavior : DurationAbilityAction {
 
     protected override void OnDurationBegin() {
         foreach (Damageable damageable in damageables) {
-            damageable.VulnerabilityMultiplier.AddModifier(resistAmount);
+            damageable.MagicalVulnerabilityMultiplier.AddModifier(resistAmount);
+            damageable.PhysicalVulnerabilityMultiplier.AddModifier(resistAmount);
         }
     }
 
     protected override void OnDurationEnd() {
         foreach (Damageable damageable in damageables) {
-            damageable.VulnerabilityMultiplier.RemoveModifier(resistAmount);
+            damageable.MagicalVulnerabilityMultiplier.RemoveModifier(resistAmount);
+            damageable.PhysicalVulnerabilityMultiplier.RemoveModifier(resistAmount);
         }
     }
 

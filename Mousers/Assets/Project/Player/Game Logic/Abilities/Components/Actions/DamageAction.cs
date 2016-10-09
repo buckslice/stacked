@@ -10,7 +10,7 @@ public class DamageAction : TypedTargetedAbilityAction {
 
     //TODO; refactor to include damage type
     [SerializeField]
-    protected float damage = 100;
+    protected Damage damage = 100;
 
     protected override void Awake() {
         base.Awake();

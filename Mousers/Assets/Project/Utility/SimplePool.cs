@@ -33,6 +33,8 @@ using System.Collections.Generic;
 
 public static class SimplePool {
 
+    public static readonly PunPrefabPool pool = new PunPrefabPool();
+
     // You can avoid resizing of the Stack's internal array by
     // setting this to a number equal to or greater to what you
     // expect most of your pool sizes to be.
@@ -211,6 +213,16 @@ public static class SimplePool {
 
             pm.myPool.Despawn(obj);
         }
+    }
+}
+
+public class PunPrefabPool : IPunPrefabPool {
+    public GameObject Instantiate(string prefabId, Vector3 position, Quaternion rotation) {
+        return SimplePool.Spawn((GameObject)Resources.Load<GameObject>(prefabId), position, rotation);
+    }
+
+    public void Destroy(GameObject gameObject) {
+        SimplePool.Despawn(gameObject);
     }
 }
 
