@@ -2,6 +2,7 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// Used to interface with AbilityNetworking scripts.

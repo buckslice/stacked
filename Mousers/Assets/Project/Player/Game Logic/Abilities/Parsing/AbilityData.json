@@ -1,0 +1,19 @@
+{"name":"ResistAbility",
+	"behaviors":[
+		{"type":"ResistBehavior", 
+		"attributes":[
+			{"name":"Duration",
+			"value":1
+			},
+			{"name":"ResistAmount",
+			"value":0.5
+			}
+		]},
+		{"type":"CooldownConstraint",
+		"attributes":[
+			{"name":"CooldownSecs",
+			"value":2
+			}
+		]}
+	]
+}

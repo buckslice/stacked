@@ -2,7 +2,9 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
+[Serializable]
 public class ResistBehavior : DurationAbilityAction {
 
     [SerializeField]

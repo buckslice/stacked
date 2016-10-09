@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using System.Collections.Generic;
 
 public class GetAbilitiesFromData : MonoBehaviour {
     [SerializeField]
@@ -8,6 +9,7 @@ public class GetAbilitiesFromData : MonoBehaviour {
 
     [SerializeField]
     protected GameObject abstractAbilityPrefab;
+
 	// Use this for initialization
 	void Start () {
         getAbilities();
@@ -15,8 +17,8 @@ public class GetAbilitiesFromData : MonoBehaviour {
 	
     public GameObject[] getAbilities() {
         AbilityData abilityData = JsonUtility.FromJson<AbilityData>(abilityText.text);
-        print(abilityData.abilities);
-        GameObject[] result = new GameObject[abilityData.abilities.Count];
+        print(JsonUtility.ToJson(abilityData));
+        GameObject[] result = new GameObject[0/*abilityData.behaviors.Length*/];
         return result;
     }
 }

@@ -3,7 +3,9 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
+[Serializable]
 public abstract class TargetedAbilityAction : MonoBehaviour {
 
     protected virtual void Awake() {
