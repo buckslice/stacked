@@ -8,13 +8,11 @@ using System.IO;
 /// <summary>
 /// Container class containing data to create Bosss over the network.
 /// </summary>
-public class BossSetupNetworkedData : MonoBehaviour
-{
+public class BossSetupNetworkedData : MonoBehaviour {
     /// <summary>
     /// When an ability prefab is created, it needs to be registered here. Do not remove legacy abilities. Order matters.
     /// </summary>
-    public enum AbilityId : byte
-    {
+    public enum AbilityId : byte {
         PAUSE,
     }
 
@@ -32,10 +30,8 @@ public class BossSetupNetworkedData : MonoBehaviour
     /// </summary>
     public GameObject[] abilityPrefabs;
 
-    void Awake()
-    {
-        if (main != null)
-        {
+    void Awake() {
+        if (main != null) {
             PhotonNetwork.OnEventCall -= Main.OnEvent;
             Destroy(Main.transform.root.gameObject);
         }
@@ -44,24 +40,20 @@ public class BossSetupNetworkedData : MonoBehaviour
         PhotonNetwork.OnEventCall += OnEvent;
     }
 
-    void OnDestroy()
-    {
-        if (Main == this)
-        {
+    void OnDestroy() {
+        if (Main == this) {
             main = null;
         }
         PhotonNetwork.OnEventCall -= OnEvent;
     }
 
-    GameObject abilityIdToPrefab(AbilityId id)
-    {
+    GameObject abilityIdToPrefab(AbilityId id) {
         int index = (int)id;
         Assert.IsTrue(index < abilityPrefabs.Length); //check to make sure the ability ID data is self-consistent
         return abilityPrefabs[index];
     }
 
-    GameObject InstantiateAbility(AbilityId ability, Transform parent, AbilityNetworking abilityNetworking)
-    {
+    GameObject InstantiateAbility(AbilityId ability, Transform parent, AbilityNetworking abilityNetworking) {
         GameObject instantiatedAbility = (GameObject)Instantiate(abilityIdToPrefab(ability), parent);
         instantiatedAbility.transform.Reset();
         abilityNetworking.AddNetworkedAbility(instantiatedAbility);
@@ -73,53 +65,39 @@ public class BossSetupNetworkedData : MonoBehaviour
     /// </summary>
     /// <param name="input"></param>
     /// <param name="BossNumber"></param>
-    public void CreateBoss(BossSetup.BossSetupData BossData)
-    {
+    public void CreateBoss(BossSetup.BossSetupData bossData, Transform spawn) {
         int allocatedViewId = PhotonNetwork.AllocateViewID();
 
         //Create our local copy
-        InstantiateBoss(allocatedViewId, BossData);
+        InstantiateBoss(allocatedViewId, bossData, spawn.position, spawn.rotation);
 
         //Create the network payload to send for remote copies
-
-        //data variable has non-constant size; use serialization
-        BinaryFormatter binaryFormatter = new BinaryFormatter();
-        byte[] serializedData;
-        using (MemoryStream memoryStream = new MemoryStream())
-        {
-            binaryFormatter.Serialize(memoryStream, BossData);
-            serializedData = memoryStream.ToArray();
-        }
-        byte[] payloadData = new byte[serializedData.Length + 4];
-        System.BitConverter.GetBytes(allocatedViewId).CopyTo(payloadData, 0);
-        serializedData.CopyTo(payloadData, 4);
+        Packet p = new Packet();
+        p.Write(allocatedViewId);
+        p.Write(bossData);
+        p.Write(spawn.position);
+        p.Write(spawn.rotation);
 
         //We already created our copy, so don't send to self
         RaiseEventOptions options = new RaiseEventOptions();
         options.Receivers = ReceiverGroup.Others;
 
         //Send the event to create the remote copies
-        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEBOSS, payloadData, true, options);
+        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEBOSS, p.getData(), true, options);
     }
 
-    public void OnEvent(byte eventcode, object content, int senderid)
-    {
-        if (eventcode != (byte)Tags.EventCodes.CREATEBOSS)
-        {
+    public void OnEvent(byte eventcode, object content, int senderid) {
+        if (eventcode != (byte)Tags.EventCodes.CREATEBOSS) {
             return;
         }
 
-        byte[] data = (byte[])content;
-        int allocatedViewId = System.BitConverter.ToInt32(data, 0);
-        BossSetup.BossSetupData BossData;
-        using (MemoryStream memoryStream = new MemoryStream())
-        {
-            BinaryFormatter binaryFormatter = new BinaryFormatter();
-            memoryStream.Write(data, 4, data.Length - 4);
-            memoryStream.Seek(0, SeekOrigin.Begin);
-            BossData = (BossSetup.BossSetupData)binaryFormatter.Deserialize(memoryStream);
-        }
-        InstantiateBoss(allocatedViewId, BossData);
+        Packet p = new Packet(content);
+        int allocatedViewId = p.ReadInt();
+        BossSetup.BossSetupData bossData = (BossSetup.BossSetupData)p.ReadObject();
+        Vector3 spawnPoint = p.ReadVector3();
+        Quaternion spawnOrientation = p.ReadQuaternion();
+
+        InstantiateBoss(allocatedViewId, bossData, spawnPoint, spawnOrientation);
     }
 
     /// <summary>
@@ -127,9 +105,8 @@ public class BossSetupNetworkedData : MonoBehaviour
     /// </summary>
     /// <param name="BossNumber"></param>
     /// <param name="allocatedViewId"></param>
-    public void InstantiateBoss(int allocatedViewId, BossSetup.BossSetupData BossData)
-    {
-        GameObject Boss = (GameObject)Instantiate(baseBossPrefab, Vector3.zero, Quaternion.identity); //TODO: use spawn point
+    public void InstantiateBoss(int allocatedViewId, BossSetup.BossSetupData BossData, Vector3 spawnPoint, Quaternion spawnOrientation) {
+        GameObject Boss = (GameObject)Instantiate(baseBossPrefab, spawnPoint, spawnOrientation); //TODO: double check this works
         Boss.name = "Boss";
 
         //assign view ID
@@ -141,8 +118,7 @@ public class BossSetupNetworkedData : MonoBehaviour
         AbilityNetworking abilityNetworking = Boss.GetComponent<AbilityNetworking>();
 
         //add abilities
-        foreach (AbilityId ability in BossData.abilities)
-        {
+        foreach (AbilityId ability in BossData.abilities) {
             InstantiateAbility(ability, Boss.transform, abilityNetworking);
         }
     }

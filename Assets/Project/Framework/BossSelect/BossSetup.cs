@@ -26,7 +26,7 @@ public class BossSetup : MonoBehaviour
     protected BossSetupData bossData;
 
     [SerializeField]
-    protected Transform[] spawnPoints;
+    protected Transform spawnPoint;
 
     protected virtual void Awake()
     {
@@ -58,7 +58,7 @@ public class BossSetup : MonoBehaviour
         {
             return;
         }
-        BossSetupNetworkedData.Main.CreateBoss(bossData);
+        BossSetupNetworkedData.Main.CreateBoss(bossData, spawnPoint);
         Destroy(this.transform.root.gameObject);
         //boss was created, our job is done. May want to change this so that the boss's spawning data is persisted.
     }
