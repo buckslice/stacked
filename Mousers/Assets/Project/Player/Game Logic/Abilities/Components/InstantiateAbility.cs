@@ -8,12 +8,21 @@ using System.Collections.Generic;
 /// </summary>
 public class InstantiateAbility : AbstractAbilityAction {
 
+    PhotonView view;
+
     [SerializeField]
     protected string prefabName;
 
+    protected override void Start() {
+        base.Start();
+        view = GetComponentInParent<PhotonView>();
+    }
+
     public override bool Activate(PhotonStream stream)
     {
-        PhotonNetwork.Instantiate(prefabName, transform.position, transform.rotation, 0);
+        if (view.isMine) {
+            PhotonNetwork.Instantiate(prefabName, transform.position, transform.rotation, 0, new object[] { view.viewID });
+        }
         return false;
     }
 }

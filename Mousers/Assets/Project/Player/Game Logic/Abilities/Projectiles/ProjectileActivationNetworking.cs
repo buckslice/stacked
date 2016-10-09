@@ -6,9 +6,10 @@ using System.Collections.Generic;
 /// <summary>
 /// Script for ability structures which only have one ability and do not need a mltiplexing system. Common on projectiles.
 /// </summary>
+[RequireComponent(typeof(PhotonView))]
 public class ProjectileActivationNetworking : MonoBehaviour, IActivationNetworking {
 
-    const string networkedActivationRPCName = "NetworkedActivationRPC";
+    const string networkedActivationRPCName = "ProjectileNetworkedActivationRPC";
 
     PhotonView view;
     IAbilityActivation abilityActivation;
@@ -41,11 +42,13 @@ public class ProjectileActivationNetworking : MonoBehaviour, IActivationNetworki
             return;
         }
 
-        view.RPC(networkedActivationRPCName, PhotonTargets.Others, data);
+        view.RPC(networkedActivationRPCName, PhotonTargets.Others, (object)(data));
+        //see http://stackoverflow.com/questions/36350/how-to-pass-a-single-object-to-a-params-object
+        //the single object[] is misconstrued as the entire params array without the cast
     }
 
     [PunRPC]
-    public void NetworkedActivationRPC(object[] incomingData, PhotonMessageInfo info) {
+    public void ProjectileNetworkedActivationRPC(object[] incomingData, PhotonMessageInfo info) {
         if (view.isMine) {
             Debug.LogError("We own this object. All activations should originate from us. Discarding activation.");
             return;

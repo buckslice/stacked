@@ -34,7 +34,7 @@ public abstract class AbstractAbilityAction : TargetedAbilityAction {
 
     protected override void Awake() {
         base.Awake();
-        TargetedAbilityActivation abilityActivation = GetComponent<TargetedAbilityActivation>();
+        AbilityActivation abilityActivation = GetComponent<AbilityActivation>();
         if (abilityActivation != null && !abilityActivation.AbilityActions.Contains(this)) {
             Debug.LogError("Ability's AbilityActivation does not contain all of the ability's AbilityActions.", this);
         }

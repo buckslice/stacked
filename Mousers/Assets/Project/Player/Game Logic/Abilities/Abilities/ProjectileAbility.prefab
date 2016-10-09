@@ -23,7 +23,7 @@ GameObject:
   - 114: {fileID: 114000013220959254}
   - 114: {fileID: 114000012175262170}
   - 114: {fileID: 114000012823381752}
-  - 114: {fileID: 114000010365480484}
+  - 114: {fileID: 114000012999288184}
   m_Layer: 0
   m_Name: ProjectileAbility
   m_TagString: Untagged
@@ -44,18 +44,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000010365480484
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013318780656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87ee2b4de41cda240b99f183e9d5a27e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 1000014041105046, guid: eed8910440f2b1643a55970815574193, type: 2}
 --- !u!114 &114000010769103160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -70,7 +58,7 @@ MonoBehaviour:
   abilityActions:
   - {fileID: 114000012175262170}
   - {fileID: 114000012823381752}
-  - {fileID: 114000010365480484}
+  - {fileID: 114000012999288184}
 --- !u!114 &114000012175262170
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,6 +87,18 @@ MonoBehaviour:
     baseValue: 10
   reloadTimeSecs:
     baseValue: 3
+--- !u!114 &114000012999288184
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013318780656}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2bc8f83cda8a2f4a991864c6f2fa83e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabName: Fireball
 --- !u!114 &114000013220959254
 MonoBehaviour:
   m_ObjectHideFlags: 1

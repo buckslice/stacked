@@ -10,11 +10,16 @@ public class DamageAction : TypedTargetedAbilityAction {
 
     //TODO; refactor to include damage type
     [SerializeField]
-    protected float damage = 100;
+    protected Damage damage = 100;
 
-    protected override void Awake() {
-        base.Awake();
+    protected override void Start() {
+        base.Start();
         trackerReference = GetComponentInParent<IDamageTracker>();
+
+        if (trackerReference == null) {
+            PhotonView view = GetComponentInParent<PhotonView>();
+            trackerReference = PhotonView.Find((int)view.instantiationData[0]).GetComponentInChildren<IDamageTracker>();
+        }
         Assert.IsNotNull(trackerReference);
     }
 

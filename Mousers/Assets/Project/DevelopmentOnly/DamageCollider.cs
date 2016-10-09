@@ -3,7 +3,7 @@ using System.Collections;
 
 public class DamageCollider : MonoBehaviour {
     [SerializeField]
-    protected int damage = 10;
+    protected Damage damage = new Damage(10, Damage.DamageType.PHYSICAL);
 	// Use this for initialization
 	void Start () {
 	
