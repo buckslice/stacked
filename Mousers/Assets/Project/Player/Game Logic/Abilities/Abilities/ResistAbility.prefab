@@ -22,7 +22,7 @@ GameObject:
   - 114: {fileID: 114000011659233724}
   - 114: {fileID: 114000011038005484}
   - 114: {fileID: 114000011231305572}
-  - 114: {fileID: 114000010292395356}
+  - 114: {fileID: 114000010008655836}
   m_Layer: 0
   m_Name: ResistAbility
   m_TagString: Untagged
@@ -43,7 +43,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000010292395356
+--- !u!114 &114000010008655836
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -95,4 +95,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000011231305572}
-  - {fileID: 114000010292395356}
+  - {fileID: 114000010008655836}

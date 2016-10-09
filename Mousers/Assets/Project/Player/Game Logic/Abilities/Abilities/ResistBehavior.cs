@@ -10,10 +10,6 @@ public class ResistBehavior : DurationAbilityAction {
 
     Damageable[] damageables;
 
-    public ResistBehavior(Dictionary<string, float> data) {
-
-    }
-
     protected override void Start() {
         base.Start();
         damageables = transform.root.GetComponentsInChildren<Damageable>();
