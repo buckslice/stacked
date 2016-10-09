@@ -39,7 +39,7 @@ GameObject:
   - 114: {fileID: 114000013047688542}
   m_Layer: 13
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,7 @@ GameObject:
   - 23: {fileID: 23000011251627172}
   m_Layer: 13
   m_Name: Visuals
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: -1
+  damageDealt: 0
 --- !u!114 &114000012287730970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -302,7 +303,7 @@ MonoBehaviour:
     baseValue: 1
   movementInputEnabled:
     baseValue: 1
-  RotationInputEnabled:
+  rotationInputEnabled:
     baseValue: 1
 --- !u!114 &114000012442423696
 MonoBehaviour:
@@ -342,7 +343,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 0}
-  vulnerabilityMultiplier:
+  physicalVulnerabilityMultiplier:
+    baseValue: 1
+  magicalVulnerabilityMultiplier:
     baseValue: 1
 --- !u!114 &114000013097996470
 MonoBehaviour:
