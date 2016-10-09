@@ -74,8 +74,8 @@ GameObject:
   - 4: {fileID: 4000012353289912}
   - 136: {fileID: 136000012328568346}
   - 195: {fileID: 195000013239094686}
-  - 114: {fileID: 114000013835677172}
   - 114: {fileID: 114000012033755794}
+  - 114: {fileID: 114000013835677172}
   - 114: {fileID: 114000011028298642}
   - 114: {fileID: 114000011968174942}
   - 114: {fileID: 114000013404400064}
@@ -318,6 +318,7 @@ MonoBehaviour:
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
   ObservedComponents:
+  - {fileID: 4000012353289912}
   - {fileID: 0}
   ObservedComponentsFoldoutOpen: 1
   viewIdField: 0
@@ -335,7 +336,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: {fileID: 0}
-  vulnerabilityMultiplier:
+  physicalVulnerabilityMultiplier:
+    baseValue: 1
+  magicalVulnerabilityMultiplier:
     baseValue: 1
 --- !u!114 &114000013835677172
 MonoBehaviour:

@@ -8,10 +8,9 @@ using System.Collections.Generic;
 /// </summary>
 public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable {
 
-	PhotonView view;
+    PhotonView view;
 
-    protected void Awake()
-    {
+    protected void Awake() {
         view = GetComponentInParent<PhotonView>();
 
         if (view) {
@@ -20,8 +19,7 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable {
         }
     }
 
-    public void Spawn()
-    {
+    public void Spawn() {
         OnProjectileCreated();
     }
 
@@ -51,6 +49,17 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable {
             PhotonNetwork.Destroy(view);
         } else {
             SimplePool.Despawn(transform.root.gameObject);
+        }
+    }
+
+    public static void DestroyProjectile(Transform root) {
+        PhotonView view = root.GetComponent<PhotonView>();
+        if (view != null) {
+            if (view.isMine) {
+                PhotonNetwork.Destroy(view);
+            }
+        } else {
+            SimplePool.Despawn(root.gameObject);
         }
     }
 }

@@ -5,12 +5,22 @@ using System.Collections;
 // for the autocomplete!
 
 public static class Tags {
+
+    [System.Serializable]
+    public class TagsMask {
+        [SerializeField]
+        protected int mask = 0;
+        public int Mask { get { return mask; } }
+    }
+
     public const string Player = "Player";
     public const string Boss = "Boss";
     /// <summary>
     /// The only object which should be tagged with this tag is the root gameobject of the UI canvas tree.
     /// </summary>
     public const string CanvasRoot = "CanvasRoot";
+
+    public static readonly string[] tagsArray = new string[] { Player, Boss, CanvasRoot };
 
     public enum EventCodes : byte
     {
@@ -149,5 +159,29 @@ public static class Tags {
     {
         public const string CharacterSelect = "CharacterSelect";
         public const string PlayerRegistration = "PlayerRegistration";
+    }
+}
+
+public static class TagsMaskExtension {
+    public static bool CompareTag(this Component component, Tags.TagsMask mask) {
+        for (int i = 0; i < Tags.tagsArray.Length; i++) {
+            if ((1 << i & mask.Mask) > 0) {
+                if (component.CompareTag(Tags.tagsArray[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public static bool CompareTag(this GameObject gameObject, Tags.TagsMask mask) {
+        for (int i = 0; i < Tags.tagsArray.Length; i++) {
+            if (((1 << i) & mask.Mask) > 0) {
+                if (gameObject.CompareTag(Tags.tagsArray[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
