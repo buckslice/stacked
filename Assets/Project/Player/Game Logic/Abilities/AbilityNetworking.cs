@@ -2,9 +2,27 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public interface IActivationNetworking {
+    void Initialize(IAbilityRelay relay, PhotonView view);
     void ActivateRemote(IAbilityActivation ability, object[] data);
+    void NetworkedActivationRPC(object[] incomingData, PhotonMessageInfo info);
+}
+
+public abstract class AbstractActivationNetworking : MonoBehaviour, IActivationNetworking {
+
+    protected IAbilityRelay relay;
+    protected PhotonView view;
+
+    public void Initialize(IAbilityRelay relay, PhotonView view) {
+        this.relay = relay;
+        this.view = view;
+    }
+
+    public abstract void ActivateRemote(IAbilityActivation ability, object[] data);
+
+    public abstract void NetworkedActivationRPC(object[] incomingData, PhotonMessageInfo info);
 }
 
 /// <summary>
@@ -12,7 +30,7 @@ public interface IActivationNetworking {
 /// Photon requires that the target of an RPC be on the same gameObject as the photonview. This class fills that role.
 /// </summary>
 [RequireComponent(typeof(PhotonView))]
-public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
+public class AbilityNetworking : AbstractActivationNetworking {
 
     const string networkedActivationRPCName = "NetworkedActivationRPC";
 
@@ -31,13 +49,6 @@ public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
     /// Secondary data structure to look up the index (and thus the networkedAbilityId) of an element in abilityActivations
     /// </summary>
     Dictionary<IAbilityActivation, int> abilityActivationIndices = new Dictionary<IAbilityActivation, int>();
-
-    PhotonView view;
-
-    void Awake()
-    {
-        view = GetComponent<PhotonView>();
-    }
 
     void Start()
     {
@@ -145,16 +156,21 @@ public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
             Debug.LogError("We do not own this object. All activations should originate from the owner. Discarding activation.");
             return;
         }
-        view.RPC(networkedActivationRPCName, PhotonTargets.Others, networkedAbilityId, data);
+
+        object[] joinedData = new object[data.Length + 1];
+        joinedData[0] = networkedAbilityId;
+        data.CopyTo(joinedData, 1);
+
+        relay.ActivateRemote(this, joinedData);
     }
 
-    public void ActivateRemote(IAbilityActivation ability, object[] data)
+    public override void ActivateRemote(IAbilityActivation ability, object[] data)
     {
         ActivateRemote(getNetworkedAbilityId(ability), data);
     }
 
-    [PunRPC]
-    public void NetworkedActivationRPC(byte networkedAbilityId, object[] incomingData, PhotonMessageInfo info)
+    
+    public override void NetworkedActivationRPC(object[] incomingData, PhotonMessageInfo info)
     {
         if (view.isMine)
         {
@@ -162,6 +178,10 @@ public class AbilityNetworking : MonoBehaviour, IActivationNetworking {
             return;
         }
 
-        abilityActivations[networkedAbilityId].Activate(incomingData);
+        byte networkedAbilityID = (byte)incomingData[0];
+        object[] unjoinedData = new object[incomingData.Length - 1];
+        Array.Copy(incomingData, 1, unjoinedData, 0, unjoinedData.Length);
+
+        abilityActivations[networkedAbilityID].Activate(unjoinedData, info);
     }
 }

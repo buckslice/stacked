@@ -25,13 +25,13 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
     public void AddConstraint(UntargetedAbilityConstraint toAdd) { AddConstraint((ITargetedAbilityConstraint)toAdd); }
     public bool RemoveConstraint(UntargetedAbilityConstraint toRemove) { return RemoveConstraint((ITargetedAbilityConstraint)toRemove); }
 
-    IActivationNetworking abilityNetwork;
+    AbstractActivationNetworking abilityNetwork;
 
     /// <summary>
     /// Constructor-like method for initialization.
     /// </summary>
     /// <param name="abilityNetwork"></param>
-    public void Initialize(IActivationNetworking abilityNetwork) {
+    public void Initialize(AbstractActivationNetworking abilityNetwork) {
         this.abilityNetwork = abilityNetwork;
     }
 
@@ -75,7 +75,7 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
         }
     }
 
-    public void Activate(object[] incomingData) {
+    public void Activate(object[] incomingData, PhotonMessageInfo info) {
 
         //TODO : re-use this object?
         PhotonStream stream = new PhotonStream(false, incomingData);

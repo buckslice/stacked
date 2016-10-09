@@ -7,16 +7,9 @@ using System.Collections.Generic;
 /// Script for ability structures which only have one ability and do not need a mltiplexing system. Common on projectiles.
 /// </summary>
 [RequireComponent(typeof(PhotonView))]
-public class ProjectileActivationNetworking : MonoBehaviour, IActivationNetworking {
+public class ProjectileActivationNetworking : AbstractActivationNetworking {
 
-    const string networkedActivationRPCName = "ProjectileNetworkedActivationRPC";
-
-    PhotonView view;
     IAbilityActivation abilityActivation;
-
-    void Awake() {
-        view = GetComponent<PhotonView>();
-    }
 
     void Start() {
 
@@ -33,7 +26,7 @@ public class ProjectileActivationNetworking : MonoBehaviour, IActivationNetworki
         }
     }
 
-    public void ActivateRemote(IAbilityActivation ability, object[] data) {
+    public override void ActivateRemote(IAbilityActivation ability, object[] data) {
         if (view == null)
             return;
 
@@ -42,18 +35,16 @@ public class ProjectileActivationNetworking : MonoBehaviour, IActivationNetworki
             return;
         }
 
-        view.RPC(networkedActivationRPCName, PhotonTargets.Others, (object)(data));
-        //see http://stackoverflow.com/questions/36350/how-to-pass-a-single-object-to-a-params-object
-        //the single object[] is misconstrued as the entire params array without the cast
+        relay.ActivateRemote(this, data);
     }
 
-    [PunRPC]
-    public void ProjectileNetworkedActivationRPC(object[] incomingData, PhotonMessageInfo info) {
+    
+    public override void NetworkedActivationRPC(object[] incomingData, PhotonMessageInfo info) {
         if (view.isMine) {
             Debug.LogError("We own this object. All activations should originate from us. Discarding activation.");
             return;
         }
 
-        abilityActivation.Activate(incomingData);
+        abilityActivation.Activate(incomingData, info);
     }
 }

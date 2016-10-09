@@ -8,8 +8,8 @@ using System;
 /// Used to interface with AbilityNetworking scripts.
 /// </summary>
 public interface IAbilityActivation {
-    void Initialize(IActivationNetworking abilityNetwork);
-    void Activate(object[] data);
+    void Initialize(AbstractActivationNetworking abilityNetwork);
+    void Activate(object[] data, PhotonMessageInfo info);
 }
 
 /// <summary>
@@ -28,13 +28,13 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
     public void AddConstraint(UntargetedAbilityConstraint toAdd) { constraints.Add(toAdd); }
     public bool RemoveConstraint(UntargetedAbilityConstraint toRemove) { return constraints.Remove(toRemove); }
 
-    IActivationNetworking abilityNetwork;
+    AbstractActivationNetworking abilityNetwork;
 
     /// <summary>
     /// Constructor-like method for initialization.
     /// </summary>
     /// <param name="abilityNetwork"></param>
-    public void Initialize(IActivationNetworking abilityNetwork) {
+    public void Initialize(AbstractActivationNetworking abilityNetwork) {
         this.abilityNetwork = abilityNetwork;
     }
 
@@ -73,7 +73,7 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
         }
     }
 
-    public void Activate(object[] incomingData) {
+    public void Activate(object[] incomingData, PhotonMessageInfo info) {
 
         //TODO : re-use this object?
         PhotonStream stream = new PhotonStream(false, incomingData);
