@@ -59,7 +59,7 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
         options.Receivers = ReceiverGroup.Others;
 
         //Send the event to create the remote copies
-        MouserNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEREMOTECHARACTERSELECTCURSOR, data, true, options);
+        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEREMOTECHARACTERSELECTCURSOR, data, true, options);
     }
 
     public void OnEvent(byte eventcode, object content, int senderid)

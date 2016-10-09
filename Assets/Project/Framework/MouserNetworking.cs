@@ -6,14 +6,14 @@ using System.Collections.Generic;
 /// <summary>
 /// Bean interacting with Photon Networking.
 /// </summary>
-public class MouserNetworking : MonoBehaviour {
+public class R41DNetworking : MonoBehaviour {
 
-    static MouserNetworking main = null;
-    public static MouserNetworking Main { get { return main; } }
+    static R41DNetworking main = null;
+    public static R41DNetworking Main { get { return main; } }
 
     [SerializeField]
-    protected MouserNetworkingMode networkingMode;
-    public MouserNetworkingMode NetworkingMode { get { return networkingMode; } }
+    protected R41DNetworkingMode networkingMode;
+    public R41DNetworkingMode NetworkingMode { get { return networkingMode; } }
 
     /// <summary>
     /// Version number used to filter rooms and prevent version mis-matches.
@@ -33,7 +33,7 @@ public class MouserNetworking : MonoBehaviour {
             DontDestroyOnLoad(this.transform.root.gameObject);
         }
 
-        PhotonNetwork.offlineMode = networkingMode == MouserNetworkingMode.ONEMACHINE;
+        PhotonNetwork.offlineMode = networkingMode == R41DNetworkingMode.ONEMACHINE;
         PhotonNetwork.autoJoinLobby = false; //might want to change this when we leave prototyping
         PhotonNetwork.automaticallySyncScene = true;
 
@@ -97,7 +97,7 @@ public class MouserNetworking : MonoBehaviour {
 /// <summary>
 /// The mode of networking we will be using for the current game session.
 /// </summary>
-public enum MouserNetworkingMode
+public enum R41DNetworkingMode
 {
     ONEMACHINE, ONLINE
 };

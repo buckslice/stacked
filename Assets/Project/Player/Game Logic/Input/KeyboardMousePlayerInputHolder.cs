@@ -58,9 +58,9 @@ public class KeyboardMousePlayerInput : IPlayerInput
     {
         get
         {
-            Ray mouseRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-            float distance = ((player.position.y - mouseRay.origin.y) / mouseRay.direction.y);
-            Vector3 pointInWorld = mouseRay.origin + (distance * mouseRay.direction);
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            float distance = ((player.position.y - ray.origin.y) / ray.direction.y);
+            Vector3 pointInWorld = ray.origin + (distance * ray.direction);
 
             Assert.AreApproximatelyEqual(pointInWorld.y, player.position.y);
 

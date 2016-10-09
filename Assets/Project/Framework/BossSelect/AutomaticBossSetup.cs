@@ -17,6 +17,6 @@ public class AutomaticBossSetup : BossSetup {
             }
         }
 
-        Assert.IsTrue(MouserNetworking.Main.NetworkingMode != MouserNetworkingMode.ONLINE, "Automatic Setups will not work correctly over the network."); //we aren't hooked up correctly for online
+        Assert.IsTrue(R41DNetworking.Main.NetworkingMode != R41DNetworkingMode.ONLINE, "Automatic Setups will not work correctly over the network."); //we aren't hooked up correctly for online
     }
 }

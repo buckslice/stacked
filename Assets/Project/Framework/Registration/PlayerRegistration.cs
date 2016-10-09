@@ -91,7 +91,7 @@ public class PlayerRegistration : MonoBehaviour {
         options.Receivers = ReceiverGroup.MasterClient;
 
         //Send the event to create the remote copies
-        MouserNetworking.RaiseEvent((byte)Tags.EventCodes.REQUESTREGISTRATION, bindingID, true, options);
+        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.REQUESTREGISTRATION, bindingID, true, options);
     }
 
     void sendRegistrationResponse(byte bindingID, byte playerID, byte owningClientActorID)
@@ -106,7 +106,7 @@ public class PlayerRegistration : MonoBehaviour {
         options.Receivers = ReceiverGroup.Others;
 
         //Send the event to create the remote copies
-        MouserNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEREGISTRATION, payloadData, true, options);
+        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEREGISTRATION, payloadData, true, options);
     }
 
     void receiveRegistrationRequest(byte bindingID, byte owningClientActorID)

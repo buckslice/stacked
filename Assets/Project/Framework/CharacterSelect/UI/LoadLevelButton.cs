@@ -15,6 +15,6 @@ public class LoadLevelButton : MonoBehaviour {
 	
 	public void activate()
     {
-        MouserNetworking.Main.LoadLevel(levelName);
+        R41DNetworking.Main.LoadLevel(levelName);
     }
 }

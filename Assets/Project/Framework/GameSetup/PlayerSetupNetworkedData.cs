@@ -116,7 +116,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         options.Receivers = ReceiverGroup.Others;
 
         //Send the event to create the remote copies
-        MouserNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEPLAYER, payloadData, true, options);
+        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEPLAYER, payloadData, true, options);
 
         return player;
     }

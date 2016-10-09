@@ -99,7 +99,7 @@ public class BossSetupNetworkedData : MonoBehaviour
         options.Receivers = ReceiverGroup.Others;
 
         //Send the event to create the remote copies
-        MouserNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEBOSS, payloadData, true, options);
+        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEBOSS, payloadData, true, options);
     }
 
     public void OnEvent(byte eventcode, object content, int senderid)
