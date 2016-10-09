@@ -35,9 +35,9 @@ public abstract class AbstractAbilityAction : TargetedAbilityAction {
     protected override void Awake() {
         base.Awake();
         AbilityActivation abilityActivation = GetComponent<AbilityActivation>();
-        if (abilityActivation != null && !abilityActivation.AbilityActions.Contains(this)) {
-            Debug.LogError("Ability's AbilityActivation does not contain all of the ability's AbilityActions.", this);
-        }
+        //if (abilityActivation != null && !abilityActivation.AbilityActions.Contains(this)) {
+        //    Debug.LogError("Ability's AbilityActivation does not contain all of the ability's AbilityActions.", this);
+        //}
     }
 
     public sealed override bool Activate(GameObject target, PhotonStream stream) {

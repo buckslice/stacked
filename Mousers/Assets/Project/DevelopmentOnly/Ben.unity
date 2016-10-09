@@ -351,7 +351,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 153155167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16657139d35c59742abb42da3e065e66, type: 3}
+  m_Script: {fileID: 11500000, guid: 259c9546fc19e8b4595daf3513d9522a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   abilityText: {fileID: 4900000, guid: 6c3c21e6a19a6b748916a34987f3f7cf, type: 3}
@@ -475,7 +475,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 106c15296c0f7af4cade40e7c72c863f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 50
+  damage:
+    amount: 10
+    type: 0
 --- !u!23 &235133120
 MeshRenderer:
   m_ObjectHideFlags: 0

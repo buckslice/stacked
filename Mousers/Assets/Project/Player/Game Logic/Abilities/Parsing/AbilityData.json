@@ -2,16 +2,16 @@
 	"behaviors":[
 		{"type":"ResistBehavior", 
 		"attributes":[
-			{"name":"Duration",
+			{"name":"duration",
 			"value":1
 			},
-			{"name":"ResistAmount",
+			{"name":"resistAmount",
 			"value":0.5
 			}
 		]},
 		{"type":"CooldownConstraint",
 		"attributes":[
-			{"name":"CooldownSecs",
+			{"name":"cooldownSecs",
 			"value":2
 			}
 		]}

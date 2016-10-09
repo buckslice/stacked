@@ -17,7 +17,9 @@ public class GetAbilitiesFromData : MonoBehaviour {
 	
     public GameObject[] getAbilities() {
         AbilityData abilityData = JsonUtility.FromJson<AbilityData>(abilityText.text);
-        print(JsonUtility.ToJson(abilityData));
+        GameObject ability = new GameObject();
+        ability.transform.SetParent(transform);
+        AbilityFactory.createAbility(ability, abilityData);
         GameObject[] result = new GameObject[0/*abilityData.behaviors.Length*/];
         return result;
     }
