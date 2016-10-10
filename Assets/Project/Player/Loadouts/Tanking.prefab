@@ -9,31 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000011470563322}
+  m_RootGameObject: {fileID: 1000010671126828}
   m_IsPrefabParent: 1
---- !u!1 &1000011470563322
+--- !u!1 &1000010671126828
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000010773884744}
-  - 114: {fileID: 114000012246923510}
-  - 114: {fileID: 114000013979244318}
+  - 4: {fileID: 4000011279621282}
+  - 114: {fileID: 114000013928340498}
   m_Layer: 0
-  m_Name: DontDestroyOnLoadNetworkingScripts
+  m_Name: Tanking
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000010773884744
+--- !u!4 &4000011279621282
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011470563322}
+  m_GameObject: {fileID: 1000010671126828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -41,28 +40,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &114000012246923510
+--- !u!114 &114000013928340498
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011470563322}
+  m_GameObject: {fileID: 1000010671126828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 321c592dfcb49cd458c8f2cbe497513d, type: 3}
+  m_Script: {fileID: 11500000, guid: c125fc2823044044c8fe00e66cc3966e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Skin: {fileID: 0}
---- !u!114 &114000013979244318
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011470563322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 749918d09a99a14409ff365933e3a2a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  networkingMode: 0
-  version: 1
+  playerID: -1
+  playerData:
+    firstAbilities: 03
+    secondAbilities: 04
+    abilities: 
