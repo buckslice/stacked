@@ -20,13 +20,15 @@ public class Player : MonoBehaviour, IDamageTracker {
     public delegate void PlayerListResized();
 
     static List<Player> allPlayers = new List<Player>();
+    static Dictionary<int, int> playerIndices = new Dictionary<int, int>(); // maps playerID to index in player list
     public static List<Player> AllPlayers { get { return allPlayers; } }
 
     public static event PlayerListResized playerListResized = delegate { };
 
     void OnDestroy()
     {
-        allPlayers[playerID] = null;
+        allPlayers.RemoveAt(playerIndices[playerID]);   // remove player
+        playerIndices.Remove(playerID); // remove dictionary entry
     }
 
     [SerializeField]
@@ -58,27 +60,31 @@ public class Player : MonoBehaviour, IDamageTracker {
 
         this.playerID = newPlayerID;
 
-        //ensure that our list-based lookup dictionary is large enough
-        if(playerID >= allPlayers.Count)
-        {
-            do
-            {
-                allPlayers.Add(null);
-            } 
-            while (playerID >= allPlayers.Count);
+        // make sure dictionary doesn't have playerID
+        Assert.IsTrue(!playerIndices.ContainsKey(playerID), "Duplicate PlayerID " + playerID);
 
-            playerListResized();
-        }
+        allPlayers.Add(this);   // add player to list
+        playerIndices[newPlayerID] = allPlayers.Count-1;    // add index to dictionary
+    }
 
-        Assert.IsTrue(allPlayers[playerID] == null, "Duplicate PlayerID " + playerID);
-        allPlayers[playerID] = this;
+    public static Player GetPlayerByID(int playerID) {
+        return allPlayers[playerIndices[playerID]];
+
+        // could alternatively just forget dictionary and do a O(n) search each time 
+        // since will only ever have a few number of players
+        //for(int i = 0; i < allPlayers.Count; ++i) {
+        //    if(allPlayers[i].playerID == playerID) {
+        //        return allPlayers[i];
+        //    }
+        //}
+        //return null;
     }
 
     /// <summary>
     /// Returns the first empty spot in the mapping of playerIDs
     /// </summary>
     /// <returns></returns>
-    public static int getFirstFreePlayerID()
+    public static int GetFirstFreePlayerID()
     {
         for (int i = 0; i < allPlayers.Count; i++)
         {

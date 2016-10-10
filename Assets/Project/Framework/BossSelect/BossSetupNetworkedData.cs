@@ -107,20 +107,22 @@ public class BossSetupNetworkedData : MonoBehaviour {
     /// <param name="BossNumber"></param>
     /// <param name="allocatedViewId"></param>
     public void InstantiateBoss(int allocatedViewId, BossSetup.BossSetupData BossData, Vector3 spawnPoint, Quaternion spawnOrientation) {
-        GameObject Boss = (GameObject)Instantiate(baseBossPrefab, spawnPoint, spawnOrientation); //TODO: double check this works
-        Boss.name = "Boss";
+        GameObject bossGO = (GameObject)Instantiate(baseBossPrefab, spawnPoint, spawnOrientation); //TODO: double check this works
+        bossGO.name = "Boss";
 
         //assign view ID
-        PhotonView toInitialize = Boss.GetComponent<PhotonView>();
+        PhotonView toInitialize = bossGO.GetComponent<PhotonView>();
         toInitialize.viewID = allocatedViewId;
+
+        Camera.main.transform.parent.GetComponent<CameraController>().boss = bossGO.transform;
 
         //TODO: health bar
 
-        AbilityNetworking abilityNetworking = Boss.GetComponent<AbilityNetworking>();
+        AbilityNetworking abilityNetworking = bossGO.GetComponent<AbilityNetworking>();
 
         //add abilities
         foreach (AbilityId ability in BossData.abilities) {
-            InstantiateAbility(ability, Boss.transform, abilityNetworking);
+            InstantiateAbility(ability, bossGO.transform, abilityNetworking);
         }
     }
 }

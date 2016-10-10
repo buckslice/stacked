@@ -57,6 +57,7 @@ public class Zone : MonoBehaviour {
     }
 
     void DamageAllPlayersInContact() {
+        // calculate worldspace box where collider is
         Vector3 half = transform.localScale / 2.0f;
         Vector3 worldCenter = transform.position + Vector3.up * half.y;
 
@@ -64,7 +65,6 @@ public class Zone : MonoBehaviour {
         for (int i = 0; i < count; ++i) {
             if (buffer[i].CompareTag(Tags.Player)) {
                 buffer[i].GetComponent<Damageable>().Damage(healthChange);
-                Debug.Log("Damaged a player");
             }
         }
     }

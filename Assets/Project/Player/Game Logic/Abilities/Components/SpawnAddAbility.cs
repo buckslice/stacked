@@ -12,7 +12,7 @@ public class SpawnAddAbility : AbstractAbilityAction {
     protected PlayerSetup.PlayerSetupData addData;
 
     public override bool Activate(PhotonStream stream) {
-        GameObject createdPlayer = PlayerSetupNetworkedData.Main.CreatePlayer((byte)Player.getFirstFreePlayerID(), new NullInput(), addData);
+        GameObject createdPlayer = PlayerSetupNetworkedData.Main.CreatePlayer((byte)Player.GetFirstFreePlayerID(), new NullInput(), addData);
         createdPlayer.GetComponent<Rigidbody>().position = this.transform.position;
         return false;
     }
