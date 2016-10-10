@@ -22,17 +22,19 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Player.AllPlayers.Count == 0) {
+        if (Player.Players.Count == 0) {
             return;
         }
 
         // done like this to avoid including the origin
-        Player p = Player.AllPlayers[0];
-        Bounds bounds = new Bounds(p.transform.position, padding);
-        for(int i = 1; i < Player.AllPlayers.Count; ++i) {
-            bounds.Encapsulate(new Bounds(Player.AllPlayers[i].transform.position, padding));
+        Player p = Player.Players[0];
+        Bounds bounds = new Bounds(p.Holder.transform.position, padding);
+
+        foreach(Player player in Player.Players.Values) {
+            bounds.Encapsulate(new Bounds(player.Holder.transform.position, padding));
         }
-        if (boss) {
+
+        if (boss != null) {
             bounds.Encapsulate(new Bounds(boss.position, padding));
         }
 

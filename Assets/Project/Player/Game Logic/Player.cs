@@ -3,98 +3,42 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public interface IDamageHolder {
-    IDamageTracker DamageTracker { get; }
-}
 
-public interface IDamageTracker : IDamageHolder {
-    float DamageDealt { get; }
-    void AddDamageDealt(float damage);
-}
 
 /// <summary>
 /// Identifies the object as a player
 /// </summary>
-public class Player : MonoBehaviour, IDamageTracker {
-
-    public delegate void PlayerListResized();
-
-    static List<Player> allPlayers = new List<Player>();
-    static Dictionary<int, int> playerIndices = new Dictionary<int, int>(); // maps playerID to index in player list
-    public static List<Player> AllPlayers { get { return allPlayers; } }
-
-    public static event PlayerListResized playerListResized = delegate { };
-
-    void OnDestroy()
-    {
-        allPlayers.RemoveAt(playerIndices[playerID]);   // remove player
-        playerIndices.Remove(playerID); // remove dictionary entry
-    }
+[System.Serializable]
+public class Player : AbstractDamageTracker {
 
     [SerializeField]
-    protected int playerID = -1;
-
+    protected int playerID;
     public int PlayerID { get { return playerID; } }
 
-    public virtual bool isPlayer() { return true; }
+    static Dictionary<int, Player> players = new Dictionary<int, Player>(); // maps playerID to player
+    public static Dictionary<int, Player> Players { get { return players; } }
+    static int nextOpenPlayerIndex = 0;
 
-    [ReadOnly]
-    [SerializeField]
-    protected float damageDealt = 0;
-    public float DamageDealt { get { return damageDealt; } }
-    public virtual void AddDamageDealt(float damage) { damageDealt += damage; }
-
-    /// <summary>
-    /// Constructor-like function to set up this class.
-    /// </summary>
-    /// <param name="playerID"></param>
-    public void Initialize(int newPlayerID)
-    {
-        Assert.IsTrue(newPlayerID < 256, "Too many players for byte networked IDs");
-
-        if (playerID != -1)
-        {
-            Debug.LogErrorFormat(this, "Already initialized to {0}", playerID);
-            return;
+    public Player(int ID, IDamageHolder holder) : base(holder) {
+        Assert.IsFalse(players.ContainsKey(ID));
+        Assert.IsTrue(playerID < 256, "Too many players for byte networked IDs");
+        playerID = ID;
+        players[playerID] = this;
+        while (players.ContainsKey(nextOpenPlayerIndex)) {
+            nextOpenPlayerIndex++;
         }
+    }
 
-        this.playerID = newPlayerID;
+    public Player(IDamageHolder holder) : this(nextOpenPlayerIndex, holder) { }
 
-        // make sure dictionary doesn't have playerID
-        Assert.IsTrue(!playerIndices.ContainsKey(playerID), "Duplicate PlayerID " + playerID);
-
-        allPlayers.Add(this);   // add player to list
-        playerIndices[newPlayerID] = allPlayers.Count-1;    // add index to dictionary
+    public void Destroy() {
+        Assert.IsTrue(playerID >= 0);
+        players.Remove(playerID);   // remove player
+        nextOpenPlayerIndex = Mathf.Min(nextOpenPlayerIndex, playerID);
+        this.playerID = -1;
     }
 
     public static Player GetPlayerByID(int playerID) {
-        return allPlayers[playerIndices[playerID]];
-
-        // could alternatively just forget dictionary and do a O(n) search each time 
-        // since will only ever have a few number of players
-        //for(int i = 0; i < allPlayers.Count; ++i) {
-        //    if(allPlayers[i].playerID == playerID) {
-        //        return allPlayers[i];
-        //    }
-        //}
-        //return null;
+        return players[playerID];
     }
-
-    /// <summary>
-    /// Returns the first empty spot in the mapping of playerIDs
-    /// </summary>
-    /// <returns></returns>
-    public static int GetFirstFreePlayerID()
-    {
-        for (int i = 0; i < allPlayers.Count; i++)
-        {
-            if (allPlayers[i] == null)
-            {
-                return i;
-            }
-        }
-        return allPlayers.Count;
-    }
-
-    public IDamageTracker DamageTracker { get { return this; } }
 }

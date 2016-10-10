@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [RequireComponent(typeof(NavMeshAgent))]
 public class BossAggro : MonoBehaviour {
@@ -20,7 +21,7 @@ public class BossAggro : MonoBehaviour {
     /// <summary>
     /// A float for each player showing their current aggro to boss. The index is the player's playerID.
     /// </summary>
-    List<float> aggroTable = new List<float>();
+    Dictionary<int, float> aggroTable = new Dictionary<int, float>();
 
     /// <summary>
     /// PlayerID of player who has most aggro. -1 for no player.
@@ -32,10 +33,6 @@ public class BossAggro : MonoBehaviour {
     /// </summary>
     float createTime;
 
-    void Awake() {
-        Player.playerListResized += Player_playerListResized;
-    }
-
     // Use this for initialization
     void Start() {
         agent = GetComponent<NavMeshAgent>();
@@ -46,18 +43,12 @@ public class BossAggro : MonoBehaviour {
             health.onDamage += health_onDamage;
         }
 
-        //ensure aggroTable matches playerList
-        if (Player.AllPlayers.Count > 0) {
-            Player_playerListResized();
+        if(Player.Players.Count > 0)
+        {
+            topAggroPlayer = Enumerable.ToList(Player.Players.Keys)[Random.Range(0, Player.Players.Count)];
         }
 
-        do {
-            topAggroPlayer = Random.Range(0, Player.AllPlayers.Count);
-        } while (topAggroPlayer < 0 || Player.AllPlayers[topAggroPlayer] == null); //TODO: refactor to be a linear search for all non-null elements
-    }
-
-    void OnDestroy() {
-        Player.playerListResized -= Player_playerListResized;
+        
     }
 
     // Update is called once per frame
@@ -67,27 +58,11 @@ public class BossAggro : MonoBehaviour {
 
         if (shouldChase) {
             if (topAggroPlayer >= 0) {
-                agent.destination = Player.AllPlayers[topAggroPlayer].transform.position;
+                agent.destination = Player.Players[topAggroPlayer].Holder.transform.position;
             }
         } else {
             agent.ResetPath();
         }
-
-    }
-
-    /// <summary>
-    /// Delegate to increase the size of our aggro table when the player table expands
-    /// </summary>
-    void Player_playerListResized() {
-        while (aggroTable.Count < Player.AllPlayers.Count) {
-            if (Player.AllPlayers[aggroTable.Count] == null) {
-                aggroTable.Add(0);
-            } else {
-                aggroTable.Add(aggroToSurpass * Random.value);
-            }
-        }
-
-        CheckAggro();
     }
 
     // this function changes aggro if a player has surpassed current aggro holder by more than the threshold
