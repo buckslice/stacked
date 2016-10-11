@@ -45,7 +45,7 @@ public class BossAggro : MonoBehaviour {
 
         if(Player.Players.Count > 0)
         {
-            topAggroPlayer = Enumerable.ToList(Player.Players.Keys)[Random.Range(0, Player.Players.Count)];
+            topAggroPlayer = Player.randomPlayerID();
         }
 
         

@@ -29,10 +29,10 @@ public class CameraController : MonoBehaviour {
         }
 
         // done like this to avoid including the origin
-        Player p = Player.Players.First().Value;
+        Player p = Player.Players.First();
         Bounds bounds = new Bounds(p.Holder.transform.position, padding);
 
-        foreach(Player player in Player.Players.Values) {
+        foreach(Player player in Player.Players) {
             bounds.Encapsulate(new Bounds(player.Holder.transform.position, padding));
         }
 

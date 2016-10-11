@@ -15,30 +15,42 @@ public class Player : AbstractDamageTracker {
     protected int playerID;
     public int PlayerID { get { return playerID; } }
 
-    static Dictionary<int, Player> players = new Dictionary<int, Player>(); // maps playerID to player
-    public static Dictionary<int, Player> Players { get { return players; } }
+    static List<Player> playersList = new List<Player>();
+    static Dictionary<int, int> playerIndices = new Dictionary<int, int>(); // maps playerID to player's index in the list
+    public static List<Player> Players { get { return playersList; } }
+    public static Dictionary<int, int> PlayersIndices { get { return playerIndices; } }
     static int nextOpenPlayerIndex = 0;
 
     public Player(int ID, IDamageHolder holder) : base(holder) {
-        Assert.IsFalse(players.ContainsKey(ID));
+        Assert.IsFalse(playerIndices.ContainsKey(ID));
         Assert.IsTrue(playerID < 256, "Too many players for byte networked IDs");
         playerID = ID;
-        players[playerID] = this;
-        while (players.ContainsKey(nextOpenPlayerIndex)) {
-            nextOpenPlayerIndex++;
-        }
+        int playersListIndex = playersList.Count;
+        playersList.Insert(playersListIndex, this);
+        playerIndices[playerID] = playersListIndex;
     }
 
     public Player(IDamageHolder holder) : this(nextOpenPlayerIndex, holder) { }
 
     public void Destroy() {
         Assert.IsTrue(playerID >= 0);
-        players.Remove(playerID);   // remove player
-        nextOpenPlayerIndex = Mathf.Min(nextOpenPlayerIndex, playerID);
+        int playersListIndex = playerIndices[playerID];
+        playersList.RemoveAt(playersListIndex);
+        playerIndices.Remove(playerID);
+
         this.playerID = -1;
     }
 
+    public static int randomPlayerID() {
+        int index = Random.Range(0, playersList.Count);
+        return playersList[index].playerID;
+    }
+
+    public static bool ContainsPlayerID(int playerID) {
+        return playerIndices.ContainsKey(playerID);
+    }
+
     public static Player GetPlayerByID(int playerID) {
-        return players[playerID];
+        return playersList[playerIndices[playerID]];
     }
 }
