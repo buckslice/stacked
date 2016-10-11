@@ -18,13 +18,13 @@ public class DerpAbility : AbstractAbilityAction {
         }
 	}
      * */
-    Player playerReference;
+    IDamageHolder trackerReference;
     CameraShakeScript cameraShakeScript;
 
     protected override void Start()
     {
         base.Start();
-        playerReference = GetComponentInParent<Player>();
+        trackerReference = GetComponentInParent<IDamageHolder>();
         cameraShakeScript = Camera.main.GetComponent<CameraShakeScript>();
     }
 
@@ -44,7 +44,7 @@ public class DerpAbility : AbstractAbilityAction {
             Health enemyHealth = enemy.GetComponent<Health>();
             if (enemyHealth)
             {
-                enemyHealth.Damage(10, playerReference);
+                enemyHealth.Damage(10, trackerReference.DamageTracker);
             }
         }
     }

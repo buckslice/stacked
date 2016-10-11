@@ -10,7 +10,7 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable {
 
     PhotonView view;
 
-    protected void Awake() {
+    protected virtual void Awake() {
         view = GetComponentInParent<PhotonView>();
 
         if (view) {

@@ -35,6 +35,10 @@ public class AbilityRelay : MonoBehaviour, IAbilityRelay {
 
     [PunRPC]
     public void RPCDataTransfer(object[] incomingData, PhotonMessageInfo info) {
-        relayTarget.NetworkedActivationRPC(incomingData, info);
+        if (relayTarget != null) {
+            relayTarget.NetworkedActivationRPC(incomingData, info);
+        } else {
+            Debug.LogErrorFormat(this, "relayTarget on {0} is not set", this.ToString());
+        }
     }
 }

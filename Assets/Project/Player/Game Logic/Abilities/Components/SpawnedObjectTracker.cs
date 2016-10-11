@@ -19,7 +19,8 @@ public class SpawnedObjectTracker : ProjectileLifetimeAction, IDamageHolder {
     IActivationNetworking activationNetworking;
     public IActivationNetworking ActivationNetworking { get { return activationNetworking; } }
 
-    void Awake() {
+    protected override void Awake() {
+        base.Awake();
         activationNetworking = GetComponent<IActivationNetworking>();
     }
 

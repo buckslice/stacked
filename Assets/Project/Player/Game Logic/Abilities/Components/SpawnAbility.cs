@@ -40,6 +40,7 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
         base.Start();
         trackerReference = GetComponentInParent<IDamageHolder>();
         Assert.IsNotNull(trackerReference);
+        Assert.IsNotNull(trackerReference.GetRootDamageTracker());
     }
 
     /// <summary>
@@ -133,7 +134,9 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
 
         if (!activeObjectIndices.ContainsKey(spawnedObject)) {
             if (this != null) {//if we have not been despawned
-                Debug.LogErrorFormat(this, "{0} is not present as a spawned object of {1}", spawnedObject.ToString(), this.ToString());
+
+                //this line often gets run when the game ends. I'm still trying to suppress that from happening.
+                Debug.LogErrorFormat(this, "{0} is not present as a spawned object of {1}. Ignore this if the scene is being changed or ended.", spawnedObject.ToString(), this.ToString());
             }
             return byte.MaxValue;
         } else {

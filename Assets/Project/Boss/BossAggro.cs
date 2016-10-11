@@ -83,11 +83,11 @@ public class BossAggro : MonoBehaviour {
         }
     }
 
-    float getAggro(int topAggroPlayer) {
-        if (!aggroTable.ContainsKey(topAggroPlayer)) {
+    float getAggro(int playerID) {
+        if (!aggroTable.ContainsKey(playerID)) {
             //does not exist in data structure; initialize it.
             float result = aggroToSurpass * Random.value;
-            aggroTable[topAggroPlayer] = result;
+            aggroTable[playerID] = result;
             return result;
         }
 
@@ -111,6 +111,6 @@ public class BossAggro : MonoBehaviour {
     /// <param name="amount"></param>
     /// <param name="playerID"></param>
     void health_onDamage(float amount, int playerID) {
-        aggroTable[playerID] += amount;
+        aggroTable[playerID] = getAggro(playerID) + amount;
     }
 }

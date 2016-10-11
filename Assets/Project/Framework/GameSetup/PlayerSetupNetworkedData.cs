@@ -122,28 +122,22 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         object[] payloadData = new object[3];
         payloadData[0] = playerID;
         payloadData[1] = allocatedViewId;
-        payloadData[2] = playerData;
+        payloadData[2] = playerData.toByteArray();
 
         //We already created our copy, so don't send to self
         RaiseEventOptions options = new RaiseEventOptions();
         options.Receivers = ReceiverGroup.Others;
 
         //Send the event to create the remote copies
-        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEPLAYER, payloadData, true, options);
+        R41DNetworking.RaiseEvent((byte)eventCode, payloadData, true, options);
     }
 
     public void OnEvent(byte eventcode, object content, int senderid) {
         if (eventcode == (byte)Tags.EventCodes.CREATEPLAYER || eventcode == (byte)Tags.EventCodes.CREATEADD) {
-            byte[] data = (byte[])content;
-            byte playerNumber = data[0];
-            int allocatedViewId = System.BitConverter.ToInt32(data, 1);
-            PlayerSetup.PlayerSetupData playerData;
-            using (MemoryStream memoryStream = new MemoryStream()) {
-                BinaryFormatter binaryFormatter = new BinaryFormatter();
-                memoryStream.Write(data, 5, data.Length - 5);
-                memoryStream.Seek(0, SeekOrigin.Begin);
-                playerData = (PlayerSetup.PlayerSetupData)binaryFormatter.Deserialize(memoryStream);
-            }
+            object[] data = (object[])content;
+            byte playerNumber = (byte)data[0];
+            int allocatedViewId = (int)data[1];
+            PlayerSetup.PlayerSetupData playerData = PlayerSetup.PlayerSetupData.fromByteArray((byte[])data[2]);
 
             if (eventcode == (byte)Tags.EventCodes.CREATEPLAYER) {
                 InstantiatePlayer(playerNumber, allocatedViewId, new NullInput(), playerData);
