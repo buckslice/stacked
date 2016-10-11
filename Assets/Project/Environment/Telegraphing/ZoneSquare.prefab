@@ -22,7 +22,7 @@ GameObject:
   - 65: {fileID: 65000012376094234}
   - 114: {fileID: 114000012113002456}
   m_Layer: 0
-  m_Name: Zone
+  m_Name: ZoneSquare
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -148,7 +148,7 @@ ParticleSystem:
   moveWithTransform: 1
   autoRandomSeed: 1
   scalingMode: 2
-  randomSeed: 287122275
+  randomSeed: -1808313573
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -553,7 +553,7 @@ ParticleSystem:
     serializedVersion: 2
     m_Type: 0
     rate:
-      scalar: 1
+      scalar: 100
       maxCurve:
         serializedVersion: 2
         m_Curve:
