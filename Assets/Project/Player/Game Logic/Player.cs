@@ -80,6 +80,10 @@ public class Player : MonoBehaviour, IDamageTracker {
         //return null;
     }
 
+    public static Player GetRandomPlayer() {
+        return allPlayers[Random.Range(0, allPlayers.Count)];
+    }
+
     /// <summary>
     /// Returns the first empty spot in the mapping of playerIDs
     /// </summary>
