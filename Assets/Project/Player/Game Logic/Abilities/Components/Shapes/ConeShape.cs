@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Technically overlap wedge, but cone is more intuitive.
 /// </summary>
-public class OverlapCone : AbstractAreaCast {
+public class ConeShape : MonoBehaviour, IShape {
 
     const float height = 50f;
 
@@ -19,7 +19,7 @@ public class OverlapCone : AbstractAreaCast {
     [SerializeField]
     protected float angleDegHalved = 45;
 
-    protected override Collider[] performCast() {
+    public Collider[] Cast(LayerMask layermask) {
 
         List<Collider> results = new List<Collider>();
         Collider[] hits = Physics.OverlapCapsule(transform.position, transform.position + height * Vector3.up, radius, layermask);

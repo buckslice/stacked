@@ -58,7 +58,7 @@ public class BossAggro : MonoBehaviour {
 
         if (shouldChase) {
             if (topAggroPlayer >= 0) {
-                agent.destination = Player.Players[topAggroPlayer].Holder.transform.position;
+                agent.destination = Player.GetPlayerByID(topAggroPlayer).Holder.transform.position;
             }
         } else {
             agent.ResetPath();
@@ -97,7 +97,7 @@ public class BossAggro : MonoBehaviour {
 
     public void SetTaunt(Player taunter) {
         //reset and randomize all existing aggro
-        foreach (int playerID in aggroTable.Values) {
+        foreach (int playerID in aggroTable.Keys) {
             aggroTable[playerID] = aggroToSurpass * Random.value;
         }
 

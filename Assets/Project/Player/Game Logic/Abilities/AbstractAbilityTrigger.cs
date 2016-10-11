@@ -52,25 +52,3 @@ public abstract class TargetedAbilityTrigger : MonoBehaviour, ITargetedAbilityTr
 
     protected void FireTrigger(GameObject target) { targetedAbilityTriggerEvent(target); }
 }
-
-/// <summary>
-/// An action which triggers a set of targeted actions via raycasting.
-/// </summary>
-public abstract class AbstractAreaCast : AbstractAbilityAction, ITargetedAbilityTrigger {
-
-    [SerializeField]
-    protected LayerMask layermask;
-
-    public event UntargetedAbilityTrigger abilityTriggerEvent = delegate { };
-    public event TargetedTrigger targetedAbilityTriggerEvent = (target) => { };
-
-    public sealed override bool Activate(PhotonStream stream) {
-        foreach (Collider collider in performCast()) {
-            targetedAbilityTriggerEvent(collider.gameObject);
-        }
-
-        return false; //any networking action is handled by the child ativation
-    }
-
-    protected abstract Collider[] performCast();
-}

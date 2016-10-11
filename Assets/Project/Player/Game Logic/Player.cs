@@ -25,9 +25,14 @@ public class Player : AbstractDamageTracker {
         Assert.IsFalse(playerIndices.ContainsKey(ID));
         Assert.IsTrue(playerID < 256, "Too many players for byte networked IDs");
         playerID = ID;
+
         int playersListIndex = playersList.Count;
         playersList.Insert(playersListIndex, this);
         playerIndices[playerID] = playersListIndex;
+
+        while (playerIndices.ContainsKey(nextOpenPlayerIndex)) {
+            nextOpenPlayerIndex++;
+        }
     }
 
     public Player(IDamageHolder holder) : this(nextOpenPlayerIndex, holder) { }
@@ -37,6 +42,8 @@ public class Player : AbstractDamageTracker {
         int playersListIndex = playerIndices[playerID];
         playersList.RemoveAt(playersListIndex);
         playerIndices.Remove(playerID);
+
+        nextOpenPlayerIndex = Mathf.Min(nextOpenPlayerIndex, playerID);
 
         this.playerID = -1;
     }

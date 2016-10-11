@@ -22,6 +22,7 @@ GameObject:
   - 114: {fileID: 114000010541266264}
   - 114: {fileID: 114000014126467858}
   - 114: {fileID: 114000012414776988}
+  - 114: {fileID: 114000012525167466}
   - 114: {fileID: 114000011482896634}
   m_Layer: 0
   m_Name: ConeBasicAttack
@@ -40,7 +41,6 @@ GameObject:
   - 4: {fileID: 4000010689664212}
   - 114: {fileID: 114000010224337770}
   - 114: {fileID: 114000013639568842}
-  - 114: {fileID: 114000011034070260}
   m_Layer: 0
   m_Name: Effect
   m_TagString: Untagged
@@ -88,7 +88,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000013639568842}
-  - {fileID: 114000011034070260}
+  - {fileID: 0}
 --- !u!114 &114000010541266264
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -102,18 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000012414776988}
-  - {fileID: 114000011482896634}
---- !u!114 &114000011034070260
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014100009002}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc090a78324cb69408713479ccb100eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  - {fileID: 114000012525167466}
 --- !u!114 &114000011482896634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -125,9 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 923be21f0ba8d7942970efae3d2ff9e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layermask:
-    serializedVersion: 2
-    m_Bits: 1081344
   radius:
     baseValue: 5
   angleDegHalved: 45
@@ -144,6 +130,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownSecs:
     baseValue: 0.1
+--- !u!114 &114000012525167466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011529534818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09a4eed59c592b438d79a27797d52fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layermask:
+    serializedVersion: 2
+    m_Bits: 1081344
 --- !u!114 &114000013639568842
 MonoBehaviour:
   m_ObjectHideFlags: 1
