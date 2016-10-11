@@ -94,7 +94,10 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
     void objectTracker_onProjectileDestroyed(SpawnedObjectTracker self) {
         self.onProjectileDestroyed -= objectTracker_onProjectileDestroyed;
         byte spawnedObjectID = getSpawnedObjectID(self.ActivationNetworking);
-        activeObjects[spawnedObjectID] = null;
+        if (spawnedObjectID != 255) { //error value
+            activeObjects[spawnedObjectID] = null;
+        }
+        
         activeObjectIndices.Remove(self.ActivationNetworking);
     }
 
@@ -123,8 +126,15 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
     }
 
     public byte getSpawnedObjectID(IActivationNetworking spawnedObject) {
+        if (((MonoBehaviour)spawnedObject) == null) {
+            //should not be null as an input
+            return byte.MaxValue;
+        }
+
         if (!activeObjectIndices.ContainsKey(spawnedObject)) {
-            Debug.LogErrorFormat(this, "{0} is not present as a spawned object of {1}", spawnedObject.ToString(), this.ToString());
+            if (this != null) {//if we have not been despawned
+                Debug.LogErrorFormat(this, "{0} is not present as a spawned object of {1}", spawnedObject.ToString(), this.ToString());
+            }
             return byte.MaxValue;
         } else {
             int result = activeObjectIndices[spawnedObject];
@@ -142,7 +152,7 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
             i++;
         }
 
-        Assert.IsTrue(i <= 255, "Number of objects outside of byte range.");
+        Assert.IsTrue(i < 255, "Number of objects outside of byte range.");
 
         return i;
     }

@@ -26,6 +26,7 @@ public static class Tags {
     {
         CREATEREMOTECHARACTERSELECTCURSOR,
         CREATEPLAYER,
+        CREATEADD,
         REQUESTREGISTRATION,
         CREATEREGISTRATION,
         CREATEBOSS,
