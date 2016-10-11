@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+using System.Linq;
+
 public class CameraController : MonoBehaviour {
 
     public Transform boss { get; set; }
@@ -27,7 +29,7 @@ public class CameraController : MonoBehaviour {
         }
 
         // done like this to avoid including the origin
-        Player p = Player.Players[0];
+        Player p = Player.Players.First().Value;
         Bounds bounds = new Bounds(p.Holder.transform.position, padding);
 
         foreach(Player player in Player.Players.Values) {

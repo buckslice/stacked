@@ -67,28 +67,38 @@ public class BossAggro : MonoBehaviour {
 
     // this function changes aggro if a player has surpassed current aggro holder by more than the threshold
     void CheckAggro() {
-        float topAggro = topAggroPlayer >= 0 ? aggroTable[topAggroPlayer] : 0;
+        float topAggro = topAggroPlayer >= 0 ? getAggro(topAggroPlayer) : 0;
 
         // find highest aggro in table
-        int maxIndex = -1;
-        float maxAggro = -1;
-        for (int i = 0; i < aggroTable.Count; ++i) {
-            if (aggroTable[i] > maxAggro) {
-                maxIndex = i;
-                maxAggro = aggroTable[i];
+        KeyValuePair<int, float> maxAggro = new KeyValuePair<int, float>(-1, -1);
+        foreach (KeyValuePair<int, float> aggroEntry in aggroTable) {
+            if (aggroEntry.Value > maxAggro.Value) {
+                maxAggro = aggroEntry;
             }
         }
 
         // pull aggro if surpass top players aggro
-        if (maxIndex != -1 && maxIndex != topAggroPlayer && maxAggro > topAggro + aggroToSurpass) {
-            topAggroPlayer = maxIndex;
+        if (maxAggro.Key != -1 && maxAggro.Key != topAggroPlayer && maxAggro.Value > topAggro + aggroToSurpass) {
+            topAggroPlayer = maxAggro.Key;
         }
+    }
+
+    float getAggro(int topAggroPlayer) {
+        if (!aggroTable.ContainsKey(topAggroPlayer)) {
+            //does not exist in data structure; initialize it.
+            float result = aggroToSurpass * Random.value;
+            aggroTable[topAggroPlayer] = result;
+            return result;
+        }
+
+        //else it does exist
+        return aggroTable[topAggroPlayer];
     }
 
     public void SetTaunt(Player taunter) {
         //reset and randomize all existing aggro
-        for (int i = 0; i < aggroTable.Count; i++) {
-            aggroTable[i] = aggroToSurpass * Random.value;
+        foreach (int playerID in aggroTable.Values) {
+            aggroTable[playerID] = aggroToSurpass * Random.value;
         }
 
         topAggroPlayer = taunter.PlayerID;
