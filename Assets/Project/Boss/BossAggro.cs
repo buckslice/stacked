@@ -58,7 +58,17 @@ public class BossAggro : MonoBehaviour {
 
         if (shouldChase) {
             if (topAggroPlayer >= 0) {
-                agent.destination = Player.GetPlayerByID(topAggroPlayer).Holder.transform.position;
+                Player target = Player.GetPlayerByID(topAggroPlayer);
+
+                if(target == null)
+                {
+                    //if the player died
+                    aggroTable.Remove(topAggroPlayer);
+                    topAggroPlayer = -1;
+                    return;
+                }
+
+                agent.destination = target.Holder.transform.position;
             }
         } else {
             agent.ResetPath();

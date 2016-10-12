@@ -37,7 +37,7 @@ public class Player : AbstractDamageTracker {
 
     public Player(IDamageHolder holder) : this(nextOpenPlayerIndex, holder) { }
 
-    public void Destroy() {
+    public override void Destroy() {
         Assert.IsTrue(playerID >= 0);
         int playersListIndex = playerIndices[playerID];
         playersList.RemoveAt(playersListIndex);
@@ -58,6 +58,10 @@ public class Player : AbstractDamageTracker {
     }
 
     public static Player GetPlayerByID(int playerID) {
-        return playersList[playerIndices[playerID]];
+        if (playerIndices.ContainsKey(playerID)) {
+            return playersList[playerIndices[playerID]];
+        } else {
+            return null;
+        }
     }
 }

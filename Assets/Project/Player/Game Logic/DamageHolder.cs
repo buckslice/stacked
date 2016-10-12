@@ -41,6 +41,8 @@ public abstract class AbstractDamageTracker : IDamageTracker {
     public AbstractDamageTracker(IDamageHolder holder) {
         this.holder = holder;
     }
+
+    public abstract void Destroy();
 }
 
 public class DamageHolder : MonoBehaviour, IDamageHolder {
@@ -51,5 +53,11 @@ public class DamageHolder : MonoBehaviour, IDamageHolder {
 
     public void Initialize(IDamageHolder trackerReference) {
         this.trackerReference = trackerReference;
+    }
+
+    void OnDestroy() {
+        if (trackerReference is AbstractDamageTracker) {
+            ((AbstractDamageTracker)trackerReference).Destroy();
+        }
     }
 }
