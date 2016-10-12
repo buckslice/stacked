@@ -2,6 +2,7 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using XInputDotNetPure;
 
 /// <summary>
 /// Intended to be used only in development to create players using the inspector. For all other purposes, use a PlayerInputHolder and set heldInput via script.
@@ -29,6 +30,8 @@ public class ControllerPlayerInputHolder : PlayerInputHolder
 public class ControllerPlayerInput : IPlayerInput
 {
     [SerializeField]
+    public XInputDotNetPure.PlayerIndex controllerIndex = PlayerIndex.One;
+    [SerializeField]
     public string horizontalMovementAxis = Tags.Input.Joystick1.HorizontalMovement;
     [SerializeField]
     public string verticalMovementAxis = Tags.Input.Joystick1.VerticalMovement;
@@ -54,6 +57,8 @@ public class ControllerPlayerInput : IPlayerInput
 
     //Transform player; //not needed yet
     public Transform Player { set { ; } } //set { player = value; }
+
+    AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
 
     /// <summary>
     /// Maps a value to account for a dead zone.
@@ -120,4 +125,16 @@ public class ControllerPlayerInput : IPlayerInput
     public bool getBasicAttack { get { return Input.GetAxisRaw(basicAttackAxis) > deadZone; } }
     public bool getAbility1 { get { return Input.GetKey(ability1Key); } }
     public bool getAbility2 { get { return Input.GetKey(ability2Key); } }
+    public void Vibrate(float strength, float duration, MonoBehaviour callingScript) {
+        vibrationAmount.AddModifier(strength);
+        UpdateVibration();
+
+        Callback.FireAndForget(() => {
+            vibrationAmount.RemoveModifier(strength); 
+            UpdateVibration();
+        }, duration, callingScript);
+    }
+    public void UpdateVibration() {
+        GamePad.SetVibration(controllerIndex, vibrationAmount.Value, vibrationAmount.Value);
+    }
 }

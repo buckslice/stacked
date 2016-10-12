@@ -12,10 +12,19 @@ public class AbilityUI : MonoBehaviour {
     [SerializeField]
     protected GameObject uiPrefab;
 
+    [SerializeField]
+    protected float vibrationDuration = 0.25f;
+
+    [SerializeField]
+    protected float vibrationStrength = 1;
+
     IAbilityUI ability;
     GameObject spawnedUIPrefab;
     AbilityDisplay display;
-    //AbstractAbilityDisplay abilityDisplay;
+    ControllerPlayerInput controllerInput = null;
+
+    float cooldownProgress;
+
 
 	void Start () {
         ability = GetComponent<IAbilityUI>();
@@ -23,10 +32,29 @@ public class AbilityUI : MonoBehaviour {
         spawnedUIPrefab = Instantiate(uiPrefab, parent) as GameObject;
         spawnedUIPrefab.GetComponent<RectTransform>().Reset();
         display = spawnedUIPrefab.GetComponent<AbilityDisplay>();
+
+        PlayerInputHolder holder = GetComponentInParent<PlayerInputHolder>();
+        if (holder.heldInput is ControllerPlayerInput) {
+            controllerInput = (ControllerPlayerInput)holder.heldInput;
+        }
 	}
 
     void Update() {
         display.setAbilityReady(ability.Ready());
-        display.setCooldownProgress(ability.cooldownProgress());
+
+        float newCooldownProgress = ability.cooldownProgress();
+        display.setCooldownProgress(newCooldownProgress);
+        trackVibration(cooldownProgress, newCooldownProgress);
+        cooldownProgress = newCooldownProgress;
+    }
+
+    void trackVibration(float oldEdge, float newEdge) {
+        if (controllerInput == null) {
+            return;
+        }
+
+        if (oldEdge > 0 && newEdge == 0) {
+            controllerInput.Vibrate(vibrationStrength, vibrationDuration, this);
+        }
     }
 }
