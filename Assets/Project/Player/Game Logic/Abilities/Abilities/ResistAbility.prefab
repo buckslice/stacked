@@ -23,6 +23,7 @@ GameObject:
   - 114: {fileID: 114000011038005484}
   - 114: {fileID: 114000011231305572}
   - 114: {fileID: 114000010008655836}
+  - 114: {fileID: 114000010745483002}
   m_Layer: 0
   m_Name: ResistAbility
   m_TagString: Untagged
@@ -57,6 +58,18 @@ MonoBehaviour:
   duration:
     baseValue: 1
   resistAmount: 0.5
+--- !u!114 &114000010745483002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011525456522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e266b120d8f3aa40915e8958c02953c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiPrefab: {fileID: 1000011671764720, guid: 0ae874c30b0dfe24595e50af04f4f049, type: 2}
 --- !u!114 &114000011038005484
 MonoBehaviour:
   m_ObjectHideFlags: 1

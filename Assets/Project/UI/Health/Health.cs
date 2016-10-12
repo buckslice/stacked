@@ -28,6 +28,12 @@ public class Health : MonoBehaviour {
         CanvasHelper ch = canvasRoot.GetComponent<CanvasHelper>();
 
         GameObject healthBar;
+
+        healthBar = (GameObject)Instantiate(ch.playerHealthBarPrefab, GetComponent<EntityUIGroupHolder>().EntityGroup.HealthBarHolder);
+        healthBar.transform.Reset();
+        bar = healthBar.GetComponent<HealthBar>();
+
+        /*
         if (barType == HealthBarType.PLAYER) {
             healthBar = (GameObject)Instantiate(ch.playerHealthBarPrefab, ch.playerHealthBarGroup);
             healthBar.transform.localScale = Vector3.one;
@@ -54,7 +60,7 @@ public class Health : MonoBehaviour {
 
             bar.followOffset = new Vector3(0.0f, bounds.size.y * 1.5f, 0.0f);
         }
-
+        */
         if (bar) {
             bar.type = barType;
             bar.SetText(gameObject.name);

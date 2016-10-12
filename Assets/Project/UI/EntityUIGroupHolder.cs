@@ -27,8 +27,11 @@ public class EntityUIGroupHolder : MonoBehaviour {
 
         CanvasHelper canvasHelper = canvasRoot.GetComponent<CanvasHelper>();
 
-        instantiatedEntityGroupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, canvasHelper.playerHealthBarGroup)).GetComponent<RectTransform>();
+        Transform parent = barType == HealthBarType.PLAYER ? canvasHelper.playerHealthBarGroup : canvasHelper.floatingHealthBarGroup;
+
+        instantiatedEntityGroupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, parent)).GetComponent<RectTransform>();
         instantiatedEntityGroupTransform.localScale = Vector3.one;
+
         if (barType == HealthBarType.PLAYER) {
             // need to implement boss bars still so this is temp
         } else {

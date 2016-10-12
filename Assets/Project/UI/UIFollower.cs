@@ -30,6 +30,12 @@ public class UIFollower : MonoBehaviour {
     public void Initialize(CanvasHelper canvasHelper, Transform followTransform) { Initialize(canvasHelper, followTransform, Vector3.zero); }
 	
 	void Update () {
+        if(followTransform == null)
+        {
+            Debug.LogWarning("UIFollower not initialized. Removing component.", this.gameObject);
+            Destroy(this);
+            return;
+        }
         Vector3 screenPoint = Camera.main.WorldToScreenPoint(followTransform.position + followOffset);
         // need to account for canvas scaler (disable this if we stop using scaler)
         float scale = Mathf.Lerp(canvasScaler.referenceResolution.x / Screen.width,
