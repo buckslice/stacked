@@ -4,11 +4,13 @@ using System.Collections;
 public class SelectAbility : AbstractAbilityAction {
     private bool selected;
     private CharacterSelectCursor cursor;
+    PlayerInputHolder inputHolder;
 
     protected override void Start()
     {
         base.Start();
         cursor = GetComponentInParent<CharacterSelectCursor>();
+        inputHolder = GetComponentInParent<PlayerInputHolder>();
         selected = false;
     }
 
@@ -19,7 +21,7 @@ public class SelectAbility : AbstractAbilityAction {
 
             if (stream.isWriting) {
                 GameObject instantiatedPlayerSetup = (GameObject)Instantiate(cursor.CurrentSelection, Vector3.zero, Quaternion.identity);
-                instantiatedPlayerSetup.GetComponent<PlayerSetup>().Initalize(cursor.GetComponent<PlayerInputHolder>().heldInput, cursor.playerNumber);
+                instantiatedPlayerSetup.GetComponent<PlayerSetup>().Initalize(inputHolder.heldInput, cursor.playerNumber);
             }
 
             selected = true;

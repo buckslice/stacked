@@ -21,7 +21,8 @@ public static class PlayerInputExtension
 {
     public static bool AnyKey(this IPlayerInputHolder self)
     {
-        return self.getAbility1 ||
+        return self.getBasicAttack ||
+            self.getAbility1 ||
             self.getAbility2 ||
             self.getRegistering ||
             self.getStarting;
@@ -63,6 +64,10 @@ public interface IPlayerInputHolder
     /// <returns></returns>
     bool getStarting { get; }
     /// <summary>
+    /// GetKey for the player's basic attack.
+    /// </summary>
+    bool getBasicAttack { get; }
+    /// <summary>
     /// GetKey for the player's first ability.
     /// </summary>
     /// <returns></returns>
@@ -85,6 +90,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public Vector3 rotationDirection { get { return heldInput.rotationDirection; } }
     public bool getRegistering { get { return heldInput.getRegistering; } }
     public bool getStarting { get { return heldInput.getStarting; } }
+    public bool getBasicAttack { get { return heldInput.getBasicAttack; } }
     public bool getAbility1 { get { return heldInput.getAbility1; } }
     public bool getAbility2 { get { return heldInput.getAbility2; } }
 
@@ -108,6 +114,7 @@ public class NullInput : IPlayerInput
     public Vector3 rotationDirection { get { return Vector3.zero; } }
     public bool getRegistering { get { return false; } }
     public bool getStarting { get { return false; } }
+    public bool getBasicAttack { get { return false; } }
     public bool getAbility1 { get { return false; } }
     public bool getAbility2 { get { return false; } }
 }

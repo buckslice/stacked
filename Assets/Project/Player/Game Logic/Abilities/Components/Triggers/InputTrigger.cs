@@ -24,6 +24,9 @@ public class InputTrigger : MonoBehaviour, IUntargetedAbilityTrigger, IAbilityKe
         bool inputValue;
         switch (binding)
         {
+            case AbilityKeybinding.BASICATTACK:
+                inputValue = playerInput.getBasicAttack;
+                break;
             case AbilityKeybinding.ABILITY1:
                 inputValue = playerInput.getAbility1;
                 break;

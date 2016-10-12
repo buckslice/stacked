@@ -39,6 +39,7 @@ public static class Tags {
 
         public const KeyCode Registering = KeyCode.Space;
         public const KeyCode Starting = KeyCode.Return;
+        public const KeyCode BasicAttack = KeyCode.LeftShift; 
         public const KeyCode Ability1 = KeyCode.Q; 
         public const KeyCode Ability2 = KeyCode.E; 
 
@@ -48,11 +49,15 @@ public static class Tags {
             public const string VerticalMovement = "J1_VerticalMovement";
             public const string HorizontalAiming = "J1_HorizontalAiming";
             public const string VerticalAiming = "J1_VerticalAiming";
+            public const string LeftTrigger = "J1_LeftTrigger";
+            public const string RightTrigger = "J1_RightTrigger";
 
             public const KeyCode Registering = KeyCode.Joystick1Button0; //A
             public const KeyCode Starting = KeyCode.Joystick1Button7; //Start
-            public const KeyCode Ability1 = KeyCode.Joystick1Button0; //also A
-            public const KeyCode Ability2 = KeyCode.Joystick1Button1; //B
+            public const KeyCode AButton = KeyCode.Joystick1Button0;
+            public const KeyCode BButton = KeyCode.Joystick1Button1;
+            public const KeyCode LeftBumper = KeyCode.Joystick1Button4;
+            public const KeyCode RightBumper = KeyCode.Joystick1Button5;
         }
         public static class Joystick2
         {
@@ -60,11 +65,15 @@ public static class Tags {
             public const string VerticalMovement = "J2_VerticalMovement";
             public const string HorizontalAiming = "J2_HorizontalAiming";
             public const string VerticalAiming = "J2_VerticalAiming";
+            public const string LeftTrigger = "J2_LeftTrigger";
+            public const string RightTrigger = "J2_RightTrigger";
 
             public const KeyCode Registering = KeyCode.Joystick2Button0; //A
             public const KeyCode Starting = KeyCode.Joystick2Button7; //Start
-            public const KeyCode Ability1 = KeyCode.Joystick2Button0; //also A
-            public const KeyCode Ability2 = KeyCode.Joystick2Button1; //B
+            public const KeyCode AButton = KeyCode.Joystick2Button0;
+            public const KeyCode BButton = KeyCode.Joystick2Button1;
+            public const KeyCode LeftBumper = KeyCode.Joystick2Button4;
+            public const KeyCode RightBumper = KeyCode.Joystick2Button5;
         }
         public static class Joystick3
         {
@@ -72,11 +81,15 @@ public static class Tags {
             public const string VerticalMovement = "J3_VerticalMovement";
             public const string HorizontalAiming = "J3_HorizontalAiming";
             public const string VerticalAiming = "J3_VerticalAiming";
+            public const string LeftTrigger = "J3_LeftTrigger";
+            public const string RightTrigger = "J3_RightTrigger";
 
             public const KeyCode Registering = KeyCode.Joystick3Button0; //A
             public const KeyCode Starting = KeyCode.Joystick3Button7; //Start
-            public const KeyCode Ability1 = KeyCode.Joystick3Button0; //also A
-            public const KeyCode Ability2 = KeyCode.Joystick3Button1; //B
+            public const KeyCode AButton = KeyCode.Joystick3Button0;
+            public const KeyCode BButton = KeyCode.Joystick3Button1;
+            public const KeyCode LeftBumper = KeyCode.Joystick3Button4;
+            public const KeyCode RightBumper = KeyCode.Joystick3Button5;
         }
         public static class Joystick4
         {
@@ -84,11 +97,15 @@ public static class Tags {
             public const string VerticalMovement = "J4_VerticalMovement";
             public const string HorizontalAiming = "J4_HorizontalAiming";
             public const string VerticalAiming = "J4_VerticalAiming";
+            public const string LeftTrigger = "J4_LeftTrigger";
+            public const string RightTrigger = "J4_RightTrigger";
 
             public const KeyCode Registering = KeyCode.Joystick4Button0; //A
             public const KeyCode Starting = KeyCode.Joystick4Button7; //Start
-            public const KeyCode Ability1 = KeyCode.Joystick4Button0; //also A
-            public const KeyCode Ability2 = KeyCode.Joystick4Button1; //B
+            public const KeyCode AButton = KeyCode.Joystick4Button0;
+            public const KeyCode BButton = KeyCode.Joystick4Button1;
+            public const KeyCode LeftBumper = KeyCode.Joystick4Button4;
+            public const KeyCode RightBumper = KeyCode.Joystick4Button5;
         }
     }
 

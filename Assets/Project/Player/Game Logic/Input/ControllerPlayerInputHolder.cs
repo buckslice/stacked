@@ -36,15 +36,17 @@ public class ControllerPlayerInput : IPlayerInput
     public string horizontalAimingAxis = Tags.Input.Joystick1.HorizontalAiming;
     [SerializeField]
     public string verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
+    [SerializeField]
+    public string basicAttackAxis = Tags.Input.Joystick1.RightTrigger;
 
     [SerializeField]
     public KeyCode registeringKey = Tags.Input.Joystick1.Registering;
     [SerializeField]
     public KeyCode startingKey = Tags.Input.Joystick1.Starting;
     [SerializeField]
-    public KeyCode ability1Key = Tags.Input.Joystick1.Ability1;
+    public KeyCode ability1Key = Tags.Input.Joystick1.LeftBumper;
     [SerializeField]
-    public KeyCode ability2Key = Tags.Input.Joystick1.Ability2;
+    public KeyCode ability2Key = Tags.Input.Joystick1.RightBumper;
 
     [SerializeField]
     [Range(0, 0.5f)]
@@ -115,6 +117,7 @@ public class ControllerPlayerInput : IPlayerInput
     }
     public bool getRegistering { get { return Input.GetKey(registeringKey); } }
     public bool getStarting { get { return Input.GetKey(startingKey); } }
+    public bool getBasicAttack { get { return Input.GetAxisRaw(basicAttackAxis) > deadZone; } }
     public bool getAbility1 { get { return Input.GetKey(ability1Key); } }
     public bool getAbility2 { get { return Input.GetKey(ability2Key); } }
 }
