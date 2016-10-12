@@ -177,6 +177,8 @@ public static class Tags {
     {
         public const string CharacterSelect = "CharacterSelect";
         public const string PlayerRegistration = "PlayerRegistration";
+        public const string DefeatPopup = "DefeatPopup";
+        public const string MainMenu = "MainMenu";
     }
 }
 
