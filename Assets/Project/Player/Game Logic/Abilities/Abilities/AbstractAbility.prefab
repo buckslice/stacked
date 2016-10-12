@@ -21,6 +21,8 @@ GameObject:
   - 4: {fileID: 4000013620977378}
   - 114: {fileID: 114000013556243740}
   - 114: {fileID: 114000011820485552}
+  - 114: {fileID: 114000013986043838}
+  - 114: {fileID: 114000012178468416}
   m_Layer: 0
   m_Name: AbstractAbility
   m_TagString: Untagged
@@ -53,6 +55,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   binding: 0
+--- !u!114 &114000012178468416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013263628666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a673583f36105c3449219bc1076f318f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownSecs:
+    baseValue: 0.25
 --- !u!114 &114000013556243740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -65,3 +80,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityActions: []
+--- !u!114 &114000013986043838
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013263628666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bf36f703a73ffe4fba72f46c8efa423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownSecs:
+    baseValue: 1

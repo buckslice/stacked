@@ -33,9 +33,6 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     protected GameObject basePlayerPrefab;
 
     [SerializeField]
-    protected GameObject healthBarPrefab;
-
-    [SerializeField]
     protected Transform[] spawnPoints;
 
     /// <summary>

@@ -24,6 +24,7 @@ GameObject:
   - 114: {fileID: 114000012414776988}
   - 114: {fileID: 114000012525167466}
   - 114: {fileID: 114000011482896634}
+  - 114: {fileID: 114000010104082022}
   m_Layer: 0
   m_Name: ConeBasicAttack
   m_TagString: Untagged
@@ -75,6 +76,18 @@ Transform:
   - {fileID: 4000010689664212}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000010104082022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011529534818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e266b120d8f3aa40915e8958c02953c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiPrefab: {fileID: 1000011671764720, guid: 0ae874c30b0dfe24595e50af04f4f049, type: 2}
 --- !u!114 &114000010224337770
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -88,7 +101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000013639568842}
-  - {fileID: 0}
 --- !u!114 &114000010541266264
 MonoBehaviour:
   m_ObjectHideFlags: 1
