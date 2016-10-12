@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class MagazineConstraint : UntargetedAbilityConstraint {
+public class MagazineConstraint : UntargetedAbilityConstraint, ICooldownConstraint {
 
     /// <summary>
     /// How many activations there are in a single magazine.
@@ -41,6 +41,20 @@ public class MagazineConstraint : UntargetedAbilityConstraint {
         base.Awake();
         activationsRemaining = activationsInMagazine;
 	}
+
+    public float cooldownProgress() {
+        if (isAbilityActivatible()) {
+            return 0;
+        }
+
+        float timeRemaining = lastActivationTime + reloadTimeSecs - Time.time;
+
+        if (timeRemaining < 0) {
+            Debug.LogError("Reload time has passed, but the ability has not reloaded.");
+            timeRemaining = 0;
+        }
+        return timeRemaining / reloadTimeSecs;
+    }
 
     public override bool isAbilityActivatible()
     {

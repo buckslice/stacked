@@ -10,12 +10,31 @@ using System;
 public interface IAbilityActivation {
     void Initialize(AbstractActivationNetworking abilityNetwork);
     void Activate(object[] data, PhotonMessageInfo info);
+
+}
+
+/// <summary>
+/// Used to interface with the UI.
+/// </summary>
+public interface IAbilityUI {
+
+    /// <summary>
+    /// Time until the ability is ready, normalized to the range [0, 1]. Only includes time-related constraints
+    /// </summary>
+    /// <returns></returns>
+    float cooldownProgress();
+
+    /// <summary>
+    /// Is the cooldown ready. Doesn't include targetable constraints.
+    /// </summary>
+    /// <returns></returns>
+    bool Ready();
 }
 
 /// <summary>
 /// Filters triggers to activate abilities. Has no target.
 /// </summary>
-public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityConstrained {
+public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityConstrained, IAbilityUI {
     /// <summary>
     /// List of abilityActions to activate with this ability, includes Constraints. Order must be the same on all clients.
     /// </summary>
@@ -24,9 +43,20 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
     public AbstractAbilityAction[] AbilityActions { get { return abilityActions; } }
 
     protected List<UntargetedAbilityConstraint> constraints = new List<UntargetedAbilityConstraint>();
+    protected List<ICooldownConstraint> cooldownConstraints = new List<ICooldownConstraint>();
 
-    public void AddConstraint(UntargetedAbilityConstraint toAdd) { constraints.Add(toAdd); }
-    public bool RemoveConstraint(UntargetedAbilityConstraint toRemove) { return constraints.Remove(toRemove); }
+    public void AddConstraint(UntargetedAbilityConstraint toAdd) {
+        if (toAdd is ICooldownConstraint) {
+            cooldownConstraints.Add((ICooldownConstraint)toAdd);
+        }
+        constraints.Add(toAdd); 
+    }
+    public bool RemoveConstraint(UntargetedAbilityConstraint toRemove) {
+        if (toRemove is ICooldownConstraint) {
+            cooldownConstraints.Remove((ICooldownConstraint)toRemove);
+        }
+        return constraints.Remove(toRemove); 
+    }
 
     AbstractActivationNetworking abilityNetwork;
 
@@ -51,12 +81,30 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
         }
     }
 
-    void trigger_abilityTriggerEvent() {
+    public bool Ready() {
         foreach (UntargetedAbilityConstraint constraint in constraints) {
             if (!constraint.isAbilityActivatible()) {
-                //cannot activate, do nothing
-                return;
+                //cannot activate
+                return false;
             }
+        }
+        return true;
+    }
+
+    public float cooldownProgress() {
+        float cooldownRemaining = 0;
+        foreach (ICooldownConstraint cooldown in cooldownConstraints) {
+            cooldownRemaining = Mathf.Max(cooldownRemaining, cooldown.cooldownProgress());
+        }
+        return cooldownRemaining;
+    }
+
+    /// <summary>
+    /// Event subscribed to all triggers of this ability.
+    /// </summary>
+    void trigger_abilityTriggerEvent() {
+        if (!Ready()) {
+            return;
         }
 
         //TODO : re-use this object?

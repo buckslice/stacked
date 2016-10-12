@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class GlobalCooldownConstraint : UntargetedAbilityConstraint {
+public class GlobalCooldownConstraint : UntargetedAbilityConstraint, ICooldownConstraint {
 
     [SerializeField]
     protected MultiplierFloatStat cooldownSecs = new MultiplierFloatStat(1);
@@ -17,6 +17,14 @@ public class GlobalCooldownConstraint : UntargetedAbilityConstraint {
         if (referenceCooldown == null) {
             referenceCooldown = transform.root.AddComponent<GlobalCooldown>();
         }
+    }
+
+    public float cooldownProgress() {
+        float timeRemaining = referenceCooldown.LastActivationTime + cooldownSecs - Time.time;
+        if (timeRemaining < 0) {
+            timeRemaining = 0;
+        }
+        return timeRemaining / cooldownSecs;
     }
 
     public override bool isAbilityActivatible() {

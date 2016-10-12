@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Filters triggers to activate abilities. Acts with reference to a target.
 /// </summary>
-public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityConstrained {
+public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityConstrained, IAbilityUI {
     /// <summary>
     /// List of abilityActions to activate with this ability, includes Constraints. Order must be the same on all clients.
     /// </summary>
@@ -14,16 +14,38 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
     protected TargetedAbilityAction[] abilityActions;
     public TargetedAbilityAction[] AbilityActions { get { return abilityActions; } }
 
-    protected List<ITargetedAbilityConstraint> constraints = new List<ITargetedAbilityConstraint>();
+    protected List<ITargetedAbilityConstraint> targetedConstraints = new List<ITargetedAbilityConstraint>();
+    protected List<UntargetedAbilityConstraint> untargetedConstraints = new List<UntargetedAbilityConstraint>();
+    protected List<ICooldownConstraint> cooldownConstraints = new List<ICooldownConstraint>();
 
-    public void AddConstraint(ITargetedAbilityConstraint toAdd) { constraints.Add(toAdd); }
-    public bool RemoveConstraint(ITargetedAbilityConstraint toRemove) { return constraints.Remove(toRemove); }
+    public void AddConstraint(ITargetedAbilityConstraint toAdd) {
+        if (toAdd is ICooldownConstraint) {
+            cooldownConstraints.Add((ICooldownConstraint)toAdd);
+        }
+        targetedConstraints.Add(toAdd);
+    }
+    public bool RemoveConstraint(ITargetedAbilityConstraint toRemove) {
+        if (toRemove is ICooldownConstraint) {
+            cooldownConstraints.Remove((ICooldownConstraint)toRemove);
+        }
+        return targetedConstraints.Remove(toRemove);
+    }
 
     /// <summary>
     /// For covariance.
     /// </summary>
-    public void AddConstraint(UntargetedAbilityConstraint toAdd) { AddConstraint((ITargetedAbilityConstraint)toAdd); }
-    public bool RemoveConstraint(UntargetedAbilityConstraint toRemove) { return RemoveConstraint((ITargetedAbilityConstraint)toRemove); }
+    public void AddConstraint(UntargetedAbilityConstraint toAdd) {
+        if (toAdd is ICooldownConstraint) {
+            cooldownConstraints.Add((ICooldownConstraint)toAdd);
+        }
+        untargetedConstraints.Add(toAdd);
+    }
+    public bool RemoveConstraint(UntargetedAbilityConstraint toRemove) {
+        if (toRemove is ICooldownConstraint) {
+            cooldownConstraints.Remove((ICooldownConstraint)toRemove);
+        }
+        return untargetedConstraints.Remove(toRemove);
+    }
 
     AbstractActivationNetworking abilityNetwork;
 
@@ -48,12 +70,49 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
         }
     }
 
-    void trigger_targetedAbilityTriggerEvent(GameObject target) {
-        foreach (ITargetedAbilityConstraint constraint in constraints) {
-            if (!constraint.isAbilityActivatible(target)) {
-                //cannot activate, do nothing
-                return;
+    /// <summary>
+    /// Only includes untargeted constraints.
+    /// </summary>
+    /// <returns></returns>
+    public bool Ready() {
+        foreach (UntargetedAbilityConstraint constraint in untargetedConstraints) {
+            if (!constraint.isAbilityActivatible()) {
+                //cannot activate
+                return false;
             }
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Only includes targeted constraints.
+    /// </summary>
+    /// <param name="target"></param>
+    /// <returns></returns>
+    public bool Ready(GameObject target) {
+        foreach (ITargetedAbilityConstraint constraint in targetedConstraints) {
+            if (!constraint.isAbilityActivatible(target)) {
+                //cannot activate
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public float cooldownProgress() {
+        float cooldownRemaining = 0;
+        foreach (ICooldownConstraint cooldown in cooldownConstraints) {
+            cooldownRemaining = Mathf.Max(cooldownRemaining, cooldown.cooldownProgress());
+        }
+        return cooldownRemaining;
+    }
+
+    /// <summary>
+    /// Event subscribed to all triggers of this ability.
+    /// </summary>
+    void trigger_targetedAbilityTriggerEvent(GameObject target) {
+        if (!Ready() || !Ready(target)) {
+            return;
         }
 
         //TODO : re-use this object?
