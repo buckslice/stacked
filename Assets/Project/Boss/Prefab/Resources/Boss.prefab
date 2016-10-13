@@ -81,6 +81,7 @@ GameObject:
   - 114: {fileID: 114000011968174942}
   - 114: {fileID: 114000013404400064}
   - 114: {fileID: 114000010663278840}
+  - 114: {fileID: 114000013869679022}
   m_Layer: 20
   m_Name: Boss
   m_TagString: Boss
@@ -381,6 +382,17 @@ MonoBehaviour:
   aggroToSurpass: 1
   shouldChase:
     baseValue: 1
+--- !u!114 &114000013869679022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012221291214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69262099c7e902c409d4119e1bf2fab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136000012328568346
 CapsuleCollider:
   m_ObjectHideFlags: 1

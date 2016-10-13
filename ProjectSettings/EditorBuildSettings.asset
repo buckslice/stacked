@@ -21,3 +21,5 @@ EditorBuildSettings:
     path: Assets/Project/DevelopmentOnly/John.unity
   - enabled: 1
     path: Assets/Project/Framework/GameEnd/DefeatPopup.unity
+  - enabled: 1
+    path: Assets/Project/Framework/GameEnd/VictoryPopup.unity

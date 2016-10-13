@@ -114,6 +114,9 @@ public class BossSetupNetworkedData : MonoBehaviour {
         PhotonView toInitialize = bossGO.GetComponent<PhotonView>();
         toInitialize.viewID = allocatedViewId;
 
+        DamageHolder damageHolder = bossGO.GetComponent<DamageHolder>();
+        damageHolder.Initialize(new Boss(damageHolder));
+
         Camera.main.transform.parent.GetComponent<CameraController>().boss = bossGO.transform;
 
         //TODO: health bar

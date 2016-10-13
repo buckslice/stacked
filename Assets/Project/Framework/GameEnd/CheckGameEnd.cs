@@ -7,11 +7,17 @@ using UnityEngine.SceneManagement;
 public class CheckGameEnd : MonoBehaviour {
 
     [SerializeField]
-    protected string gameEndPopupSceneName = Tags.Scenes.DefeatPopup;
+    protected string gameDefeatPopupSceneName = Tags.Scenes.DefeatPopup;
+
+    [SerializeField]
+    protected string gameVictoryPopupSceneName = Tags.Scenes.VictoryPopup;
 
     public void Update() {
         if (Player.Players.Count == 0) {
-            SceneManager.LoadScene(gameEndPopupSceneName, LoadSceneMode.Additive);
+            SceneManager.LoadScene(gameDefeatPopupSceneName, LoadSceneMode.Additive);
+            Destroy(this);
+        } else if (Boss.Bosses.Count == 0) {
+            SceneManager.LoadScene(gameVictoryPopupSceneName, LoadSceneMode.Additive);
             Destroy(this);
         }
     }
