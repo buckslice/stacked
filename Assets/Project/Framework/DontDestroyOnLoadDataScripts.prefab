@@ -171,8 +171,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basePlayerPrefab: {fileID: 1000013947083138, guid: c3d98dc2b9ec2784c9af2be72f74d714,
     type: 2}
-  healthBarPrefab: {fileID: 1000010670680214, guid: a07551bda06d03343b763e75df2ac96a,
-    type: 2}
   spawnPoints: []
   abilityPrefabs:
   - {fileID: 1000010313918382, guid: 5d22f0f9f6fdac5408b35f55e6e8d32e, type: 2}
@@ -185,6 +183,7 @@ MonoBehaviour:
   - {fileID: 1000010287659330, guid: c2505959743bee144a99565c6b0e0dcb, type: 2}
   - {fileID: 1000011975006222, guid: 46534c7d3c8b55a4eb0d3da5fa475651, type: 2}
   - {fileID: 1000011529534818, guid: a3a09d9d0d6304a4ba4717d15aae3f2b, type: 2}
+  - {fileID: 1000012574085664, guid: 5ae70bdd1b95863489575c746da6d6a6, type: 2}
 --- !u!114 &114000013090542758
 MonoBehaviour:
   m_ObjectHideFlags: 1

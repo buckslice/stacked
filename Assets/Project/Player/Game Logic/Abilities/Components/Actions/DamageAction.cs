@@ -3,6 +3,9 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// TODO : Distinguish between damage and healing
+/// </summary>
 public class DamageAction : TypedTargetedAbilityAction {
 
     //TODO: refactor these to be more universal

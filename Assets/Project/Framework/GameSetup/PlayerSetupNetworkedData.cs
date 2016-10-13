@@ -24,6 +24,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         SPAWNADD,
         BLINK,
         MELEECONEBASICATTACK,
+        HEALINGSPHERE,
     }
 
     static PlayerSetupNetworkedData main;
