@@ -155,6 +155,14 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         GameObject player = InstantiatePlayer(allocatedViewId, input, playerData);
         player.name = "Player" + playerID;
 
+        if (BossSetup.Main != null && BossSetup.Main.PlayerSpawnPoints.Length > playerID) {
+            Debug.Log(playerID);
+            player.transform.position = BossSetup.Main.PlayerSpawnPoints[playerID].position;
+            player.transform.rotation = BossSetup.Main.PlayerSpawnPoints[playerID].rotation;
+        }
+        
+        
+
         DamageHolder damageHolder = player.GetComponent<DamageHolder>();
 
         //assign playerID

@@ -28,6 +28,10 @@ public class BossSetup : MonoBehaviour
     [SerializeField]
     protected Transform spawnPoint;
 
+    [SerializeField]
+    protected Transform[] playerSpawnPoints;
+    public Transform[] PlayerSpawnPoints { get { return playerSpawnPoints; } }
+
     protected virtual void Awake()
     {
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
