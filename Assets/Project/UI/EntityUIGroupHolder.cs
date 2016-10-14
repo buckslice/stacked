@@ -40,6 +40,7 @@ public class EntityUIGroupHolder : MonoBehaviour {
 
             UIFollower follower = instantiatedEntityGroupTransform.GetComponent<UIFollower>();
             if (follower != null) {
+                /*
                 // try to find bounds for object to use as floating health bar offset
                 Bounds bounds = new Bounds();
                 Collider col = GetComponent<Collider>();
@@ -50,7 +51,7 @@ public class EntityUIGroupHolder : MonoBehaviour {
                     if (rend) {
                         bounds = rend.bounds;
                     }
-                }
+                } */
 
                 Debug.Assert(canvasHelper.scaler, "Need canvas scaler on canvas!");
                 follower.Initialize(canvasHelper, this.transform);

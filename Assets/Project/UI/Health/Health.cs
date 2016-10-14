@@ -7,119 +7,76 @@ public class Health : MonoBehaviour {
 
     public delegate void OnDamage(float amount, int playerID);
 
+    public delegate void HealthChanged();
+
     public event OnDamage onDamage = delegate { };
+    public event HealthChanged onHealthChanged = delegate { };
 
     [SerializeField]
-    private float health = 100f;     // current health
-    private float maxHealth;
+    protected float _health = 100f;     // current health
+    public float health { get { return _health; } }
+    /// <summary>
+    /// Returns the amount by which the health was actually changed.
+    /// </summary>
+    /// <param name="value"></param>
+    /// <returns></returns>
+    private float setHealth(float value) {
+        float healthBefore = _health;
+        _health = value;
+        if (_health > maxHealth) {
+            _health = maxHealth;
+        }
 
-    public HealthBarType barType = HealthBarType.FLOATING;
+        onHealthChanged();
 
-    private HealthBar bar;
+        if (_health <= 0) {
+            Destroy(gameObject);
+        }
+
+        return _health - healthBefore;
+    }
+    protected float maxHealth;
+    public float healthPercent { get { return health / maxHealth; } }
+
+    //private HealthBar bar;
 
     void Awake() {
         maxHealth = health;
     }
 
-    void Start() {
-        Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
-        Debug.Assert(canvasRoot, "Scene requires a UI canvas for healthbars!");
-
-        CanvasHelper ch = canvasRoot.GetComponent<CanvasHelper>();
-
-        GameObject healthBar;
-
-        healthBar = (GameObject)Instantiate(ch.playerHealthBarPrefab, GetComponent<EntityUIGroupHolder>().EntityGroup.HealthBarHolder);
-        (healthBar.transform as RectTransform).Reset();
-        bar = healthBar.GetComponent<HealthBar>();
-
-        /*
-        if (barType == HealthBarType.PLAYER) {
-            healthBar = (GameObject)Instantiate(ch.playerHealthBarPrefab, ch.playerHealthBarGroup);
-            healthBar.transform.localScale = Vector3.one;
-            bar = healthBar.GetComponent<HealthBar>();
-        } else {   // need to implement boss bars still so this is temp
-            healthBar = (GameObject)Instantiate(ch.floatingHealthBarPrefab, ch.floatingHealthBarGroup);
-            healthBar.transform.localScale = Vector3.one;
-            bar = healthBar.GetComponent<HealthBar>();
-            bar.followTransform = gameObject.transform;
-            Debug.Assert(ch.scaler, "Need canvas scaler on canvas!");
-            bar.scaler = ch.scaler;
-
-            // try to find bounds for object to use as floating health bar offset
-            Bounds bounds = new Bounds();
-            Collider col = GetComponent<Collider>();
-            if (col) {
-                bounds = col.bounds;
-            } else {
-                Renderer rend = GetComponent<Renderer>();
-                if (rend) {
-                    bounds = rend.bounds;
-                }
-            }
-
-            bar.followOffset = new Vector3(0.0f, bounds.size.y * 1.5f, 0.0f);
-        }
-        */
-        if (bar) {
-            bar.type = barType;
-            bar.SetText(gameObject.name);
-        }
-
+    public virtual float Damage(float amount) {
+        return setHealth(_health - amount);
     }
 
-    void OnDestroy() {
-        if (bar) {
-            Destroy(bar.gameObject);
-        }
-    }
-
-    // Update is called once per frame
-    void Update() {
-        if (health <= 0.0f) {    // temp, might not want to always destroy when zero health
-            Destroy(gameObject);
-        }
-    }
-
-    public void Damage(float amount) {
-        health -= amount;
-        if (bar) {
-            bar.SetPercent(health / maxHealth);
-        }
-    }
-
-    public void Damage(float amount, int playerID)
+    public float Damage(float amount, int playerID)
     {
-        Damage(amount);
+        float result = Damage(amount);
         onDamage(amount, playerID);
+        return result;
     }
 
-    public void Damage(float amount, Player playerReference)
+    public float Damage(float amount, Player playerReference)
     {
-        Damage(amount);
-        onDamage(amount, playerReference.PlayerID);
+        return Damage(amount, playerReference.PlayerID);
     }
 
-    public void Damage(float amount, IDamageTracker trackerReference) {
+    public float Damage(float amount, IDamageTracker trackerReference) {
         if (trackerReference is Player) {
-            Damage(amount, (Player)trackerReference);
+            return Damage(amount, (Player)trackerReference);
         } else {
-            Damage(amount);
+            return Damage(amount);
         }
     }
 
-    public void Heal(float amount) {
-        Damage(-amount);
+    public float Heal(float amount) {
+        return -Damage(-amount);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         if (stream.isWriting) {
             stream.SendNext(health);
         } else {
-            health = (float)stream.ReceiveNext();
-            if (bar) {
-                bar.SetPercent(health / maxHealth);
-            }
+            setHealth((float)stream.ReceiveNext());
         }
     }
 }

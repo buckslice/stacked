@@ -74,21 +74,20 @@ public class Damageable : MonoBehaviour {
     public float Damage(Damage incoming)
     {
         float actualDamageAmount = CalculateActualDamage(incoming);
-        health.Damage(actualDamageAmount);
-        return actualDamageAmount;
+        return health.Damage(actualDamageAmount);
     }
 
     public float Damage(Damage incoming, IDamageTracker trackerReference) {
         float actualDamageAmount = CalculateActualDamage(incoming);
-        health.Damage(actualDamageAmount, trackerReference);
-        trackerReference.AddDamageDealt(actualDamageAmount);
-        return actualDamageAmount;
+        float result = health.Damage(actualDamageAmount, trackerReference);
+        trackerReference.AddDamageDealt(result);
+        return result;
     }
 
     public float Damage(Damage incoming, Player playerReference) {
         float actualDamageAmount = CalculateActualDamage(incoming);
-        health.Damage(actualDamageAmount, playerReference);
-        playerReference.AddDamageDealt(actualDamageAmount);
-        return actualDamageAmount;
+        float result = health.Damage(actualDamageAmount, playerReference);
+        playerReference.AddDamageDealt(result);
+        return result;
     }
 }
