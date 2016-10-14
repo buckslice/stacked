@@ -1226,7 +1226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 3
   playerData:
-    firstAbilities: 06
+    firstAbilities: 0b
     secondAbilities: 09
     abilities: 
 --- !u!4 &2137640759

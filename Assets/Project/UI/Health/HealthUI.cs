@@ -57,7 +57,9 @@ public class HealthUI : MonoBehaviour {
     }
 
     void OnDestroy() {
-        Destroy(bar.gameObject);
+        if (bar != null) {
+            Destroy(bar.gameObject);
+        }
     }
 
     /// <summary>

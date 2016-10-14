@@ -52,7 +52,6 @@ public class DamageHolder : MonoBehaviour, IDamageHolder {
     public IDamageTracker DamageTracker { get { return trackerReference.DamageTracker; } }
 
     public void Initialize(IDamageHolder trackerReference) {
-        Debug.Log(trackerReference);
         this.trackerReference = trackerReference;
     }
 
