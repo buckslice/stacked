@@ -45,6 +45,18 @@ public static class TransformExtension
     }
 
     /// <summary>
+    /// Resets the values of the transform to the defaults. (no local offset, no local rotation, no local scale)
+    /// </summary>
+    /// <param name="transform">The transform to reset</param>
+    public static void Reset(this RectTransform transform) {
+        transform.localScale = Vector3.one;
+        transform.offsetMax = Vector2.zero;
+        transform.offsetMin = Vector2.zero;
+        transform.anchoredPosition = Vector2.zero;
+        transform.localRotation = Quaternion.identity;
+    }
+
+    /// <summary>
     /// Rotates the transform so the forward vector points at worldPosition in the context of Unity 2D.
     /// </summary>
     /// <param name="self">Transform to modify.</param>

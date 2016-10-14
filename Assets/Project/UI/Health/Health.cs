@@ -30,7 +30,7 @@ public class Health : MonoBehaviour {
         GameObject healthBar;
 
         healthBar = (GameObject)Instantiate(ch.playerHealthBarPrefab, GetComponent<EntityUIGroupHolder>().EntityGroup.HealthBarHolder);
-        healthBar.transform.Reset();
+        (healthBar.transform as RectTransform).Reset();
         bar = healthBar.GetComponent<HealthBar>();
 
         /*

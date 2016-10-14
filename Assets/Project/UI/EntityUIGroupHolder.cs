@@ -27,15 +27,16 @@ public class EntityUIGroupHolder : MonoBehaviour {
 
         CanvasHelper canvasHelper = canvasRoot.GetComponent<CanvasHelper>();
 
-        Transform parent = barType == HealthBarType.PLAYER ? canvasHelper.playerHealthBarGroup : canvasHelper.floatingHealthBarGroup;
-
-        instantiatedEntityGroupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, parent)).GetComponent<RectTransform>();
-        instantiatedEntityGroupTransform.localScale = Vector3.one;
+        
 
         if (barType == HealthBarType.PLAYER) {
             // need to implement boss bars still so this is temp
+            instantiatedEntityGroupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, canvasHelper.transform)).GetComponent<RectTransform>();
         } else {
             // need to implement boss bars still so this is temp
+
+            instantiatedEntityGroupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, canvasHelper.floatingHealthBarGroup)).GetComponent<RectTransform>();
+            instantiatedEntityGroupTransform.localScale = Vector3.one;
 
             UIFollower follower = instantiatedEntityGroupTransform.GetComponent<UIFollower>();
             if (follower != null) {
@@ -52,9 +53,16 @@ public class EntityUIGroupHolder : MonoBehaviour {
                 }
 
                 Debug.Assert(canvasHelper.scaler, "Need canvas scaler on canvas!");
-                follower.Initialize(canvasHelper, this.transform, bounds.size.y * 1.5f * Vector3.up);
+                follower.Initialize(canvasHelper, this.transform);
             }
         }
         entityGroup = instantiatedEntityGroupTransform.GetComponent<EntityUIGroup>();
 	}
+
+    void Start() {
+        if (barType == HealthBarType.PLAYER) {
+            Player player = (Player)GetComponent<IDamageHolder>().DamageTracker;
+            CanvasHelper.PositionPlayerEntityGroup(instantiatedEntityGroupTransform, player.PlayerID);
+        }
+    }
 }

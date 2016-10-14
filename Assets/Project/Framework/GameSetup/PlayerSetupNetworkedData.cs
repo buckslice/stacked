@@ -154,7 +154,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     /// <param name="allocatedViewId"></param>
     public GameObject InstantiatePlayer(byte playerID, int allocatedViewId, IPlayerInput input, PlayerSetup.PlayerSetupData playerData) {
         GameObject player = InstantiatePlayer(allocatedViewId, input, playerData);
-        player.name = "Player" + playerID;
+        player.name = "Player" + (playerID + 1);
 
         if (BossSetup.Main != null && BossSetup.Main.PlayerSpawnPoints.Length > playerID) {
             Debug.Log(playerID);
