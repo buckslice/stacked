@@ -8,6 +8,11 @@ public class EnableAction : DurationAbilityAction {
     [SerializeField]
     protected GameObject target;
 
+    protected override void Awake() {
+        base.Awake();
+        target.SetActive(false);
+    }
+
     protected override void OnDurationBegin() {
         target.SetActive(true);
     }
