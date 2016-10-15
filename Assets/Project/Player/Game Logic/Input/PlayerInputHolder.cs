@@ -24,8 +24,8 @@ public static class PlayerInputExtension
         return self.getBasicAttack ||
             self.getAbility1 ||
             self.getAbility2 ||
-            self.getRegistering ||
-            self.getStarting;
+            self.getSubmit ||
+            self.getStart;
     }
 
     public static bool AnyAxis(this IPlayerInputHolder self)
@@ -43,8 +43,7 @@ public static class PlayerInputExtension
 /// <summary>
 /// Interface used to denote a class which is or holds an IPlayerInput.
 /// </summary>
-public interface IPlayerInputHolder
-{
+public interface IPlayerInputHolder {
     /// <summary>
     /// A vector representing the direction the player should move in. Magnitude should be in the range [0, 1]. Vector is in screen space.
     /// </summary>
@@ -54,15 +53,20 @@ public interface IPlayerInputHolder
     /// </summary>
     Vector3 rotationDirection { get; }
     /// <summary>
-    /// GetKey for the registration binding.
+    /// GetKey for the menu submission.
     /// </summary>
     /// <returns></returns>
-    bool getRegistering { get; }
+    bool getSubmit { get; }
+    /// <summary>
+    /// GetKey for the menu cancellation.
+    /// </summary>
+    /// <returns></returns>
+    bool getCancel { get; }
     /// <summary>
     /// GetKey for the start binding.
     /// </summary>
     /// <returns></returns>
-    bool getStarting { get; }
+    bool getStart { get; }
     /// <summary>
     /// GetKey for the player's basic attack.
     /// </summary>
@@ -79,15 +83,20 @@ public interface IPlayerInputHolder
     bool getAbility2 { get; }
 
     /// <summary>
-    /// GetKeyDown for the registration binding.
+    /// GetKeyDown for the menu submission.
     /// </summary>
     /// <returns></returns>
-    bool getRegisteringDown { get; }
+    bool getSubmitDown { get; }
+    /// <summary>
+    /// GetKeyDown for the menu cancellation.
+    /// </summary>
+    /// <returns></returns>
+    bool getCancelDown { get; }
     /// <summary>
     /// GetKeyDown for the start binding.
     /// </summary>
     /// <returns></returns>
-    bool getStartingDown { get; }
+    bool getStartDown { get; }
     /// <summary>
     /// GetKeyDown for the player's basic attack.
     /// </summary>
@@ -113,14 +122,16 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
 
     public Vector2 movementDirection { get { return heldInput.movementDirection; } }
     public Vector3 rotationDirection { get { return heldInput.rotationDirection; } }
-    public bool getRegistering { get { return heldInput.getRegistering; } }
-    public bool getStarting { get { return heldInput.getStarting; } }
+    public bool getSubmit { get { return heldInput.getSubmit; } }
+    public bool getCancel { get { return heldInput.getCancel; } }
+    public bool getStart { get { return heldInput.getStart; } }
     public bool getBasicAttack { get { return heldInput.getBasicAttack; } }
     public bool getAbility1 { get { return heldInput.getAbility1; } }
     public bool getAbility2 { get { return heldInput.getAbility2; } }
 
-    public bool getRegisteringDown { get { return heldInput.getRegisteringDown; } }
-    public bool getStartingDown { get { return heldInput.getStartingDown; } }
+    public bool getSubmitDown { get { return heldInput.getSubmitDown; } }
+    public bool getCancelDown { get { return heldInput.getCancelDown; } }
+    public bool getStartDown { get { return heldInput.getStartDown; } }
     public bool getBasicAttackDown { get { return heldInput.getBasicAttackDown; } }
     public bool getAbility1Down { get { return heldInput.getAbility1Down; } }
     public bool getAbility2Down { get { return heldInput.getAbility2Down; } }
@@ -143,13 +154,15 @@ public class NullInput : IPlayerInput
     public Transform Player { set { ;} }
     public Vector2 movementDirection { get { return Vector2.zero; } }
     public Vector3 rotationDirection { get { return Vector3.zero; } }
-    public bool getRegistering { get { return false; } }
-    public bool getStarting { get { return false; } }
+    public bool getSubmit { get { return false; } }
+    public bool getCancel { get { return false; } }
+    public bool getStart { get { return false; } }
     public bool getBasicAttack { get { return false; } }
     public bool getAbility1 { get { return false; } }
     public bool getAbility2 { get { return false; } }
-    public bool getRegisteringDown { get { return false; } }
-    public bool getStartingDown { get { return false; } }
+    public bool getSubmitDown { get { return false; } }
+    public bool getCancelDown { get { return false; } }
+    public bool getStartDown { get { return false; } }
     public bool getBasicAttackDown { get { return false; } }
     public bool getAbility1Down { get { return false; } }
     public bool getAbility2Down { get { return false; } }

@@ -34,9 +34,11 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public string verticalMovementAxis = Tags.Input.Vertical;
 
     [SerializeField]
-    public KeyCode registeringKey = Tags.Input.Registering;
+    public KeyCode submitKey = Tags.Input.Submit;
     [SerializeField]
-    public KeyCode startingKey = Tags.Input.Starting;
+    public KeyCode cancelKey = Tags.Input.Cancel;
+    [SerializeField]
+    public KeyCode startKey = Tags.Input.Start;
     [SerializeField]
     public KeyCode basicAttackKey = Tags.Input.BasicAttack;
     [SerializeField]
@@ -69,14 +71,16 @@ public class KeyboardMousePlayerInput : IPlayerInput
             return pointInWorld - player.position;
         }
     }
-    public bool getRegistering { get { return Input.GetKey(registeringKey); } }
-    public bool getStarting { get { return Input.GetKey(startingKey); } }
+    public bool getSubmit { get { return Input.GetKey(submitKey); } }
+    public bool getCancel { get { return Input.GetKey(cancelKey); } }
+    public bool getStart { get { return Input.GetKey(startKey); } }
     public bool getBasicAttack { get { return Input.GetKey(basicAttackKey); } }
     public bool getAbility1 { get { return Input.GetKey(ability1Key); } }// || Input.GetMouseButton(0); } }
     public bool getAbility2 { get { return Input.GetKey(ability2Key); } }// || Input.GetMouseButton(1); } }
 
-    public bool getRegisteringDown { get { return Input.GetKeyDown(registeringKey); } }
-    public bool getStartingDown { get { return Input.GetKeyDown(startingKey); } }
+    public bool getSubmitDown { get { return Input.GetKeyDown(submitKey); } }
+    public bool getCancelDown { get { return Input.GetKeyDown(cancelKey); } }
+    public bool getStartDown { get { return Input.GetKeyDown(startKey); } }
     public bool getBasicAttackDown { get { return Input.GetKeyDown(basicAttackKey); } }
     public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
     public bool getAbility2Down { get { return Input.GetKeyDown(ability2Key); } }

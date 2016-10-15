@@ -43,9 +43,11 @@ public class ControllerPlayerInput : IPlayerInput
     public string basicAttackAxis = Tags.Input.Joystick1.RightTrigger;
 
     [SerializeField]
-    public KeyCode registeringKey = Tags.Input.Joystick1.Registering;
+    public KeyCode submitKey = Tags.Input.Joystick1.AButton;
     [SerializeField]
-    public KeyCode startingKey = Tags.Input.Joystick1.Starting;
+    public KeyCode cancelKey = Tags.Input.Joystick1.BButton;
+    [SerializeField]
+    public KeyCode startKey = Tags.Input.Joystick1.Start;
     [SerializeField]
     public KeyCode ability1Key = Tags.Input.Joystick1.LeftBumper;
     [SerializeField]
@@ -120,14 +122,16 @@ public class ControllerPlayerInput : IPlayerInput
             return getSmoothedJoystickInput(horizontalAimingAxis, verticalAimingAxis, deadZone).ConvertFromInputToWorld();
         }
     }
-    public bool getRegistering { get { return Input.GetKey(registeringKey); } }
-    public bool getStarting { get { return Input.GetKey(startingKey); } }
+    public bool getSubmit { get { return Input.GetKey(submitKey); } }
+    public bool getCancel { get { return Input.GetKey(cancelKey); } }
+    public bool getStart { get { return Input.GetKey(startKey); } }
     public bool getBasicAttack { get { return Input.GetAxisRaw(basicAttackAxis) > deadZone; } }
     public bool getAbility1 { get { return Input.GetKey(ability1Key); } }
     public bool getAbility2 { get { return Input.GetKey(ability2Key); } }
 
-    public bool getRegisteringDown { get { return Input.GetKeyDown(registeringKey); } }
-    public bool getStartingDown { get { return Input.GetKeyDown(startingKey); } }
+    public bool getSubmitDown { get { return Input.GetKeyDown(submitKey); } }
+    public bool getCancelDown { get { return Input.GetKeyDown(cancelKey); } }
+    public bool getStartDown { get { return Input.GetKeyDown(startKey); } }
     public bool getBasicAttackDown { get { return false; } }    // not sure how to implement this
     public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
     public bool getAbility2Down { get { return Input.GetKeyDown(ability2Key); } }

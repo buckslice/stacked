@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Boss
   - CanvasRoot
+  - AbilityIcon
   layers:
   - Default
   - TransparentFX
