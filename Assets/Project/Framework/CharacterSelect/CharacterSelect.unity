@@ -626,6 +626,10 @@ Prefab:
       propertyPath: m_Text
       value: Tank
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011031819926, guid: d5ce575eac1c45e4a963d48f267fea52, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d5ce575eac1c45e4a963d48f267fea52, type: 2}
   m_IsPrefabParent: 0

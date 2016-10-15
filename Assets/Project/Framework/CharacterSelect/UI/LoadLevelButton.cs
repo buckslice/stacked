@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class LoadLevelButton : MonoBehaviour {
 
@@ -9,6 +10,11 @@ public class LoadLevelButton : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        string sceneName = SceneManager.GetActiveScene().name;
+        if(sceneName != Tags.Scenes.PlayerRegistration && sceneName != Tags.Scenes.CharacterSelect) {
+            Destroy(gameObject);
+            return;
+        }
         Button button = GetComponent<Button>();
         button.onClick.AddListener(activate);
 	}

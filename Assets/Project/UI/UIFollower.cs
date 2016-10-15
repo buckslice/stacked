@@ -32,8 +32,8 @@ public class UIFollower : MonoBehaviour {
 	void Update () {
         if(followTransform == null)
         {
-            Debug.LogWarning("UIFollower not initialized. Removing component.", this.gameObject);
-            Destroy(this);
+            //Debug.LogWarning("UIFollower not initialized. Removing component.", this.gameObject);
+            //Destroy(this);
             return;
         }
         Vector3 screenPoint = Camera.main.WorldToScreenPoint(followTransform.position + followOffset);
