@@ -74,4 +74,10 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public bool getBasicAttack { get { return Input.GetKey(basicAttackKey); } }
     public bool getAbility1 { get { return Input.GetKey(ability1Key); } }// || Input.GetMouseButton(0); } }
     public bool getAbility2 { get { return Input.GetKey(ability2Key); } }// || Input.GetMouseButton(1); } }
+
+    public bool getRegisteringDown { get { return Input.GetKeyDown(registeringKey); } }
+    public bool getStartingDown { get { return Input.GetKeyDown(startingKey); } }
+    public bool getBasicAttackDown { get { return Input.GetKeyDown(basicAttackKey); } }
+    public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
+    public bool getAbility2Down { get { return Input.GetKeyDown(ability2Key); } }
 }

@@ -125,6 +125,13 @@ public class ControllerPlayerInput : IPlayerInput
     public bool getBasicAttack { get { return Input.GetAxisRaw(basicAttackAxis) > deadZone; } }
     public bool getAbility1 { get { return Input.GetKey(ability1Key); } }
     public bool getAbility2 { get { return Input.GetKey(ability2Key); } }
+
+    public bool getRegisteringDown { get { return Input.GetKeyDown(registeringKey); } }
+    public bool getStartingDown { get { return Input.GetKeyDown(startingKey); } }
+    public bool getBasicAttackDown { get { return false; } }    // not sure how to implement this
+    public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
+    public bool getAbility2Down { get { return Input.GetKeyDown(ability2Key); } }
+
     public void Vibrate(float strength, float duration, MonoBehaviour callingScript) {
         vibrationAmount.AddModifier(strength);
         UpdateVibration();

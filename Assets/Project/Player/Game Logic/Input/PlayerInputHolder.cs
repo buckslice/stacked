@@ -77,6 +77,31 @@ public interface IPlayerInputHolder
     /// </summary>
     /// <returns></returns>
     bool getAbility2 { get; }
+
+    /// <summary>
+    /// GetKeyDown for the registration binding.
+    /// </summary>
+    /// <returns></returns>
+    bool getRegisteringDown { get; }
+    /// <summary>
+    /// GetKeyDown for the start binding.
+    /// </summary>
+    /// <returns></returns>
+    bool getStartingDown { get; }
+    /// <summary>
+    /// GetKeyDown for the player's basic attack.
+    /// </summary>
+    bool getBasicAttackDown { get; }
+    /// <summary>
+    /// GetKeyDown for the player's first ability.
+    /// </summary>
+    /// <returns></returns>
+    bool getAbility1Down { get; }
+    /// <summary>
+    /// GetKeyDown for the player's second ability.
+    /// </summary>
+    /// <returns></returns>
+    bool getAbility2Down { get; }
 }
 
 /// <summary>
@@ -93,6 +118,12 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getBasicAttack { get { return heldInput.getBasicAttack; } }
     public bool getAbility1 { get { return heldInput.getAbility1; } }
     public bool getAbility2 { get { return heldInput.getAbility2; } }
+
+    public bool getRegisteringDown { get { return heldInput.getRegisteringDown; } }
+    public bool getStartingDown { get { return heldInput.getStartingDown; } }
+    public bool getBasicAttackDown { get { return heldInput.getBasicAttackDown; } }
+    public bool getAbility1Down { get { return heldInput.getAbility1Down; } }
+    public bool getAbility2Down { get { return heldInput.getAbility2Down; } }
 
     protected void Start()
     {
@@ -117,4 +148,9 @@ public class NullInput : IPlayerInput
     public bool getBasicAttack { get { return false; } }
     public bool getAbility1 { get { return false; } }
     public bool getAbility2 { get { return false; } }
+    public bool getRegisteringDown { get { return false; } }
+    public bool getStartingDown { get { return false; } }
+    public bool getBasicAttackDown { get { return false; } }
+    public bool getAbility1Down { get { return false; } }
+    public bool getAbility2Down { get { return false; } }
 }
