@@ -64,7 +64,7 @@ public class CharacterSelectCursor : MonoBehaviour {
         CharacterSelectIcon selectIcon = other.GetComponent<CharacterSelectIcon>();
         if (selectIcon != null)
         {
-            currentSelection = selectIcon.getPlayerSetup();
+            //currentSelection = selectIcon.getPlayerSetup();
         }
     }
 

@@ -2,11 +2,12 @@
 using System.Collections;
 
 public class CharacterSelectIcon : MonoBehaviour {
-    [SerializeField]
-    protected GameObject playerSetup;
+    //[SerializeField]
+    //protected GameObject playerSetup;
+    //public GameObject getPlayerSetup()
+    //{
+    //    return playerSetup;
+    //}
 
-    public GameObject getPlayerSetup()
-    {
-        return playerSetup;
-    }
+    public PlayerSetupNetworkedData.AbilityId ability;
 }

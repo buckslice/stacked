@@ -49,7 +49,7 @@ public class PlayerSetup : MonoBehaviour {
     protected int playerID = -1;
 
     [SerializeField]
-    protected PlayerSetupData playerData;
+    public PlayerSetupData playerData;
 
     private IPlayerInput input;
     public IPlayerInput inputBindings { set { input = value; } }

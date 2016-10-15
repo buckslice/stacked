@@ -197,7 +197,7 @@ public class PlayerRegistration : MonoBehaviour {
     {
         for (int i=0; i<possibleBindings.Length; i++)
         {
-            if (possibleBindings[i].getRegistering && !registeredBindings[i])
+            if (possibleBindings[i].getSubmit && !registeredBindings[i])
             {
                 int openPlayerID = getFirstAvailablePlayerID();
                 if (openPlayerID >= 0)
