@@ -26,6 +26,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         MELEECONEBASICATTACK,
         HEALINGSPHERE,
         SHIELDING,
+        DRFIELD,
     }
 
     static PlayerSetupNetworkedData main;

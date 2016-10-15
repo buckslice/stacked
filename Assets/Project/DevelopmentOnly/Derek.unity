@@ -1227,7 +1227,7 @@ MonoBehaviour:
   playerID: 3
   playerData:
     firstAbilities: 0b
-    secondAbilities: 09
+    secondAbilities: 0c
     abilities: 
 --- !u!4 &2137640759
 Transform:
