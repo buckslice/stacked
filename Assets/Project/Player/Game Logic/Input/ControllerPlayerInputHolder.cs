@@ -132,7 +132,7 @@ public class ControllerPlayerInput : IPlayerInput
     public bool getSubmitDown { get { return Input.GetKeyDown(submitKey); } }
     public bool getCancelDown { get { return Input.GetKeyDown(cancelKey); } }
     public bool getStartDown { get { return Input.GetKeyDown(startKey); } }
-    public bool getBasicAttackDown { get { return false; } }    // not sure how to implement this
+    public bool getBasicAttackDown { get { throw new System.NotImplementedException(); } }    // not sure how to implement this
     public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
     public bool getAbility2Down { get { return Input.GetKeyDown(ability2Key); } }
 

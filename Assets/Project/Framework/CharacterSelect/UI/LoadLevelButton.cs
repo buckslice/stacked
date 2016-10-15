@@ -11,10 +11,13 @@ public class LoadLevelButton : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         string sceneName = SceneManager.GetActiveScene().name;
-        if(sceneName != Tags.Scenes.PlayerRegistration && sceneName != Tags.Scenes.CharacterSelect) {
-            Destroy(gameObject);
+#if UNITY_EDITOR
+        if(sceneName != Tags.Scenes.PlayerRegistration && sceneName != Tags.Scenes.CharacterSelect && Time.timeSinceLevelLoad < 10) {
+            Debug.LogError("the player shouldn't be able to change scenes right now");
+            Destroy(this);
             return;
         }
+#endif
         Button button = GetComponent<Button>();
         button.onClick.AddListener(activate);
 	}
