@@ -143,7 +143,8 @@ MonoBehaviour:
   layermask:
     serializedVersion: 2
     m_Bits: 4202496
-  effectMat: {fileID: 2100000, guid: b1a298dd2e156b243b6f3552973fb8da, type: 2}
+  overlayAttachmentPrefab: {fileID: 1000012458312090, guid: ba9448a449e680d468c4769e3ae0b6a0,
+    type: 2}
   magicalDamageResistanceBuff: 0.75
   physicalDamageResistanceBuff: 0.5
 --- !u!114 &114000012725452722
@@ -171,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration:
-    baseValue: 1
+    baseValue: 2.5
   target: {fileID: 1000011806175498}
 --- !u!114 &114000013502101688
 MonoBehaviour:

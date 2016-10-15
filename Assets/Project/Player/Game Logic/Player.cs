@@ -42,6 +42,12 @@ public class Player : AbstractDamageTracker {
         int playersListIndex = playerIndices[playerID];
         playersList.RemoveAt(playersListIndex);
         playerIndices.Remove(playerID);
+        List<int> keys = new List<int>(playerIndices.Keys);
+        foreach (int player in keys) {
+            if (playerIndices[player] > playersListIndex) {
+                playerIndices[player]--;
+            }
+        }
 
         nextOpenPlayerIndex = Mathf.Min(nextOpenPlayerIndex, playerID);
 

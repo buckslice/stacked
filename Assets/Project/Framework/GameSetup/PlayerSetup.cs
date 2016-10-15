@@ -51,7 +51,7 @@ public class PlayerSetup : MonoBehaviour {
     [SerializeField]
     public PlayerSetupData playerData;
 
-    private IPlayerInput input;
+    private IPlayerInput input = null;
     public IPlayerInput inputBindings { set { input = value; } }
 
     //additional player data goes here

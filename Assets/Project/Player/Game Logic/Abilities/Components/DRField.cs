@@ -36,7 +36,6 @@ public abstract class AbstractBuffField : MonoBehaviour {
         }
 
         if (appliedTargets.Add(target)) {
-            Debug.Log(target);
             ApplyBuff(target);
         }
     }
@@ -44,7 +43,8 @@ public abstract class AbstractBuffField : MonoBehaviour {
     protected abstract void ApplyBuff(Collider target);
 
     void OnDisable() {
-        foreach (Collider target in shape.Cast(layermask)) {
+        //to array to avoid mutation of the original object we are iterating over
+        foreach (Collider target in appliedTargets.ToArray()) {
             OnTriggerExit(target);
         }
         Assert.IsTrue(appliedTargets.Count == 0);
@@ -61,7 +61,7 @@ public abstract class AbstractBuffField : MonoBehaviour {
 
 public class DRField : AbstractBuffField {
     [SerializeField]
-    protected Material effectMat;
+    protected GameObject overlayAttachmentPrefab;
 
     [SerializeField]
     protected float magicalDamageResistanceBuff;
@@ -69,20 +69,16 @@ public class DRField : AbstractBuffField {
     [SerializeField]
     protected float physicalDamageResistanceBuff;
 
+    Dictionary<Collider, OverlayAttachment> activeOverlays = new Dictionary<Collider, OverlayAttachment>();
+
     protected override void ApplyBuff(Collider target) {
         Damageable targetDamageable = target.GetComponent<Damageable>();
         if (targetDamageable != null) {
             targetDamageable.MagicalVulnerabilityMultiplier.AddModifier(magicalDamageResistanceBuff);
             targetDamageable.PhysicalVulnerabilityMultiplier.AddModifier(physicalDamageResistanceBuff);
 
-            Renderer rend = targetDamageable.GetComponentInParent<Renderer>();
-            if (rend != null && !rend.materials.Contains(effectMat)) {
-                //add effect mat
-                Material[] newMats = new Material[rend.materials.Length + 1];
-                rend.materials.CopyTo(newMats, 0);
-                newMats[rend.materials.Length] = effectMat;
-                rend.materials = newMats;
-            }
+            activeOverlays[target] = SimplePool.Spawn(overlayAttachmentPrefab).GetComponent<OverlayAttachment>();
+            activeOverlays[target].Initialize(target);
         }
     }
 
@@ -92,19 +88,8 @@ public class DRField : AbstractBuffField {
             targetDamageable.MagicalVulnerabilityMultiplier.RemoveModifier(magicalDamageResistanceBuff);
             targetDamageable.PhysicalVulnerabilityMultiplier.RemoveModifier(physicalDamageResistanceBuff);
 
-            Renderer rend = targetDamageable.GetComponentInParent<Renderer>();
-            if (rend != null && rend.materials.Contains(effectMat)) {
-                Material[] newMats = new Material[rend.materials.Length - 1];
-                int newMatIndex = 0;
-
-                for (int rendIndex = 0; rendIndex < rend.materials.Length; rendIndex++) {
-                    //remove occurance of effectMat
-                    if (rend.materials[rendIndex] != effectMat) {
-                        newMats[newMatIndex++] = rend.materials[rendIndex];
-                    }
-                    rend.materials = newMats;
-                }
-            }
+            activeOverlays[target].Destroy();
+            activeOverlays.Remove(target);
         }
     }
 }

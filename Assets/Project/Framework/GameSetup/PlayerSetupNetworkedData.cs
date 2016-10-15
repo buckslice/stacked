@@ -91,8 +91,6 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     /// <param name="playerID"></param>
     public GameObject CreatePlayer(byte playerID, IPlayerInput input, PlayerSetup.PlayerSetupData playerData)
     {
-
-        Debug.Log(input);
         int allocatedViewId = PhotonNetwork.AllocateViewID();
 
         //Create our local copy
