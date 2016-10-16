@@ -22,6 +22,7 @@ GameObject:
   - 114: {fileID: 114000013222957148}
   - 114: {fileID: 114000012569888046}
   - 114: {fileID: 114000013090542758}
+  - 114: {fileID: 114000010589307428}
   m_Layer: 0
   m_Name: DontDestroyOnLoadDataScripts
   m_TagString: Untagged
@@ -158,6 +159,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000012340469498}
   m_RootOrder: 3
+--- !u!114 &114000010589307428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010001954262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 259c9546fc19e8b4595daf3513d9522a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityText: {fileID: 4900000, guid: 6c3c21e6a19a6b748916a34987f3f7cf, type: 3}
 --- !u!114 &114000012569888046
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -172,6 +185,7 @@ MonoBehaviour:
   basePlayerPrefab: {fileID: 1000013947083138, guid: c3d98dc2b9ec2784c9af2be72f74d714,
     type: 2}
   spawnPoints: []
+  externalAbilityData: 0
   abilityPrefabs:
   - {fileID: 1000010313918382, guid: 5d22f0f9f6fdac5408b35f55e6e8d32e, type: 2}
   - {fileID: 1000010448150684, guid: 053f279c3eae91940b612700c5387587, type: 2}

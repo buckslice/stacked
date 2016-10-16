@@ -458,7 +458,7 @@ GameObject:
   - 23: {fileID: 235133120}
   - 114: {fileID: 235133119}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: DamageCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

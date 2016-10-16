@@ -38,6 +38,10 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     [SerializeField]
     protected Transform[] spawnPoints;
 
+    [SerializeField]
+    protected bool externalAbilityData = false;
+    private GetAbilitiesFromData dataSource;
+
     /// <summary>
     /// When an ability prefab is created, its prefab needs to be added here. Do not remove legacy abilities. Order matters.
     /// </summary>
@@ -51,6 +55,11 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         main = this;
         DontDestroyOnLoad(this.transform.root.gameObject);
         PhotonNetwork.OnEventCall += OnEvent;
+
+        if (externalAbilityData) {
+            dataSource = GetComponent<GetAbilitiesFromData>();
+            abilityPrefabs = dataSource.getAbilities();
+        }
     }
 
     void OnDestroy() {

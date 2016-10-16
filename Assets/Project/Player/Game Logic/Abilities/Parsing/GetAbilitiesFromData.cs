@@ -7,20 +7,19 @@ public class GetAbilitiesFromData : MonoBehaviour {
     [SerializeField]
     protected TextAsset abilityText;
 
-    [SerializeField]
-    protected GameObject abstractAbilityPrefab;
-
 	// Use this for initialization
 	void Start () {
-        getAbilities();
 	}
 	
     public GameObject[] getAbilities() {
-        AbilityData abilityData = JsonUtility.FromJson<AbilityData>(abilityText.text);
-        GameObject ability = new GameObject();
-        ability.transform.SetParent(transform);
-        AbilityFactory.createAbility(ability, abilityData);
-        GameObject[] result = new GameObject[0/*abilityData.behaviors.Length*/];
+        AbilitiesList abilitiesList = JsonUtility.FromJson<AbilitiesList>(abilityText.text);
+        GameObject[] result = new GameObject[abilitiesList.abilities.Length];
+        for (int i = 0; i < abilitiesList.abilities.Length; i++) {
+            GameObject ability = new GameObject();
+            ability.transform.SetParent(transform.root);
+            AbilityFactory.createAbility(ability, abilitiesList.abilities[i]);
+            result[i] = ability;
+        }
         return result;
     }
 }
