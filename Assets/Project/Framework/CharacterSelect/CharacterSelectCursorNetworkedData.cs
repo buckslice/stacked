@@ -84,21 +84,20 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
         GameObject cursor;
 
         Assert.IsTrue(playerNumber >= 0);
-        if (playerNumber < spawnPoints.Length)
-        {
-            //we have a spawn point, use it
-            Transform toCopy = spawnPoints[playerNumber];
-            cursor = (GameObject)Instantiate(cursorPrefab, toCopy.localPosition, toCopy.localRotation, GameObject.Find("Canvas").transform);
-        }
-        else
-        {
-            //default spawn location
-            //cursor = (GameObject)Instantiate(cursorPrefab, Vector3.zero, Quaternion.identity, GameObject.Find("Canvas").transform);
-            Vector3 screenCenter = new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0.0f);
-            screenCenter += Random.onUnitSphere * 200.0f;
-            screenCenter.z = 0.0f;
-            cursor = (GameObject)Instantiate(cursorPrefab, screenCenter, Quaternion.identity, GameObject.Find("Canvas").transform);
-        }
+        //if (playerNumber < spawnPoints.Length)
+        //{
+        //    //we have a spawn point, use it
+        //    Transform toCopy = spawnPoints[playerNumber];
+        //    cursor = (GameObject)Instantiate(cursorPrefab, toCopy.localPosition, toCopy.localRotation, GameObject.Find("Canvas").transform);
+        //}
+        //else
+
+        // random spawn
+        Vector3 screenCenter = new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0.0f);
+        screenCenter += Random.onUnitSphere * 200.0f;
+        screenCenter.z = 0.0f;
+        cursor = (GameObject)Instantiate(cursorPrefab, screenCenter, Quaternion.identity, GameObject.Find("Canvas").transform);
+
         //assign view ID
         PhotonView toInitialize = cursor.GetComponent<PhotonView>();
         toInitialize.viewID = allocatedViewId;

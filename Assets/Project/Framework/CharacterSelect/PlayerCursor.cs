@@ -9,25 +9,29 @@ public class PlayerCursor : MonoBehaviour {
 
     [SerializeField]
     public int playerNumber = -1;
+    public float moveSpeed = 4.0f;
+    public Image leftHalf;
+    public Image rightHalf;
 
     PointerEventData pointer = new PointerEventData(EventSystem.current);
     List<RaycastResult> results = new List<RaycastResult>();
     PlayerInputHolder input;
-
-    public float moveSpeed = 4.0f;
-
+    
     bool selectionOne = false;
     bool selectionTwo = false;
     PlayerSetupNetworkedData.AbilityId selection1;
     PlayerSetupNetworkedData.AbilityId selection2;
-    public Image leftHalf;
-    public Image rightHalf;
 
     GameObject playerSetupGO = null;
+    ReadyChecker readyChecker;
+    public bool ready { get; set; }
 
     // Use this for initialization
     void Start () {
         input = GetComponent<PlayerInputHolder>();
+        readyChecker = GameObject.Find("ReadyChecker").GetComponent<ReadyChecker>();
+        readyChecker.AddPlayer(this);
+        ready = false;
 	}
 
     public void Initialize(int playerNumber) {
@@ -69,6 +73,7 @@ public class PlayerCursor : MonoBehaviour {
                 leftHalf.color = Color.white;
                 selectionOne = false;
             }
+            ready = false;
         }
 
         if (input.getStartDown && selectionOne && selectionTwo && playerSetupGO == null) {
@@ -79,6 +84,7 @@ public class PlayerCursor : MonoBehaviour {
             pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection1 };
             pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
             playerSetup.playerData = pd;
+            ready = true;
         }
 
 	}
