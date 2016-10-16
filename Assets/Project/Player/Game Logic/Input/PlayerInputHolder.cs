@@ -136,7 +136,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getAbility1Down { get { return heldInput.getAbility1Down; } }
     public bool getAbility2Down { get { return heldInput.getAbility2Down; } }
 
-    protected void Start()
+    void Start()
     {
         if (heldInput != null)
         {

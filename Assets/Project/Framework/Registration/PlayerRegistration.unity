@@ -921,6 +921,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012135036892, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: bindings.controllerIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012219358892, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: bindings.controllerIndex
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012855562620, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: bindings.controllerIndex
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 165651d3cf48f954c8be33449e450713, type: 2}
   m_IsPrefabParent: 0

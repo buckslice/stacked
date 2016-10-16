@@ -8,17 +8,13 @@ using System.Collections.Generic;
 /// </summary>
 public class KeyboardMousePlayerInputHolder : PlayerInputHolder
 {
-    [SerializeField]
-    protected KeyboardMousePlayerInput bindings;
+    private KeyboardMousePlayerInput bindings = new KeyboardMousePlayerInput();
 
-    public override IPlayerInput heldInput
-    {
-        get
-        {
+    public override IPlayerInput heldInput {
+        get {
             return bindings;
         }
-        set
-        {
+        set {
             bindings = (KeyboardMousePlayerInput)value;
             bindings.Player = this.transform;
         }
@@ -28,22 +24,13 @@ public class KeyboardMousePlayerInputHolder : PlayerInputHolder
 [System.Serializable]
 public class KeyboardMousePlayerInput : IPlayerInput
 {
-    [SerializeField]
     public string horizontalMovementAxis = Tags.Input.Horizontal;
-    [SerializeField]
     public string verticalMovementAxis = Tags.Input.Vertical;
-
-    [SerializeField]
     public KeyCode submitKey = Tags.Input.Submit;
-    [SerializeField]
     public KeyCode cancelKey = Tags.Input.Cancel;
-    [SerializeField]
     public KeyCode startKey = Tags.Input.Start;
-    [SerializeField]
     public KeyCode basicAttackKey = Tags.Input.BasicAttack;
-    [SerializeField]
     public KeyCode ability1Key = Tags.Input.Ability1;
-    [SerializeField]
     public KeyCode ability2Key = Tags.Input.Ability2;
 
     Transform player;
