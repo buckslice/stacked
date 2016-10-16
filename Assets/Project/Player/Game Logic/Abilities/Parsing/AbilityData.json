@@ -1,19 +1,79 @@
-{"name":"ResistAbility",
-	"behaviors":[
-		{"type":"ResistBehavior", 
-		"attributes":[
-			{"name":"duration",
-			"value":1
-			},
-			{"name":"resistAmount",
-			"value":0.5
-			}
-		]},
-		{"type":"CooldownConstraint",
-		"attributes":[
-			{"name":"cooldownSecs",
-			"value":2
-			}
-		]}
-	]
+{
+  "abilities": [
+    {
+      "name": "DerpAbility",
+      "behaviors": [ ]
+    },
+    {
+      "name": "DashAbility",
+      "behaviors": [ ]
+    },
+    {
+      "name": "TauntAbility",
+      "behaviors": [ ]
+    },
+    {
+      "name": "BlockAbility",
+      "behaviors": []
+    },
+    {
+      "name": "ShieldAbility",
+      "behaviors": [ ]
+    },
+    {
+      "name": "ResistAbility",
+      "behaviors": [
+        {
+          "type": "ResistBehavior",
+          "attributes": [
+            {
+              "name": "duration",
+              "value": 1
+            },
+            {
+              "name": "resistAmount",
+              "value": 0.5
+            }
+          ]
+        },
+        {
+          "type": "CooldownConstraint",
+          "attributes": [
+            {
+              "name": "cooldownSecs",
+              "value": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "ProjectileAbility",
+      "behaviors": [ ]
+    },
+    {
+      "name": "SpawnAddAbility",
+      "behaviors": [ ]
+    },
+    {
+      "name": "BlinkAbility",
+      "behaviors": [ ]
+    },
+    {
+      "name": "ConeBasicAttack",
+      "behaviors": [ ]
+    },
+    {
+      "name": "HealingSphere",
+      "behaviors": [ ]
+    },
+    {
+      "name": "ShieldAbility",
+      "behaviors": [ ]
+    },
+    {
+      "name": "DRFieldAbility",
+      "behaviors": []
+    }
+  ]
 }
