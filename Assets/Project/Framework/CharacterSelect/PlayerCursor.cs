@@ -36,7 +36,7 @@ public class PlayerCursor : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        transform.Translate(input.movementDirection * moveSpeed);
+        transform.Translate(input.movementDirection * moveSpeed * Screen.width / 800.0f);
 
         if (input.getSubmitDown) {
             pointer.position = new Vector3(transform.position.x, transform.position.y);
