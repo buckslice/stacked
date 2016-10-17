@@ -10,7 +10,7 @@ public class DashAbility : AbstractAbilityAction
     [SerializeField]
     protected float dashDuration = 0.15f;
 
-    PlayerMovement movement;
+    IMovement movement;
     CapsuleCollider coll;
     Rigidbody rigid;
 
@@ -22,7 +22,7 @@ public class DashAbility : AbstractAbilityAction
         base.Start();
         coll = transform.root.GetComponentInChildren<CapsuleCollider>();
         rigid = GetComponentInParent<Rigidbody>();
-        movement = GetComponentInParent<PlayerMovement>();
+        movement = GetComponentInParent<IMovement>();
 
         layermask = LayerMask.GetMask(Tags.Layers.StaticGeometry);
     }

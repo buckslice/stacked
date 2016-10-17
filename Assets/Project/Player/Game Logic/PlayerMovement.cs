@@ -2,9 +2,18 @@
 using UnityEngine.Assertions;
 using System.Collections.Generic;
 
+/// <summary>
+/// Denotes a script as movement.
+/// </summary>
+public interface IMovement {
+    AllBoolStat ControlEnabled { get; }
+    void haltMovement();
+    void setVelocity(Vector3 worldDirectionNormalized);
+}
+
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(IPlayerInputHolder))]
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IMovement
 {
 
     [SerializeField]

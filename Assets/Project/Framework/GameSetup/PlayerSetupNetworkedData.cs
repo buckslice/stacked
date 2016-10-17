@@ -27,6 +27,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         HEALINGSPHERE,
         SHIELDING,
         DRFIELD,
+        THROW,
     }
 
     static PlayerSetupNetworkedData main;

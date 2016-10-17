@@ -7,13 +7,13 @@ using System.Collections;
 /// </summary>
 public class HaltAbility : DurationAbilityAction {
 
-    PlayerMovement movement;
+    IMovement movement;
 
     Coroutine activeRoutine;
 
     protected override void Start() {
         base.Start();
-        movement = GetComponentInParent<PlayerMovement>();
+        movement = GetComponentInParent<IMovement>();
     }
 
     public override bool Activate(PhotonStream stream) {
