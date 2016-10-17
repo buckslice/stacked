@@ -36,6 +36,9 @@ public class ControllerPlayerInput : IPlayerInput {
     private string verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
     private string basicAttackAxis = Tags.Input.Joystick1.RightTrigger;
 
+    private bool previousBasicAttackAxisStatus = false;
+    private float previousBasicAttackTriggerTime = 0;
+
     private KeyCode submitKey = Tags.Input.Joystick1.AButton;
     private KeyCode cancelKey = Tags.Input.Joystick1.BButton;
     private KeyCode startKey = Tags.Input.Joystick1.Start;
@@ -172,7 +175,19 @@ public class ControllerPlayerInput : IPlayerInput {
     public bool getSubmitDown { get { return Input.GetKeyDown(submitKey); } }
     public bool getCancelDown { get { return Input.GetKeyDown(cancelKey); } }
     public bool getStartDown { get { return Input.GetKeyDown(startKey); } }
-    public bool getBasicAttackDown { get { throw new System.NotImplementedException(); } }    // not sure how to implement this
+    public bool getBasicAttackDown { get {
+        if (Time.time == previousBasicAttackTriggerTime) { return true; }
+
+        bool returnValue = !previousBasicAttackAxisStatus && getBasicAttack;
+
+        previousBasicAttackAxisStatus = getBasicAttack;
+
+        if(returnValue) {
+            previousBasicAttackTriggerTime = Time.time;
+        }
+
+        return returnValue;
+    } }
     public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
     public bool getAbility2Down { get { return Input.GetKeyDown(ability2Key); } }
 
