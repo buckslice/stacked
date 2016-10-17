@@ -24,7 +24,7 @@ GameObject:
   - 114: {fileID: 114000010789606242}
   - 114: {fileID: 114000012059977448}
   - 114: {fileID: 114000013393150654}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: ThrownObjectAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013257658122}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2

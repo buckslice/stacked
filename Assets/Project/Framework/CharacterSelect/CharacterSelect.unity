@@ -97,6 +97,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114000013222957148, guid: 1d3ecae7dd160534a9493004a7b022d6,
+        type: 2}
+      propertyPath: screenSpaceSpawnPoints.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 4000012340469498, guid: 1d3ecae7dd160534a9493004a7b022d6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -149,6 +154,46 @@ Prefab:
         type: 2}
       propertyPath: externalAbilityData
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013222957148, guid: 1d3ecae7dd160534a9493004a7b022d6,
+        type: 2}
+      propertyPath: screenSpaceSpawnPoints.Array.data[0].x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013222957148, guid: 1d3ecae7dd160534a9493004a7b022d6,
+        type: 2}
+      propertyPath: screenSpaceSpawnPoints.Array.data[0].y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013222957148, guid: 1d3ecae7dd160534a9493004a7b022d6,
+        type: 2}
+      propertyPath: screenSpaceSpawnPoints.Array.data[1].y
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013222957148, guid: 1d3ecae7dd160534a9493004a7b022d6,
+        type: 2}
+      propertyPath: screenSpaceSpawnPoints.Array.data[2].y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013222957148, guid: 1d3ecae7dd160534a9493004a7b022d6,
+        type: 2}
+      propertyPath: screenSpaceSpawnPoints.Array.data[3].y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013222957148, guid: 1d3ecae7dd160534a9493004a7b022d6,
+        type: 2}
+      propertyPath: screenSpaceSpawnPoints.Array.data[1].x
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013222957148, guid: 1d3ecae7dd160534a9493004a7b022d6,
+        type: 2}
+      propertyPath: screenSpaceSpawnPoints.Array.data[2].x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013222957148, guid: 1d3ecae7dd160534a9493004a7b022d6,
+        type: 2}
+      propertyPath: screenSpaceSpawnPoints.Array.data[3].x
+      value: 0.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d3ecae7dd160534a9493004a7b022d6, type: 2}

@@ -17,6 +17,12 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
     [SerializeField]
     protected Transform[] spawnPoints;
 
+    /// <summary>
+    /// vectors in the range [0..1], which map to positions on the screen for spawn points
+    /// </summary>
+    [SerializeField]
+    protected Vector2[] screenSpaceSpawnPoints;
+
 	void Awake () {
         if (main != null)
         {
@@ -84,19 +90,18 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
         GameObject cursor;
 
         Assert.IsTrue(playerNumber >= 0);
-        //if (playerNumber < spawnPoints.Length)
-        //{
-        //    //we have a spawn point, use it
-        //    Transform toCopy = spawnPoints[playerNumber];
-        //    cursor = (GameObject)Instantiate(cursorPrefab, toCopy.localPosition, toCopy.localRotation, GameObject.Find("Canvas").transform);
-        //}
-        //else
-
-        // random spawn
-        Vector3 screenCenter = new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0.0f);
-        screenCenter += Random.onUnitSphere * 200.0f;
-        screenCenter.z = 0.0f;
-        cursor = (GameObject)Instantiate(cursorPrefab, screenCenter, Quaternion.identity, GameObject.Find("Canvas").transform);
+        if (playerNumber < screenSpaceSpawnPoints.Length) {
+            //we have a spawn point, use it
+            Vector2 screenSpaceSpawnPoint = screenSpaceSpawnPoints[playerNumber];
+            Vector2 worldSpawnPoint = new Vector2(screenSpaceSpawnPoint.x * Screen.width, screenSpaceSpawnPoint.y * Screen.height);
+            cursor = (GameObject)Instantiate(cursorPrefab, worldSpawnPoint, Quaternion.identity, GameObject.Find("Canvas").transform);
+        } else {
+            // random spawn
+            Vector3 screenCenter = new Vector3(Screen.width / 2.0f, Screen.height / 2.0f, 0.0f);
+            screenCenter += Random.onUnitSphere * 200.0f;
+            screenCenter.z = 0.0f;
+            cursor = (GameObject)Instantiate(cursorPrefab, screenCenter, Quaternion.identity, GameObject.Find("Canvas").transform);
+        }
 
         //assign view ID
         PhotonView toInitialize = cursor.GetComponent<PhotonView>();
