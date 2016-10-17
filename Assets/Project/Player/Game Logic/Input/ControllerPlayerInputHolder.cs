@@ -15,7 +15,7 @@ public class ControllerPlayerInputHolder : PlayerInputHolder {
         bindings.Start();
     }
 
-    public override IPlayerInput heldInput {
+    public override IPlayerInput HeldInput {
         get {
             return bindings;
         }
@@ -29,6 +29,30 @@ public class ControllerPlayerInputHolder : PlayerInputHolder {
 [System.Serializable]
 public class ControllerPlayerInput : IPlayerInput {
     public XInputDotNetPure.PlayerIndex controllerIndex = PlayerIndex.One;
+
+    private string horizontalMovementAxis = Tags.Input.Joystick1.HorizontalMovement;
+    private string verticalMovementAxis = Tags.Input.Joystick1.VerticalMovement;
+    private string horizontalAimingAxis = Tags.Input.Joystick1.HorizontalAiming;
+    private string verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
+    private string basicAttackAxis = Tags.Input.Joystick1.RightTrigger;
+
+    private KeyCode submitKey = Tags.Input.Joystick1.AButton;
+    private KeyCode cancelKey = Tags.Input.Joystick1.BButton;
+    private KeyCode startKey = Tags.Input.Joystick1.Start;
+    private KeyCode ability1Key = Tags.Input.Joystick1.LeftBumper;
+    private KeyCode ability2Key = Tags.Input.Joystick1.RightBumper;
+
+    PlayerInputHolder holder;
+
+    [SerializeField]
+    private float deadZone = 0.1f;
+
+    //Transform player; //not needed yet
+    public Transform Player { set { ; } } //set { player = value; }
+    public void Initialize(PlayerInputHolder holder) { this.holder = holder; }
+    public void Deactivate() { vibrationAmount.Reset(); UpdateVibration(); }
+
+    AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
 
     public void Start() {    // manually calling this in the holder..
         switch (controllerIndex) {
@@ -86,25 +110,6 @@ public class ControllerPlayerInput : IPlayerInput {
         }
 
     }
-
-    private string horizontalMovementAxis = Tags.Input.Joystick1.HorizontalMovement;
-    private string verticalMovementAxis = Tags.Input.Joystick1.VerticalMovement;
-    private string horizontalAimingAxis = Tags.Input.Joystick1.HorizontalAiming;
-    private string verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
-    private string basicAttackAxis = Tags.Input.Joystick1.RightTrigger;
-
-    private KeyCode submitKey = Tags.Input.Joystick1.AButton;
-    private KeyCode cancelKey = Tags.Input.Joystick1.BButton;
-    private KeyCode startKey = Tags.Input.Joystick1.Start;
-    private KeyCode ability1Key = Tags.Input.Joystick1.LeftBumper;
-    private KeyCode ability2Key = Tags.Input.Joystick1.RightBumper;
-
-    private float deadZone = 0.1f;
-
-    //Transform player; //not needed yet
-    public Transform Player { set {; } } //set { player = value; }
-
-    AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
 
     /// <summary>
     /// Maps a value to account for a dead zone.
@@ -180,6 +185,9 @@ public class ControllerPlayerInput : IPlayerInput {
             UpdateVibration();
         }, duration, callingScript);
     }
+
+    public void Vibrate(float strength, float duration) { Vibrate(strength, duration, holder); }
+
     public void UpdateVibration() {
         GamePad.SetVibration(controllerIndex, vibrationAmount.Value, vibrationAmount.Value);
     }

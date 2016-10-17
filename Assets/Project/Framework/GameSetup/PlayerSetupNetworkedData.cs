@@ -206,7 +206,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         toInitialize.viewID = allocatedViewId;
 
         //assign input bindings
-        player.GetComponent<PlayerInputHolder>().heldInput = input;
+        player.GetComponent<PlayerInputHolder>().HeldInput = input;
 
         AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
 

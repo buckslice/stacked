@@ -32,7 +32,7 @@ public class SelectAbility : AbstractAbilityAction {
 
             if (stream.isWriting) {
                 GameObject instantiatedPlayerSetup = (GameObject)Instantiate(cursor.CurrentSelection, Vector3.zero, Quaternion.identity);
-                instantiatedPlayerSetup.GetComponent<PlayerSetup>().Initalize(inputHolder.heldInput, cursor.playerNumber);
+                instantiatedPlayerSetup.GetComponent<PlayerSetup>().Initalize(inputHolder.HeldInput, cursor.playerNumber);
             }
 
             selected = true;

@@ -106,7 +106,7 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
         //assign view ID
         PhotonView toInitialize = cursor.GetComponent<PhotonView>();
         toInitialize.viewID = allocatedViewId;
-        cursor.GetComponent<PlayerInputHolder>().heldInput = input;
+        cursor.GetComponent<PlayerInputHolder>().HeldInput = input;
         cursor.GetComponent<PlayerCursor>().Initialize(playerNumber);
     }
 }

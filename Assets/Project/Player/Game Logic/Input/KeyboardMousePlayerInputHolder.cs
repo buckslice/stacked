@@ -10,7 +10,7 @@ public class KeyboardMousePlayerInputHolder : PlayerInputHolder
 {
     private KeyboardMousePlayerInput bindings = new KeyboardMousePlayerInput();
 
-    public override IPlayerInput heldInput {
+    public override IPlayerInput HeldInput {
         get {
             return bindings;
         }
@@ -35,6 +35,8 @@ public class KeyboardMousePlayerInput : IPlayerInput
 
     Transform player;
     public Transform Player { set { player = value; } }
+    public void Initialize(PlayerInputHolder holder) { }
+    public void Deactivate() { }
 
     public Vector2 movementDirection
     {

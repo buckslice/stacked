@@ -167,7 +167,7 @@ public class PlayerRegistration : MonoBehaviour {
 
             GameObject instantiatedRegisteredPlayer = (GameObject)Instantiate(registeredPlayerPrefab, Vector3.zero, Quaternion.identity);
             RegisteredPlayer registeredPlayer = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();
-            registeredPlayer.Initalize(possibleBindings[bindingID].heldInput, playerId);
+            registeredPlayer.Initalize(possibleBindings[bindingID].HeldInput, playerId);
 
             GameObject instantiatedRegistrationUI = PhotonNetwork.Instantiate(playerRegistrationUIPrefabName, new Vector3(0, 0, 0), Quaternion.identity, 0);
 

@@ -12,6 +12,8 @@ public interface IPlayerInput : IPlayerInputHolder
     /// The transform component of the player.
     /// </summary>
     Transform Player { set; }
+    void Initialize(PlayerInputHolder holder);
+    void Deactivate();
 }
 
 /// <summary>
@@ -118,29 +120,39 @@ public interface IPlayerInputHolder {
 /// </summary>
 public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
 {
-    public virtual IPlayerInput heldInput { get; set; }
+    private IPlayerInput heldInput;
+    public virtual IPlayerInput HeldInput {
+        get { return heldInput; }
+        set { heldInput = value; heldInput.Initialize(this); }
+    }
 
-    public Vector2 movementDirection { get { return heldInput.movementDirection; } }
-    public Vector3 rotationDirection { get { return heldInput.rotationDirection; } }
-    public bool getSubmit { get { return heldInput.getSubmit; } }
-    public bool getCancel { get { return heldInput.getCancel; } }
-    public bool getStart { get { return heldInput.getStart; } }
-    public bool getBasicAttack { get { return heldInput.getBasicAttack; } }
-    public bool getAbility1 { get { return heldInput.getAbility1; } }
-    public bool getAbility2 { get { return heldInput.getAbility2; } }
+    public Vector2 movementDirection { get { return HeldInput.movementDirection; } }
+    public Vector3 rotationDirection { get { return HeldInput.rotationDirection; } }
+    public bool getSubmit { get { return HeldInput.getSubmit; } }
+    public bool getCancel { get { return HeldInput.getCancel; } }
+    public bool getStart { get { return HeldInput.getStart; } }
+    public bool getBasicAttack { get { return HeldInput.getBasicAttack; } }
+    public bool getAbility1 { get { return HeldInput.getAbility1; } }
+    public bool getAbility2 { get { return HeldInput.getAbility2; } }
 
-    public bool getSubmitDown { get { return heldInput.getSubmitDown; } }
-    public bool getCancelDown { get { return heldInput.getCancelDown; } }
-    public bool getStartDown { get { return heldInput.getStartDown; } }
-    public bool getBasicAttackDown { get { return heldInput.getBasicAttackDown; } }
-    public bool getAbility1Down { get { return heldInput.getAbility1Down; } }
-    public bool getAbility2Down { get { return heldInput.getAbility2Down; } }
+    public bool getSubmitDown { get { return HeldInput.getSubmitDown; } }
+    public bool getCancelDown { get { return HeldInput.getCancelDown; } }
+    public bool getStartDown { get { return HeldInput.getStartDown; } }
+    public bool getBasicAttackDown { get { return HeldInput.getBasicAttackDown; } }
+    public bool getAbility1Down { get { return HeldInput.getAbility1Down; } }
+    public bool getAbility2Down { get { return HeldInput.getAbility2Down; } }
 
     void Start()
     {
-        if (heldInput != null)
+        if (HeldInput != null)
         {
-            heldInput.Player = this.transform;
+            HeldInput.Player = this.transform;
+        }
+    }
+
+    void OnDestroy() {
+        if (heldInput != null) {
+            heldInput.Deactivate();
         }
     }
 }
@@ -152,6 +164,8 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
 public class NullInput : IPlayerInput
 {
     public Transform Player { set { ;} }
+    public void Initialize(PlayerInputHolder holder) { }
+    public void Deactivate() { }
     public Vector2 movementDirection { get { return Vector2.zero; } }
     public Vector3 rotationDirection { get { return Vector3.zero; } }
     public bool getSubmit { get { return false; } }

@@ -56,14 +56,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65be4c66d84204f46b518cafbb02ecb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bindings:
-    horizontalMovementAxis: HorizontalKeyboard
-    verticalMovementAxis: VerticalKeyboard
-    registeringKey: 32
-    startingKey: 13
-    basicAttackKey: 304
-    ability1Key: 113
-    ability2Key: 101
 --- !u!114 &114000011249166826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,16 +88,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bindings:
-    horizontalMovementAxis: J1_HorizontalMovement
-    verticalMovementAxis: J1_VerticalMovement
-    horizontalAimingAxis: J1_HorizontalAiming
-    verticalAimingAxis: J1_VerticalAiming
-    basicAttackAxis: J1_RightTrigger
-    registeringKey: 350
-    startingKey: 357
-    ability1Key: 354
-    ability2Key: 355
-    deadZone: 0.1
+    controllerIndex: 0
+    deadZone: 0.2
 --- !u!114 &114000012135036892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -118,16 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bindings:
-    horizontalMovementAxis: J2_HorizontalMovement
-    verticalMovementAxis: J2_VerticalMovement
-    horizontalAimingAxis: J2_HorizontalAiming
-    verticalAimingAxis: J2_VerticalAiming
-    basicAttackAxis: J2_RightTrigger
-    registeringKey: 370
-    startingKey: 377
-    ability1Key: 374
-    ability2Key: 375
-    deadZone: 0.1
+    controllerIndex: 1
+    deadZone: 0.2
 --- !u!114 &114000012219358892
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -140,16 +116,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bindings:
-    horizontalMovementAxis: J3_HorizontalMovement
-    verticalMovementAxis: J3_VerticalMovement
-    horizontalAimingAxis: J3_HorizontalAiming
-    verticalAimingAxis: J3_VerticalAiming
-    basicAttackAxis: J3_RightTrigger
-    registeringKey: 390
-    startingKey: 397
-    ability1Key: 394
-    ability2Key: 395
-    deadZone: 0.1
+    controllerIndex: 2
+    deadZone: 0.2
 --- !u!114 &114000012855562620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -162,13 +130,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bindings:
-    horizontalMovementAxis: J4_HorizontalMovement
-    verticalMovementAxis: J4_VerticalMovement
-    horizontalAimingAxis: J4_HorizontalAiming
-    verticalAimingAxis: J4_VerticalAiming
-    basicAttackAxis: J4_RightTrigger
-    registeringKey: 410
-    startingKey: 417
-    ability1Key: 414
-    ability2Key: 415
-    deadZone: 0.1
+    controllerIndex: 3
+    deadZone: 0.2

@@ -34,8 +34,8 @@ public class AbilityUI : MonoBehaviour {
         display = spawnedUIPrefab.GetComponent<AbilityDisplay>();
 
         PlayerInputHolder holder = GetComponentInParent<PlayerInputHolder>();
-        if (holder.heldInput is ControllerPlayerInput) {
-            controllerInput = (ControllerPlayerInput)holder.heldInput;
+        if (holder.HeldInput is ControllerPlayerInput) {
+            controllerInput = (ControllerPlayerInput)holder.HeldInput;
         }
 	}
 

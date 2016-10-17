@@ -79,7 +79,7 @@ public class PlayerCursor : MonoBehaviour {
         if (input.getStartDown && selectionOne && selectionTwo && playerSetupGO == null) {
             playerSetupGO = new GameObject();
             PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
-            playerSetup.Initalize(input.heldInput, playerNumber);
+            playerSetup.Initalize(input.HeldInput, playerNumber);
             PlayerSetup.PlayerSetupData pd = new PlayerSetup.PlayerSetupData();
             pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection1 };
             pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
