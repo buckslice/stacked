@@ -48,6 +48,12 @@ public class AbilityUI : MonoBehaviour {
         cooldownProgress = newCooldownProgress;
     }
 
+    void OnDestroy() {
+        if(spawnedUIPrefab != null) {
+            Destroy(spawnedUIPrefab);
+        }
+    }
+
     void trackVibration(float oldEdge, float newEdge) {
         if (controllerInput == null) {
             return;
