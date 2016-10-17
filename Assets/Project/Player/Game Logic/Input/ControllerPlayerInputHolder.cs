@@ -48,7 +48,7 @@ public class ControllerPlayerInput : IPlayerInput {
     PlayerInputHolder holder;
 
     [SerializeField]
-    private float deadZone = 0.1f;
+    private float deadZone = 0.2f;
 
     //Transform player; //not needed yet
     public Transform Player { set { ; } } //set { player = value; }
