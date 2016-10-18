@@ -37,7 +37,8 @@ public class ControllerPlayerInput : IPlayerInput {
     private string basicAttackAxis = Tags.Input.Joystick1.RightTrigger;
 
     private bool previousBasicAttackAxisStatus = false;
-    private float previousBasicAttackTriggerTime = 0;
+    private float previousBasicAttackDownTime = 0;
+    private float previousBasicAttackUpTime = 0;
 
     private KeyCode submitKey = Tags.Input.Joystick1.AButton;
     private KeyCode cancelKey = Tags.Input.Joystick1.BButton;
@@ -176,20 +177,38 @@ public class ControllerPlayerInput : IPlayerInput {
     public bool getCancelDown { get { return Input.GetKeyDown(cancelKey); } }
     public bool getStartDown { get { return Input.GetKeyDown(startKey); } }
     public bool getBasicAttackDown { get {
-        if (Time.time == previousBasicAttackTriggerTime) { return true; }
-
-        bool returnValue = !previousBasicAttackAxisStatus && getBasicAttack;
-
-        previousBasicAttackAxisStatus = getBasicAttack;
-
-        if(returnValue) {
-            previousBasicAttackTriggerTime = Time.time;
-        }
-
-        return returnValue;
+        checkBasicAttackStatus();
+        return Time.time == previousBasicAttackDownTime;
     } }
     public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
     public bool getAbility2Down { get { return Input.GetKeyDown(ability2Key); } }
+
+    public bool getBasicAttackUp {
+        get {
+            checkBasicAttackStatus();
+            return Time.time == previousBasicAttackUpTime;
+        }
+    }
+    public bool getAbility1Up { get { return Input.GetKeyUp(ability1Key); } }
+    public bool getAbility2Up { get { return Input.GetKeyUp(ability2Key); } }
+
+    /// <summary>
+    /// Updates tracking for an axis.
+    /// </summary>
+    void checkBasicAttackStatus() {
+        if (Time.time == previousBasicAttackDownTime || Time.time == previousBasicAttackUpTime) { return; }
+        bool down = !previousBasicAttackAxisStatus && getBasicAttack;
+        bool up = previousBasicAttackAxisStatus && !getBasicAttack;
+
+        previousBasicAttackAxisStatus = getBasicAttack;
+
+        if (down) {
+            previousBasicAttackDownTime = Time.time;
+        }
+        if (up) {
+            previousBasicAttackUpTime = Time.time;
+        }
+    }
 
     public void Vibrate(float strength, float duration, MonoBehaviour callingScript) {
         vibrationAmount.AddModifier(strength);

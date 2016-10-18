@@ -73,4 +73,8 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public bool getBasicAttackDown { get { return Input.GetKeyDown(basicAttackKey); } }
     public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
     public bool getAbility2Down { get { return Input.GetKeyDown(ability2Key); } }
+
+    public bool getBasicAttackUp { get { return Input.GetKeyUp(basicAttackKey); } }
+    public bool getAbility1Up { get { return Input.GetKeyUp(ability1Key); } }
+    public bool getAbility2Up { get { return Input.GetKeyUp(ability2Key); } }
 }

@@ -27,7 +27,9 @@ public interface ITargetedAbilityTrigger : IUntargetedAbilityTrigger {
     event TargetedTrigger targetedAbilityTriggerEvent;
 }
 
-public enum AbilityKeybinding { BASICATTACK, ABILITY1, ABILITY2 };
+public enum AbilityKeybinding { BASICATTACK, BASICATTACKDOWN, BASICATTACKUP,
+    ABILITY1, ABILITY1DOWN, ABILITY1UP,
+    ABILITY2, ABILITY2DOWN, ABILITY2UP };
 
 /// <summary>
 /// Interface indicating that this has a keybinding

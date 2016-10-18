@@ -113,6 +113,21 @@ public interface IPlayerInputHolder {
     /// </summary>
     /// <returns></returns>
     bool getAbility2Down { get; }
+
+    /// <summary>
+    /// GetKeyUp for the player's basic attack.
+    /// </summary>
+    bool getBasicAttackUp { get; }
+    /// <summary>
+    /// GetKeyUp for the player's first ability.
+    /// </summary>
+    /// <returns></returns>
+    bool getAbility1Up { get; }
+    /// <summary>
+    /// GetKeyUp for the player's second ability.
+    /// </summary>
+    /// <returns></returns>
+    bool getAbility2Up { get; }
 }
 
 /// <summary>
@@ -128,6 +143,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
 
     public Vector2 movementDirection { get { return HeldInput.movementDirection; } }
     public Vector3 rotationDirection { get { return HeldInput.rotationDirection; } }
+
     public bool getSubmit { get { return HeldInput.getSubmit; } }
     public bool getCancel { get { return HeldInput.getCancel; } }
     public bool getStart { get { return HeldInput.getStart; } }
@@ -141,6 +157,10 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getBasicAttackDown { get { return HeldInput.getBasicAttackDown; } }
     public bool getAbility1Down { get { return HeldInput.getAbility1Down; } }
     public bool getAbility2Down { get { return HeldInput.getAbility2Down; } }
+
+    public bool getBasicAttackUp { get { return HeldInput.getBasicAttackUp; } }
+    public bool getAbility1Up { get { return HeldInput.getAbility1Up; } }
+    public bool getAbility2Up { get { return HeldInput.getAbility2Up; } }
 
     void Start()
     {
@@ -174,10 +194,15 @@ public class NullInput : IPlayerInput
     public bool getBasicAttack { get { return false; } }
     public bool getAbility1 { get { return false; } }
     public bool getAbility2 { get { return false; } }
+
     public bool getSubmitDown { get { return false; } }
     public bool getCancelDown { get { return false; } }
     public bool getStartDown { get { return false; } }
     public bool getBasicAttackDown { get { return false; } }
     public bool getAbility1Down { get { return false; } }
     public bool getAbility2Down { get { return false; } }
+
+    public bool getBasicAttackUp { get { return false; } }
+    public bool getAbility1Up { get { return false; } }
+    public bool getAbility2Up { get { return false; } }
 }
