@@ -39,14 +39,14 @@
 				float4 vertex : POSITION;
 				float2 uv : TEXCOORD0;
 				float3 normal : NORMAL;
-				float4 tangent : TANGENT;
 			};
 
 			struct v2f
 			{
 				float2 uv : TEXCOORD0;
 				float4 vertex : SV_POSITION;
-				float3 viewDir : TEXCOORD1;
+				float3 normal : TEXCOORD1;
+				float3 viewDir : TEXCOORD2;
 			};
 
 			fixed4 _Color;
@@ -63,19 +63,18 @@
 				v2f o;
 				o.vertex = mul(UNITY_MATRIX_MVP, v.vertex);
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-				float3 binormal = cross( v.normal, v.tangent.xyz ) * v.tangent.w;
-				float3x3 rotation = float3x3( v.tangent.xyz, binormal, v.normal );
-				o.viewDir = mul (rotation, ObjSpaceViewDir(v.vertex));
+				o.normal = v.normal;
+				o.viewDir = ObjSpaceViewDir(v.vertex);
 				return o;
 			}
 			
 			fixed4 frag (v2f i) : SV_Target
 			{
 				float4 Saturate0=fixed4(0.3,0.3,0.3,1.0);
-				float4 Fresnel0_1_NoInput = fixed4(0,0,1,1);
-				float dNorm = 1.0 - dot(normalize(float4(i.viewDir, 1.0).xyz), normalize(Fresnel0_1_NoInput.xyz) );
+				float dNorm = 1.0 - dot(normalize(i.viewDir), normalize(i.normal) );
 
-				float4 Fresnel0 = float4(dNorm,dNorm,dNorm,dNorm);
+				/*
+				float Fresnel0 = float4(dNorm,dNorm,dNorm,dNorm);
 				float4 Step0=step(Fresnel0,float4( 1.0, 1.0, 1.0, 1.0 ));
 				float4 Clamp0=clamp(Step0,_Inside.xxxx,float4( 1.0, 1.0, 1.0, 1.0 ));
 				float4 Pow0=pow(Fresnel0,(_Rim).xxxx);
@@ -87,13 +86,23 @@
 				float4 Multiply4=Saturate0 * Multiply3;
 				float4 result;
 
-				/*
 				result.xyz = Multiply3.rgb * _Color.rgb;
 				result.a = Multiply3.a * _Color.a;
+
+				return result;
 				*/
 
-				result.xyz = _Color.rgb;
-				result.a = Multiply3.r * _Color.a;
+				float2 UV_Pan= _Tile.x * float2(i.uv.x, i.uv.y + _Time.x * _Speed.x);
+				float4 Tex2D=tex2D(_MainTex,UV_Pan);
+
+				float4 result;
+				result.rgb = _Color.rgb;
+
+				float Step=step(dNorm,1);
+				float4 Clamp=clamp(Step,_Inside,1);
+				float4 Pow=pow(dNorm,_Rim);
+
+				result.a = Clamp * Pow * _Strength * Tex2D.a * _Color.a;
 
 				return result;
 			}
