@@ -93,19 +93,33 @@ public class AbilityNetworking : AbstractActivationNetworking {
     }
 
     public void AddNetworkedAbility(GameObject ability) {
-        //TODO: add helper script to ensure ordering for multiples of these script within one ability
-        Assert.IsTrue(ability.GetComponentsInChildren<AbilityActivation>().Length <= 1);
-        Assert.IsTrue(ability.GetComponentsInChildren<TargetedAbilityActivation>().Length <= 1);
-        Assert.IsTrue(ability.GetComponentsInChildren<IAbilityActivation>().Length > 0);
 
-        AbilityActivation untargetedActivation = ability.GetComponentInChildren<AbilityActivation>();
-        if (untargetedActivation != null) {
-            AddNetworkedAbility(untargetedActivation);
-        }
+        MultipleAbilityActivationHolder multipleAbilities = ability.GetComponentInChildren<MultipleAbilityActivationHolder>();
 
-        TargetedAbilityActivation targetedActivation = ability.GetComponentInChildren<TargetedAbilityActivation>();
-        if (targetedActivation != null) {
-            AddNetworkedAbility(targetedActivation);
+        if (multipleAbilities != null) {
+            Assert.IsTrue(ability.GetComponentsInChildren<MultipleAbilityActivationHolder>().Length == 1);
+
+            foreach (AbilityActivation abilityActivation in multipleAbilities.abilityActivations) {
+                AddNetworkedAbility(abilityActivation);
+            }
+            foreach (TargetedAbilityActivation targetedAbilityActivation in multipleAbilities.targetedAbilityActivation) {
+                AddNetworkedAbility(targetedAbilityActivation);
+            }
+        } else {
+
+            Assert.IsTrue(ability.GetComponentsInChildren<AbilityActivation>().Length <= 1);
+            Assert.IsTrue(ability.GetComponentsInChildren<TargetedAbilityActivation>().Length <= 1);
+            Assert.IsTrue(ability.GetComponentsInChildren<IAbilityActivation>().Length > 0);
+
+            AbilityActivation untargetedActivation = ability.GetComponentInChildren<AbilityActivation>();
+            if (untargetedActivation != null) {
+                AddNetworkedAbility(untargetedActivation);
+            }
+
+            TargetedAbilityActivation targetedActivation = ability.GetComponentInChildren<TargetedAbilityActivation>();
+            if (targetedActivation != null) {
+                AddNetworkedAbility(targetedActivation);
+            }
         }
     }
 

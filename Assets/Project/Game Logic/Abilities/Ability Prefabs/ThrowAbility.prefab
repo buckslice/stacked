@@ -37,6 +37,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013462054308}
+  - 114: {fileID: 114000011761016766}
   m_Layer: 0
   m_Name: ThrowAbility
   m_TagString: Untagged
@@ -338,6 +339,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownSecs:
     baseValue: 1
+--- !u!114 &114000011761016766
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010471416348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab7f16b23587204ea321e90f44528fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityActivations:
+  - {fileID: 114000010194324602}
+  - {fileID: 114000010755483576}
+  targetedAbilityActivation:
+  - {fileID: 114000010015227658}
 --- !u!114 &114000012323603632
 MonoBehaviour:
   m_ObjectHideFlags: 1
