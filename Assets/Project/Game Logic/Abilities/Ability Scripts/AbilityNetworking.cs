@@ -93,6 +93,7 @@ public class AbilityNetworking : AbstractActivationNetworking {
     }
 
     public void AddNetworkedAbility(GameObject ability) {
+        //TODO: add helper script to ensure ordering for multiples of these script within one ability
         Assert.IsTrue(ability.GetComponentsInChildren<AbilityActivation>().Length <= 1);
         Assert.IsTrue(ability.GetComponentsInChildren<TargetedAbilityActivation>().Length <= 1);
         Assert.IsTrue(ability.GetComponentsInChildren<IAbilityActivation>().Length > 0);

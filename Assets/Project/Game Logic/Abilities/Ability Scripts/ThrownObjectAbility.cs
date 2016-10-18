@@ -9,6 +9,7 @@ using System.Collections.Generic;
 public class ThrownObjectAbility : MonoBehaviour {
 
     IAbilityActivation abilityActivation; //ability to do damage to things hit by the thrown object
+    DamageAction damageAction;
 
     Vector3 startPosition;
     Vector3 destinationPosition;
@@ -21,9 +22,10 @@ public class ThrownObjectAbility : MonoBehaviour {
 
     void Awake() {
         abilityActivation = GetComponent<IAbilityActivation>();
+        damageAction = GetComponent<DamageAction>();
     }
 
-    public void Initialize(Vector3 startPosition, Vector3 destinationPosition, float endTime, AbilityNetworking targetNetworking, IMovement targetMovement, Rigidbody targetRigid) {
+    public void Initialize(Vector3 startPosition, Vector3 destinationPosition, float endTime, AbilityNetworking targetNetworking, IMovement targetMovement, Rigidbody targetRigid, IDamageHolder damageReference) {
         this.startPosition = startPosition;
         this.destinationPosition = destinationPosition;
         this.startTime = Time.time;
@@ -32,8 +34,8 @@ public class ThrownObjectAbility : MonoBehaviour {
         this.targetMovement = targetMovement;
         this.targetRigid = targetRigid;
         this.targetDamageables = targetRigid.GetComponentsInChildren<Damageable>();
+        if (damageAction != null) { damageAction.TrackerReference = damageReference; }
 
-        targetMovement.ControlEnabled.AddModifier(false);
         targetMovement.haltMovement();
         targetNetworking.AddNetworkedAbility(abilityActivation);
 

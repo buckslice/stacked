@@ -8,21 +8,28 @@ using System.Collections.Generic;
 /// </summary>
 public class DamageAction : TypedTargetedAbilityAction {
 
-    //TODO: refactor these to be more universal
     IDamageHolder trackerReference;
+    public IDamageHolder TrackerReference { get { return trackerReference; } set { trackerReference = value; } }
 
-    //TODO; refactor to include damage type
     [SerializeField]
     protected Damage damage = 100;
 
     protected override void Start() {
         base.Start();
-        trackerReference = GetComponentInParent<IDamageHolder>();
 
         if (trackerReference == null) {
-            PhotonView view = GetComponentInParent<PhotonView>();
-            trackerReference = PhotonView.Find((int)view.instantiationData[0]).GetComponentInChildren<IDamageTracker>();
+            trackerReference = GetComponentInParent<IDamageHolder>();
+
+            if (trackerReference == null) {
+                //if not found by the GetComponent
+                PhotonView view = GetComponentInParent<PhotonView>();
+                if (view.instantiationData.Length > 0) {
+                    trackerReference = PhotonView.Find((int)view.instantiationData[0]).GetComponentInChildren<IDamageTracker>();
+                }
+            }
         }
+
+        
         Assert.IsNotNull(trackerReference);
     }
 

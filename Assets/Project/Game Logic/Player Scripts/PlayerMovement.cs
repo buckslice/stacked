@@ -188,6 +188,7 @@ public class PlayerMovement : MonoBehaviour, IMovement
         }
 
         rigid.MoveRotation(targetRotation);
+        rigid.rotation = targetRotation;
     }
 
     /// <summary>
