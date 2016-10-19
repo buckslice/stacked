@@ -13,13 +13,11 @@ public class PlayerRegistration : MonoBehaviour {
         public readonly int ownerActorID;
         public readonly int bindingID;
         public readonly RegisteredPlayer registeredPlayer;
-        public readonly GameObject registrationUI;
-        public RegisteredPlayerGrouping(int ownerActorID, int bindingID, RegisteredPlayer registeredPlayer, GameObject registrationUI)
+        public RegisteredPlayerGrouping(int ownerActorID, int bindingID, RegisteredPlayer registeredPlayer)
         {
             this.ownerActorID = ownerActorID;
             this.bindingID = bindingID;
             this.registeredPlayer = registeredPlayer;
-            this.registrationUI = registrationUI;
         }
 
         public void Destroy()
@@ -27,11 +25,6 @@ public class PlayerRegistration : MonoBehaviour {
             if (registeredPlayer != null)
             {
                 MonoBehaviour.Destroy(registeredPlayer.transform.root.gameObject);
-            }
-
-            if (registrationUI != null)
-            {
-                PhotonNetwork.Destroy(registrationUI);
             }
         }
     }
@@ -169,16 +162,14 @@ public class PlayerRegistration : MonoBehaviour {
             RegisteredPlayer registeredPlayer = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();
             registeredPlayer.Initalize(possibleBindings[bindingID].HeldInput, playerId);
 
-            GameObject instantiatedRegistrationUI = PhotonNetwork.Instantiate(playerRegistrationUIPrefabName, new Vector3(0, 0, 0), Quaternion.identity, 0);
-
-            registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, registeredPlayer, instantiatedRegistrationUI);
+            registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, registeredPlayer);
 
             registeredBindings[bindingID] = true;
         }
         else
         {
             //otherwise, we just need to track it
-            registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, null, null);
+            registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, null);
         }
     }
 
