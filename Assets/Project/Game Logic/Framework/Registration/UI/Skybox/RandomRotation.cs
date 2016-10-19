@@ -10,6 +10,6 @@ public class RandomRotation : MonoBehaviour {
     protected float rotationMagnitude = 0.25f;
 
 	void Start () {
-        GetComponent<Rigidbody>().angularVelocity = Random.rotationUniform.eulerAngles.normalized * rotationMagnitude;
+        GetComponent<Rigidbody>().angularVelocity = Random.insideUnitCircle.normalized * rotationMagnitude;
 	}
 }
