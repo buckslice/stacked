@@ -9,7 +9,7 @@ public class ReadyChecker : MonoBehaviour {
 
     List<PlayerCursor> players = new List<PlayerCursor>();
     bool countingDown = false;
-    const float startTime = 3.99f;
+    const float startTime = 2.99f;
     float countDownTime = startTime;
 
     Text text;
@@ -35,9 +35,20 @@ public class ReadyChecker : MonoBehaviour {
             countDownTime -= Time.deltaTime;
             int intTime = (int)countDownTime;
             transform.localScale = Vector3.one * (1.0f + (countDownTime - intTime)*2.5f);
-            text.text = "" + intTime;
+            text.text = "" + (intTime + 1);
+
+            //countdown complete
             if(countDownTime <= 0.0f) {
                 SceneManager.LoadScene(levelToLoad);
+                return;
+            }
+
+            //skip countdown
+            foreach (PlayerCursor player in players) {
+                if (player.Input.getAbility1Down || player.Input.getAbility2Down || player.Input.getBasicAttackDown) {
+                    SceneManager.LoadScene(levelToLoad);
+                    return;
+                }
             }
         }
 	}

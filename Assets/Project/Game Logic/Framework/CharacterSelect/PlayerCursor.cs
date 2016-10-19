@@ -16,6 +16,7 @@ public class PlayerCursor : MonoBehaviour {
     PointerEventData pointer = new PointerEventData(EventSystem.current);
     List<RaycastResult> results = new List<RaycastResult>();
     PlayerInputHolder input;
+    public PlayerInputHolder Input { get { return input; } }
     
     bool selectionOne = false;
     bool selectionTwo = false;
