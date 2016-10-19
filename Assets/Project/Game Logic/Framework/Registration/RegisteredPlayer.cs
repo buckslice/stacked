@@ -34,6 +34,7 @@ public class RegisteredPlayer : MonoBehaviour {
     public void Initalize(IPlayerInput inputBindings, int playerID)
     {
         this.inputBindings = inputBindings;
+        inputBindings.Initialize(this);
         this.playerID = playerID;
         DamageHolder holder = GetComponent<DamageHolder>();
         holder.Initialize(new Player(playerID, holder));

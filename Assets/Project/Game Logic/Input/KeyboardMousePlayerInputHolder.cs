@@ -35,7 +35,7 @@ public class KeyboardMousePlayerInput : IPlayerInput
 
     Transform player;
     public Transform Player { set { player = value; } }
-    public void Initialize(PlayerInputHolder holder) { }
+    public void Initialize(MonoBehaviour holder) { }
     public void Deactivate() { }
 
     public Vector2 movementDirection

@@ -12,7 +12,7 @@ public interface IPlayerInput : IPlayerInputHolder
     /// The transform component of the player.
     /// </summary>
     Transform Player { set; }
-    void Initialize(PlayerInputHolder holder);
+    void Initialize(MonoBehaviour holder);
     void Deactivate();
 }
 
@@ -187,7 +187,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
 public class NullInput : IPlayerInput
 {
     public Transform Player { set { ;} }
-    public void Initialize(PlayerInputHolder holder) { }
+    public void Initialize(MonoBehaviour holder) { }
     public void Deactivate() { }
     public Vector2 movementDirection { get { return Vector2.zero; } }
     public Vector3 rotationDirection { get { return Vector3.zero; } }

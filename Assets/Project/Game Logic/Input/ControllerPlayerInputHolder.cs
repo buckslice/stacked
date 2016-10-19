@@ -46,14 +46,14 @@ public class ControllerPlayerInput : IPlayerInput {
     private KeyCode ability1Key = Tags.Input.Joystick1.LeftBumper;
     private KeyCode ability2Key = Tags.Input.Joystick1.RightBumper;
 
-    PlayerInputHolder holder;
+    MonoBehaviour holder;
 
     [SerializeField]
     private float deadZone = 0.2f;
 
     //Transform player; //not needed yet
     public Transform Player { set { ; } } //set { player = value; }
-    public void Initialize(PlayerInputHolder holder) { this.holder = holder; }
+    public void Initialize(MonoBehaviour holder) { this.holder = holder; }
     public void Deactivate() { vibrationAmount.Reset(); UpdateVibration(); }
 
     AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
