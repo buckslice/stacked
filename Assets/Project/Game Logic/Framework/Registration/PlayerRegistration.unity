@@ -330,6 +330,7 @@ GameObject:
   - 223: {fileID: 706101882}
   - 114: {fileID: 706101881}
   - 114: {fileID: 706101880}
+  - 114: {fileID: 706101883}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: CanvasRoot
@@ -396,6 +397,24 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &706101883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 706101879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f1c3299f6912a4eba6a6b883211355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealthBarGroup: {fileID: 0}
+  bossHealthBarGroup: {fileID: 0}
+  floatingHealthBarGroup: {fileID: 0}
+  playerHealthBarPrefab: {fileID: 0}
+  bossHealthBarPrefab: {fileID: 0}
+  floatingHealthBarPrefab: {fileID: 0}
+  scaler: {fileID: 706101881}
 --- !u!1 &735564314
 GameObject:
   m_ObjectHideFlags: 0

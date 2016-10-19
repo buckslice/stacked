@@ -3,6 +3,9 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Node of a union-find data structure, with no compression. The chain of parents to get to the head is used to specify exactly what did damage.
+/// </summary>
 public interface IDamageHolder {
     IDamageTracker DamageTracker { get; }
 }

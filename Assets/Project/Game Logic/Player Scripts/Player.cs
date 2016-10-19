@@ -70,4 +70,6 @@ public class Player : AbstractDamageTracker {
             return null;
         }
     }
+
+    public static readonly Color[] playerColoring = { Color.red, Color.blue, Color.green, Color.yellow };
 }

@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(DamageHolder))]
 public class RegisteredPlayer : MonoBehaviour {
 
     static HashSet<RegisteredPlayer> registeredPlayers = new HashSet<RegisteredPlayer>();
@@ -34,6 +35,8 @@ public class RegisteredPlayer : MonoBehaviour {
     {
         this.inputBindings = inputBindings;
         this.playerID = playerID;
+        DamageHolder holder = GetComponent<DamageHolder>();
+        holder.Initialize(new Player(playerID, holder));
     }
 
     void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
