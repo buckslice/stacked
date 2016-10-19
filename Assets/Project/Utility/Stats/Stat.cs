@@ -59,6 +59,15 @@ public abstract class Stat<T> {
         return self;
     }
 
+    public void Reset() {
+        if (modifiers.Count == 0) {
+            return;
+        }
+
+        modifiers.Clear();
+        dirty = true;
+    }
+
     /// <summary>
     /// The value of baseValue, modified by all the modifiers.
     /// </summary>

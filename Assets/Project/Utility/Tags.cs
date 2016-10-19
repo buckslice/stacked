@@ -188,6 +188,7 @@ public static class Tags {
         public const string DefeatPopup = "DefeatPopup";
         public const string VictoryPopup = "VictoryPopup";
         public const string MainMenu = "MainMenu";
+        public const string Options = "Options";
     }
 }
 
