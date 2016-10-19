@@ -31,9 +31,12 @@ public class ThrowAction : AbstractAbilityAction {
         Vector3 destinationPosition = transform.position + throwDistance * Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
         Rigidbody targetRigid = targetConnectingJoint.connectedBody;
         AbilityNetworking targetNetworking = targetRigid.transform.root.GetComponentInParent<AbilityNetworking>();
+        IAbilities targetAbilities = targetRigid.transform.root.GetComponentInParent<IAbilities>();
         IMovement targetMovement = targetRigid.transform.root.GetComponentInParent<IMovement>();
 
         targetConnectingJoint.connectedBody = null;
+
+        targetAbilities.ActivationEnabled.RemoveModifier(false);
 
         GameObject instantiatedThrownObjectAbility = SimplePool.Spawn(thrownObjectAbilityPrefab);
         ThrownObjectAbility thrownObjectAbility = instantiatedThrownObjectAbility.GetComponent<ThrownObjectAbility>();
@@ -41,5 +44,18 @@ public class ThrowAction : AbstractAbilityAction {
 
         targetHolder.gameObject.SetActive(false);
         return true;
+    }
+
+    void OnDestroy() {
+        Rigidbody targetRigid = targetConnectingJoint.connectedBody;
+        if (targetRigid == null) { return; }
+        IAbilities targetAbilities = targetRigid.transform.root.GetComponentInParent<IAbilities>();
+        IMovement targetMovement = targetRigid.transform.root.GetComponentInParent<IMovement>();
+
+        targetConnectingJoint.connectedBody = null;
+        targetHolder.gameObject.SetActive(false);
+
+        targetAbilities.ActivationEnabled.RemoveModifier(false);
+        targetMovement.ControlEnabled.RemoveModifier(false);
     }
 }

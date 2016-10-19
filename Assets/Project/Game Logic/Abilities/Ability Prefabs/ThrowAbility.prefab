@@ -78,6 +78,7 @@ GameObject:
   - 114: {fileID: 114000010015227658}
   - 114: {fileID: 114000010472222986}
   - 114: {fileID: 114000011076088352}
+  - 114: {fileID: 114000011393416258}
   m_Layer: 0
   m_Name: GrabActivation
   m_TagString: Untagged
@@ -202,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000011076088352}
+  - {fileID: 114000011393416258}
 --- !u!114 &114000010083643870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -339,6 +341,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownSecs:
     baseValue: 1
+--- !u!114 &114000011393416258
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011821503798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1928d0a29d85bc42b73f0b1ace2a85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modifier: 0
 --- !u!114 &114000011761016766
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -10,7 +10,17 @@ public interface IActivationNetworking {
     void NetworkedActivationRPC(object[] incomingData, PhotonMessageInfo info);
 }
 
-public abstract class AbstractActivationNetworking : MonoBehaviour, IActivationNetworking {
+/// <summary>
+/// Interface used to enable and disable the target's ability to use abilities
+/// </summary>
+public interface IAbilities {
+    AllBoolStat ActivationEnabled { get; }
+}
+
+public abstract class AbstractActivationNetworking : MonoBehaviour, IActivationNetworking, IAbilities {
+
+    AllBoolStat activationEnabled = new AllBoolStat(true);
+    public AllBoolStat ActivationEnabled { get { return activationEnabled; } }
 
     protected IAbilityRelay relay;
     protected PhotonView view;

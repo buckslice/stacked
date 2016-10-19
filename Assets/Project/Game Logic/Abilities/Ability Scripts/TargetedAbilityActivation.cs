@@ -75,6 +75,11 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
     /// </summary>
     /// <returns></returns>
     public bool Ready() {
+        if (!abilityNetwork.ActivationEnabled) {
+            //activation disabled
+            return false;
+        }
+
         foreach (UntargetedAbilityConstraint constraint in untargetedConstraints) {
             if (!constraint.isAbilityActivatible()) {
                 //cannot activate

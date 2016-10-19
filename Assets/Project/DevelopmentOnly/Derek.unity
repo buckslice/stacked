@@ -457,8 +457,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   playerData:
-    firstAbilities: 
-    secondAbilities: 
+    firstAbilities: 01
+    secondAbilities: 01
     abilities: 
 --- !u!4 &898516901
 Transform:
