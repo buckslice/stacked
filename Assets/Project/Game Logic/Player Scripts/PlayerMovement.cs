@@ -7,6 +7,7 @@ using System.Collections.Generic;
 /// </summary>
 public interface IMovement {
     AllBoolStat ControlEnabled { get; }
+    AllBoolStat MovementInputEnabled { get; }
     void haltMovement();
     void setVelocity(Vector3 worldDirectionNormalized);
 }

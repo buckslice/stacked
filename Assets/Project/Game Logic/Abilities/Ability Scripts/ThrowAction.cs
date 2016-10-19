@@ -37,6 +37,7 @@ public class ThrowAction : AbstractAbilityAction {
         targetConnectingJoint.connectedBody = null;
 
         targetAbilities.ActivationEnabled.RemoveModifier(false);
+        targetMovement.ControlEnabled.RemoveModifier(false);
 
         GameObject instantiatedThrownObjectAbility = SimplePool.Spawn(thrownObjectAbilityPrefab);
         DashingObjectAbility dashingObjectAbility = instantiatedThrownObjectAbility.GetComponent<DashingObjectAbility>();

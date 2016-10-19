@@ -28,6 +28,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
         this.targetRigid = targetRigid;
 
         targetMovement.haltMovement();
+        targetMovement.MovementInputEnabled.AddModifier(false);
 
         foreach (IMovementOverride movementOverride in targetNetworking.transform.GetComponentsInChildren<IMovementOverride>()) {
             movementOverride.Disable();
@@ -59,17 +60,17 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
 
     public void Disable() {
         if (enabled) {
-            targetMovement.ControlEnabled.RemoveModifier(false);
+            targetMovement.MovementInputEnabled.RemoveModifier(false);
             enabled = false;
         }
     }
 
     void Destroy() {
         if (enabled) {
-            targetMovement.ControlEnabled.RemoveModifier(false);
+            targetMovement.MovementInputEnabled.RemoveModifier(false);
+            targetMovement.setVelocity((destinationPosition - startPosition).normalized);
             enabled = false;
         }
-        targetMovement.setVelocity((destinationPosition - startPosition).normalized);
 
         this.transform.SetParent(null);
 
