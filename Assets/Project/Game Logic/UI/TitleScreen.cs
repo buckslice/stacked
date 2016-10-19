@@ -6,7 +6,7 @@ public class TitleScreen : MonoBehaviour {
 
     public void GoToMainMenu()
     {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(Tags.Scenes.MainMenu);
     }
     public void Play()
     {
@@ -14,6 +14,6 @@ public class TitleScreen : MonoBehaviour {
     }
     public void Options()
     {
-        SceneManager.LoadScene("Options");
+        SceneManager.LoadScene(Tags.Scenes.Options);
     }
 }

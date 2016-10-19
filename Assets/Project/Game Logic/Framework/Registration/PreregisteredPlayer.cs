@@ -9,7 +9,7 @@ using System.Collections.Generic;
 /// </summary>
 public class PreregisteredPlayer : MonoBehaviour {
 
-	private IPlayerInput input = new KeyboardMousePlayerInput();
+	private IPlayerInput input;
     public IPlayerInput inputBindings { get { return input; } set { input = value; } }
 
     protected virtual void Awake() {

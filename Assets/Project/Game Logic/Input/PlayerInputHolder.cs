@@ -36,10 +36,13 @@ public static class PlayerInputExtension
             self.rotationDirection != Vector3.zero;
     }
 
+    /*
+     * currently screwed up by mouse, which never has zero for rotation (cursor) input
     public static bool AnyInput(this IPlayerInputHolder self)
     {
         return self.AnyKey() || self.AnyAxis();
     }
+     * */
 }
 
 /// <summary>
