@@ -39,8 +39,10 @@ public class ThrowAction : AbstractAbilityAction {
         targetAbilities.ActivationEnabled.RemoveModifier(false);
 
         GameObject instantiatedThrownObjectAbility = SimplePool.Spawn(thrownObjectAbilityPrefab);
+        DashingObjectAbility dashingObjectAbility = instantiatedThrownObjectAbility.GetComponent<DashingObjectAbility>();
+        dashingObjectAbility.Initialize(transform.position, destinationPosition, Time.time, Time.time + throwDuration, targetNetworking, targetMovement, targetRigid);
         ThrownObjectAbility thrownObjectAbility = instantiatedThrownObjectAbility.GetComponent<ThrownObjectAbility>();
-        thrownObjectAbility.Initialize(transform.position, destinationPosition, Time.time + throwDuration, targetNetworking, targetMovement, targetRigid, trackerReference);
+        thrownObjectAbility.Initialize(targetNetworking, trackerReference);
 
         targetHolder.gameObject.SetActive(false);
         return true;

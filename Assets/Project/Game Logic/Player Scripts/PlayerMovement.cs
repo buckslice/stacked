@@ -11,6 +11,13 @@ public interface IMovement {
     void setVelocity(Vector3 worldDirectionNormalized);
 }
 
+/// <summary>
+/// Denotes a script which overrides an IMovement. New IMovementOverrides will disable previous ones.
+/// </summary>
+public interface IMovementOverride {
+    void Disable();
+}
+
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(IPlayerInputHolder))]
 public class PlayerMovement : MonoBehaviour, IMovement
