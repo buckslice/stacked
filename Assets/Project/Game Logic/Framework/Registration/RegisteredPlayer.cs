@@ -3,14 +3,14 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(DamageHolder))]
-public class RegisteredPlayer : MonoBehaviour {
+public class RegisteredPlayer : MonoBehaviour, IPlayerID {
 
     static HashSet<RegisteredPlayer> registeredPlayers = new HashSet<RegisteredPlayer>();
     public static HashSet<RegisteredPlayer> RegisteredPlayers { get { return registeredPlayers; } }
 
     [SerializeField]
     protected int playerID = -1;
+    public int PlayerID { get { return playerID; } }
 
     private IPlayerInput input;
     public IPlayerInput inputBindings { get { return input; } set { input = value; } }
@@ -36,8 +36,6 @@ public class RegisteredPlayer : MonoBehaviour {
         this.inputBindings = inputBindings;
         inputBindings.Initialize(this);
         this.playerID = playerID;
-        DamageHolder holder = GetComponent<DamageHolder>();
-        holder.Initialize(new Player(playerID, holder));
     }
 
     void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
