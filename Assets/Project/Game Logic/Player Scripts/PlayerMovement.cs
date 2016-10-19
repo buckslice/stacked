@@ -126,6 +126,10 @@ public class PlayerMovement : MonoBehaviour, IMovement
     {
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
+
+        foreach (IMovementOverride movementOverride in GetComponentsInChildren<IMovementOverride>()) {
+            movementOverride.Disable();
+        }
     }
 
     public void setVelocity(Vector3 worldDirectionNormalized)
