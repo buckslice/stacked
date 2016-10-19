@@ -7,6 +7,9 @@ public class PlayerRegistration : MonoBehaviour {
 
     const int numPlayers = 4;
 
+    static PlayerRegistration main;
+    public static PlayerRegistration Main { get { return main; } }
+
     class RegisteredPlayerGrouping
     {
         //TODO: add references to the containing RegisteredPlayerGrouping to its component objects
@@ -52,17 +55,16 @@ public class PlayerRegistration : MonoBehaviour {
     void Awake()
     {
         PhotonNetwork.OnEventCall += OnEvent;
-    }
-
-    void Start()
-    {
         registeredPlayers = new RegisteredPlayerGrouping[numPlayers];
         registeredBindings = new bool[possibleBindings.Length];
+        Assert.IsNull(main);
+        main = this;
     }
 
     void OnDestroy()
     {
         PhotonNetwork.OnEventCall -= OnEvent;
+        main = null;
     }
 
     int getFirstAvailablePlayerID()
@@ -156,7 +158,7 @@ public class PlayerRegistration : MonoBehaviour {
         Assert.IsNull(registeredPlayers[playerId]);
         if (owningClientActorID == PhotonNetwork.player.ID)
         {
-            //if we own it, we need to create it
+            //if we own it, we need to create it0
 
             GameObject instantiatedRegisteredPlayer = (GameObject)Instantiate(registeredPlayerPrefab, Vector3.zero, Quaternion.identity);
             RegisteredPlayer registeredPlayer = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();
@@ -198,5 +200,23 @@ public class PlayerRegistration : MonoBehaviour {
                 }
             }
         }
+    }
+
+    public void PreregisterPlayer(IPlayerInput input) {
+        for (int i = 0; i < possibleBindings.Length; i++) {
+            if (possibleBindings[i].HeldInput.Equals(input)) {
+                int openPlayerID = getFirstAvailablePlayerID();
+                if (openPlayerID >= 0) {
+                    //if there exists an open ID
+                    sendRegistrationRequest((byte)i);
+                } else {
+                    Debug.LogError("There is no openPlayerID for a pre-registered player");
+                }
+                return;
+            }
+        }
+
+        Debug.LogWarning("There is no matching player input for the pre-registered player");
+        //TODO: add support for a -1 bindingID, for custom bindings?
     }
 }

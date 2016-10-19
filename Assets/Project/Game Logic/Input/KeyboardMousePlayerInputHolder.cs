@@ -77,4 +77,36 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public bool getBasicAttackUp { get { return Input.GetKeyUp(basicAttackKey); } }
     public bool getAbility1Up { get { return Input.GetKeyUp(ability1Key); } }
     public bool getAbility2Up { get { return Input.GetKeyUp(ability2Key); } }
+
+    public override bool Equals(object obj) {
+        var item = obj as KeyboardMousePlayerInput;
+
+        if (item == null) {
+            return false;
+        }
+
+        //return true if all bindings are the same, false otherwise
+        return 
+            this.horizontalMovementAxis.Equals(item.horizontalMovementAxis) &&
+            this.verticalMovementAxis.Equals(item.verticalMovementAxis) &&
+            this.horizontalMovementAxis.Equals(item.horizontalMovementAxis) &&
+            this.submitKey == item.submitKey &&
+            this.cancelKey == item.cancelKey &&
+            this.startKey == item.startKey &&
+            this.basicAttackKey == item.basicAttackKey &&
+            this.ability1Key == item.ability1Key &&
+            this.ability2Key == item.ability2Key;
+    }
+
+    public override int GetHashCode() {
+        return this.horizontalMovementAxis.GetHashCode() *
+            this.verticalMovementAxis.GetHashCode() *
+            this.horizontalMovementAxis.GetHashCode() *
+            this.submitKey.GetHashCode() *
+            this.cancelKey.GetHashCode() *
+            this.startKey.GetHashCode() *
+            this.basicAttackKey.GetHashCode() *
+            this.ability1Key.GetHashCode() *
+            this.ability2Key.GetHashCode();
+    }
 }

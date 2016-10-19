@@ -225,4 +225,18 @@ public class ControllerPlayerInput : IPlayerInput {
     public void UpdateVibration() {
         GamePad.SetVibration(controllerIndex, vibrationAmount.Value, vibrationAmount.Value);
     }
+
+    public override bool Equals(object obj) {
+        var item = obj as ControllerPlayerInput;
+
+        if (item == null) {
+            return false;
+        }
+
+        return this.controllerIndex.Equals(item.controllerIndex); //TODO : rewrite to include all input fields once custom bindings are added
+    }
+
+    public override int GetHashCode() {
+        return controllerIndex.GetHashCode();
+    }
 }

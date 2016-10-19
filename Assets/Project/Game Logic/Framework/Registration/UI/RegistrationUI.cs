@@ -15,8 +15,6 @@ public class RegistrationUI : MonoBehaviour {
         Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
         Debug.Assert(canvasRoot, "Scene requires a UI canvas for healthbars!");
 
-        CanvasHelper ch = canvasRoot.GetComponent<CanvasHelper>();
-
         GameObject registrationBar = (GameObject)Instantiate(registrationUIPrefab, GetComponent<EntityUIGroupHolder>().EntityGroup.GetComponent<RectTransform>());
         (registrationBar.transform as RectTransform).Reset();
         instantiatedRegistrationBar = registrationBar.GetComponent<RegistrationUIBar>();
