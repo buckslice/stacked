@@ -84,7 +84,7 @@ public class Damageable : MonoBehaviour {
     public float Damage(Damage incoming, IDamageHolder holderReference) {
         IDamageTracker rootDamageReference = holderReference.GetRootDamageTracker();
         float dealtDamage = Damage(incoming, rootDamageReference);
-        Debug.LogFormat(this, "{0} did {1} {2} damage to {3} using {4}", rootDamageReference, dealtDamage, incoming.Type, selfTracker, holderReference);
+        EventLog.Log(this, "{0} did {1} {2} damage to {3} using {4}", rootDamageReference, dealtDamage, incoming.Type, selfTracker, holderReference);
         return dealtDamage;
     }
 
