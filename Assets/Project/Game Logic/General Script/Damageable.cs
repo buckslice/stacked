@@ -52,12 +52,16 @@ public class Damageable : MonoBehaviour {
     protected MultiplierFloatStat magicalVulnerabilityMultiplier = new MultiplierFloatStat(1);
     public MultiplierFloatStat MagicalVulnerabilityMultiplier { get { return magicalVulnerabilityMultiplier; } }
 
+    IDamageTracker selfTracker;
+
     void Start()
     {
         if (health == null)
         {
             health = GetComponentInParent<Health>();
         }
+
+        selfTracker = GetComponentInParent<DamageHolder>().GetRootDamageTracker();
     }
 
     float CalculateActualDamage(Damage incoming) {
@@ -75,6 +79,13 @@ public class Damageable : MonoBehaviour {
     {
         float actualDamageAmount = CalculateActualDamage(incoming);
         return health.Damage(actualDamageAmount);
+    }
+
+    public float Damage(Damage incoming, IDamageHolder holderReference) {
+        IDamageTracker rootDamageReference = holderReference.GetRootDamageTracker();
+        float dealtDamage = Damage(incoming, rootDamageReference);
+        Debug.LogFormat(this, "{0} did {1} {2} damage to {3} using {4}", rootDamageReference, dealtDamage, incoming.Type, selfTracker, holderReference);
+        return dealtDamage;
     }
 
     public float Damage(Damage incoming, IDamageTracker trackerReference) {
