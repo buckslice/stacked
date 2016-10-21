@@ -6,13 +6,13 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Project/TitleScreen.unity
+    path: Assets/Project/Scenes/TitleScreen.unity
   - enabled: 1
-    path: Assets/Project/MainMenu.unity
+    path: Assets/Project/Scenes/MainMenu.unity
   - enabled: 1
-    path: Assets/Project/Framework/Registration/PlayerRegistration.unity
+    path: Assets/Project/Game Logic/Framework/Registration/PlayerRegistration.unity
   - enabled: 1
-    path: Assets/Project/Framework/CharacterSelect/CharacterSelect.unity
+    path: Assets/Project/Game Logic/Framework/CharacterSelect/CharacterSelect.unity
   - enabled: 1
     path: Assets/Project/DevelopmentOnly/Derek.unity
   - enabled: 1
@@ -20,6 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/DevelopmentOnly/John.unity
   - enabled: 1
-    path: Assets/Project/Framework/GameEnd/DefeatPopup.unity
+    path: Assets/Project/Game Logic/Framework/GameEnd/DefeatPopup.unity
   - enabled: 1
-    path: Assets/Project/Framework/GameEnd/VictoryPopup.unity
+    path: Assets/Project/Game Logic/Framework/GameEnd/VictoryPopup.unity
+  - enabled: 1
+    path: Assets/Project/Game Logic/Framework/BossSelect/BossSelect.unity

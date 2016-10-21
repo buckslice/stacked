@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class ReadyChecker : MonoBehaviour {
 
-    public string levelToLoad;
+    private string levelToLoad;
 
     List<PlayerCursor> players = new List<PlayerCursor>();
     bool countingDown = false;
@@ -21,6 +22,8 @@ public class ReadyChecker : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         text = GetComponent<Text>();
+        Assert.IsNotNull(BossSetup.Main);
+        levelToLoad = BossSetup.Main.BossData.sceneName;
 	}
 	
 	// Update is called once per frame

@@ -53,8 +53,8 @@ GameObject:
   - 224: {fileID: 224000014274549280}
   - 222: {fileID: 222000010963844114}
   - 114: {fileID: 114000011904633356}
-  - 114: {fileID: 114000010481044946}
   - 114: {fileID: 114000010212529820}
+  - 114: {fileID: 114000012623533406}
   m_Layer: 5
   m_Name: PlayerCursor
   m_TagString: Untagged
@@ -104,17 +104,6 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
---- !u!114 &114000010481044946
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013021610858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce0691de8b87f134398cfb9b06eed4ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011904633356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -157,6 +146,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114000012623533406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013021610858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65be4c66d84204f46b518cafbb02ecb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013525898108
 MonoBehaviour:
   m_ObjectHideFlags: 1

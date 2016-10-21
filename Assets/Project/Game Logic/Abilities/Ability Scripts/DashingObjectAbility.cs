@@ -15,7 +15,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
     AbilityNetworking targetNetworking;
     IMovement targetMovement;
     Rigidbody targetRigid;
-    bool enabled = true;
+    bool active = true;
     float previousLerpValue = 0;
 
     public void Initialize(Vector3 startPosition, Vector3 destinationPosition, float startTime, float endTime, AbilityNetworking targetNetworking, IMovement targetMovement, Rigidbody targetRigid) {
@@ -40,7 +40,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
         this.transform.SetParent(targetNetworking.transform);
         this.transform.Reset();
 
-        enabled = true;
+        active = true;
         previousLerpValue = 0;
     }
 
@@ -50,7 +50,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
             return;
         }
 
-        if (enabled) {
+        if (active) {
             float lerpProgress = Mathf.InverseLerp(startTime, endTime, Time.time);
             Vector3 movementDiff = Vector3.Lerp(startPosition, destinationPosition, lerpProgress) - Vector3.Lerp(startPosition, destinationPosition, previousLerpValue);
             previousLerpValue = lerpProgress;
@@ -59,17 +59,17 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
     }
 
     public void Disable() {
-        if (enabled) {
+        if (active) {
             targetMovement.MovementInputEnabled.RemoveModifier(false);
-            enabled = false;
+            active = false;
         }
     }
 
     void Destroy() {
-        if (enabled) {
+        if (active) {
             targetMovement.MovementInputEnabled.RemoveModifier(false);
             targetMovement.setVelocity((destinationPosition - startPosition).normalized);
-            enabled = false;
+            active = false;
         }
 
         this.transform.SetParent(null);

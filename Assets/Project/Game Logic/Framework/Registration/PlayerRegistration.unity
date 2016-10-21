@@ -1146,7 +1146,7 @@ Prefab:
     - target: {fileID: 114000010601255138, guid: f678855c7e7fb8c4f9250e6f84bab918,
         type: 2}
       propertyPath: levelName
-      value: CharacterSelect
+      value: BossSelect
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f678855c7e7fb8c4f9250e6f84bab918, type: 2}

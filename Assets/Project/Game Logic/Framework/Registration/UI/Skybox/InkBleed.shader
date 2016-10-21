@@ -69,6 +69,8 @@
 					float2 bleedOffset1 = (tex2D(_InkBleedMap, i.inkuv + offsetOffset) - 0.25) * 2;
 					float2 bleedOffset2 = (tex2D(_InkBleedMap, i.inkuv - offsetOffset) - 0.25) * 2;
 
+					//i.uv1 += 0.01 * float2(_CosTime.y, _CosTime.y);
+
 					fixed4 col = (tex2D(_PrevFrame, i.uv1 + bleedOffset1 * _InkBleedMag) + tex2D(_PrevFrame, i.uv1 + bleedOffset2 * _InkBleedMag)) + _InkFadeMag;
 					col *= tex2D(_MainTex, i.uv0);
 
