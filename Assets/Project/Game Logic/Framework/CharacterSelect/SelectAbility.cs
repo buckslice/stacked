@@ -11,6 +11,7 @@ public interface ISelection {
     bool Deselect();
 
     bool Ready { get; }
+    IPlayerInputHolder Input { get; }
 }
 
 public interface ISelectable { }

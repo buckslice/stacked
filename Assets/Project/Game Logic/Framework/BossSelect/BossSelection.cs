@@ -1,12 +1,29 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
+[RequireComponent(typeof(IPlayerInputHolder))]
+[RequireComponent(typeof(IPlayerInputHolder))]
 public class BossSelection : MonoBehaviour, ISelection {
-    
+
+    [SerializeField]
+    protected Image readyIndicator;
+
     GameObject instantiatedBossSetup = null;
     public bool Ready { get { return instantiatedBossSetup != null; } }
+
+    IPlayerInputHolder input;
+    public IPlayerInputHolder Input { get { return input; } }
+
+    void Awake() {
+        input = GetComponent<IPlayerInputHolder>();
+    }
+
+    void Start() {
+        transform.root.GetComponentInChildren<ReadyChecker>().AddPlayer(this);
+    }
 
     public bool CanSelect() { 
         return !Ready; 
@@ -23,7 +40,7 @@ public class BossSelection : MonoBehaviour, ISelection {
         }
 
         instantiatedBossSetup = Instantiate(BossSetupNetworkedData.Main.bossDataPrefabs[(byte)bossSelectable.BossID]) as GameObject;
-
+        readyIndicator.enabled = true;
         return true;
     }
 
@@ -36,7 +53,8 @@ public class BossSelection : MonoBehaviour, ISelection {
             return false;
         } else {
             Destroy(instantiatedBossSetup);
-            instantiatedBossSetup = null;
+            instantiatedBossSetup = null; 
+            readyIndicator.enabled = false;
             return true;
         }
     }
