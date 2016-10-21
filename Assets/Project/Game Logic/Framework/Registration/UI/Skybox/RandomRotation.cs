@@ -9,7 +9,18 @@ public class RandomRotation : MonoBehaviour {
     [SerializeField]
     protected float rotationMagnitude = 0.25f;
 
+    Rigidbody rigid;
+
+    Vector2 angularVelocity;
+    Vector2 angularVelocityNormal;
+
 	void Start () {
-        GetComponent<Rigidbody>().angularVelocity = Random.insideUnitCircle.normalized * rotationMagnitude;
+        rigid = GetComponent<Rigidbody>();
+        angularVelocity = rigid.angularVelocity = Random.insideUnitCircle.normalized * rotationMagnitude;
+        angularVelocityNormal = Vector3.Cross(angularVelocity, Vector3.forward);
 	}
+
+    void Update() {
+        rigid.angularVelocity = angularVelocity + Mathf.Sin(Time.time / 10) * angularVelocityNormal;
+    }
 }
