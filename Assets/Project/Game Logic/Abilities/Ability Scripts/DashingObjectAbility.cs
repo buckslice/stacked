@@ -45,16 +45,22 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
     }
 
     void Update() {
-        if (Time.time > endTime) {
-            Destroy();
-            return;
-        }
 
         if (active) {
             float lerpProgress = Mathf.InverseLerp(startTime, endTime, Time.time);
+            if (Time.time > endTime)
+            { 
+                lerpProgress = 1;
+            }
+
             Vector3 movementDiff = Vector3.Lerp(startPosition, destinationPosition, lerpProgress) - Vector3.Lerp(startPosition, destinationPosition, previousLerpValue);
             previousLerpValue = lerpProgress;
             targetRigid.MovePosition(movementDiff + targetRigid.position);
+        }
+
+        if (Time.time > endTime) {
+            Destroy();
+            return;
         }
     }
 
