@@ -29,7 +29,10 @@ public interface ITargetedAbilityTrigger : IUntargetedAbilityTrigger {
 
 public enum AbilityKeybinding { BASICATTACK, BASICATTACKDOWN, BASICATTACKUP,
     ABILITY1, ABILITY1DOWN, ABILITY1UP,
-    ABILITY2, ABILITY2DOWN, ABILITY2UP };
+    ABILITY2, ABILITY2DOWN, ABILITY2UP,
+    SUBMIT, SUBMITDOWN,
+    CANCEL, CANCELDOWN
+};
 
 /// <summary>
 /// Interface indicating that this has a keybinding

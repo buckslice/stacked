@@ -31,12 +31,14 @@ public class CanvasMovement : MonoBehaviour {
     public bool controlEnabled = true;
 
     RectTransform rectTransform;
+    RectTransform canvasRoot;
     PhotonView view;
     IPlayerInputHolder input;
 
     // Use this for initialization
     void Awake() {
         rectTransform = GetComponent<RectTransform>();
+        canvasRoot = rectTransform.root.GetComponent<RectTransform>();
         view = GetComponent<PhotonView>();
         input = GetComponent<IPlayerInputHolder>();
 
@@ -62,8 +64,8 @@ public class CanvasMovement : MonoBehaviour {
     void UpdatePositionInput() {
         Vector2 newPosition = rectTransform.anchoredPosition3D + (Vector3)input.movementDirection * speed * Screen.width / 800.0f;
 
-        newPosition.x = Mathf.Clamp(newPosition.x, 0, Screen.width);
-        newPosition.y = Mathf.Clamp(newPosition.x, 0, Screen.height);
+        newPosition.x = Mathf.Clamp(newPosition.x, 0, canvasRoot.rect.width);
+        newPosition.y = Mathf.Clamp(newPosition.y, 0, canvasRoot.rect.height);
 
         rectTransform.anchoredPosition = newPosition;
     }

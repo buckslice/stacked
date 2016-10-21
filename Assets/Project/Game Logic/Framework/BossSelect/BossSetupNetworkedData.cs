@@ -17,6 +17,11 @@ public class BossSetupNetworkedData : MonoBehaviour {
         VOIDZONE,
     }
 
+    public enum BossID : byte {
+        DEREK,
+        JOHN
+    }
+
     static BossSetupNetworkedData main;
     public static BossSetupNetworkedData Main { get { return main; } }
 
@@ -30,6 +35,12 @@ public class BossSetupNetworkedData : MonoBehaviour {
     /// When an ability prefab is created, its prefab needs to be added here. Do not remove legacy abilities. Order matters.
     /// </summary>
     public GameObject[] abilityPrefabs;
+
+    /// <summary>
+    /// When a bossID is created, its data needs to be added here. Do not remove legacy data. Order matters.
+    /// </summary>
+    public GameObject[] bossDataPrefabs;
+
 
     void Awake() {
         if (main != null) {

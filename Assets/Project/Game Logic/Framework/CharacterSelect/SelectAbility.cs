@@ -1,45 +1,55 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
-public class SelectAbility : AbstractAbilityAction {
-    bool _selected = false;
-    private bool selected {
-        get { return _selected; }
-        set {
-            _selected = value;
-            if (_selected) {
-                visuals.color = Color.green;
-            }
-        }
-    }
-    private CharacterSelectCursor cursor;
-    PlayerInputHolder inputHolder;
-    SpriteRenderer visuals;
+public interface ISelection {
+    bool CanSelect();
+    bool Select(ISelectable data);
 
+    bool CanDeselect();
+    bool Deselect();
+
+    bool Ready { get; }
+}
+
+public interface ISelectable { }
+
+public class SelectAbility : UntargetedAbilityConstraint {
+
+    ISelection selection;
+
+    PointerEventData pointer = new PointerEventData(EventSystem.current);
+    List<RaycastResult> results = new List<RaycastResult>();
+    
     protected override void Start()
     {
         base.Start();
-        cursor = GetComponentInParent<CharacterSelectCursor>();
-        inputHolder = GetComponentInParent<PlayerInputHolder>();
-        visuals = GetComponentInParent<SpriteRenderer>();
-        selected = false;
+        selection = GetComponentInParent<ISelection>();
+    }
+
+    public override void Activate() {
+        throw new System.NotImplementedException();
+    }
+
+    public override bool isAbilityActivatible() {
+        return selection.CanSelect();
     }
 
     public override bool Activate(PhotonStream stream)
     {
-        if (!selected && cursor.CurrentSelection != null) {
-            print("Derp");
+        pointer.position = new Vector3(transform.position.x, transform.position.y);
+        results.Clear();
 
-            if (stream.isWriting) {
-                GameObject instantiatedPlayerSetup = (GameObject)Instantiate(cursor.CurrentSelection, Vector3.zero, Quaternion.identity);
-                instantiatedPlayerSetup.GetComponent<PlayerSetup>().Initalize(inputHolder.HeldInput, cursor.playerNumber);
+        EventSystem.current.RaycastAll(pointer, results);
+
+        foreach (RaycastResult hit in results) {
+            ISelectable selectable = hit.gameObject.GetComponent<ISelectable>();
+
+            if (selectable != null) {
+                return selection.Select(selectable);
             }
-
-            selected = true;
-
-            return true;
-        } else {
-            return false;
         }
+        return false;
     }
 }
