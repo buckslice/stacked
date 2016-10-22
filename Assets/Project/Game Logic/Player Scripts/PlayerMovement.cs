@@ -7,8 +7,16 @@ using System.Collections.Generic;
 /// </summary>
 public interface IMovement {
     AllBoolStat ControlEnabled { get; }
+    AllBoolStat MovementInputEnabled { get; }
     void haltMovement();
     void setVelocity(Vector3 worldDirectionNormalized);
+}
+
+/// <summary>
+/// Denotes a script which overrides an IMovement. New IMovementOverrides will disable previous ones.
+/// </summary>
+public interface IMovementOverride {
+    void Disable();
 }
 
 [RequireComponent(typeof(PhotonView))]
@@ -118,6 +126,10 @@ public class PlayerMovement : MonoBehaviour, IMovement
     {
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;
+
+        foreach (IMovementOverride movementOverride in GetComponentsInChildren<IMovementOverride>()) {
+            movementOverride.Disable();
+        }
     }
 
     public void setVelocity(Vector3 worldDirectionNormalized)

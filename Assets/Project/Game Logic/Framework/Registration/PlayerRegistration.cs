@@ -44,6 +44,15 @@ public class PlayerRegistration : MonoBehaviour {
     [SerializeField]
     protected PlayerInputHolder[] possibleBindings;
 
+    [SerializeField]
+    protected RectTransform[] pressStartPrompts;
+
+    [SerializeField]
+    protected float vibrationDuration = 0.15f;
+
+    [SerializeField]
+    protected float vibrationStrength = 1f;
+
     /// <summary>
     /// Collection of all the players who have registered. The index of a registeredPlayer is its binding's bindingID, the index of its binding in possibleBindings. Used to ensure a binding is registered at most once.
     /// </summary>
@@ -59,6 +68,7 @@ public class PlayerRegistration : MonoBehaviour {
         registeredBindings = new bool[possibleBindings.Length];
         Assert.IsNull(main);
         main = this;
+        Assert.IsTrue(pressStartPrompts.Length == numPlayers);
     }
 
     void OnDestroy()
@@ -158,11 +168,16 @@ public class PlayerRegistration : MonoBehaviour {
         Assert.IsNull(registeredPlayers[playerId]);
         if (owningClientActorID == PhotonNetwork.player.ID)
         {
-            //if we own it, we need to create it0
+            //if we own it, we need to create it
 
             GameObject instantiatedRegisteredPlayer = (GameObject)Instantiate(registeredPlayerPrefab, Vector3.zero, Quaternion.identity);
             RegisteredPlayer registeredPlayer = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();
             registeredPlayer.Initalize(possibleBindings[bindingID].HeldInput, playerId);
+            
+            ControllerPlayerInput controllerInput = possibleBindings[bindingID].HeldInput as ControllerPlayerInput;
+            if (controllerInput != null) {
+                controllerInput.Vibrate(vibrationStrength, vibrationDuration);
+            }
 
             registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, registeredPlayer);
 
@@ -173,6 +188,7 @@ public class PlayerRegistration : MonoBehaviour {
             //otherwise, we just need to track it
             registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, null);
         }
+        pressStartPrompts[playerId].gameObject.SetActive(false);
     }
 
     public void OnPhotonPlayerDisconnected(PhotonPlayer player)
@@ -182,6 +198,7 @@ public class PlayerRegistration : MonoBehaviour {
             if (registeredPlayers[i].ownerActorID == player.ID)
             {
                 registeredPlayers[i] = null;
+                pressStartPrompts[i].gameObject.SetActive(true);
             }
         }
     }

@@ -83,6 +83,11 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
 
     public bool Ready() {
         foreach (UntargetedAbilityConstraint constraint in constraints) {
+            if (!abilityNetwork.ActivationEnabled) {
+                //activation disabled
+                return false;
+            }
+
             if (!constraint.isAbilityActivatible()) {
                 //cannot activate
                 return false;

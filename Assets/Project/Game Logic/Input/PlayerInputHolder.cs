@@ -12,7 +12,7 @@ public interface IPlayerInput : IPlayerInputHolder
     /// The transform component of the player.
     /// </summary>
     Transform Player { set; }
-    void Initialize(PlayerInputHolder holder);
+    void Initialize(MonoBehaviour holder);
     void Deactivate();
 }
 
@@ -141,7 +141,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     private IPlayerInput heldInput;
     public virtual IPlayerInput HeldInput {
         get { return heldInput; }
-        set { heldInput = value; heldInput.Initialize(this); }
+        set { heldInput = value; heldInput.Initialize(this); heldInput.Player = this.transform; }
     }
 
     public Vector2 movementDirection { get { return HeldInput.movementDirection; } }
@@ -165,14 +165,6 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getAbility1Up { get { return HeldInput.getAbility1Up; } }
     public bool getAbility2Up { get { return HeldInput.getAbility2Up; } }
 
-    void Start()
-    {
-        if (HeldInput != null)
-        {
-            HeldInput.Player = this.transform;
-        }
-    }
-
     void OnDestroy() {
         if (heldInput != null) {
             heldInput.Deactivate();
@@ -187,7 +179,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
 public class NullInput : IPlayerInput
 {
     public Transform Player { set { ;} }
-    public void Initialize(PlayerInputHolder holder) { }
+    public void Initialize(MonoBehaviour holder) { }
     public void Deactivate() { }
     public Vector2 movementDirection { get { return Vector2.zero; } }
     public Vector3 rotationDirection { get { return Vector3.zero; } }

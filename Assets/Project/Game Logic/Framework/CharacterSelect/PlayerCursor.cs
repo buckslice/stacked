@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(PhotonView))]
-[RequireComponent(typeof(IPlayerInputHolder))]
-public class PlayerCursor : MonoBehaviour {
+[RequireComponent(typeof(PlayerInputHolder))]
+public class PlayerCursor : MonoBehaviour, ISelection {
 
     [SerializeField]
     public int playerNumber = -1;
@@ -16,6 +17,7 @@ public class PlayerCursor : MonoBehaviour {
     PointerEventData pointer = new PointerEventData(EventSystem.current);
     List<RaycastResult> results = new List<RaycastResult>();
     PlayerInputHolder input;
+    public IPlayerInputHolder Input { get { return input; } }
     
     bool selectionOne = false;
     bool selectionTwo = false;
@@ -24,19 +26,30 @@ public class PlayerCursor : MonoBehaviour {
 
     GameObject playerSetupGO = null;
     ReadyChecker readyChecker;
-    public bool ready { get; set; }
+    public bool Ready { get; set; }
 
     // Use this for initialization
     void Start () {
         input = GetComponent<PlayerInputHolder>();
         readyChecker = GameObject.Find("ReadyChecker").GetComponent<ReadyChecker>();
         readyChecker.AddPlayer(this);
-        ready = false;
+
+        Assert.IsNotNull(BossSetup.Main);
+        readyChecker.LevelToLoad = BossSetup.Main.BossData.sceneName;
+
+        Ready = false;
 	}
 
     public void Initialize(int playerNumber) {
         this.playerNumber = playerNumber;
     }
+
+    //TODO: migrate to use ability system for selection and deselection
+    public bool CanSelect() { return false; }
+    public bool Select(ISelectable data) { return false; }
+
+    public bool CanDeselect() { return false; }
+    public bool Deselect() { return false; }
 
     // Update is called once per frame
     void Update () {
@@ -73,7 +86,7 @@ public class PlayerCursor : MonoBehaviour {
                 leftHalf.color = Color.white;
                 selectionOne = false;
             }
-            ready = false;
+            Ready = false;
         }
 
         if (input.getStartDown && selectionOne && selectionTwo && playerSetupGO == null) {
@@ -84,7 +97,7 @@ public class PlayerCursor : MonoBehaviour {
             pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection1 };
             pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
             playerSetup.playerData = pd;
-            ready = true;
+            Ready = true;
         }
 
 	}

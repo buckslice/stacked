@@ -16,8 +16,9 @@ public class ActivateButtonAfterTime : MonoBehaviour {
     }
 
     protected virtual void Update() {
-        if (Time.time > startTime + time)
+        if (Time.time > startTime + time) {
             SendEvent();
+        }
     }
 
     protected virtual void SendEvent() //can override this for different functionality

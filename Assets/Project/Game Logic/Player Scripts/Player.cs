@@ -3,13 +3,18 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-
+/// <summary>
+/// Interface for anything which contains a PlayerID
+/// </summary>
+public interface IPlayerID {
+    int PlayerID { get; }
+}
 
 /// <summary>
 /// Identifies the object as a player
 /// </summary>
 [System.Serializable]
-public class Player : AbstractDamageTracker {
+public class Player : AbstractDamageTracker, IPlayerID {
 
     [SerializeField]
     protected int playerID;

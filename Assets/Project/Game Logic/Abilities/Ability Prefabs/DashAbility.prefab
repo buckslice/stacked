@@ -71,6 +71,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashDistance: 10
   dashDuration: 0.15
+  dashingObjectPrefab: {fileID: 1000014203157394, guid: f1131dc6e3c98354c9a54dcf54a05656,
+    type: 2}
 --- !u!114 &114000011455461776
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,3 +110,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPrefab: {fileID: 1000011671764720, guid: 0ae874c30b0dfe24595e50af04f4f049, type: 2}
+  vibrationDuration: 0.25
+  vibrationStrength: 1

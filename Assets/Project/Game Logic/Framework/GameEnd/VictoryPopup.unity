@@ -326,7 +326,22 @@ Prefab:
     - target: {fileID: 114000010601255138, guid: f678855c7e7fb8c4f9250e6f84bab918,
         type: 2}
       propertyPath: levelName
-      value: MainMenu
+      value: BossSelect
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013189080698, guid: f678855c7e7fb8c4f9250e6f84bab918,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1338320186}
+    - target: {fileID: 114000013189080698, guid: f678855c7e7fb8c4f9250e6f84bab918,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: activate
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013189080698, guid: f678855c7e7fb8c4f9250e6f84bab918,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f678855c7e7fb8c4f9250e6f84bab918, type: 2}
@@ -353,6 +368,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   time: 3
+--- !u!114 &1338320186 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010601255138, guid: f678855c7e7fb8c4f9250e6f84bab918,
+    type: 2}
+  m_PrefabInternal: {fileID: 1338320182}
+  m_Script: {fileID: 11500000, guid: 7d05596c5bdda754abed6aa65d13dd02, type: 3}
 --- !u!1001 &1876787761
 Prefab:
   m_ObjectHideFlags: 0

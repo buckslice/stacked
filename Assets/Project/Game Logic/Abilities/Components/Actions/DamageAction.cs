@@ -38,7 +38,7 @@ public class DamageAction : TypedTargetedAbilityAction {
     }
 
     public override bool Activate(GameObject target, PhotonStream stream) {
-        target.GetComponent<Damageable>().Damage(damage, trackerReference.GetRootDamageTracker());
+        target.GetComponent<Damageable>().Damage(damage, trackerReference);
         return true;
     }
 }

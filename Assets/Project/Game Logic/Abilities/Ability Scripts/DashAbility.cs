@@ -10,9 +10,13 @@ public class DashAbility : AbstractAbilityAction
     [SerializeField]
     protected float dashDuration = 0.15f;
 
+    [SerializeField]
+    protected GameObject dashingObjectPrefab;
+
     IMovement movement;
     CapsuleCollider coll;
     Rigidbody rigid;
+    AbilityNetworking networking;
 
     int layermask;
     Coroutine activeRoutine;
@@ -23,6 +27,7 @@ public class DashAbility : AbstractAbilityAction
         coll = transform.root.GetComponentInChildren<CapsuleCollider>();
         rigid = GetComponentInParent<Rigidbody>();
         movement = GetComponentInParent<IMovement>();
+        networking = rigid.GetComponent<AbilityNetworking>();
 
         layermask = LayerMask.GetMask(Tags.Layers.StaticGeometry);
     }
@@ -60,29 +65,10 @@ public class DashAbility : AbstractAbilityAction
         float dashMagnitude = dashDirection.magnitude;
         float endTime = startTime + (dashMagnitude / dashDistance) * dashDuration;
 
-        if (activeRoutine != null) {
-            StopCoroutine(activeRoutine);
-        }
-        activeRoutine = StartCoroutine(DurationRoutine(startPosition, endPosition, startTime, endTime));
+        GameObject instantiatedDashingObjectAbility = SimplePool.Spawn(dashingObjectPrefab);
+        DashingObjectAbility dashingObjectAbility = instantiatedDashingObjectAbility.GetComponent<DashingObjectAbility>();
+        dashingObjectAbility.Initialize(transform.position, endPosition, startTime, endTime, networking, movement, rigid);
 
         return true;
-    }
-
-    protected IEnumerator DurationRoutine(Vector3 startPosition, Vector3 endPosition, float startTime, float endTime)
-    {
-        movement.ControlEnabled.AddModifier(false);
-        movement.haltMovement();
-        rigid.rotation = Quaternion.LookRotation(endPosition - startPosition);
-
-        while (Time.time <= endTime)
-        {
-            float lerpProgress = Mathf.InverseLerp(startTime, endTime, Time.time);
-            rigid.MovePosition(Vector3.Lerp(startPosition, endPosition, lerpProgress));
-            yield return null;
-        }
-
-        rigid.MovePosition(endPosition);
-        movement.ControlEnabled.RemoveModifier(false);
-        movement.setVelocity((endPosition - startPosition).normalized);
     }
 }

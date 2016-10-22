@@ -19,9 +19,6 @@ public class AbilityRelay : MonoBehaviour, IAbilityRelay {
 
     protected void Awake() {
         view = GetComponent<PhotonView>();
-    }
-
-    void Start() {
         Assert.IsTrue(GetComponents<IActivationNetworking>().Length == 1);
         relayTarget = GetComponent<IActivationNetworking>();
         relayTarget.Initialize(this, view);

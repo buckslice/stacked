@@ -24,6 +24,7 @@ public class BossSetup : MonoBehaviour
 
     [SerializeField]
     protected BossSetupData bossData;
+    public BossSetupData BossData { get { return bossData; } }
 
     [SerializeField]
     protected Transform spawnPoint;

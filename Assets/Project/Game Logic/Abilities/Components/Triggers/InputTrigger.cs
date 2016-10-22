@@ -54,6 +54,20 @@ public class InputTrigger : MonoBehaviour, IUntargetedAbilityTrigger, IAbilityKe
                 inputValue = playerInput.getAbility2Up;
                 break;
 
+            case AbilityKeybinding.SUBMIT:
+                inputValue = playerInput.getSubmit;
+                break;
+            case AbilityKeybinding.SUBMITDOWN:
+                inputValue = playerInput.getSubmitDown;
+                break;
+
+            case AbilityKeybinding.CANCEL:
+                inputValue = playerInput.getCancel;
+                break;
+            case AbilityKeybinding.CANCELDOWN:
+                inputValue = playerInput.getCancelDown;
+                break;
+
             default:
                 inputValue = false;
                 break;

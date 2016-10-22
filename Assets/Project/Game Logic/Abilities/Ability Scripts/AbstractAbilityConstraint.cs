@@ -102,7 +102,7 @@ public abstract class UntargetedAbilityConstraint : AbstractAbilityAction, ITarg
         Activate();
     }
 
-    public sealed override bool Activate(PhotonStream stream) {
+    public override bool Activate(PhotonStream stream) {
         Activate();
         return false;
     }

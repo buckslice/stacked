@@ -41,7 +41,8 @@ public static class Tags {
         // that way we can choose multiple options for submit or cancel buttons
         // and also have all the keybindings settings in one spot
         public const KeyCode Submit = KeyCode.Space;
-        public const KeyCode Cancel = KeyCode.Backspace;
+        public const KeyCode Cancel1 = KeyCode.Backspace;
+        public const KeyCode Cancel2 = KeyCode.Escape;
         public const KeyCode Start = KeyCode.Return;
         public const KeyCode BasicAttack = KeyCode.LeftShift; 
         public const KeyCode Ability1 = KeyCode.Q; 
@@ -185,6 +186,7 @@ public static class Tags {
     {
         public const string CharacterSelect = "CharacterSelect";
         public const string PlayerRegistration = "PlayerRegistration";
+        public const string BossSelect = "BossSelect";
         public const string DefeatPopup = "DefeatPopup";
         public const string VictoryPopup = "VictoryPopup";
         public const string MainMenu = "MainMenu";

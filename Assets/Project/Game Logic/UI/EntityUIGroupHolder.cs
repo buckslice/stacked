@@ -62,7 +62,10 @@ public class EntityUIGroupHolder : MonoBehaviour {
 
     void Start() {
         if (barType == HealthBarType.PLAYER) {
-            Player player = (Player)GetComponent<IDamageHolder>().DamageTracker;
+            IPlayerID player = GetComponent<IPlayerID>();
+            if (player == null) {
+                player = (Player)GetComponent<IDamageHolder>().DamageTracker;
+            }
             CanvasHelper.PositionPlayerEntityGroup(instantiatedEntityGroupTransform, player.PlayerID);
         }
     }

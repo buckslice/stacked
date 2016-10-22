@@ -27,7 +27,8 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public string horizontalMovementAxis = Tags.Input.Horizontal;
     public string verticalMovementAxis = Tags.Input.Vertical;
     public KeyCode submitKey = Tags.Input.Submit;
-    public KeyCode cancelKey = Tags.Input.Cancel;
+    public KeyCode cancelKey1 = Tags.Input.Cancel1;
+    public KeyCode cancelKey2 = Tags.Input.Cancel2;
     public KeyCode startKey = Tags.Input.Start;
     public KeyCode basicAttackKey = Tags.Input.BasicAttack;
     public KeyCode ability1Key = Tags.Input.Ability1;
@@ -35,7 +36,7 @@ public class KeyboardMousePlayerInput : IPlayerInput
 
     Transform player;
     public Transform Player { set { player = value; } }
-    public void Initialize(PlayerInputHolder holder) { }
+    public void Initialize(MonoBehaviour holder) { }
     public void Deactivate() { }
 
     public Vector2 movementDirection
@@ -61,14 +62,14 @@ public class KeyboardMousePlayerInput : IPlayerInput
         }
     }
     public bool getSubmit { get { return Input.GetKey(submitKey); } }
-    public bool getCancel { get { return Input.GetKey(cancelKey); } }
+    public bool getCancel { get { return Input.GetKey(cancelKey1) || Input.GetKey(cancelKey2); } }
     public bool getStart { get { return Input.GetKey(startKey); } }
     public bool getBasicAttack { get { return Input.GetKey(basicAttackKey); } }
     public bool getAbility1 { get { return Input.GetKey(ability1Key); } }// || Input.GetMouseButton(0); } }
     public bool getAbility2 { get { return Input.GetKey(ability2Key); } }// || Input.GetMouseButton(1); } }
 
     public bool getSubmitDown { get { return Input.GetKeyDown(submitKey); } }
-    public bool getCancelDown { get { return Input.GetKeyDown(cancelKey); } }
+    public bool getCancelDown { get { return Input.GetKeyDown(cancelKey1) || Input.GetKeyDown(cancelKey2); } }
     public bool getStartDown { get { return Input.GetKeyDown(startKey); } }
     public bool getBasicAttackDown { get { return Input.GetKeyDown(basicAttackKey); } }
     public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
@@ -91,7 +92,8 @@ public class KeyboardMousePlayerInput : IPlayerInput
             this.verticalMovementAxis.Equals(item.verticalMovementAxis) &&
             this.horizontalMovementAxis.Equals(item.horizontalMovementAxis) &&
             this.submitKey == item.submitKey &&
-            this.cancelKey == item.cancelKey &&
+            this.cancelKey1 == item.cancelKey1 &&
+            this.cancelKey2 == item.cancelKey2 &&
             this.startKey == item.startKey &&
             this.basicAttackKey == item.basicAttackKey &&
             this.ability1Key == item.ability1Key &&
@@ -103,7 +105,8 @@ public class KeyboardMousePlayerInput : IPlayerInput
             this.verticalMovementAxis.GetHashCode() *
             this.horizontalMovementAxis.GetHashCode() *
             this.submitKey.GetHashCode() *
-            this.cancelKey.GetHashCode() *
+            this.cancelKey1.GetHashCode() *
+            this.cancelKey2.GetHashCode() *
             this.startKey.GetHashCode() *
             this.basicAttackKey.GetHashCode() *
             this.ability1Key.GetHashCode() *
