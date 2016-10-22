@@ -141,7 +141,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     private IPlayerInput heldInput;
     public virtual IPlayerInput HeldInput {
         get { return heldInput; }
-        set { heldInput = value; heldInput.Initialize(this); }
+        set { heldInput = value; heldInput.Initialize(this); heldInput.Player = this.transform; }
     }
 
     public Vector2 movementDirection { get { return HeldInput.movementDirection; } }
@@ -164,14 +164,6 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getBasicAttackUp { get { return HeldInput.getBasicAttackUp; } }
     public bool getAbility1Up { get { return HeldInput.getAbility1Up; } }
     public bool getAbility2Up { get { return HeldInput.getAbility2Up; } }
-
-    void Start()
-    {
-        if (HeldInput != null)
-        {
-            HeldInput.Player = this.transform;
-        }
-    }
 
     void OnDestroy() {
         if (heldInput != null) {

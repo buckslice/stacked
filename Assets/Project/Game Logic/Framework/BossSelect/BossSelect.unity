@@ -165,7 +165,7 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 41749226}
---- !u!1001 &75682156
+--- !u!1001 &91079745
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -270,16 +270,6 @@ Prefab:
     - target: {fileID: 114000012254337412, guid: 5f8c61848f6742041b07bbd75edf5e9d,
         type: 2}
       propertyPath: instantiationId
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000013299265976, guid: 5f8c61848f6742041b07bbd75edf5e9d,
-        type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000013299265976, guid: 5f8c61848f6742041b07bbd75edf5e9d,
-        type: 2}
-      propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1331,7 +1321,7 @@ Transform:
 RectTransform:
   m_PrefabParentObject: {fileID: 224000013299265976, guid: 5f8c61848f6742041b07bbd75edf5e9d,
     type: 2}
-  m_PrefabInternal: {fileID: 75682156}
+  m_PrefabInternal: {fileID: 91079745}
 --- !u!1 &1663641095
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
         targetMovement.haltMovement();
         targetMovement.MovementInputEnabled.AddModifier(false);
 
-        foreach (IMovementOverride movementOverride in targetNetworking.transform.GetComponentsInChildren<IMovementOverride>()) {
+        foreach (IMovementOverride movementOverride in this.targetNetworking.transform.GetComponentsInChildren<IMovementOverride>()) {
             movementOverride.Disable();
         }
 
