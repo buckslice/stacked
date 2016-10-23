@@ -14,67 +14,115 @@ public enum ZoneType {
 }
 
 public class Zone : MonoBehaviour {
+    // WARNING : THIS CLASS USES CUSTOM EDITOR SO NEW VARIABLES WONT APPEAR WITHOUT ADDING TO THAT CLASS
+    public ZoneShape shape;
     public ZoneType type;
     public float healthChange = 1.0f;
-    public float duration = 3.0f;
+    public float duration = 10.0f;  // changes meaning depending on zonetype
+
+    public ParticleSystem ps;
+
+    public bool isTelegraphed = false;
+    public ParticleSystem tps;
+    public float telegraphDuration = 3.0f;
+
+    // add particle system for telegraphing
+    // and particle system for once zone is active
+    // bool hasTelegraph (opens up options)
+    // add flexibility to work with gameobjects that have subparticle systems
+    // add velocity to these! so you can have lines that you have to jump over
 
     float durTimer = 0.0f;
-    ZoneShape shape;
 
     // TODO : change to max player count, also pool these zones
     Collider[] buffer = new Collider[10];
     Collider col;
-    ParticleSystem ps;
 
     bool dying = false;
+    bool setup = false;
+
+    float origPSVolume;
 
     // Use this for initialization
     void Awake() {
-        col = GetComponent<Collider>();
-        if(col.GetType() == typeof(BoxCollider)) {  // square uses short box collider 
-            shape = ZoneShape.SQUARE;
-        } else {    // circle uses sphere collider for now, could add in custom puck shaped collider
-            shape = ZoneShape.CIRCLE;
+        Debug.Assert(ps, "Zone needs a particle system prefab");
+        // reassign here so we dont edit the original prefab, but instead the copy of the prefab
+        ps = (ParticleSystem)Instantiate(ps, transform, false);
+
+        // save original particle system scale
+        // make sure scales are at least 1 and then calc volume
+        Vector3 psScale = ps.transform.localScale;
+        psScale.x = Mathf.Max(1.0f, psScale.x);
+        psScale.y = Mathf.Max(1.0f, psScale.y);
+        psScale.z = Mathf.Max(1.0f, psScale.z);
+        origPSVolume = psScale.x * psScale.y * psScale.z;
+
+        ParticleSystem.ShapeModule pssm = ps.shape;
+        if (shape == ZoneShape.SQUARE) {
+            BoxCollider bc = gameObject.AddComponent<BoxCollider>();
+            Vector3 halfUp = Vector3.up * 0.5f;
+            bc.center = halfUp;
+            col = bc;
+
+            ps.transform.localPosition = halfUp;
+            ps.transform.localRotation = Quaternion.identity;
+            ps.transform.localScale = Vector3.one;
+            pssm.shapeType = ParticleSystemShapeType.Box;
+        } else if (shape == ZoneShape.CIRCLE) { // circle uses sphere collider for now, could add in custom puck shaped collider
+            col = gameObject.AddComponent<SphereCollider>();
+
+            ps.transform.localPosition = Vector3.zero;
+            ps.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
+            ps.transform.localScale = new Vector3(1.0f, 1.0f, 0.0f);
+            pssm.shapeType = ParticleSystemShapeType.Hemisphere;
         }
-        ps = GetComponentInChildren<ParticleSystem>();
     }
 
     // sets position and size of zone
     // position is specified by the bottom center
     // size is width height length
     public void Setup(Vector3 position, Vector3 scale) {
-        if(shape == ZoneShape.CIRCLE) { // makes sure scale vector for circles is uniform
+        if (shape == ZoneShape.CIRCLE) { // makes sure scale vector for circles is uniform
             float maxDim = Mathf.Max(scale.x, Mathf.Max(scale.y, scale.z));
             scale = Vector3.one * maxDim;
         }
-
-        // calculate original bounding volume of zone
-        Vector3 origScale = transform.localScale;
-        Vector3 origSize = col.bounds.size;
-        float origVolume = origSize.x * 1.0f * origSize.z; // basically just an area for now
 
         // set new position and scale
         transform.position = position;
         transform.localScale = scale;
 
-        Vector3 newSize = col.bounds.size;
-        float newVolume = newSize.x * 1.0f * newSize.z;
+        Vector3 colSize = col.bounds.size;
+        float ySize = shape == ZoneShape.CIRCLE ? 1.0f : colSize.y;
+        float colVolume = colSize.x * ySize * colSize.z;
 
         // scales the particle system to the volume of the collider
-        // but bases it off of old volume and settings
+        // but bases it off of old particle system volume and settings
         ParticleSystem.EmissionModule psem = ps.emission;
-        float newRate = psem.rate.constant * newVolume / origVolume;
+        float newRate = psem.rate.constant * colVolume / origPSVolume;
         psem.rate = newRate;
         ps.maxParticles = (int)(newRate * ps.startLifetime);
 
-        ps.Play();  // play on awake is disabled since emission rate is being set after initialization
-        // this is so the prewarm option will work correctly
+        if (!isTelegraphed) {
+            ps.Play();  // play on awake is disabled since emission rate is being set after initialization
+                        // this is so the prewarm option will work correctly (prewarm is still optional though)
+        } else {
+            //psem = tps.emission;
+            //newRate = psem.rate.constant * colVolume / origTPSVolume;
+            //psem.rate = newRate;
+            //tps.maxParticles = (int)(newRate * tps.startLifetime);
+
+            //tps.Play();
+        }
+        setup = true;
     }
 
     // Update is called once per frame
     void Update() {
         if (dying) {
             return;
+        }
+        if (!setup) {   // if not setup by now then just call setup with current transform
+            Setup(transform.position, transform.localScale);
         }
 
         durTimer += Time.deltaTime;
