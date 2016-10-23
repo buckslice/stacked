@@ -87,7 +87,7 @@
 
 				float4 result = lerp(_Color, _HighlightColor, Clamp * Pow * _Strength);
 
-				result.a *= Clamp * Pow * _Strength * Tex2D.a;
+				result.a *= Clamp * Pow * _Strength * Tex2D.r;
 
 				return result;
 			}
