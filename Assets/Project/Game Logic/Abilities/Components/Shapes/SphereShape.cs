@@ -3,9 +3,6 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Technically overlap wedge, but cone is more intuitive.
-/// </summary>
 public class SphereShape : MonoBehaviour, IShape {
 
     [SerializeField]
