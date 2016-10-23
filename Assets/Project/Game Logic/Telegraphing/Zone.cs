@@ -65,6 +65,7 @@ public class Zone : MonoBehaviour {
         float origVolume = psScale.x * psScale.y * psScale.z;
 
         ParticleSystem.ShapeModule pssm = ps.shape;
+
         if (shape == ZoneShape.SQUARE) {
             ps.transform.localPosition = Vector3.up * 0.5f;
             ps.transform.localRotation = Quaternion.identity;
@@ -74,7 +75,9 @@ public class Zone : MonoBehaviour {
             ps.transform.localPosition = Vector3.zero;
             ps.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
             ps.transform.localScale = new Vector3(1.0f, 1.0f, 0.0f);
-            pssm.shapeType = ParticleSystemShapeType.Hemisphere;
+            if (pssm.shapeType != ParticleSystemShapeType.Circle) { // todo: need to figure out better way to handle different kinds of shapes
+                pssm.shapeType = ParticleSystemShapeType.Hemisphere;
+            }
         }
 
         // scales the particle system to the volume of the collider based off its original volume
@@ -167,8 +170,7 @@ public class Zone : MonoBehaviour {
             Vector3 worldCenter = transform.position + Vector3.up * half.y;
             count = Physics.OverlapBoxNonAlloc(worldCenter, half, buffer);
         } else {
-            Vector3 scale = transform.localScale;
-            float radius = Mathf.Max(scale.x, Mathf.Max(scale.y, scale.z));
+            float radius = transform.localScale.x / 2.0f;   // each component of scale vector is same
             count = Physics.OverlapSphereNonAlloc(transform.position, radius, buffer);
         }
         
