@@ -20,17 +20,14 @@ public class Zone : MonoBehaviour {
     public float healthChange = 1.0f;
     public float duration = 10.0f;  // changes meaning depending on zonetype
 
-    public ParticleSystem ps;
+    public ParticleSystem mainParticles;
 
     public bool isTelegraphed = false;
-    public ParticleSystem tps;
+    public ParticleSystem telegraphParticles;
     public float telegraphDuration = 3.0f;
 
-    // add particle system for telegraphing
-    // and particle system for once zone is active
-    // bool hasTelegraph (opens up options)
-    // add flexibility to work with gameobjects that have subparticle systems
-    // add velocity to these! so you can have lines that you have to jump over
+    // todo: add flexibility to work with gameobjects that have subparticle systems
+    // todo: add velocity / movement so you can have death lines that you have to jump over or wandering fires
 
     float durTimer = 0.0f;
 
@@ -39,14 +36,24 @@ public class Zone : MonoBehaviour {
     Collider col;
 
     bool dying = false;
-    bool setup = false;
-
-    float origPSVolume;
+    bool setup = false; // for auto setup if Setup() is not called
 
     // Use this for initialization
     void Awake() {
-        Debug.Assert(ps, "Zone needs a particle system prefab");
-        // reassign here so we dont edit the original prefab, but instead the copy of the prefab
+        Debug.Assert(mainParticles, "Zone needs a particle system prefab");
+
+        if (shape == ZoneShape.SQUARE) {
+            BoxCollider bc = gameObject.AddComponent<BoxCollider>();
+            bc.center = Vector3.up * 0.5f;
+            col = bc;
+        } else if (shape == ZoneShape.CIRCLE) { // circle uses sphere collider for now, could add in custom puck shaped collider
+            col = gameObject.AddComponent<SphereCollider>();
+        }
+        col.isTrigger = true;
+    }
+
+    void SetupParticleSystem(ref ParticleSystem ps, float scaleToVolume) {
+        // reassign here so we dont edit the original prefab, but instead the copy of the prefab (this is why ref)
         ps = (ParticleSystem)Instantiate(ps, transform, false);
 
         // save original particle system scale
@@ -55,27 +62,42 @@ public class Zone : MonoBehaviour {
         psScale.x = Mathf.Max(1.0f, psScale.x);
         psScale.y = Mathf.Max(1.0f, psScale.y);
         psScale.z = Mathf.Max(1.0f, psScale.z);
-        origPSVolume = psScale.x * psScale.y * psScale.z;
+        float origVolume = psScale.x * psScale.y * psScale.z;
 
         ParticleSystem.ShapeModule pssm = ps.shape;
         if (shape == ZoneShape.SQUARE) {
-            BoxCollider bc = gameObject.AddComponent<BoxCollider>();
-            Vector3 halfUp = Vector3.up * 0.5f;
-            bc.center = halfUp;
-            col = bc;
-
-            ps.transform.localPosition = halfUp;
+            ps.transform.localPosition = Vector3.up * 0.5f;
             ps.transform.localRotation = Quaternion.identity;
             ps.transform.localScale = Vector3.one;
             pssm.shapeType = ParticleSystemShapeType.Box;
         } else if (shape == ZoneShape.CIRCLE) { // circle uses sphere collider for now, could add in custom puck shaped collider
-            col = gameObject.AddComponent<SphereCollider>();
-
             ps.transform.localPosition = Vector3.zero;
             ps.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
             ps.transform.localScale = new Vector3(1.0f, 1.0f, 0.0f);
             pssm.shapeType = ParticleSystemShapeType.Hemisphere;
         }
+
+        // scales the particle system to the volume of the collider based off its original volume
+        ParticleSystem.EmissionModule psem = ps.emission;
+        float ratio = scaleToVolume / origVolume;
+
+        // scale rate
+        if (psem.rate.constant > 0) {   // only do if constant rate is being used (todo: curves)
+            psem.rate = psem.rate.constant * ratio;
+        }
+        // scale bursts (if any)
+        if (psem.burstCount > 0) {
+            ParticleSystem.Burst[] bursts = new ParticleSystem.Burst[psem.burstCount];
+            psem.GetBursts(bursts);
+            for (int i = 0; i < bursts.Length; ++i) {
+                bursts[i].minCount = (short)(bursts[i].minCount * ratio);
+                bursts[i].maxCount = (short)(bursts[i].maxCount * ratio);
+            }
+            psem.SetBursts(bursts);
+        }
+        // scale max particles
+        ps.maxParticles = (int)(ps.maxParticles * ratio);
+
     }
 
     // sets position and size of zone
@@ -95,24 +117,17 @@ public class Zone : MonoBehaviour {
         float ySize = shape == ZoneShape.CIRCLE ? 1.0f : colSize.y;
         float colVolume = colSize.x * ySize * colSize.z;
 
-        // scales the particle system to the volume of the collider
-        // but bases it off of old particle system volume and settings
-        ParticleSystem.EmissionModule psem = ps.emission;
-        float newRate = psem.rate.constant * colVolume / origPSVolume;
-        psem.rate = newRate;
-        ps.maxParticles = (int)(newRate * ps.startLifetime);
+        // setup particles
+        SetupParticleSystem(ref mainParticles, colVolume);
 
         if (!isTelegraphed) {
-            ps.Play();  // play on awake is disabled since emission rate is being set after initialization
-                        // this is so the prewarm option will work correctly (prewarm is still optional though)
+            mainParticles.Play();  // play on awake is disabled since emission rate is being set after initialization
+            // this is so the prewarm option will work correctly (prewarm is still optional though)
         } else {
-            //psem = tps.emission;
-            //newRate = psem.rate.constant * colVolume / origTPSVolume;
-            //psem.rate = newRate;
-            //tps.maxParticles = (int)(newRate * tps.startLifetime);
-
-            //tps.Play();
+            SetupParticleSystem(ref telegraphParticles, colVolume);
+            telegraphParticles.Play();
         }
+
         setup = true;
     }
 
@@ -125,12 +140,22 @@ public class Zone : MonoBehaviour {
             Setup(transform.position, transform.localScale);
         }
 
-        durTimer += Time.deltaTime;
-        if (durTimer >= duration) {
-            if (type == ZoneType.EXPLODE_AFTER_TIMER) {
-                DamageAllPlayersInContact();
+        if (isTelegraphed) {
+            durTimer += Time.deltaTime;
+            if (durTimer >= telegraphDuration) {
+                durTimer = 0.0f;
+                isTelegraphed = false;
+                telegraphParticles.Stop();
+                mainParticles.Play();
             }
-            DestroyZone();
+        } else {
+            durTimer += Time.deltaTime;
+            if (durTimer >= duration) {
+                if (type == ZoneType.EXPLODE_AFTER_TIMER) {
+                    DamageAllPlayersInContact();
+                }
+                DestroyZone();
+            }
         }
     }
 
@@ -155,6 +180,9 @@ public class Zone : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider c) {
+        if (isTelegraphed) {
+            return;
+        }
         if (type == ZoneType.EXPLODE_ON_CONTACT && c.CompareTag(Tags.Player)) {
             DamageAllPlayersInContact();
             DestroyZone();
@@ -162,19 +190,21 @@ public class Zone : MonoBehaviour {
     }
 
     void OnTriggerStay(Collider c) {
-        if ((type == ZoneType.DAMAGE_OVER_TIME || type == ZoneType.HEALING_OVER_TIME) 
-            && c.CompareTag(Tags.Player)) {
+        if (isTelegraphed) {
+            return;
+        }
+        if ((type == ZoneType.DAMAGE_OVER_TIME || type == ZoneType.HEALING_OVER_TIME) && c.CompareTag(Tags.Player)) {
             c.GetComponent<Damageable>().Damage(healthChange * Time.fixedDeltaTime);
         }
     }
 
-    // destroys this object after the particle system runs its course
+    // destroys this object after the particle system ends
     void DestroyZone() {
         if (!dying) {
             dying = true;
             Destroy(col);
-            ps.Stop();
-            Destroy(gameObject, ps.startLifetime);
+            mainParticles.Stop();
+            Destroy(gameObject, mainParticles.startLifetime);
         }
     }
 }

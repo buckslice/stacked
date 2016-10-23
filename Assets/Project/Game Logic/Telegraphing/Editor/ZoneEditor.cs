@@ -32,13 +32,13 @@ public class ZoneEditor : Editor {
                 break;
         }
 
-        targ.ps = (ParticleSystem)EditorGUILayout.ObjectField("Particle System Prefab", targ.ps, typeof(ParticleSystem), false, null);
+        targ.mainParticles = (ParticleSystem)EditorGUILayout.ObjectField("Particle System Prefab", targ.mainParticles, typeof(ParticleSystem), false, null);
 
         GUIContent teleMsg = new GUIContent("Is Telegraphed", "Should this zone have a warning visual before it activates?");
         targ.isTelegraphed = EditorGUILayout.Toggle(teleMsg, targ.isTelegraphed);
 
         if (targ.isTelegraphed) {
-            targ.tps = (ParticleSystem)EditorGUILayout.ObjectField("Telegraph Particle System Prefab", targ.ps, typeof(ParticleSystem), false, null);
+            targ.telegraphParticles = (ParticleSystem)EditorGUILayout.ObjectField("Telegraph Particle System Prefab", targ.telegraphParticles, typeof(ParticleSystem), false, null);
             
             targ.telegraphDuration = EditorGUILayout.FloatField("Telegraph Duration", targ.telegraphDuration);
         }

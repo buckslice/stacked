@@ -619,9 +619,11 @@ MonoBehaviour:
   type: 1
   healthChange: 1
   duration: 10
-  ps: {fileID: 198000011176699614, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
+  mainParticles: {fileID: 198000011176699614, guid: 3dae0d1eac736e14e81decb937b7b166,
+    type: 2}
   isTelegraphed: 0
-  tps: {fileID: 198000011176699614, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
+  telegraphParticles: {fileID: 198000013205184064, guid: 731a2f1ee4706fb4fb025d0b8690ce66,
+    type: 2}
   telegraphDuration: 3
 --- !u!4 &757390827
 Transform:
@@ -723,19 +725,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000014070986834, guid: 5bf269969c303ec4f8f9fc85a07c1f8a, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.28678817
+      value: 0.053508658
       objectReference: {fileID: 0}
     - target: {fileID: 4000014070986834, guid: 5bf269969c303ec4f8f9fc85a07c1f8a, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.28678817
+      value: 0.93849635
       objectReference: {fileID: 0}
     - target: {fileID: 4000014070986834, guid: 5bf269969c303ec4f8f9fc85a07c1f8a, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.09042394
+      value: -0.2959067
       objectReference: {fileID: 0}
     - target: {fileID: 4000014070986834, guid: 5bf269969c303ec4f8f9fc85a07c1f8a, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.90957606
+      value: 0.16970782
       objectReference: {fileID: 0}
     - target: {fileID: 4000014070986834, guid: 5bf269969c303ec4f8f9fc85a07c1f8a, type: 2}
       propertyPath: m_RootOrder
@@ -747,7 +749,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000014070986834, guid: 5bf269969c303ec4f8f9fc85a07c1f8a, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 35
+      value: 159.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5bf269969c303ec4f8f9fc85a07c1f8a, type: 2}
@@ -795,7 +797,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: d23a43f5c08847f4eaf6de8fd6c927ef, type: 2}
+  - {fileID: 2100000, guid: 498df865931c165488496c9089edb73c, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -926,52 +928,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1411238128}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1484924669
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4000010509454868, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010509454868, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010509454868, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010509454868, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010509454868, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010509454868, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010509454868, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010509454868, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000013271178526, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
-      propertyPath: m_Name
-      value: VoidFireTelegraph
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 3dae0d1eac736e14e81decb937b7b166, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1512635777
 GameObject:
   m_ObjectHideFlags: 0
@@ -1255,7 +1211,7 @@ Prefab:
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
       propertyPath: bossData.abilities.Array.data[1]
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
