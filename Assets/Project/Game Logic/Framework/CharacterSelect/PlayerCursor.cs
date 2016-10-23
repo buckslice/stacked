@@ -19,8 +19,8 @@ public class PlayerCursor : MonoBehaviour, ISelection {
     PlayerInputHolder input;
     public IPlayerInputHolder Input { get { return input; } }
     
-    bool selectionOne = false;
-    bool selectionTwo = false;
+    bool selected1 = false;
+    bool selected2 = false;
     PlayerSetupNetworkedData.AbilityId selection1;
     PlayerSetupNetworkedData.AbilityId selection2;
 
@@ -64,14 +64,17 @@ public class PlayerCursor : MonoBehaviour, ISelection {
             for(int i = 0; i < results.Count; ++i) {
                 GameObject rgo = results[i].gameObject;
                 if (rgo.CompareTag("AbilityIcon")) {
-                    if (selectionOne) {
+                    if (selected1) {
                         selection2 = rgo.GetComponent<CharacterSelectIcon>().ability;
+                        if(selection1 == selection2) {  // cant select two of same ability
+                            break;
+                        }
                         rightHalf.color = rgo.GetComponent<Image>().color;
-                        selectionTwo = true;
+                        selected2 = true;
                     } else {
                         selection1 = rgo.GetComponent<CharacterSelectIcon>().ability;
                         leftHalf.color = rgo.GetComponent<Image>().color;
-                        selectionOne = true;
+                        selected1 = true;
                     }
                 }
             }
@@ -79,17 +82,17 @@ public class PlayerCursor : MonoBehaviour, ISelection {
         if (input.getCancelDown) {
             if (playerSetupGO) {
                 Destroy(playerSetupGO);
-            }else if (selectionTwo) {
-                selectionTwo = false;
+            }else if (selected2) {
+                selected2 = false;
                 rightHalf.color = Color.white;
-            } else if (selectionOne) {
+            } else if (selected1) {
                 leftHalf.color = Color.white;
-                selectionOne = false;
+                selected1 = false;
             }
             Ready = false;
         }
 
-        if (input.getStartDown && selectionOne && selectionTwo && playerSetupGO == null) {
+        if (input.getStartDown && selected1 && selected2 && playerSetupGO == null) {
             playerSetupGO = new GameObject();
             PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
             playerSetup.Initalize(input.HeldInput, playerNumber);
