@@ -83,7 +83,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   duration:
     baseValue: 3
-  zonePrefab: {fileID: 1000010536425790, guid: c19a98b999d33384fa61b4eaf35956ca, type: 2}
+  zonePrefab: {fileID: 1000014138765248, guid: 71d0f7058e21f2d418b8104f5e5f5c4f, type: 2}
   zonesToSpawn: 9
 --- !u!114 &114000014185527938
 MonoBehaviour:

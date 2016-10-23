@@ -22,6 +22,7 @@ public class AutomaticallyRegisteredKeyboardPlayer : RegisteredPlayer {
         }
         inputBindings = new KeyboardMousePlayerInput();
 
-        Assert.IsTrue(R41DNetworking.Main.NetworkingMode != R41DNetworkingMode.ONLINE, "Automatic Setups will not work correctly over the network."); //we aren't hooked up correctly for online
+        // this is a race condition with R41DNetworking.Main initialization (both in Awake)
+        //Assert.IsTrue(R41DNetworking.Main.NetworkingMode != R41DNetworkingMode.ONLINE, "Automatic Setups will not work correctly over the network."); //we aren't hooked up correctly for online
     }
 }

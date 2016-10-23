@@ -31,13 +31,13 @@ public class BossAggro : MonoBehaviour {
     /// <summary>
     /// Time this object was created, for tracking.
     /// </summary>
-    float createTime;
+    //float createTime; // disabled until needed to avoid errors
 
     // Use this for initialization
     void Start() {
         agent = GetComponent<NavMeshAgent>();
 
-        createTime = Time.time;
+        //createTime = Time.time;
 
         foreach (Health health in GetComponentsInChildren<Health>()) {
             health.onDamage += health_onDamage;

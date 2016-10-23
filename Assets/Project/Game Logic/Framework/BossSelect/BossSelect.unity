@@ -272,6 +272,11 @@ Prefab:
       propertyPath: instantiationId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011394664140, guid: 5f8c61848f6742041b07bbd75edf5e9d,
+        type: 2}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f8c61848f6742041b07bbd75edf5e9d, type: 2}
   m_IsPrefabParent: 0
@@ -1246,7 +1251,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2fbfc9b690053c41bf1727980caa374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camFollowDist: 15
 --- !u!4 &1457707086
 Transform:
   m_ObjectHideFlags: 0

@@ -10,11 +10,7 @@ public class CameraController : MonoBehaviour {
     private Camera mainCam;
     private Transform camTransform;
 
-    private readonly Vector3 padding = Vector3.one * 5.0f;
-
-    // TODO make this change based on size of players bounds
-    // that way if players are far apart camera will zoom out more to see them all
-    public float camFollowDist = 30.0f;
+    private readonly Vector3 padding = Vector3.one * 4.0f;
 
 	// Use this for initialization
 	void Start () {
@@ -53,6 +49,9 @@ public class CameraController : MonoBehaviour {
         if(dir.sqrMagnitude > 1.0f) {
             dir.Normalize();
         }
+
+        float maxBoundsDim = Mathf.Max(bounds.size.x, Mathf.Max(bounds.size.y, bounds.size.z));
+        float camFollowDist = maxBoundsDim;
 
         // set target to follow center without getting too close and then look at center
         Vector3 targetPos = camTransform.position + dir * (camFollowDist - xzDist);
