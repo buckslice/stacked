@@ -107,7 +107,8 @@ public class BossAggro : MonoBehaviour {
 
     public void SetTaunt(Player taunter) {
         //reset and randomize all existing aggro
-        foreach (int playerID in aggroTable.Keys) {
+        List<int> playerIDs = new List<int>(aggroTable.Keys); //duplicate to not modify the collection we are iterating over
+        foreach (int playerID in playerIDs) {
             aggroTable[playerID] = aggroToSurpass * Random.value;
         }
 
