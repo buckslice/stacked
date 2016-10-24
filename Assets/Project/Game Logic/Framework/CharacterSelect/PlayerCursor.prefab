@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerNumber: -1
-  moveSpeed: 3
+  moveSpeed: 500
   leftHalf: {fileID: 114000013525898108}
   rightHalf: {fileID: 114000012120512088}
 --- !u!114 &114000012120512088

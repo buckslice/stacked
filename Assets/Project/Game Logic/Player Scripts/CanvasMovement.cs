@@ -54,7 +54,7 @@ public class CanvasMovement : MonoBehaviour {
         if (!view.isMine) {
             UpdatePositionNetworked();
         } else {
-            UpdatePositionInput(); transform.position += (Vector3)input.movementDirection * speed * Screen.width / 800.0f;
+            UpdatePositionInput();
         }
     }
 
@@ -62,7 +62,7 @@ public class CanvasMovement : MonoBehaviour {
     /// Updates our current position based off of player input.
     /// </summary>
     void UpdatePositionInput() {
-        Vector2 newPosition = rectTransform.anchoredPosition3D + (Vector3)input.movementDirection * speed * Screen.width / 800.0f;
+        Vector2 newPosition = rectTransform.anchoredPosition3D + (Vector3)input.movementDirection * speed *Time.deltaTime* Screen.width / 800.0f;
 
         newPosition.x = Mathf.Clamp(newPosition.x, 0, canvasRoot.rect.width);
         newPosition.y = Mathf.Clamp(newPosition.y, 0, canvasRoot.rect.height);
