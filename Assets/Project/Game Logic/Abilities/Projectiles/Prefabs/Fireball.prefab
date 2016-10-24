@@ -78,6 +78,7 @@ GameObject:
   - 114: {fileID: 114000011129702358}
   - 114: {fileID: 114000013116727130}
   - 114: {fileID: 114000011371509312}
+  - 114: {fileID: 114000012915792848}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -256,6 +257,18 @@ MonoBehaviour:
   - {fileID: 114000013708613912}
   - {fileID: 114000010886602706}
   - {fileID: 114000013665024618}
+--- !u!114 &114000012915792848
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014041105046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3cf14eee7208794bbdaebd59b41a8d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1000010258250396, guid: d6544570f0009874ab47e0f93fdcb1d6, type: 2}
 --- !u!114 &114000013116727130
 MonoBehaviour:
   m_ObjectHideFlags: 1

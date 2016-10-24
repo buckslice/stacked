@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Superclass for any component which needs to deal with the lifetime of a projectile.
 /// </summary>
-public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable {
+public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDespawnable {
 
     PhotonView view;
 
