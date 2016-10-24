@@ -18,6 +18,10 @@ public class AbilityDisplay : MonoBehaviour {
     [SerializeField]
     protected Color notReadyColor = Color.grey;
 
+    public void Initialize(Sprite imageTex) {
+        background.overrideSprite = imageTex;
+    }
+
     public void setCooldownProgress(float progress) {
         mask.fillAmount = 1 - progress;
     }
