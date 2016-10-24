@@ -69,10 +69,17 @@ public class PlayerCursor : MonoBehaviour, ISelection {
                         if(selection1 == selection2) {  // cant select two of same ability
                             break;
                         }
+
                         rightHalf.color = rgo.GetComponent<Image>().color;
                         selected2 = true;
                     } else {
-                        selection1 = rgo.GetComponent<CharacterSelectIcon>().ability;
+
+                        PlayerSetupNetworkedData.AbilityId newSelection = rgo.GetComponent<CharacterSelectIcon>().ability;
+                        if (selection1 == newSelection) {  // cant select two of same ability
+                            break;
+                        }
+
+                        selection1 = newSelection;
                         leftHalf.color = rgo.GetComponent<Image>().color;
                         selected1 = true;
                     }
