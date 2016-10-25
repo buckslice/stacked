@@ -40,11 +40,11 @@ public class ControllerPlayerInput : IPlayerInput {
     private float previousBasicAttackDownTime = 0;
     private float previousBasicAttackUpTime = 0;
 
-    private KeyCode submitKey = Tags.Input.Joystick1.AButton;
-    private KeyCode cancelKey = Tags.Input.Joystick1.BButton;
-    private KeyCode startKey = Tags.Input.Joystick1.Start;
-    private KeyCode ability1Key = Tags.Input.Joystick1.LeftBumper;
-    private KeyCode ability2Key = Tags.Input.Joystick1.RightBumper;
+    private KeyCode submitKey = Tags.Input.Joystick1.button0;
+    private KeyCode cancelKey = Tags.Input.Joystick1.button1;
+    private KeyCode startKey = Tags.Input.Joystick1.button7;
+    private KeyCode ability1Key = Tags.Input.Joystick1.button4;
+    private KeyCode ability2Key = Tags.Input.Joystick1.button5;
 
     MonoBehaviour holder;
 
@@ -66,11 +66,11 @@ public class ControllerPlayerInput : IPlayerInput {
                 horizontalAimingAxis = Tags.Input.Joystick1.HorizontalAiming;
                 verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
                 basicAttackAxis = Tags.Input.Joystick1.RightTrigger;
-                submitKey = Tags.Input.Joystick1.AButton;
-                cancelKey = Tags.Input.Joystick1.BButton;
-                startKey = Tags.Input.Joystick1.Start;
-                ability1Key = Tags.Input.Joystick1.LeftBumper;
-                ability2Key = Tags.Input.Joystick1.RightBumper;
+                submitKey = Tags.Input.Joystick1.button0;
+                cancelKey = Tags.Input.Joystick1.button1;
+                startKey = Tags.Input.Joystick1.button7;
+                ability1Key = Tags.Input.Joystick1.button4;
+                ability2Key = Tags.Input.Joystick1.button5;
                 break;
             case PlayerIndex.Two:
                 horizontalMovementAxis = Tags.Input.Joystick2.HorizontalMovement;
@@ -78,11 +78,11 @@ public class ControllerPlayerInput : IPlayerInput {
                 horizontalAimingAxis = Tags.Input.Joystick2.HorizontalAiming;
                 verticalAimingAxis = Tags.Input.Joystick2.VerticalAiming;
                 basicAttackAxis = Tags.Input.Joystick2.RightTrigger;
-                submitKey = Tags.Input.Joystick2.AButton;
-                cancelKey = Tags.Input.Joystick2.BButton;
-                startKey = Tags.Input.Joystick2.Start;
-                ability1Key = Tags.Input.Joystick2.LeftBumper;
-                ability2Key = Tags.Input.Joystick2.RightBumper;
+                submitKey = Tags.Input.Joystick2.button0;
+                cancelKey = Tags.Input.Joystick2.button1;
+                startKey = Tags.Input.Joystick2.button7;
+                ability1Key = Tags.Input.Joystick2.button4;
+                ability2Key = Tags.Input.Joystick2.button5;
                 break;
             case PlayerIndex.Three:
                 horizontalMovementAxis = Tags.Input.Joystick3.HorizontalMovement;
@@ -90,11 +90,11 @@ public class ControllerPlayerInput : IPlayerInput {
                 horizontalAimingAxis = Tags.Input.Joystick3.HorizontalAiming;
                 verticalAimingAxis = Tags.Input.Joystick3.VerticalAiming;
                 basicAttackAxis = Tags.Input.Joystick3.RightTrigger;
-                submitKey = Tags.Input.Joystick3.AButton;
-                cancelKey = Tags.Input.Joystick3.BButton;
-                startKey = Tags.Input.Joystick3.Start;
-                ability1Key = Tags.Input.Joystick3.LeftBumper;
-                ability2Key = Tags.Input.Joystick3.RightBumper;
+                submitKey = Tags.Input.Joystick3.button0;
+                cancelKey = Tags.Input.Joystick3.button1;
+                startKey = Tags.Input.Joystick3.button7;
+                ability1Key = Tags.Input.Joystick3.button4;
+                ability2Key = Tags.Input.Joystick3.button5;
                 break;
             case PlayerIndex.Four:
                 horizontalMovementAxis = Tags.Input.Joystick4.HorizontalMovement;
@@ -102,11 +102,11 @@ public class ControllerPlayerInput : IPlayerInput {
                 horizontalAimingAxis = Tags.Input.Joystick4.HorizontalAiming;
                 verticalAimingAxis = Tags.Input.Joystick4.VerticalAiming;
                 basicAttackAxis = Tags.Input.Joystick4.RightTrigger;
-                submitKey = Tags.Input.Joystick4.AButton;
-                cancelKey = Tags.Input.Joystick4.BButton;
-                startKey = Tags.Input.Joystick4.Start;
-                ability1Key = Tags.Input.Joystick4.LeftBumper;
-                ability2Key = Tags.Input.Joystick4.RightBumper;
+                submitKey = Tags.Input.Joystick4.button0;
+                cancelKey = Tags.Input.Joystick4.button1;
+                startKey = Tags.Input.Joystick4.button7;
+                ability1Key = Tags.Input.Joystick4.button4;
+                ability2Key = Tags.Input.Joystick4.button5;
                 break;
             default:
                 Debug.Assert(false, "Out of range player index!");
