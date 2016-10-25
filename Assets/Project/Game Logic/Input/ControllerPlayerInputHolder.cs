@@ -192,6 +192,13 @@ public class ControllerPlayerInput : IPlayerInput {
     public bool getAbility1Up { get { return Input.GetKeyUp(ability1Key); } }
     public bool getAbility2Up { get { return Input.GetKeyUp(ability2Key); } }
 
+    public string submitName { get { return PlayerInputExtension.getBindingName(submitKey); } }
+    public string cancelName { get { return PlayerInputExtension.getBindingName(cancelKey); } }
+    public string startName { get { return PlayerInputExtension.getBindingName(startKey); } }
+    public string basicAttackName { get { return basicAttackAxis; } }
+    public string ability1Name { get { return PlayerInputExtension.getBindingName(ability1Key); } }
+    public string ability2Name { get { return PlayerInputExtension.getBindingName(ability2Key); } }
+
     /// <summary>
     /// Updates tracking for an axis.
     /// </summary>

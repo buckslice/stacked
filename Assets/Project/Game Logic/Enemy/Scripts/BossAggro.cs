@@ -31,13 +31,13 @@ public class BossAggro : MonoBehaviour {
     /// <summary>
     /// Time this object was created, for tracking.
     /// </summary>
-    float createTime;
+    //float createTime; // disabled until needed to avoid errors
 
     // Use this for initialization
     void Start() {
         agent = GetComponent<NavMeshAgent>();
 
-        createTime = Time.time;
+        //createTime = Time.time;
 
         foreach (Health health in GetComponentsInChildren<Health>()) {
             health.onDamage += health_onDamage;
@@ -107,7 +107,8 @@ public class BossAggro : MonoBehaviour {
 
     public void SetTaunt(Player taunter) {
         //reset and randomize all existing aggro
-        foreach (int playerID in aggroTable.Keys) {
+        List<int> playerIDs = new List<int>(aggroTable.Keys); //duplicate to not modify the collection we are iterating over
+        foreach (int playerID in playerIDs) {
             aggroTable[playerID] = aggroToSurpass * Random.value;
         }
 

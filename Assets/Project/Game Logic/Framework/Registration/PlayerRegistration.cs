@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,6 +38,9 @@ public class PlayerRegistration : MonoBehaviour {
 
     [SerializeField]
     protected string playerRegistrationUIPrefabName = Tags.Resources.RegistrationUI;
+
+    [SerializeField]
+    protected string nextScene = Tags.Scenes.BossSelect;
 
     /// <summary>
     /// Collection of all the possible input bindings. The index of a binding in this list is its bindingID.
@@ -214,6 +218,14 @@ public class PlayerRegistration : MonoBehaviour {
                 {
                     //if there exists an open ID
                     sendRegistrationRequest((byte)i);
+                }
+            }
+        }
+
+        for (int i = 0; i < possibleBindings.Length; i++) {
+            if (registeredBindings[i]) {
+                if (possibleBindings[i].getStartDown) {
+                    SceneManager.LoadScene(nextScene);
                 }
             }
         }

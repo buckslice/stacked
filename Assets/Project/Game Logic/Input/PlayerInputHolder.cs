@@ -43,6 +43,103 @@ public static class PlayerInputExtension
         return self.AnyKey() || self.AnyAxis();
     }
      * */
+
+    public static string getBindingName(KeyCode keycode) {
+        if (bindingNames.ContainsKey(keycode)) {
+            return bindingNames[keycode];
+        } else {
+            return "";
+        }
+    }
+
+    public static readonly Dictionary<KeyCode, string> bindingNames = new Dictionary<KeyCode, string>(){
+        {KeyCode.A, "A"},
+        {KeyCode.B, "B"},
+        {KeyCode.C, "C"},
+        {KeyCode.D, "D"},
+        {KeyCode.E, "E"},
+        {KeyCode.F, "F"},
+        {KeyCode.G, "G"},
+        {KeyCode.H, "H"},
+        {KeyCode.I, "I"},
+        {KeyCode.J, "J"},
+        {KeyCode.K, "K"},
+        {KeyCode.L, "L"},
+        {KeyCode.M, "M"},
+        {KeyCode.N, "N"},
+        {KeyCode.O, "O"},
+        {KeyCode.P, "P"},
+        {KeyCode.Q, "Q"},
+        {KeyCode.R, "R"},
+        {KeyCode.S, "S"},
+        {KeyCode.T, "T"},
+        {KeyCode.U, "U"},
+        {KeyCode.V, "V"},
+        {KeyCode.W, "W"},
+        {KeyCode.X, "X"},
+        {KeyCode.Y, "Y"},
+        {KeyCode.Z, "Z"},
+
+        {KeyCode.Alpha0, "0"},
+        {KeyCode.Alpha1, "1"},
+        {KeyCode.Alpha2, "2"},
+        {KeyCode.Alpha3, "3"},
+        {KeyCode.Alpha4, "4"},
+        {KeyCode.Alpha5, "5"},
+        {KeyCode.Alpha6, "6"},
+        {KeyCode.Alpha7, "7"},
+        {KeyCode.Alpha8, "8"},
+        {KeyCode.Alpha9, "9"},
+
+        {KeyCode.LeftShift, "SHF"},
+        {KeyCode.Return, "NTR"},
+        {KeyCode.Delete, "DEL"},
+        {KeyCode.Backspace, "DEL"},
+        {KeyCode.Space, "SPC"},
+        {KeyCode.Escape, "ESC"},
+
+        {KeyCode.JoystickButton0, "A"},
+        {KeyCode.Joystick1Button0, "A"},
+        {KeyCode.Joystick2Button0, "A"},
+        {KeyCode.Joystick3Button0, "A"},
+        {KeyCode.Joystick4Button0, "A"},
+        
+        {KeyCode.JoystickButton1, "B"},
+        {KeyCode.Joystick1Button1, "B"},
+        {KeyCode.Joystick2Button1, "B"},
+        {KeyCode.Joystick3Button1, "B"},
+        {KeyCode.Joystick4Button1, "B"},
+        
+        {KeyCode.JoystickButton2, "X"},
+        {KeyCode.Joystick1Button2, "X"},
+        {KeyCode.Joystick2Button2, "X"},
+        {KeyCode.Joystick3Button2, "X"},
+        {KeyCode.Joystick4Button2, "X"},
+
+        {KeyCode.JoystickButton3, "Y"},
+        {KeyCode.Joystick1Button3, "Y"},
+        {KeyCode.Joystick2Button3, "Y"},
+        {KeyCode.Joystick3Button3, "Y"},
+        {KeyCode.Joystick4Button3, "Y"},
+
+        {KeyCode.JoystickButton4, "LB"},
+        {KeyCode.Joystick1Button4, "LB"},
+        {KeyCode.Joystick2Button4, "LB"},
+        {KeyCode.Joystick3Button4, "LB"},
+        {KeyCode.Joystick4Button4, "LB"},
+        
+        {KeyCode.JoystickButton5, "RB"},
+        {KeyCode.Joystick1Button5, "RB"},
+        {KeyCode.Joystick2Button5, "RB"},
+        {KeyCode.Joystick3Button5, "RB"},
+        {KeyCode.Joystick4Button5, "RB"},
+        
+        {KeyCode.JoystickButton7, "STA"},
+        {KeyCode.Joystick1Button7, "STA"},
+        {KeyCode.Joystick2Button7, "STA"},
+        {KeyCode.Joystick3Button7, "STA"},
+        {KeyCode.Joystick4Button7, "STA"},
+    };
 }
 
 /// <summary>
@@ -131,6 +228,13 @@ public interface IPlayerInputHolder {
     /// </summary>
     /// <returns></returns>
     bool getAbility2Up { get; }
+
+    string submitName { get; }
+    string cancelName { get; }
+    string startName { get; }
+    string basicAttackName { get; }
+    string ability1Name { get; }
+    string ability2Name { get; }
 }
 
 /// <summary>
@@ -164,6 +268,13 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getBasicAttackUp { get { return HeldInput.getBasicAttackUp; } }
     public bool getAbility1Up { get { return HeldInput.getAbility1Up; } }
     public bool getAbility2Up { get { return HeldInput.getAbility2Up; } }
+
+    public string submitName { get { return HeldInput.submitName; } }
+    public string cancelName { get { return HeldInput.cancelName; } }
+    public string startName { get { return HeldInput.startName; } }
+    public string basicAttackName { get { return HeldInput.basicAttackName; } }
+    public string ability1Name { get { return HeldInput.ability1Name; } }
+    public string ability2Name { get { return HeldInput.ability2Name; } }
 
     void OnDestroy() {
         if (heldInput != null) {
@@ -200,4 +311,11 @@ public class NullInput : IPlayerInput
     public bool getBasicAttackUp { get { return false; } }
     public bool getAbility1Up { get { return false; } }
     public bool getAbility2Up { get { return false; } }
+
+    public string submitName { get{ return ""; } }
+    public string cancelName { get{ return ""; } }
+    public string startName { get{ return ""; } }
+    public string basicAttackName { get{ return ""; } }
+    public string ability1Name { get{ return ""; } }
+    public string ability2Name { get { return ""; } }
 }

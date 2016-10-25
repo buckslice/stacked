@@ -56,6 +56,7 @@ GameObject:
   - 224: {fileID: 224000010076431126}
   - 114: {fileID: 114000012664893134}
   - 114: {fileID: 114000010619340308}
+  - 114: {fileID: 114000012092669410}
   m_Layer: 5
   m_Name: AbilityDisplay
   m_TagString: Untagged
@@ -183,6 +184,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: LT
+--- !u!114 &114000012092669410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011671764720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc13e3d9d7eb8b741b3fa5a7d747266f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 114000011554562344}
 --- !u!114 &114000012664893134
 MonoBehaviour:
   m_ObjectHideFlags: 1

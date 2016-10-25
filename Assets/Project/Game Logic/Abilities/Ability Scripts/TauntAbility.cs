@@ -7,7 +7,7 @@ public class TauntAbility : AbstractAbilityAction
     protected float tauntRad = 20;
 
     int layermask;
-    Player playerReference;
+    IDamageHolder playerReference;
 
     protected override void Awake()
     {
@@ -18,7 +18,7 @@ public class TauntAbility : AbstractAbilityAction
     protected override void Start()
     {
         base.Start();
-        playerReference = GetComponentInParent<Player>();
+        playerReference = GetComponentInParent<IDamageHolder>();
     }
 
     public override bool Activate(PhotonStream stream)
@@ -28,7 +28,8 @@ public class TauntAbility : AbstractAbilityAction
         {
             if (col.transform.root.CompareTag(Tags.Boss))
             {
-                col.gameObject.GetComponentInParent<BossAggro>().SetTaunt(playerReference);
+                Player player = (Player)playerReference.GetRootDamageTracker();
+                col.gameObject.GetComponentInParent<BossAggro>().SetTaunt(player);
             }
         }
 

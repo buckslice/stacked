@@ -16,7 +16,9 @@ public class AutomaticBossSetup : BossSetup {
                 return;
             }
         }
+    }
 
+    void Start() {
         Assert.IsTrue(R41DNetworking.Main.NetworkingMode != R41DNetworkingMode.ONLINE, "Automatic Setups will not work correctly over the network."); //we aren't hooked up correctly for online
     }
 }

@@ -12,6 +12,12 @@ public class AbilityUI : MonoBehaviour {
     [SerializeField]
     protected GameObject uiPrefab;
 
+    /// <summary>
+    /// Icon can be null.
+    /// </summary>
+    [SerializeField]
+    protected Sprite uiIcon;
+
     [SerializeField]
     protected float vibrationDuration = 0.25f;
 
@@ -32,6 +38,7 @@ public class AbilityUI : MonoBehaviour {
         spawnedUIPrefab = Instantiate(uiPrefab, parent) as GameObject;
         spawnedUIPrefab.GetComponent<RectTransform>().Reset();
         display = spawnedUIPrefab.GetComponent<AbilityDisplay>();
+        display.Initialize(this, uiIcon);
 
         PlayerInputHolder holder = GetComponentInParent<PlayerInputHolder>();
         if (holder.HeldInput is ControllerPlayerInput) {

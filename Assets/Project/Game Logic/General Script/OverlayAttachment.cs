@@ -42,7 +42,7 @@ public class OverlayAttachment : AbstractAttachableEffect {
     public override void Initialize(Collider target) {
         base.Initialize(target);
 
-        Renderer targetRenderer = target.GetComponentInParent<Renderer>();
+        Renderer targetRenderer = target.GetComponentInChildren<Renderer>();
         if (targetRenderer == null) {
             return;
         }
