@@ -22,6 +22,8 @@ public class HealthBar : MonoBehaviour {
 
     public Gradient grad;
 
+    HealthBar playerReference;
+
     float healthPercent = 1.0f;
     float lerpPos = 1.0f;
 
@@ -67,6 +69,10 @@ public class HealthBar : MonoBehaviour {
 
     public void SetText(string t) {
         text.text = t;
+    }
+
+    public void SetColor(Color c) {
+        text.color = c;
     }
 
 }

@@ -54,6 +54,10 @@ public class HealthUI : MonoBehaviour {
         */
         bar.type = barType;
         bar.SetText(gameObject.name);
+        Player player = GetComponent<DamageHolder>().GetRootDamageTracker() as Player;
+        if (player != null) {
+            bar.SetColor(Player.playerColoring[player.PlayerID]);
+        }
     }
 
     void OnDestroy() {
