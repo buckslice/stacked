@@ -66,7 +66,7 @@ public class PlayerCursor : MonoBehaviour, ISelection {
                 if (rgo.CompareTag("AbilityIcon")) {
                     if (selected1) {
                         selection2 = rgo.GetComponent<CharacterSelectIcon>().ability;
-                        if(selection1 == selection2) {  // cant select two of same ability
+                        if (selection1 == selection2) {  // cant select two of same ability
                             break;
                         }
 
@@ -82,6 +82,20 @@ public class PlayerCursor : MonoBehaviour, ISelection {
                         selection1 = newSelection;
                         leftHalf.color = rgo.GetComponent<Image>().color;
                         selected1 = true;
+
+                        //create/recreate setupGO
+                        if (playerSetupGO) {
+                            Destroy(playerSetupGO);
+                        }
+                        Assert.IsTrue(selected1 && selected2);
+                        playerSetupGO = new GameObject();
+                        PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
+                        playerSetup.Initalize(input.HeldInput, playerNumber);
+                        PlayerSetup.PlayerSetupData pd = new PlayerSetup.PlayerSetupData();
+                        pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection1 };
+                        pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
+                        playerSetup.playerData = pd;
+                        Ready = true;
                     }
                 }
             }
@@ -97,17 +111,6 @@ public class PlayerCursor : MonoBehaviour, ISelection {
                 selected1 = false;
             }
             Ready = false;
-        }
-
-        if (input.getStartDown && selected1 && selected2 && playerSetupGO == null) {
-            playerSetupGO = new GameObject();
-            PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
-            playerSetup.Initalize(input.HeldInput, playerNumber);
-            PlayerSetup.PlayerSetupData pd = new PlayerSetup.PlayerSetupData();
-            pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection1 };
-            pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
-            playerSetup.playerData = pd;
-            Ready = true;
         }
 
 	}
