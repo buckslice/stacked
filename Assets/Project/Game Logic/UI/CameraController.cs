@@ -20,22 +20,15 @@ public class CameraController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        
+        PopulateTrackingList();
+        boundsCenter = GetTrackBounds().center;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         PopulateTrackingList();
-        if (trackingList.Count == 0) {
-            return;
-        }
 
-        // done like this to avoid including the origin
-        Bounds bounds = new Bounds(trackingList[0], padding);
-        for(int i = 1; i < trackingList.Count; ++i) {
-            bounds.Encapsulate(new Bounds(trackingList[i], padding));
-        }
-        // lerp towards bounds center to avoid sudden changes (players blinking and whatnot)
+        Bounds bounds = GetTrackBounds();
         boundsCenter = Vector3.Lerp(boundsCenter, bounds.center, Time.deltaTime);
 
         // find XZ distance from camera to bounds center
@@ -72,7 +65,21 @@ public class CameraController : MonoBehaviour {
         transform.LookAt(boundsCenter);
     }
 
-    // gets list of positions camera should track this frame
+    // get bounding box around all relevant game entities that camera should track
+    Bounds GetTrackBounds() {
+        if (trackingList.Count == 0) {
+            return new Bounds();
+        }
+
+        // done like this to avoid including the origin
+        Bounds bounds = new Bounds(trackingList[0], padding);
+        for (int i = 1; i < trackingList.Count; ++i) {
+            bounds.Encapsulate(new Bounds(trackingList[i], padding));
+        }
+        return bounds;
+    }
+
+    // gets list of positions camera should track
     void PopulateTrackingList() {
         trackingList.Clear();
         foreach (Player player in Player.Players) {
