@@ -48,6 +48,15 @@ public static class Tags {
         public const KeyCode Ability1 = KeyCode.Q; 
         public const KeyCode Ability2 = KeyCode.E;
 
+        public enum axes {
+            HorizontalMovement,
+            VerticalMovement,
+            HorizontalAiming,
+            VerticalAiming,
+            LeftTrigger,
+            RightTrigger
+        };
+
         public static class Joystick1
         {
             public const KeyCode button0 = KeyCode.Joystick1Button0;
