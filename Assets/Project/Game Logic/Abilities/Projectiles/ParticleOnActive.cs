@@ -8,8 +8,9 @@ public class ParticleOnActive : ProjectileLifetimeAction {
 
     ParticleSystem target;
 
-    void Awake() {
+    protected override void Awake() {
         target = GetComponent<ParticleSystem>();
+        base.Awake();
     }
 
     protected override void OnProjectileCreated() {

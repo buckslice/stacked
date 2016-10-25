@@ -38,9 +38,7 @@ public class AbilityUI : MonoBehaviour {
         spawnedUIPrefab = Instantiate(uiPrefab, parent) as GameObject;
         spawnedUIPrefab.GetComponent<RectTransform>().Reset();
         display = spawnedUIPrefab.GetComponent<AbilityDisplay>();
-        if(uiIcon != null) {
-            display.Initialize(uiIcon);
-        }
+        display.Initialize(this, uiIcon);
 
         PlayerInputHolder holder = GetComponentInParent<PlayerInputHolder>();
         if (holder.HeldInput is ControllerPlayerInput) {

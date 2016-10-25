@@ -194,4 +194,11 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
             }
             return false;
     } }
+
+    public string submitName { get { throw new System.NotSupportedException(); } }
+    public string cancelName { get { throw new System.NotSupportedException(); } }
+    public string startName { get { throw new System.NotSupportedException(); } }
+    public string basicAttackName { get { throw new System.NotSupportedException(); } }
+    public string ability1Name { get { throw new System.NotSupportedException(); } }
+    public string ability2Name { get { throw new System.NotSupportedException(); } }
 }

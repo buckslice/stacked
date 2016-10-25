@@ -12,6 +12,7 @@ public class InputTrigger : MonoBehaviour, IUntargetedAbilityTrigger, IAbilityKe
     public event UntargetedAbilityTrigger abilityTriggerEvent = delegate { };
 
     IPlayerInputHolder playerInput;
+    public IPlayerInputHolder PlayerInput { get { return playerInput; } }
 
     void Start()
     {

@@ -79,6 +79,13 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public bool getAbility1Up { get { return Input.GetKeyUp(ability1Key); } }
     public bool getAbility2Up { get { return Input.GetKeyUp(ability2Key); } }
 
+    public string submitName { get { return PlayerInputExtension.getBindingName(submitKey); } }
+    public string cancelName { get { return PlayerInputExtension.getBindingName(cancelKey1); } }
+    public string startName { get { return PlayerInputExtension.getBindingName(startKey); } }
+    public string basicAttackName { get { return PlayerInputExtension.getBindingName(basicAttackKey); } }
+    public string ability1Name { get { return PlayerInputExtension.getBindingName(ability1Key); } }
+    public string ability2Name { get { return PlayerInputExtension.getBindingName(ability2Key); } }
+
     public override bool Equals(object obj) {
         var item = obj as KeyboardMousePlayerInput;
 
