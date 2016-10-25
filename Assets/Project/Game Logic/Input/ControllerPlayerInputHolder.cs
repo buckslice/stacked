@@ -32,8 +32,39 @@ public class ControllerPlayerInput : IPlayerInput {
 
     private string horizontalMovementAxis = Tags.Input.Joystick1.HorizontalMovement;
     private string verticalMovementAxis = Tags.Input.Joystick1.VerticalMovement;
+
+    private enum AxisType {
+        XBOX,
+        PS4
+    }
+
+    AxisType currentAxisType = AxisType.XBOX;
+
     private string horizontalAimingAxis = Tags.Input.Joystick1.HorizontalAiming;
     private string verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
+
+    private enum InputType {
+        KEY,
+        AXIS
+    }
+
+    private struct Key{
+        InputType type;
+        KeyCode key;
+        string axis;
+    };
+
+    private enum Inputs {
+        SUBMIT,
+        CANCEL,
+        START,
+        ABILITY1,
+        ABILITY2,
+        BASIC_ATTACK
+    }
+
+    private Key[] InputBindings;
+
     private string basicAttackAxis = Tags.Input.Joystick1.RightTrigger;
 
     private bool previousBasicAttackAxisStatus = false;
@@ -245,5 +276,56 @@ public class ControllerPlayerInput : IPlayerInput {
 
     public override int GetHashCode() {
         return controllerIndex.GetHashCode();
+    }
+
+    public void remap(int button) {
+
+    }
+
+    public void swapRightStickAndTriggers() {
+        if (currentAxisType == AxisType.XBOX) {
+            currentAxisType = AxisType.PS4;
+            horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.RightTrigger);
+            verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.LeftTrigger);
+        }
+        else {
+            currentAxisType = AxisType.XBOX;
+            horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.HorizontalAiming);
+            verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.VerticalAiming);
+        }
+    }
+
+    private KeyCode getInputByJoystickNumber(int button) {
+        switch (controllerIndex) {
+            case PlayerIndex.One:
+                return Tags.Input.Joystick1.allButtons[button];
+            case PlayerIndex.Two:
+                return Tags.Input.Joystick2.allButtons[button];
+            case PlayerIndex.Three:
+                return Tags.Input.Joystick3.allButtons[button];
+            case PlayerIndex.Four:
+                return Tags.Input.Joystick4.allButtons[button];
+            default:
+                Debug.Assert(false, "Out of range player index!");
+                break;
+        }
+        return 0;
+    }
+
+    private string getAxisByJoystickNumber(int axis) {
+        switch (controllerIndex) {
+            case PlayerIndex.One:
+                return Tags.Input.Joystick1.allAxes[axis];
+            case PlayerIndex.Two:
+                return Tags.Input.Joystick2.allAxes[axis];
+            case PlayerIndex.Three:
+                return Tags.Input.Joystick3.allAxes[axis];
+            case PlayerIndex.Four:
+                return Tags.Input.Joystick4.allAxes[axis];
+            default:
+                Debug.Assert(false, "Out of range player index!");
+                break;
+        }
+        return "";
     }
 }
