@@ -128,7 +128,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000012340469498, guid: 1d3ecae7dd160534a9493004a7b022d6, type: 2}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d3ecae7dd160534a9493004a7b022d6, type: 2}
@@ -138,6 +138,51 @@ Transform:
   m_PrefabParentObject: {fileID: 4000011232789038, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
     type: 2}
   m_PrefabInternal: {fileID: 1766835005}
+--- !u!1 &339556105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 339556107}
+  - 114: {fileID: 339556106}
+  m_Layer: 0
+  m_Name: AutomaticPlayerSetup (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &339556106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339556105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 1
+  playerData:
+    firstAbilities: 08
+    secondAbilities: 06
+    abilities: 
+--- !u!4 &339556107
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 339556105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &375321056
 GameObject:
   m_ObjectHideFlags: 0
@@ -807,7 +852,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010771508414, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
@@ -1115,7 +1160,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010670690832, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
@@ -1203,7 +1248,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010773884744, guid: 08228c30b36b4c44092cd1e115a58c2b, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 114000013979244318, guid: 08228c30b36b4c44092cd1e115a58c2b,
         type: 2}
@@ -1539,7 +1584,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 2137640759}
   - 114: {fileID: 2137640758}
-  - 114: {fileID: 2137640760}
   m_Layer: 0
   m_Name: AutomaticPlayerSetup
   m_TagString: Untagged
@@ -1576,22 +1620,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
---- !u!114 &2137640760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2137640757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerID: 1
-  playerData:
-    firstAbilities: 08
-    secondAbilities: 06
-    abilities: 
 --- !u!1 &2144715607
 GameObject:
   m_ObjectHideFlags: 0
