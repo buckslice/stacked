@@ -99,7 +99,11 @@ public class CameraController : MonoBehaviour {
     // basic hill climbing algorithm to find best rotation
     // there should be exactly two solutions everytime, but should find the closer one
     Vector3 FindLocalBestRotation(Vector3 start, Vector3 center) {
-        float stepSize = 1.0f; // in angles;
+        if(trackingList.Count <= 1) {
+            return start;
+        }
+
+        float stepSize = 5.0f; // angle in degrees
         Vector3 curPos = start;
         bool dir = true;
         while (stepSize > 0.01f) {
