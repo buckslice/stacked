@@ -53,7 +53,7 @@ public class PlayerCursor : MonoBehaviour, ISelection {
 
     // Update is called once per frame
     void Update () {
-        transform.Translate(input.movementDirection * moveSpeed *Time.deltaTime* Screen.width / 800.0f);
+        //transform.Translate(input.movementDirection * moveSpeed *Time.deltaTime* Screen.width / 800.0f);
 
         if (input.getSubmitDown) {
             pointer.position = new Vector3(transform.position.x, transform.position.y);
@@ -65,23 +65,14 @@ public class PlayerCursor : MonoBehaviour, ISelection {
                 GameObject rgo = results[i].gameObject;
                 if (rgo.CompareTag("AbilityIcon")) {
                     if (selected1) {
-                        selection2 = rgo.GetComponent<CharacterSelectIcon>().ability;
-                        if (selection1 == selection2) {  // cant select two of same ability
-                            break;
-                        }
-
-                        rightHalf.color = rgo.GetComponent<Image>().color;
-                        selected2 = true;
-                    } else {
-
                         PlayerSetupNetworkedData.AbilityId newSelection = rgo.GetComponent<CharacterSelectIcon>().ability;
                         if (selection1 == newSelection) {  // cant select two of same ability
                             break;
                         }
+                        selection2 = newSelection;
 
-                        selection1 = newSelection;
-                        leftHalf.color = rgo.GetComponent<Image>().color;
-                        selected1 = true;
+                        rightHalf.color = rgo.GetComponent<Image>().color;
+                        selected2 = true;
 
                         //create/recreate setupGO
                         if (playerSetupGO) {
@@ -96,6 +87,16 @@ public class PlayerCursor : MonoBehaviour, ISelection {
                         pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
                         playerSetup.playerData = pd;
                         Ready = true;
+                    } else {
+
+                        PlayerSetupNetworkedData.AbilityId newSelection = rgo.GetComponent<CharacterSelectIcon>().ability;
+                        if (selection1 == newSelection) {  // cant select two of same ability
+                            break;
+                        }
+
+                        selection1 = newSelection;
+                        leftHalf.color = rgo.GetComponent<Image>().color;
+                        selected1 = true;
                     }
                 }
             }
