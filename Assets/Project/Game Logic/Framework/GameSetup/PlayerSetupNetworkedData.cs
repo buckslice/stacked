@@ -20,7 +20,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         BLOCK,
         SHIELD,
         RESIST,
-        MACHINEGUN,
+        FIREBALL,
         SPAWNADD,
         BLINK,
         MELEECONEBASICATTACK,
