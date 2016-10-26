@@ -6,7 +6,7 @@ public class VoidZoneAbility : DurationAbilityAction {
 
     public Object zonePrefab;   // prob temp till more robust system is added for spawning zone effects
 
-    public int zonesToSpawn = 5;
+    public int extraZonesToSpawn = 5;   // spawns one on each player and some extra
     private int spawnedZones = 0;
 
     BossAggro boss;
@@ -45,16 +45,26 @@ public class VoidZoneAbility : DurationAbilityAction {
     }
 
     protected override void OnDurationTick(float lerpProgress) {
-        float r = (float)spawnedZones / zonesToSpawn;
-        if (lerpProgress > r) {
-            //Debug.Log("SpawnZone! " + Time.time);
 
-            float x = Random.Range(-40.0f, 40.0f);
-            float z = Random.Range(-40.0f, 40.0f);
-            Vector3 pos = new Vector3(x, 0.0f, z);
-            x = Random.Range(5.0f, 20.0f);
-            z = Random.Range(5.0f, 20.0f);
-            Vector3 size = new Vector3(x, 1.0f, z);
+        int numPlayers = Player.Players.Count;
+        int totalZones = numPlayers + extraZonesToSpawn;
+
+        float p = (float)spawnedZones / totalZones;
+        if (lerpProgress > p) {
+
+            Vector3 pos;
+            // first spawn a zone on each player
+            if (spawnedZones < numPlayers) {
+                pos = Player.Players[spawnedZones].Holder.transform.position;
+                pos.y = 0.0f;
+            } else {    // then spawn some extra random zones
+                float x = Random.Range(-40.0f, 40.0f);
+                float z = Random.Range(-40.0f, 40.0f);
+                pos = new Vector3(x, 0.0f, z);
+            }
+
+            float r = Random.Range(5.0f, 20.0f);
+            Vector3 size = new Vector3(r, 1.0f, r);
 
             GameObject go = (GameObject)Instantiate(zonePrefab);
             go.GetComponent<Zone>().Setup(pos, size);

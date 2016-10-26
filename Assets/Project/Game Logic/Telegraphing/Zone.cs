@@ -181,22 +181,15 @@ public class Zone : MonoBehaviour {
         }
     }
 
-    void OnTriggerEnter(Collider c) {
-        if (isTelegraphed) {
+    void OnTriggerStay(Collider c) {
+        if (isTelegraphed || !c.CompareTag(Tags.Player)) {
             return;
         }
-        if (type == ZoneType.EXPLODE_ON_CONTACT && c.CompareTag(Tags.Player)) {
+        if (type == ZoneType.DAMAGE_OVER_TIME || type == ZoneType.HEALING_OVER_TIME) {
+            c.GetComponent<Damageable>().Damage(healthChange * Time.fixedDeltaTime);
+        } else if (type == ZoneType.EXPLODE_ON_CONTACT) {
             DamageAllPlayersInContact();
             DestroyZone();
-        }
-    }
-
-    void OnTriggerStay(Collider c) {
-        if (isTelegraphed) {
-            return;
-        }
-        if ((type == ZoneType.DAMAGE_OVER_TIME || type == ZoneType.HEALING_OVER_TIME) && c.CompareTag(Tags.Player)) {
-            c.GetComponent<Damageable>().Damage(healthChange * Time.fixedDeltaTime);
         }
     }
 

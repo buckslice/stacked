@@ -51,8 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3c714d7552fda544b7e78e1acb23a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shape: 0
-  type: 1
+  shape: 1
+  type: 2
   healthChange: 10
   duration: 10
   mainParticles: {fileID: 198000011176699614, guid: 3dae0d1eac736e14e81decb937b7b166,
