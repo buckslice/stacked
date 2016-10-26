@@ -8,12 +8,13 @@ using System.Collections;
 public class HaltAbility : DurationAbilityAction {
 
     IMovement movement;
-
+    IAbilities targetAbilities;
     Coroutine activeRoutine;
 
     protected override void Start() {
         base.Start();
         movement = GetComponentInParent<IMovement>();
+        targetAbilities = GetComponentInParent<IAbilities>();
     }
 
     public override bool Activate(PhotonStream stream) {
@@ -25,11 +26,13 @@ public class HaltAbility : DurationAbilityAction {
     }
     protected override void OnDurationBegin() {
         movement.ControlEnabled.AddModifier(false);
+        targetAbilities.ActivationEnabled.AddModifier(false);
         movement.haltMovement();
     }
 
     protected override void OnDurationEnd() {
         movement.ControlEnabled.RemoveModifier(false);
+        targetAbilities.ActivationEnabled.RemoveModifier(false);
     }
 
     protected override void OnDurationInterrupted() {

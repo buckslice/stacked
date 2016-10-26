@@ -82,5 +82,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossData:
     sceneName: Derek
-    abilities: 0001
+    abilities: 000102
   spawnPoint: {fileID: 4000011232789038}
+  playerSpawnPoints: []

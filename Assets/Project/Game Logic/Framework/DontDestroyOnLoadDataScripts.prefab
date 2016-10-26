@@ -183,6 +183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc97ef9caaf1c6e4f9e9364e230b6a2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debugSphere: {fileID: 1000010719365602, guid: 4d80088c8b9696044a69a1fc5b0d5b4d,
+    type: 2}
 --- !u!114 &114000012569888046
 MonoBehaviour:
   m_ObjectHideFlags: 1

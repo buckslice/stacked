@@ -62,6 +62,8 @@ public class BossAggro : MonoBehaviour, IMovement {
 
         if (shouldChase) {
             agent.enabled = true;
+            agent.updateRotation = true;
+            agent.updatePosition = true;
             if (topAggroPlayer >= 0) {
                 Player target = Player.GetPlayerByID(topAggroPlayer);
 
@@ -79,6 +81,8 @@ public class BossAggro : MonoBehaviour, IMovement {
                 agent.ResetPath();
             }
             agent.enabled = false;
+            agent.updateRotation = false;
+            agent.updatePosition = false;
         }
     }
 

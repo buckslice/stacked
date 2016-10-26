@@ -8,6 +8,9 @@ using System.Collections.Generic;
 /// </summary>
 public class EventLog : MonoBehaviour {
 
+    [SerializeField]
+    protected GameObject debugSphere;
+
     static EventLog main;
 
 	void Awake () {
@@ -22,6 +25,10 @@ public class EventLog : MonoBehaviour {
         if (main == null) { return; }
         if (!main.enabled) { return; }
         Debug.LogFormat(context, format, args);
+    }
+
+    public static void LogPosition(Vector3 position) {
+        SimplePool.Spawn(main.debugSphere, position);
     }
 
     void Update() { } //required for the enable/disable checkbox in the inspector
