@@ -32,7 +32,7 @@
 				{
 					float2 uv0 : TEXCOORD0;
 					float2 uv1 : TEXCOORD1;
-					float2 inkuv : INKUV;
+					float2 inkuv : TEXCOORD2;
 					float4 vertex : SV_POSITION;
 				};
 
