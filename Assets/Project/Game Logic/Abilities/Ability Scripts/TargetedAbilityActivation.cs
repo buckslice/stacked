@@ -55,6 +55,7 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
     /// <param name="abilityNetwork"></param>
     public void Initialize(AbstractActivationNetworking abilityNetwork) {
         this.abilityNetwork = abilityNetwork;
+        Assert.IsNotNull(this.abilityNetwork);
     }
 
     public void Start() {

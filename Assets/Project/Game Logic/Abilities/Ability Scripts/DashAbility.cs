@@ -47,6 +47,7 @@ public class DashAbility : AbstractAbilityAction
                                     rigid.position + Vector3.up * (coll.height - coll.radius),
                                     coll.radius - 0.05f, playerDirection, out hit, dashDistance, layermask)) {
                 distance = hit.distance;
+                Debug.Log(hit.collider, hit.collider);
             } else {
                 distance = dashDistance; //max distance
             }
@@ -63,11 +64,16 @@ public class DashAbility : AbstractAbilityAction
         Vector3 dashDirection = endPosition - startPosition;
         float startTime = Time.time;
         float dashMagnitude = dashDirection.magnitude;
+        Debug.Log(dashMagnitude / dashDistance);
         float endTime = startTime + (dashMagnitude / dashDistance) * dashDuration;
 
         GameObject instantiatedDashingObjectAbility = SimplePool.Spawn(dashingObjectPrefab);
         DashingObjectAbility dashingObjectAbility = instantiatedDashingObjectAbility.GetComponent<DashingObjectAbility>();
         dashingObjectAbility.Initialize(transform.position, endPosition, startTime, endTime, networking, movement, rigid);
+
+        foreach (ProjectileProxy thrownObjectAbility in dashingObjectAbility.GetComponents<ThrownObjectAbility>()) {
+            thrownObjectAbility.Initialize(networking, GetComponentInParent<IDamageHolder>());
+        }
 
         return true;
     }

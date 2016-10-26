@@ -34,6 +34,7 @@ public class DamageAction : TypedTargetedAbilityAction {
     }
 
     public override bool isAbilityActivatible(GameObject target) {
+        Debug.Log(target, target);
         return target.GetComponent<Damageable>() != null;
     }
 

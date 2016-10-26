@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 [RequireComponent(typeof(NavMeshAgent))]
-public class BossAggro : MonoBehaviour {
+[RequireComponent(typeof(Rigidbody))]
+public class BossAggro : MonoBehaviour, IMovement {
 
     /// <summary>
     /// Amount of additional aggro needed to pull aggro.
@@ -15,8 +16,11 @@ public class BossAggro : MonoBehaviour {
     [SerializeField]
     protected AllBoolStat shouldChase = new AllBoolStat(true);
     public AllBoolStat ShouldChase { get { return shouldChase; } }
+    public AllBoolStat ControlEnabled { get { return shouldChase; } }
+    public AllBoolStat MovementInputEnabled { get { return shouldChase; } }
 
     NavMeshAgent agent;
+    Rigidbody rigid;
 
     /// <summary>
     /// A float for each player showing their current aggro to boss. The index is the player's playerID.
@@ -36,6 +40,7 @@ public class BossAggro : MonoBehaviour {
     // Use this for initialization
     void Start() {
         agent = GetComponent<NavMeshAgent>();
+        rigid = GetComponent<Rigidbody>();
 
         //createTime = Time.time;
 
@@ -43,12 +48,11 @@ public class BossAggro : MonoBehaviour {
             health.onDamage += health_onDamage;
         }
 
-        if(Player.Players.Count > 0)
-        {
+        if (Player.Players.Count > 0) {
             topAggroPlayer = Player.randomPlayerID();
         }
 
-        
+
     }
 
     // Update is called once per frame
@@ -57,11 +61,11 @@ public class BossAggro : MonoBehaviour {
         CheckAggro();
 
         if (shouldChase) {
+            agent.enabled = true;
             if (topAggroPlayer >= 0) {
                 Player target = Player.GetPlayerByID(topAggroPlayer);
 
-                if(target == null)
-                {
+                if (target == null) {
                     //if the player died
                     aggroTable.Remove(topAggroPlayer);
                     topAggroPlayer = -1;
@@ -71,7 +75,10 @@ public class BossAggro : MonoBehaviour {
                 agent.destination = target.Holder.transform.position;
             }
         } else {
-            agent.ResetPath();
+            if (agent.enabled) {
+                agent.ResetPath();
+            }
+            agent.enabled = false;
         }
     }
 
@@ -124,4 +131,13 @@ public class BossAggro : MonoBehaviour {
     void health_onDamage(float amount, int playerID) {
         aggroTable[playerID] = getAggro(playerID) + amount;
     }
+
+    public void haltMovement() {
+        rigid.velocity = Vector3.zero; 
+        if (agent.enabled) {
+            agent.ResetPath();
+        }
+    }
+    public void setVelocity(Vector3 worldDirectionNormalized) { rigid.velocity = worldDirectionNormalized * agent.speed; }
+
 }

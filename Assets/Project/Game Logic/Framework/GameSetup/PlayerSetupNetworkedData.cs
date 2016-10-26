@@ -167,7 +167,6 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         player.name = "Player" + (playerID + 1);
 
         if (BossSetup.Main != null && BossSetup.Main.PlayerSpawnPoints.Length > playerID) {
-            Debug.Log(playerID);
             player.transform.position = BossSetup.Main.PlayerSpawnPoints[playerID].position;
             player.transform.rotation = BossSetup.Main.PlayerSpawnPoints[playerID].rotation;
         }

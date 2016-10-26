@@ -15,6 +15,7 @@ public class BossSetupNetworkedData : MonoBehaviour {
     public enum AbilityId : byte {
         PAUSE,
         VOIDZONE,
+        CHARGE
     }
 
     public enum BossID : byte {
