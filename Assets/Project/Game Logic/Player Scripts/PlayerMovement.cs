@@ -10,6 +10,12 @@ public interface IMovement {
     AllBoolStat MovementInputEnabled { get; }
     void haltMovement();
     void setVelocity(Vector3 worldDirectionNormalized);
+
+    /// <summary>
+    /// Returns the current movement direction.
+    /// </summary>
+    /// <returns></returns>
+    Vector3 currentMovement();
 }
 
 /// <summary>
@@ -136,6 +142,22 @@ public class PlayerMovement : MonoBehaviour, IMovement
     {
         Assert.AreApproximatelyEqual(worldDirectionNormalized.y, 0);
         rigid.velocity = speed * worldDirectionNormalized;
+    }
+
+    public Vector3 currentMovement() {
+        if (!view.isMine) {
+            return nextTargetPosition.data - previousTargetPosition.data;
+
+        } else if (controlEnabled) {
+            if (movementInputEnabled) {
+                return input.movementDirection.ConvertFromInputToWorld();
+            } else {
+                return rigid.velocity;
+            }
+
+        } else {
+            return Vector3.zero;
+        }
     }
 
     /// <summary>

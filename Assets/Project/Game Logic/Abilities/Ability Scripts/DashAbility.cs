@@ -37,7 +37,7 @@ public class DashAbility : AbstractAbilityAction
 
         if (stream.isWriting) {
             //calculate end point of the dash from our current position and rotation
-            Vector3 playerDirection = rigid.transform.forward;
+            Vector3 playerDirection = movement.currentMovement();
             Assert.AreApproximatelyEqual(playerDirection.magnitude, 1);
             Assert.AreApproximatelyEqual(playerDirection.y, 0);
 
