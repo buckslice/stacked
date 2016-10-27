@@ -13,6 +13,9 @@ public class AbilityDisplay : MonoBehaviour {
     protected Image background;
 
     [SerializeField]
+    protected Image greyscaleBackground;
+
+    [SerializeField]
     protected Color readyColor = Color.yellow;
 
     [SerializeField]
@@ -25,6 +28,7 @@ public class AbilityDisplay : MonoBehaviour {
         this.abilityUI = abilityUI;
         if (imageTex != null) {
             background.overrideSprite = imageTex;
+            greyscaleBackground.overrideSprite = imageTex;
         }
     }
 
