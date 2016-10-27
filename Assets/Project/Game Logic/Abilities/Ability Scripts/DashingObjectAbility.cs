@@ -28,8 +28,6 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
         this.targetRigid = targetRigid;
 
 
-        EventLog.LogPosition(destinationPosition);
-
         targetMovement.haltMovement();
         targetMovement.MovementInputEnabled.AddModifier(false);
 
