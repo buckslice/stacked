@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011871402166}
   - 33: {fileID: 33000011360559492}
-  - 135: {fileID: 135000010701611516}
   - 23: {fileID: 23000013354916290}
   - 114: {fileID: 114000010275368864}
   m_Layer: 0
@@ -91,15 +90,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToLive: 1
---- !u!135 &135000010701611516
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010719365602}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}

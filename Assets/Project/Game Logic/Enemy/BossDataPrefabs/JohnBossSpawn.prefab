@@ -350,7 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossData:
     sceneName: John
-    abilities: 0001
+    abilities: 000102
   spawnPoint: {fileID: 4000011811519644}
   playerSpawnPoints:
   - {fileID: 4000013054816416}
