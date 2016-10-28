@@ -13,7 +13,8 @@ public class AddsNetworkedData : MonoBehaviour {
     /// When an add is created, it needs to be registered here. Do not remove legacy abilities. Order matters.
     /// </summary>
     public enum AddID : byte {
-        CHANGE_PLS
+        EXPLOSIVE,
+        RANGED
     }
 
     static AddsNetworkedData main;

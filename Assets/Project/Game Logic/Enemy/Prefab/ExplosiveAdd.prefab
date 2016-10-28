@@ -69,15 +69,15 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010752917546}
-  - 114: {fileID: 114000013903934568}
+  - 114: {fileID: 114000014176745508}
   - 135: {fileID: 135000011794020028}
   - 114: {fileID: 114000011952247578}
   - 114: {fileID: 114000011603533410}
   - 114: {fileID: 114000010126061422}
   - 114: {fileID: 114000010647333662}
-  m_Layer: 17
+  m_Layer: 20
   m_Name: Ability
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -526,7 +526,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d18bd26e37daa15459adfb1a50ded01b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilities: []
+  abilities:
+  - {fileID: 1000011785023964}
 --- !u!114 &114000010647333662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -561,7 +562,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagsMask:
-    mask: 1
+    mask: 3
 --- !u!114 &114000011746130492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -624,7 +625,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barType: 2
---- !u!114 &114000013903934568
+--- !u!114 &114000014176745508
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -632,10 +633,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011785023964}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0021636dd9b5c341ba19d11a8f6cb76, type: 3}
+  m_Script: {fileID: 11500000, guid: e6cbc1fd32de5b14a873399bb58fa41f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abilityActions: []
+  abilityActions:
+  - {fileID: 114000011603533410}
+  - {fileID: 114000010126061422}
+  - {fileID: 114000010647333662}
 --- !u!114 &114000014208494346
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -657,7 +661,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011785023964}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 6

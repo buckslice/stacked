@@ -248,6 +248,8 @@ MonoBehaviour:
   - {fileID: 1000010525559686, guid: 510621ad74052db48ae7655f8cc63af4, type: 2}
   - {fileID: 1000010506637404, guid: 8fd245ec13ee79b4581a3d7b8bdd95f1, type: 2}
   - {fileID: 1000010742422680, guid: 12990c2f4d727a044972e6f6b19cfdf6, type: 2}
+  - {fileID: 1000013477630102, guid: 01a9e718b7e4d344ba8dab73c14cc5ca, type: 2}
+  - {fileID: 1000010579664738, guid: 8c24a6c0c2d74b54aa85d17e3b728893, type: 2}
   bossDataPrefabs:
   - {fileID: 1000011969965616, guid: b14c7e3f7438aa4498bcdff4311988fe, type: 2}
   - {fileID: 1000012265965068, guid: 8f4fc3196c0bc184193615c3635de759, type: 2}
@@ -288,4 +290,4 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 1000011406441348, guid: cf67071413b28654ba45234c318dbf33,
     type: 2}
   addPrefabs:
-  - {fileID: 1000012221291214, guid: 9746dbe808fe8fb4eb1e9b54fea252ae, type: 2}
+  - {fileID: 1000012301487708, guid: 3b276311c66b11341a60a3cbec12544d, type: 2}
