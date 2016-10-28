@@ -33,7 +33,7 @@ public class ControllerPlayerInput : IPlayerInput {
     private string horizontalMovementAxis = Tags.Input.Joystick1.HorizontalMovement;
     private string verticalMovementAxis = Tags.Input.Joystick1.VerticalMovement;
 
-    private enum AxisType {
+    public enum AxisType {
         XBOX,
         PS4
     }
@@ -43,39 +43,42 @@ public class ControllerPlayerInput : IPlayerInput {
     private string horizontalAimingAxis = Tags.Input.Joystick1.HorizontalAiming;
     private string verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
 
-    private enum InputType {
+    private bool[] axisStates;
+    private bool[] axisUp;
+    private bool[] axisDown;
+
+    public enum InputType {
         KEY,
         AXIS
     }
 
-    private struct Key{
-        InputType type;
-        KeyCode key;
-        string axis;
+    private class Key{
+        public InputType type;
+        public KeyCode key;
+        public string axis;
+
+        public Key(KeyCode key) {
+            this.key = key;
+            this.type = InputType.KEY;
+        }
+
+        public Key(string axis) {
+            this.axis = axis;
+            this.type = InputType.AXIS;
+        }
     };
 
-    private enum Inputs {
+    public enum Inputs {
         SUBMIT,
         CANCEL,
         START,
         ABILITY1,
         ABILITY2,
-        BASIC_ATTACK
+        BASIC_ATTACK,
+        JUMP
     }
 
     private Key[] InputBindings;
-
-    private string basicAttackAxis = Tags.Input.Joystick1.RightTrigger;
-
-    private bool previousBasicAttackAxisStatus = false;
-    private float previousBasicAttackDownTime = 0;
-    private float previousBasicAttackUpTime = 0;
-
-    private KeyCode submitKey = Tags.Input.Joystick1.button0;
-    private KeyCode cancelKey = Tags.Input.Joystick1.button1;
-    private KeyCode startKey = Tags.Input.Joystick1.button7;
-    private KeyCode ability1Key = Tags.Input.Joystick1.button4;
-    private KeyCode ability2Key = Tags.Input.Joystick1.button5;
 
     MonoBehaviour holder;
 
@@ -90,54 +93,67 @@ public class ControllerPlayerInput : IPlayerInput {
     AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
 
     public void Start() {    // manually calling this in the holder..
+        InputBindings = new Key[7];
+        axisStates = new bool[6];
+        axisUp = new bool[6];
+        axisDown = new bool[6];
+
         switch (controllerIndex) {
             case PlayerIndex.One:
                 horizontalMovementAxis = Tags.Input.Joystick1.HorizontalMovement;
                 verticalMovementAxis = Tags.Input.Joystick1.VerticalMovement;
                 horizontalAimingAxis = Tags.Input.Joystick1.HorizontalAiming;
                 verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
-                basicAttackAxis = Tags.Input.Joystick1.RightTrigger;
-                submitKey = Tags.Input.Joystick1.button0;
-                cancelKey = Tags.Input.Joystick1.button1;
-                startKey = Tags.Input.Joystick1.button7;
-                ability1Key = Tags.Input.Joystick1.button4;
-                ability2Key = Tags.Input.Joystick1.button5;
+
+                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick1.RightTrigger);
+                InputBindings[(int)Inputs.SUBMIT] = new Key(Tags.Input.Joystick1.button0);
+                InputBindings[(int)Inputs.CANCEL] = new Key(Tags.Input.Joystick1.button1);
+                InputBindings[(int)Inputs.START] = new Key(Tags.Input.Joystick1.button7);
+                InputBindings[(int)Inputs.ABILITY1] = new Key(Tags.Input.Joystick1.button4);
+                InputBindings[(int)Inputs.ABILITY2] = new Key(Tags.Input.Joystick1.button5);
+                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick1.LeftTrigger);
                 break;
             case PlayerIndex.Two:
                 horizontalMovementAxis = Tags.Input.Joystick2.HorizontalMovement;
                 verticalMovementAxis = Tags.Input.Joystick2.VerticalMovement;
                 horizontalAimingAxis = Tags.Input.Joystick2.HorizontalAiming;
                 verticalAimingAxis = Tags.Input.Joystick2.VerticalAiming;
-                basicAttackAxis = Tags.Input.Joystick2.RightTrigger;
-                submitKey = Tags.Input.Joystick2.button0;
-                cancelKey = Tags.Input.Joystick2.button1;
-                startKey = Tags.Input.Joystick2.button7;
-                ability1Key = Tags.Input.Joystick2.button4;
-                ability2Key = Tags.Input.Joystick2.button5;
+
+                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick2.RightTrigger);
+                InputBindings[(int)Inputs.SUBMIT] = new Key(Tags.Input.Joystick2.button0);
+                InputBindings[(int)Inputs.CANCEL] = new Key(Tags.Input.Joystick2.button1);
+                InputBindings[(int)Inputs.START] = new Key(Tags.Input.Joystick2.button7);
+                InputBindings[(int)Inputs.ABILITY1] = new Key(Tags.Input.Joystick2.button4);
+                InputBindings[(int)Inputs.ABILITY2] = new Key(Tags.Input.Joystick2.button5);
+                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick2.LeftTrigger);
                 break;
             case PlayerIndex.Three:
                 horizontalMovementAxis = Tags.Input.Joystick3.HorizontalMovement;
                 verticalMovementAxis = Tags.Input.Joystick3.VerticalMovement;
                 horizontalAimingAxis = Tags.Input.Joystick3.HorizontalAiming;
                 verticalAimingAxis = Tags.Input.Joystick3.VerticalAiming;
-                basicAttackAxis = Tags.Input.Joystick3.RightTrigger;
-                submitKey = Tags.Input.Joystick3.button0;
-                cancelKey = Tags.Input.Joystick3.button1;
-                startKey = Tags.Input.Joystick3.button7;
-                ability1Key = Tags.Input.Joystick3.button4;
-                ability2Key = Tags.Input.Joystick3.button5;
+
+                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick3.RightTrigger);
+                InputBindings[(int)Inputs.SUBMIT] = new Key(Tags.Input.Joystick3.button0);
+                InputBindings[(int)Inputs.CANCEL] = new Key(Tags.Input.Joystick3.button1);
+                InputBindings[(int)Inputs.START] = new Key(Tags.Input.Joystick3.button7);
+                InputBindings[(int)Inputs.ABILITY1] = new Key(Tags.Input.Joystick3.button4);
+                InputBindings[(int)Inputs.ABILITY2] = new Key(Tags.Input.Joystick3.button5);
+                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick3.LeftTrigger);
                 break;
             case PlayerIndex.Four:
                 horizontalMovementAxis = Tags.Input.Joystick4.HorizontalMovement;
                 verticalMovementAxis = Tags.Input.Joystick4.VerticalMovement;
                 horizontalAimingAxis = Tags.Input.Joystick4.HorizontalAiming;
                 verticalAimingAxis = Tags.Input.Joystick4.VerticalAiming;
-                basicAttackAxis = Tags.Input.Joystick4.RightTrigger;
-                submitKey = Tags.Input.Joystick4.button0;
-                cancelKey = Tags.Input.Joystick4.button1;
-                startKey = Tags.Input.Joystick4.button7;
-                ability1Key = Tags.Input.Joystick4.button4;
-                ability2Key = Tags.Input.Joystick4.button5;
+
+                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick4.RightTrigger);
+                InputBindings[(int)Inputs.SUBMIT] = new Key(Tags.Input.Joystick4.button0);
+                InputBindings[(int)Inputs.CANCEL] = new Key(Tags.Input.Joystick4.button1);
+                InputBindings[(int)Inputs.START] = new Key(Tags.Input.Joystick4.button7);
+                InputBindings[(int)Inputs.ABILITY1] = new Key(Tags.Input.Joystick4.button4);
+                InputBindings[(int)Inputs.ABILITY2] = new Key(Tags.Input.Joystick4.button5);
+                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick4.LeftTrigger);
                 break;
             default:
                 Debug.Assert(false, "Out of range player index!");
@@ -197,56 +213,66 @@ public class ControllerPlayerInput : IPlayerInput {
             return getSmoothedJoystickInput(horizontalAimingAxis, verticalAimingAxis, deadZone).ConvertFromInputToWorld();
         }
     }
-    public bool getSubmit { get { return Input.GetKey(submitKey); } }
-    public bool getCancel { get { return Input.GetKey(cancelKey); } }
-    public bool getStart { get { return Input.GetKey(startKey); } }
-    public bool getBasicAttack { get { return Input.GetAxisRaw(basicAttackAxis) > deadZone; } }
-    public bool getAbility1 { get { return Input.GetKey(ability1Key); } }
-    public bool getAbility2 { get { return Input.GetKey(ability2Key); } }
 
-    public bool getSubmitDown { get { return Input.GetKeyDown(submitKey); } }
-    public bool getCancelDown { get { return Input.GetKeyDown(cancelKey); } }
-    public bool getStartDown { get { return Input.GetKeyDown(startKey); } }
-    public bool getBasicAttackDown { get {
-        checkBasicAttackStatus();
-        return Time.time == previousBasicAttackDownTime;
-    } }
-    public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
-    public bool getAbility2Down { get { return Input.GetKeyDown(ability2Key); } }
-
-    public bool getBasicAttackUp {
-        get {
-            checkBasicAttackStatus();
-            return Time.time == previousBasicAttackUpTime;
+    public bool getKey(Inputs key) {
+        if (InputBindings[(int)key].type == InputType.KEY) {
+            return Input.GetKey(InputBindings[(int)key].key);
+        }
+        else {
+            return Input.GetAxisRaw(InputBindings[(int)key].axis) > deadZone;
         }
     }
-    public bool getAbility1Up { get { return Input.GetKeyUp(ability1Key); } }
-    public bool getAbility2Up { get { return Input.GetKeyUp(ability2Key); } }
 
-    public string submitName { get { return PlayerInputExtension.getBindingName(submitKey); } }
-    public string cancelName { get { return PlayerInputExtension.getBindingName(cancelKey); } }
-    public string startName { get { return PlayerInputExtension.getBindingName(startKey); } }
-    public string basicAttackName { get { return basicAttackAxis; } }
-    public string ability1Name { get { return PlayerInputExtension.getBindingName(ability1Key); } }
-    public string ability2Name { get { return PlayerInputExtension.getBindingName(ability2Key); } }
-
-    /// <summary>
-    /// Updates tracking for an axis.
-    /// </summary>
-    void checkBasicAttackStatus() {
-        if (Time.time == previousBasicAttackDownTime || Time.time == previousBasicAttackUpTime) { return; }
-        bool down = !previousBasicAttackAxisStatus && getBasicAttack;
-        bool up = previousBasicAttackAxisStatus && !getBasicAttack;
-
-        previousBasicAttackAxisStatus = getBasicAttack;
-
-        if (down) {
-            previousBasicAttackDownTime = Time.time;
+    public bool getKeyDown(Inputs key) {
+        if (InputBindings[(int)key].type == InputType.KEY) {
+            return Input.GetKeyDown(InputBindings[(int)key].key);
         }
-        if (up) {
-            previousBasicAttackUpTime = Time.time;
+        else {
+            return axisDown[getAxisNumberByString(InputBindings[(int)key].axis)];
         }
     }
+
+    public bool getKeyUp(Inputs key) {
+        if (InputBindings[(int)key].type == InputType.KEY) {
+            return Input.GetKeyUp(InputBindings[(int)key].key);
+        }
+        else {
+            return axisUp[getAxisNumberByString(InputBindings[(int)key].axis)];
+        }
+    }
+
+    public bool getSubmit { get { return getKey(Inputs.SUBMIT); } }
+    public bool getCancel { get { return getKey(Inputs.CANCEL); } }
+    public bool getStart { get { return getKey(Inputs.START); } }
+    public bool getBasicAttack { get { return getKey(Inputs.BASIC_ATTACK); } }
+    public bool getAbility1 { get { return getKey(Inputs.ABILITY1); } }
+    public bool getAbility2 { get { return getKey(Inputs.ABILITY2); } }
+    public bool getJump { get { return getKey(Inputs.JUMP); } }
+
+    public bool getSubmitDown { get { return getKeyDown(Inputs.SUBMIT); } }
+    public bool getCancelDown { get { return getKeyDown(Inputs.CANCEL); } }
+    public bool getStartDown { get { return getKeyDown(Inputs.START); } }
+    public bool getBasicAttackDown { get { return getKeyDown(Inputs.BASIC_ATTACK); } }
+    public bool getAbility1Down { get { return getKeyDown(Inputs.ABILITY1); } }
+    public bool getAbility2Down { get { return getKeyDown(Inputs.ABILITY2); } }
+    public bool getJumpDown { get { return getKeyDown(Inputs.JUMP); } }
+
+    public bool getSubmitUp { get { return getKeyUp(Inputs.SUBMIT); } }
+    public bool getCancelUp { get { return getKeyUp(Inputs.CANCEL); } }
+    public bool getStartUp { get { return getKeyUp(Inputs.START); } }
+    public bool getBasicAttackUp { get { return getKeyUp(Inputs.BASIC_ATTACK); }}
+    public bool getAbility1Up { get { return getKeyUp(Inputs.ABILITY1); } }
+    public bool getAbility2Up { get { return getKeyUp(Inputs.ABILITY2); } }
+    public bool getJumpUp { get { return getKeyUp(Inputs.JUMP); } }
+
+
+    //TODO re-do binding names
+    public string submitName { get { return PlayerInputExtension.getBindingName(0); } }
+    public string cancelName { get { return PlayerInputExtension.getBindingName(0); } }
+    public string startName { get { return PlayerInputExtension.getBindingName(0); } }
+    public string basicAttackName { get { return "DERP"; } }
+    public string ability1Name { get { return PlayerInputExtension.getBindingName(0); } }
+    public string ability2Name { get { return PlayerInputExtension.getBindingName(0); } }
 
     public void Vibrate(float strength, float duration, MonoBehaviour callingScript) {
         vibrationAmount.AddModifier(strength);
@@ -278,10 +304,18 @@ public class ControllerPlayerInput : IPlayerInput {
         return controllerIndex.GetHashCode();
     }
 
-    public void remap(int button) {
-
+    public void remap(Inputs input, int button, InputType type) {
+        if (type == InputType.KEY) {
+            InputBindings[(int)input].key = getInputByJoystickNumber(button);
+            InputBindings[(int)input].type = InputType.KEY;
+        }
+        else {
+            InputBindings[(int)input].axis = getAxisByJoystickNumber(button);
+            InputBindings[(int)input].type = InputType.AXIS;
+        }
     }
 
+    //TODO check if other axes are currently bound, and bind the other axes to them
     public void swapRightStickAndTriggers() {
         if (currentAxisType == AxisType.XBOX) {
             currentAxisType = AxisType.PS4;
@@ -293,6 +327,14 @@ public class ControllerPlayerInput : IPlayerInput {
             horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.HorizontalAiming);
             verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.VerticalAiming);
         }
+    }
+    
+    private int getButtonNumberByKeyCode(KeyCode button) {
+        return PlayerInputExtension.buttonNumbers[button];
+    }
+
+    private int getAxisNumberByString(string axis) {
+        return PlayerInputExtension.axisNumbers[axis];
     }
 
     private KeyCode getInputByJoystickNumber(int button) {
@@ -327,5 +369,42 @@ public class ControllerPlayerInput : IPlayerInput {
                 break;
         }
         return "";
+    }
+
+    //Called on update to determine axisUp and axisDown
+    void setAxisFlags() {
+        string[] allAxes;
+        switch (controllerIndex) {
+            case PlayerIndex.One:
+                allAxes = Tags.Input.Joystick1.allAxes;
+                break;
+            case PlayerIndex.Two:
+                allAxes = Tags.Input.Joystick2.allAxes;
+                break;
+            case PlayerIndex.Three:
+                allAxes = Tags.Input.Joystick3.allAxes;
+                break;
+            case PlayerIndex.Four:
+                allAxes = Tags.Input.Joystick4.allAxes;
+                break;
+            default:
+                Debug.Assert(false, "Out of range player index!");
+                return;
+        }
+        for (int i = 0; i < axisStates.Length; i++) {
+            axisUp[i] = false;
+            axisDown[i] = false;
+            bool currentState = Input.GetAxisRaw(allAxes[i]) > deadZone;
+            if (axisStates[i] && !currentState) {
+                axisUp[i] = true;
+            }
+            if (!axisStates[i] && currentState) {
+                axisDown[i] = true;
+            }
+        }
+    }
+
+    void Update() {
+        setAxisFlags();
     }
 }
