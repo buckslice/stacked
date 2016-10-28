@@ -4,10 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
+/// Class which holds an AbilityDisplay
+/// </summary>
+public interface IAbilityDisplayHolder {
+}
+
+/// <summary>
 /// Class responsible for the ability's UI
 /// </summary>
-[RequireComponent(typeof(IAbilityUI))]
-public class AbilityUI : MonoBehaviour {
+[RequireComponent(typeof(IAbilityStatus))]
+public class AbilityUI : MonoBehaviour, IAbilityDisplayHolder {
 
     [SerializeField]
     protected GameObject uiPrefab;
@@ -24,20 +30,20 @@ public class AbilityUI : MonoBehaviour {
     [SerializeField]
     protected float vibrationStrength = 1;
 
-    IAbilityUI ability;
+    IAbilityStatus ability;
     GameObject spawnedUIPrefab;
-    AbilityDisplay display;
+    IAbilityDisplay display;
     ControllerPlayerInput controllerInput = null;
 
     float cooldownProgress;
 
 
 	void Start () {
-        ability = GetComponent<IAbilityUI>();
+        ability = GetComponent<IAbilityStatus>();
         RectTransform parent = GetComponentInParent<EntityUIGroupHolder>().EntityGroup.StatusHolder;
         spawnedUIPrefab = Instantiate(uiPrefab, parent) as GameObject;
         spawnedUIPrefab.GetComponent<RectTransform>().Reset();
-        display = spawnedUIPrefab.GetComponent<AbilityDisplay>();
+        display = spawnedUIPrefab.GetComponent<IAbilityDisplay>();
         display.Initialize(this, uiIcon);
 
         PlayerInputHolder holder = GetComponentInParent<PlayerInputHolder>();

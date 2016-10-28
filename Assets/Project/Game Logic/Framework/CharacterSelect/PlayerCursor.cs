@@ -6,8 +6,10 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PlayerInputHolder))]
-public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID {
+public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDisplayHolder {
 
+    [SerializeField]
+    protected GameObject abilityDisplayPrefab;
     [SerializeField]
     public int playerNumber = -1;
     public int PlayerID { get { return playerNumber; } }
@@ -19,11 +21,13 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID {
     List<RaycastResult> results = new List<RaycastResult>();
     PlayerInputHolder input;
     public IPlayerInputHolder Input { get { return input; } }
-    
-    bool selected1 = false;
-    bool selected2 = false;
+
+    EntityUIGroupHolder holder;
+
     PlayerSetupNetworkedData.AbilityId selection1;
     PlayerSetupNetworkedData.AbilityId selection2;
+    GameObject selection1Display;
+    GameObject selection2Display;
 
     GameObject playerSetupGO = null;
     ReadyChecker readyChecker;
@@ -34,6 +38,8 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID {
         input = GetComponent<PlayerInputHolder>();
         readyChecker = GameObject.Find("ReadyChecker").GetComponent<ReadyChecker>();
         readyChecker.AddPlayer(this);
+
+        holder = GetComponentInParent<EntityUIGroupHolder>();
 
         Assert.IsNotNull(BossSetup.Main);
         readyChecker.LevelToLoad = BossSetup.Main.BossData.sceneName;
@@ -65,21 +71,41 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID {
             for(int i = 0; i < results.Count; ++i) {
                 GameObject rgo = results[i].gameObject;
                 if (rgo.CompareTag("AbilityIcon")) {
-                    if (selected1) {
-                        PlayerSetupNetworkedData.AbilityId newSelection = rgo.GetComponent<CharacterSelectIcon>().ability;
+                    CharacterSelectIcon selectIcon = rgo.GetComponent<CharacterSelectIcon>();
+
+                    if (selection1Display == null) {
+
+                        PlayerSetupNetworkedData.AbilityId newSelection = selectIcon.ability;
+
+                        selection1 = newSelection;
+                        leftHalf.color = rgo.GetComponent<Image>().color;
+
+                        RectTransform parent = holder.EntityGroup.StatusHolder;
+                        selection1Display = Instantiate(abilityDisplayPrefab, parent) as GameObject;
+                        selection1Display.GetComponent<RectTransform>().Reset();
+                        selection1Display.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability1Name, selectIcon.abilityIcon);
+
+                    } else if (selection2Display == null) {
+
+                        PlayerSetupNetworkedData.AbilityId newSelection = selectIcon.ability;
+
                         if (selection1 == newSelection) {  // cant select two of same ability
                             break;
                         }
                         selection2 = newSelection;
 
                         rightHalf.color = rgo.GetComponent<Image>().color;
-                        selected2 = true;
+
+                        RectTransform parent = holder.EntityGroup.StatusHolder;
+                        selection2Display = Instantiate(abilityDisplayPrefab, parent) as GameObject;
+                        selection2Display.GetComponent<RectTransform>().Reset();
+                        selection2Display.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability2Name, selectIcon.abilityIcon);
 
                         //create/recreate setupGO
                         if (playerSetupGO) {
                             Destroy(playerSetupGO);
                         }
-                        Assert.IsTrue(selected1 && selected2);
+                        Assert.IsTrue(selection1Display != null && selection2Display != null);
                         playerSetupGO = new GameObject();
                         PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
                         playerSetup.Initalize(input.HeldInput, playerNumber);
@@ -88,32 +114,27 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID {
                         pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
                         playerSetup.playerData = pd;
                         Ready = true;
-                    } else {
-
-                        PlayerSetupNetworkedData.AbilityId newSelection = rgo.GetComponent<CharacterSelectIcon>().ability;
-                        if (selection1 == newSelection) {  // cant select two of same ability
-                            break;
-                        }
-
-                        selection1 = newSelection;
-                        leftHalf.color = rgo.GetComponent<Image>().color;
-                        selected1 = true;
                     }
                 }
             }
         }
         if (input.getCancelDown) {
+
             if (playerSetupGO) {
                 Destroy(playerSetupGO);
-            }else if (selected2) {
-                selected2 = false;
-                rightHalf.color = Color.white;
-            } else if (selected1) {
-                leftHalf.color = Color.white;
-                selected1 = false;
             }
+            
+            if (selection2Display != null) {
+                Destroy(selection2Display);
+                selection2Display = null;
+                rightHalf.color = Color.white;
+            } else if (selection1Display) {
+                Destroy(selection1Display);
+                selection1Display = null;
+                leftHalf.color = Color.white;
+            }
+
             Ready = false;
         }
-
 	}
 }

@@ -156,6 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ab55d1bd05978347988dfd2a1fd69f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityDisplayPrefab: {fileID: 1000010063827236, guid: 87754d651fb8b4948a310ae56843fb96,
+    type: 2}
   playerNumber: -1
   moveSpeed: 500
   leftHalf: {fileID: 114000013525898108}

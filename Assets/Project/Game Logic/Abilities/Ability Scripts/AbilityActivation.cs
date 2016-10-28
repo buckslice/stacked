@@ -16,7 +16,7 @@ public interface IAbilityActivation {
 /// <summary>
 /// Used to interface with the UI.
 /// </summary>
-public interface IAbilityUI {
+public interface IAbilityStatus {
 
     /// <summary>
     /// Time until the ability is ready, normalized to the range [0, 1]. Only includes time-related constraints
@@ -34,7 +34,7 @@ public interface IAbilityUI {
 /// <summary>
 /// Filters triggers to activate abilities. Has no target.
 /// </summary>
-public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityConstrained, IAbilityUI {
+public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityConstrained, IAbilityStatus {
     /// <summary>
     /// List of abilityActions to activate with this ability, includes Constraints. Order must be the same on all clients.
     /// </summary>

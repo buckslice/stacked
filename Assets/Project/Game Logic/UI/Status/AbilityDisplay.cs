@@ -4,7 +4,14 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AbilityDisplay : MonoBehaviour {
+public interface IAbilityDisplay {
+    void Initialize(IAbilityDisplayHolder abilityUI, Sprite imageTex);
+    IAbilityDisplayHolder AbilityUI { get; }
+    void setCooldownProgress(float progress);
+    void setAbilityReady(bool ready);
+}
+
+public class AbilityDisplay : MonoBehaviour, IAbilityDisplay {
 
     [SerializeField]
     protected Image mask;
@@ -21,10 +28,10 @@ public class AbilityDisplay : MonoBehaviour {
     [SerializeField]
     protected Color notReadyColor = Color.grey;
 
-    AbilityUI abilityUI;
-    public AbilityUI AbilityUI { get { return abilityUI; } }
+    IAbilityDisplayHolder abilityUI;
+    public IAbilityDisplayHolder AbilityUI { get { return abilityUI; } }
 
-    public void Initialize(AbilityUI abilityUI, Sprite imageTex) {
+    public void Initialize(IAbilityDisplayHolder abilityUI, Sprite imageTex) {
         this.abilityUI = abilityUI;
         if (imageTex != null) {
             background.overrideSprite = imageTex;

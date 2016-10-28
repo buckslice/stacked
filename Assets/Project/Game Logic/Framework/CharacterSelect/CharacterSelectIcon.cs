@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class CharacterSelectIcon : MonoBehaviour {
@@ -10,4 +11,6 @@ public class CharacterSelectIcon : MonoBehaviour {
     //}
 
     public PlayerSetupNetworkedData.AbilityId ability;
+
+    public Sprite abilityIcon { get { return GetComponent<Image>().sprite; } }
 }

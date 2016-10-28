@@ -4,16 +4,16 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(AbilityDisplay))]
+[RequireComponent(typeof(IAbilityDisplay))]
 public class AbilityKeybindingDisplay : MonoBehaviour {
 
     [SerializeField]
     protected Text text;
 
 	void Start () {
-        AbilityDisplay display = GetComponent<AbilityDisplay>();
+        IAbilityDisplay display = GetComponent<IAbilityDisplay>();
 
-        InputTrigger inputTrigger = display.AbilityUI.GetComponent<InputTrigger>();
+        InputTrigger inputTrigger = ((MonoBehaviour)display.AbilityUI).GetComponent<InputTrigger>();
         if (inputTrigger == null) {
             return;
         }

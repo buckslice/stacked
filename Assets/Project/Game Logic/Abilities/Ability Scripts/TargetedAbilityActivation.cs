@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Filters triggers to activate abilities. Acts with reference to a target.
 /// </summary>
-public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityConstrained, IAbilityUI {
+public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityConstrained, IAbilityStatus {
     /// <summary>
     /// List of abilityActions to activate with this ability, includes Constraints. Order must be the same on all clients.
     /// </summary>
