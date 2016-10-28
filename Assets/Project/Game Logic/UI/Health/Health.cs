@@ -79,4 +79,8 @@ public class Health : MonoBehaviour {
             setHealth((float)stream.ReceiveNext());
         }
     }
+
+    public void Kill() {
+        setHealth(0);
+    }
 }
