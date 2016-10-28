@@ -26,7 +26,7 @@ public class EntityUIGroupHolder : MonoBehaviour {
         Debug.Assert(canvasRoot, "Scene requires a UI canvas for healthbars!");
 
         CanvasHelper canvasHelper = canvasRoot.GetComponent<CanvasHelper>();
-
+        Assert.IsNotNull(canvasHelper);
         
 
         if (barType == HealthBarType.PLAYER) {

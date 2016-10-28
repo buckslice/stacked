@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(PlayerInputHolder))]
-public class PlayerCursor : MonoBehaviour, ISelection {
+public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID {
 
     [SerializeField]
     public int playerNumber = -1;
+    public int PlayerID { get { return playerNumber; } }
     public float moveSpeed = 4.0f;
     public Image leftHalf;
     public Image rightHalf;

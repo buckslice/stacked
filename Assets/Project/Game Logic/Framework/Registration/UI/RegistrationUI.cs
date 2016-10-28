@@ -18,7 +18,7 @@ public class RegistrationUI : MonoBehaviour {
         GameObject registrationBar = (GameObject)Instantiate(registrationUIPrefab, GetComponent<EntityUIGroupHolder>().EntityGroup.HealthBarHolder);
         (registrationBar.transform as RectTransform).Reset();
         instantiatedRegistrationBar = registrationBar.GetComponent<RegistrationUIBar>();
-        int playerID = GetComponent<RegisteredPlayer>().PlayerID;
+        int playerID = GetComponent<IPlayerID>().PlayerID;
         instantiatedRegistrationBar.PlayerID = playerID;
 	}
 }

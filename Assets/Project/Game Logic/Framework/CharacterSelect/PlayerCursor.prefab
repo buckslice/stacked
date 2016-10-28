@@ -56,6 +56,8 @@ GameObject:
   - 114: {fileID: 114000010212529820}
   - 114: {fileID: 114000011372161194}
   - 114: {fileID: 114000012200797662}
+  - 114: {fileID: 114000011243508436}
+  - 114: {fileID: 114000010676267868}
   m_Layer: 5
   m_Name: PlayerCursor
   m_TagString: Untagged
@@ -105,6 +107,33 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114000010676267868
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013021610858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6511cbfdcd3149449f0fabfe166f920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  registrationUIPrefab: {fileID: 1000010375674504, guid: 34c24db47a9a3b446aa62dcee4df67a6,
+    type: 2}
+--- !u!114 &114000011243508436
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013021610858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2c391354431d034d807b44860098975, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barType: 0
+  entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
+    type: 2}
 --- !u!114 &114000011372161194
 MonoBehaviour:
   m_ObjectHideFlags: 1

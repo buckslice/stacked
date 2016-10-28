@@ -699,9 +699,10 @@ GameObject:
   - 223: {fileID: 566795494}
   - 114: {fileID: 566795493}
   - 114: {fileID: 566795492}
+  - 114: {fileID: 566795496}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: CanvasRoot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -790,6 +791,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &566795496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 566795491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f1c3299f6912a4eba6a6b883211355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealthBarGroup: {fileID: 0}
+  bossHealthBarGroup: {fileID: 0}
+  floatingHealthBarGroup: {fileID: 0}
+  playerHealthBarPrefab: {fileID: 0}
+  bossHealthBarPrefab: {fileID: 0}
+  floatingHealthBarPrefab: {fileID: 0}
+  scaler: {fileID: 566795493}
 --- !u!1 &664351399
 GameObject:
   m_ObjectHideFlags: 0
