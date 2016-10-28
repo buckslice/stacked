@@ -111,22 +111,6 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         return player;
     }
 
-    /// <summary>
-    /// Creates an Add on all clients, owned by the local client. Assumes all clients have already connected.
-    /// </summary>
-    /// <param name="input"></param>
-    /// <param name="playerID"></param>
-    public GameObject CreateAdd(byte playerOwnerID, IPlayerInput input, PlayerSetup.PlayerSetupData playerData) {
-        int allocatedViewId = PhotonNetwork.AllocateViewID();
-
-        //Create our local copy
-        GameObject add = InstantiateAdd(playerOwnerID, allocatedViewId, input, playerData);
-
-        RaiseEvent(Tags.EventCodes.CREATEADD, playerOwnerID, allocatedViewId, playerData);
-
-        return add;
-    }
-
     void RaiseEvent(Tags.EventCodes eventCode, byte playerID, int allocatedViewId, PlayerSetup.PlayerSetupData playerData) {
         //Create the network payload to send for remote copies
         object[] payloadData = new object[3];
@@ -143,17 +127,13 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
     }
 
     public void OnEvent(byte eventcode, object content, int senderid) {
-        if (eventcode == (byte)Tags.EventCodes.CREATEPLAYER || eventcode == (byte)Tags.EventCodes.CREATEADD) {
+        if (eventcode == (byte)Tags.EventCodes.CREATEPLAYER) {
             object[] data = (object[])content;
             byte playerNumber = (byte)data[0];
             int allocatedViewId = (int)data[1];
             PlayerSetup.PlayerSetupData playerData = PlayerSetup.PlayerSetupData.fromByteArray((byte[])data[2]);
 
-            if (eventcode == (byte)Tags.EventCodes.CREATEPLAYER) {
-                InstantiatePlayer(playerNumber, allocatedViewId, new NullInput(), playerData);
-            } else {
-                InstantiateAdd(playerNumber, allocatedViewId, new NullInput(), playerData);
-            }
+            InstantiatePlayer(playerNumber, allocatedViewId, new NullInput(), playerData);
         }
     }
 
@@ -179,22 +159,6 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         damageHolder.Initialize(new Player(playerID, damageHolder));
 
         return player;
-    }
-
-    /// <summary>
-    /// Creates and initializes an add.
-    /// </summary>
-    /// <param name="playerNumber"></param>
-    /// <param name="allocatedViewId"></param>
-    public GameObject InstantiateAdd(byte playerOwnerID, int allocatedViewId, IPlayerInput input, PlayerSetup.PlayerSetupData playerData) {
-        GameObject add = InstantiatePlayer(allocatedViewId, input, playerData);
-
-        DamageHolder damageHolder = add.GetComponent<DamageHolder>();
-
-        //assign playerID
-        damageHolder.Initialize(new Add(Player.GetPlayerByID(playerOwnerID).DamageTracker));
-
-        return add;
     }
 
     public GameObject InstantiatePlayer(int allocatedViewId, IPlayerInput input, PlayerSetup.PlayerSetupData playerData) {

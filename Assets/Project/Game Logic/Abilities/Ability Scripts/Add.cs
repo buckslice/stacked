@@ -7,13 +7,8 @@ using System.Collections.Generic;
 /// Represents an add, which is a spawned unit which is friendly to players, but is not controlled by a person.
 /// </summary>
 [System.Serializable]
-public class Add : IDamageHolder {
+public class Add : AbstractDamageTracker {
+    public Add(IDamageHolder holder) : base(holder) { }
 
-    [SerializeField]
-    IDamageHolder ownerReference;
-    public IDamageTracker DamageTracker { get { return ownerReference.DamageTracker; } }
-
-    public Add(IDamageHolder owner) {
-        this.ownerReference = owner;
-    }
+    public override void Destroy() {}
 }
