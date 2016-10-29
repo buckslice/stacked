@@ -37,22 +37,25 @@ public class DashAbility : AbstractAbilityAction
 
         if (stream.isWriting) {
             //calculate end point of the dash from our current position and rotation
-            Vector3 playerDirection = movement.currentMovement();
-            Assert.AreApproximatelyEqual(playerDirection.magnitude, 1);
-            Assert.AreApproximatelyEqual(playerDirection.y, 0);
+            Vector3 direction = movement.currentMovement();
+            // if player is not moving in any direction blink should just go forward
+            if(!direction.magnitude.AlmostEquals(1, 0.01f)) {
+                direction = rigid.transform.forward;
+            }
+            Assert.AreApproximatelyEqual(direction.y, 0);
 
             RaycastHit hit;
             float distance;
             if (Physics.CapsuleCast(rigid.position + Vector3.up * coll.radius,
                                     rigid.position + Vector3.up * (coll.height - coll.radius),
-                                    coll.radius - 0.05f, playerDirection, out hit, dashDistance, layermask)) {
+                                    coll.radius - 0.05f, direction, out hit, dashDistance, layermask)) {
                 distance = hit.distance;
                 Debug.Log(hit.collider, hit.collider);
             } else {
                 distance = dashDistance; //max distance
             }
 
-            endPosition = rigid.position + distance * playerDirection;
+            endPosition = rigid.position + distance * direction;
             stream.SendNext(endPosition);
             //TODO: possibly use a vector2, since dash never has a vertical (y) component
 
