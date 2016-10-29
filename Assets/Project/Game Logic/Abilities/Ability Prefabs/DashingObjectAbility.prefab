@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010107113480}
   - 114: {fileID: 114000011094973056}
+  - 114: {fileID: 114000010686689040}
   m_Layer: 0
   m_Name: DashingObjectAbility
   m_TagString: Untagged
@@ -40,6 +41,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000010686689040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014203157394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f335b10a6cd62ef498c1f1c234eed558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 3864ee963c18dc14ebec340b55e2c4b4, type: 2}
+  frameLag: 5
 --- !u!114 &114000011094973056
 MonoBehaviour:
   m_ObjectHideFlags: 1

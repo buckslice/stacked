@@ -79,6 +79,11 @@ public class DashAbility : AbstractAbilityAction
             thrownObjectAbility.Initialize(networking, GetComponentInParent<IDamageHolder>());
         }
 
+        //TODO: branch off into its own action?
+        foreach (SmearSetup smear in instantiatedDashingObjectAbility.GetComponentsInChildren<SmearSetup>()) {
+            smear.Initialize(transform.root.GetComponentInChildren<Collider>());
+        }
+
         return true;
     }
 }

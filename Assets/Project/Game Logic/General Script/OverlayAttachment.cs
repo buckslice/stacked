@@ -2,6 +2,7 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// Attaches an overlay material to a collider's renderer
@@ -69,6 +70,7 @@ public class OverlayAttachment : AbstractAttachableEffect {
 public class Overlay : MonoBehaviour {
 
     protected Renderer targetRenderer;
+    public Renderer TargetRenderer { get { return targetRenderer; } }
 
     void Awake() {
         targetRenderer = GetComponent<Renderer>();
@@ -76,13 +78,22 @@ public class Overlay : MonoBehaviour {
 
     Dictionary<Material, int> currentOverlays = new Dictionary<Material,int>();
     Dictionary<Material, int> overlayCounts = new Dictionary<Material, int>();
+    HashSet<int> openIndices = new HashSet<int>();
 
-    public void Add(Material mat) {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="mat"></param>
+    /// <returns>The instantiated material, in order to set shader properties</returns>
+    public Material Add(Material mat) {
         if (overlayCounts.ContainsKey(mat)) {
             overlayCounts[mat]++;
+            return targetRenderer.materials[currentOverlays[mat]];
         } else {
             overlayCounts[mat] = 1;
-            AddMaterial(mat);
+            int index = AddMaterial(mat);
+            Debug.Log(index);
+            return targetRenderer.materials[index];
         }
     }
 
@@ -90,18 +101,21 @@ public class Overlay : MonoBehaviour {
     /// Adds a material to the renderer.
     /// </summary>
     /// <param name="mat"></param>
-    void AddMaterial(Material mat) {
+    /// <returns>The index of the material.</returns>
+    int AddMaterial(Material mat) {
         //Get the first open index in the materials array
         Material[] existingMaterials = targetRenderer.materials; //create a single duplicate; targetRenderer.materials will create a duplicate every time it is called
-        for (int i = 0; i < existingMaterials.Length; i++) {
-            if (existingMaterials[i] == null) {
-                //there is an open spot
-                existingMaterials[i] = mat;
-                currentOverlays[mat] = i;
-                targetRenderer.materials = existingMaterials;
-                return;
-            }
+
+        if (openIndices.Count > 0) {
+            int index = openIndices.First();
+            existingMaterials[index] = mat;
+            currentOverlays[mat] = index;
+            targetRenderer.materials = existingMaterials;
+            openIndices.Remove(index);
+            return index;
         }
+
+        //else
 
         //no open slots, increase the array size
         Material[] newMaterials = new Material[existingMaterials.Length + 1];
@@ -109,6 +123,7 @@ public class Overlay : MonoBehaviour {
         newMaterials[existingMaterials.Length] = mat;
         currentOverlays[mat] = existingMaterials.Length;
         targetRenderer.materials = newMaterials;
+        return existingMaterials.Length;
     }
 
     public void Remove(Material mat) {
@@ -127,6 +142,7 @@ public class Overlay : MonoBehaviour {
     void RemoveMaterial(Material mat) {
         Material[] newMaterials = targetRenderer.materials;
         newMaterials[currentOverlays[mat]] = null;
+        openIndices.Add(currentOverlays[mat]);
         targetRenderer.materials = newMaterials;
         currentOverlays.Remove(mat);
     }
