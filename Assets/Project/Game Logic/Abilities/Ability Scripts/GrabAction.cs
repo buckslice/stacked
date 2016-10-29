@@ -49,7 +49,7 @@ public class GrabAction : TypedTargetedAbilityAction {
 
         IMovement targetMovement = context.transform.root.GetComponentInChildren<IMovement>();
         targetMovement.ControlEnabled.AddModifier(false);
-        targetMovement.haltMovement();
+        targetMovement.HaltMovement();
 
         targetRigid.transform.position = targetHolder.position;
         targetRigid.transform.rotation = targetRigid.transform.rotation = targetHolder.rotation;

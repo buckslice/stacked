@@ -27,7 +27,7 @@ public class HaltAbility : DurationAbilityAction {
     protected override void OnDurationBegin() {
         movement.ControlEnabled.AddModifier(false);
         targetAbilities.ActivationEnabled.AddModifier(false);
-        movement.haltMovement();
+        movement.HaltMovement();
     }
 
     protected override void OnDurationEnd() {

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public interface IMovement {
     AllBoolStat ControlEnabled { get; }
     AllBoolStat MovementInputEnabled { get; }
-    void haltMovement();
+    void HaltMovement();
     void setVelocity(Vector3 worldDirectionNormalized);
 
     /// <summary>
@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour, IMovement
     /// <summary>
     /// Causes the player to stop all movement, instead of the short slowdown that occurs when input goes to zero
     /// </summary>
-    public void haltMovement()
+    public void HaltMovement()
     {
         rigid.velocity = Vector3.zero;
         rigid.angularVelocity = Vector3.zero;

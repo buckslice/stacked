@@ -6,13 +6,6 @@ using System.Linq;
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 public class BossAggro : MonoBehaviour, IMovement {
-
-    /// <summary>
-    /// Amount of additional aggro needed to pull aggro.
-    /// </summary>
-    [SerializeField]
-    protected float aggroToSurpass = 1.0f;
-
     [SerializeField]
     protected AllBoolStat shouldChase = new AllBoolStat(true);
     public AllBoolStat ShouldChase { get { return shouldChase; } }
@@ -28,9 +21,14 @@ public class BossAggro : MonoBehaviour, IMovement {
     Dictionary<int, float> aggroTable = new Dictionary<int, float>();
 
     /// <summary>
-    /// PlayerID of player who has most aggro. -1 for no player.
+    /// PlayerID of player who is currently the bosses primary target
     /// </summary>
-    int topAggroPlayer = -1;
+    int aggroHolder = -1;
+
+    /// <summary>
+    /// Amount of additional aggro needed to pull aggro from the aggroHolder
+    /// </summary>
+    float aggroToSurpass = 10.0f;
 
     /// <summary>
     /// Time this object was created, for tracking.
@@ -49,7 +47,7 @@ public class BossAggro : MonoBehaviour, IMovement {
         }
 
         if (Player.Players.Count > 0) {
-            topAggroPlayer = Player.randomPlayerID();
+            aggroHolder = Player.randomPlayerID();
         }
 
 
@@ -57,20 +55,19 @@ public class BossAggro : MonoBehaviour, IMovement {
 
     // Update is called once per frame
     void Update() {
-
         CheckAggro();
 
         if (shouldChase) {
             agent.enabled = true;
             agent.updateRotation = true;
             agent.updatePosition = true;
-            if (topAggroPlayer >= 0) {
-                Player target = Player.GetPlayerByID(topAggroPlayer);
+            if (aggroHolder >= 0) {
+                Player target = Player.GetPlayerByID(aggroHolder);
 
                 if (target == null) {
                     //if the player died
-                    aggroTable.Remove(topAggroPlayer);
-                    topAggroPlayer = -1;
+                    aggroTable.Remove(aggroHolder);
+                    aggroHolder = GetPlayerWithMostAggro();
                     return;
                 }
 
@@ -88,43 +85,44 @@ public class BossAggro : MonoBehaviour, IMovement {
 
     // this function changes aggro if a player has surpassed current aggro holder by more than the threshold
     void CheckAggro() {
-        float topAggro = topAggroPlayer >= 0 ? getAggro(topAggroPlayer) : 0;
-
-        // find highest aggro in table
-        KeyValuePair<int, float> maxAggro = new KeyValuePair<int, float>(-1, -1);
-        foreach (KeyValuePair<int, float> aggroEntry in aggroTable) {
-            if (aggroEntry.Value > maxAggro.Value) {
-                maxAggro = aggroEntry;
-            }
+        int top = GetPlayerWithMostAggro();
+        if (top == aggroHolder) {   // current aggro holder has most aggro so nothing to change here
+            return;
         }
 
-        // pull aggro if surpass top players aggro
-        if (maxAggro.Key != -1 && maxAggro.Key != topAggroPlayer && maxAggro.Value > topAggro + aggroToSurpass) {
-            topAggroPlayer = maxAggro.Key;
+        if (GetAggro(top) > GetAggro(aggroHolder) + aggroToSurpass) {
+            aggroHolder = top;  // a player has surpassed current aggro holder by the threshold, so pull aggro
         }
     }
 
-    float getAggro(int playerID) {
-        if (!aggroTable.ContainsKey(playerID)) {
-            //does not exist in data structure; initialize it.
-            float result = aggroToSurpass * Random.value;
-            aggroTable[playerID] = result;
-            return result;
+    int GetPlayerWithMostAggro() {
+        int id = -1;
+        float aggro = -1.0f;
+        foreach (Player p in Player.Players) {
+            float a = GetAggro(p.PlayerID);
+            if (a > aggro) {
+                aggro = a;
+                id = p.PlayerID;
+            }
         }
+        return id;
+    }
 
-        //else it does exist
-        return aggroTable[topAggroPlayer];
+    float GetAggro(int playerID) {
+        if(playerID < 0) {
+            return 0.0f;
+        }
+        float value;
+        if (!aggroTable.TryGetValue(playerID, out value)) {
+            //does not exist in data structure; initialize it.
+            aggroTable[playerID] = value;
+        }
+        return value;
     }
 
     public void SetTaunt(Player taunter) {
-        //reset and randomize all existing aggro
-        List<int> playerIDs = new List<int>(aggroTable.Keys); //duplicate to not modify the collection we are iterating over
-        foreach (int playerID in playerIDs) {
-            aggroTable[playerID] = aggroToSurpass * Random.value;
-        }
-
-        topAggroPlayer = taunter.PlayerID;
-        aggroTable[topAggroPlayer] = 100;
+        aggroHolder = taunter.PlayerID;
+        aggroTable[aggroHolder] = GetAggro(GetPlayerWithMostAggro()) + aggroToSurpass * 2.0f;
     }
 
     /// <summary>
@@ -133,10 +131,10 @@ public class BossAggro : MonoBehaviour, IMovement {
     /// <param name="amount"></param>
     /// <param name="playerID"></param>
     void health_onDamage(float amount, int playerID) {
-        aggroTable[playerID] = getAggro(playerID) + amount;
+        aggroTable[playerID] = GetAggro(playerID) + amount;
     }
 
-    public void haltMovement() {
+    public void HaltMovement() {
         rigid.velocity = Vector3.zero; 
         if (agent.enabled) {
             agent.ResetPath();

@@ -28,7 +28,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
         this.targetRigid = targetRigid;
 
 
-        targetMovement.haltMovement();
+        targetMovement.HaltMovement();
         targetMovement.MovementInputEnabled.AddModifier(false);
 
         foreach (IMovementOverride movementOverride in this.targetNetworking.transform.GetComponentsInChildren<IMovementOverride>()) {
