@@ -12,6 +12,6 @@ public class ProjectileTTL : ProjectileLifetimeAction {
     protected MultiplierFloatStat duration = new MultiplierFloatStat(10);
 
     protected override void OnProjectileCreated() {
-        Callback.FireAndForget(DestroyProjectile, duration, this);
+        Callback.FireAndForget(DestroySequence, duration, this);
     }
 }

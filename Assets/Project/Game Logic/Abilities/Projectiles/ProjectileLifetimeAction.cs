@@ -34,6 +34,12 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDes
     }
 
     public void Despawn() {
+        // need to figure out better way to store components that should be
+        // enabled and disabled during pooling
+        MeshRenderer rend = transform.root.GetComponentInChildren<MeshRenderer>();
+        if (rend) {
+            rend.enabled = true;
+        }
         OnProjectileDestroyed();
     }
 
@@ -48,6 +54,11 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDes
     protected virtual void OnProjectileDestroyed() { }
 
     /// <summary>
+    /// Called when the projectile destruction sequence starts
+    /// </summary>
+    protected virtual void OnDestructionStart() { }
+
+    /// <summary>
     /// Kills the projectile.
     /// </summary>
     protected void DestroyProjectile() {
@@ -58,14 +69,29 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDes
         }
     }
 
+    /// <summary>
+    /// Stops the projectiles particle system first then kills the projectile after particles are finished
+    /// </summary>
+    protected void DestroySequence() {
+        ParticleSystem ps = transform.root.GetComponentInChildren<ParticleSystem>();
+        float duration = 0.0f;
+        if (ps) {
+            ps.Stop();
+            duration = ps.startLifetime;
+        }
+        MeshRenderer rend = transform.root.GetComponentInChildren<MeshRenderer>();
+        if (rend) {
+            rend.enabled = false;
+        }
+
+        OnDestructionStart();
+        Callback.FireAndForget(DestroyProjectile, duration, this);
+    }
+
     public static void DestroyProjectile(Transform root) {
-        PhotonView view = root.GetComponent<PhotonView>();
-        if (view != null) {
-            if (view.isMine) {
-                PhotonNetwork.Destroy(view);
-            }
-        } else {
-            SimplePool.Despawn(root.gameObject);
+        ProjectileLifetimeAction plta = root.GetComponent<ProjectileLifetimeAction>();
+        if (plta) {
+            plta.DestroySequence();
         }
     }
 }

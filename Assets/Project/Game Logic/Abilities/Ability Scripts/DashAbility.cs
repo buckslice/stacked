@@ -42,7 +42,8 @@ public class DashAbility : AbstractAbilityAction
             if(!direction.magnitude.AlmostEquals(1, 0.01f)) {
                 direction = rigid.transform.forward;
             }
-            Assert.AreApproximatelyEqual(direction.y, 0);
+            direction.y = 0.0f;
+            //Assert.AreApproximatelyEqual(direction.y, 0);
 
             RaycastHit hit;
             float distance;

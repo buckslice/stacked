@@ -217,7 +217,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b2faabd50671646bdc3c2ec33e0799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 8
+  speed: 10
 --- !u!114 &114000011174790636
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -366,7 +366,7 @@ ParticleSystem:
   moveWithTransform: 0
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: 2107574095
+  randomSeed: 1993812020
   InitialModule:
     serializedVersion: 2
     enabled: 1
