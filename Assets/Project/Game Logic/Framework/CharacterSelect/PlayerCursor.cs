@@ -16,6 +16,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
     public float moveSpeed = 4.0f;
     public Image leftHalf;
     public Image rightHalf;
+    public Image readyImage;
 
     PointerEventData pointer = new PointerEventData(EventSystem.current);
     List<RaycastResult> results = new List<RaycastResult>();
@@ -38,7 +39,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
         input = GetComponent<PlayerInputHolder>();
         readyChecker = GameObject.Find("ReadyChecker").GetComponent<ReadyChecker>();
         readyChecker.AddPlayer(this);
-
+        readyImage.enabled = false;
         holder = GetComponentInParent<EntityUIGroupHolder>();
 
         Assert.IsNotNull(BossSetup.Main);
@@ -114,6 +115,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
                         pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
                         playerSetup.playerData = pd;
                         Ready = true;
+                        readyImage.enabled = true;
                     }
                 }
             }
@@ -135,6 +137,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
             }
 
             Ready = false;
+            readyImage.enabled = false;
         }
 	}
 }
