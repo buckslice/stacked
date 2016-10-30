@@ -2,6 +2,7 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// Node of a union-find data structure, with no compression. The chain of parents to get to the head is used to specify exactly what did damage.
@@ -48,11 +49,23 @@ public abstract class AbstractDamageTracker : IDamageTracker {
     public abstract void Destroy();
 }
 
-public class DamageHolder : MonoBehaviour, IDamageHolder {
+public class DamageHolder : MonoBehaviour, IDamageHolder, IPlayerID {
 
     IDamageHolder trackerReference = null;
 
     public IDamageTracker DamageTracker { get { return trackerReference.DamageTracker; } }
+
+    int IPlayerID.PlayerID {
+        get {
+            Player player = this.GetRootDamageTracker() as Player;
+            if (player != null) {
+                return player.PlayerID;
+            } else {
+                Debug.LogWarning("Holder is not a player; returning playerID -1", this);
+                return -1;
+            }
+        }
+    }
 
     public void Initialize(IDamageHolder trackerReference) {
         this.trackerReference = trackerReference;
