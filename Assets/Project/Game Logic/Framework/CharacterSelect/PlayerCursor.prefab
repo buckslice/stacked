@@ -260,8 +260,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8738bda7da43b44a9800b1ce5a8991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tintedRenderers:
-  - {fileID: 0}
+  tintedRenderers: []
   tintedImages:
   - {fileID: 114000010980961138}
 --- !u!114 &114000013525898108
