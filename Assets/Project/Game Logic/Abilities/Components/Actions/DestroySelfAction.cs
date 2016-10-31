@@ -5,7 +5,13 @@ using System.Collections.Generic;
 
 public class DestroySelfAction : UntargetedAbilityConstraint, ISpawnable {
 
+    ProjectileDestruction projectileRoot;
     bool activated = true;
+
+    protected override void Start() {
+        base.Start();
+        projectileRoot = GetComponentInParent<ProjectileDestruction>();
+    }
 
     public override bool isAbilityActivatible() {
         return activated;
@@ -17,6 +23,6 @@ public class DestroySelfAction : UntargetedAbilityConstraint, ISpawnable {
 
     public override void Activate() {
         activated = false;
-        ProjectileLifetimeAction.DeactivateProjectile(transform.root);
+        projectileRoot.StartDestroySequence();
     }
 }

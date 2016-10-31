@@ -55,22 +55,9 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDes
     /// <summary>
     /// Called when the projectile destruction sequence starts
     /// </summary>
-    protected virtual void OnProjectileDeactivated() { }
+    public virtual void OnProjectileDeactivated() { }
 
     public void DeactivateProjectile() {
-        foreach (ProjectileLifetimeAction plta in root.GetComponentsInChildren<ProjectileLifetimeAction>()) {
-            plta.OnProjectileDeactivated();
-        }
-
-        root.StartDestroySequence();
-    }
-
-    public static void DeactivateProjectile(Transform target) {
-        ProjectileDestruction root = getRoot(target);
-        foreach (ProjectileLifetimeAction plta in root.GetComponentsInChildren<ProjectileLifetimeAction>()) {
-            plta.OnProjectileDeactivated();
-        }
-
         root.StartDestroySequence();
     }
 

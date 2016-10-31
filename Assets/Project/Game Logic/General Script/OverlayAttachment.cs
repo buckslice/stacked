@@ -92,7 +92,6 @@ public class Overlay : MonoBehaviour {
         } else {
             overlayCounts[mat] = 1;
             int index = AddMaterial(mat);
-            Debug.Log(index);
             return targetRenderer.materials[index];
         }
     }

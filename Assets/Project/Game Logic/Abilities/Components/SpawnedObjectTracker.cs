@@ -39,8 +39,4 @@ public class SpawnedObjectTracker : ProjectileLifetimeAction, IDamageHolder {
         base.OnProjectileDestroyed();
         onProjectileDestroyed(this);
     }
-
-    protected override void OnProjectileDeactivated() {
-        base.OnProjectileDeactivated();
-    }
 }
