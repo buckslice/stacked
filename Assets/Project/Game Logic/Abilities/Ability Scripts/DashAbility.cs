@@ -68,7 +68,6 @@ public class DashAbility : AbstractAbilityAction
         Vector3 dashDirection = endPosition - startPosition;
         float startTime = Time.time;
         float dashMagnitude = dashDirection.magnitude;
-        Debug.Log(dashMagnitude / dashDistance);
         float endTime = startTime + (dashMagnitude / dashDistance) * dashDuration;
 
         GameObject instantiatedDashingObjectAbility = SimplePool.Spawn(dashingObjectPrefab);

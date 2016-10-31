@@ -17,6 +17,6 @@ public class DestroySelfAction : UntargetedAbilityConstraint, ISpawnable {
 
     public override void Activate() {
         activated = false;
-        ProjectileLifetimeAction.DestroyProjectile(transform.root);
+        ProjectileLifetimeAction.DeactivateProjectile(transform.root);
     }
 }

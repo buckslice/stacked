@@ -10,8 +10,8 @@ public class SpawnOnDeath : ProjectileLifetimeAction {
 
     protected override void OnProjectileCreated() { }
 
-    protected override void OnDestructionStart() {
-        base.OnDestructionStart();
+    protected override void OnProjectileDeactivated() {
+        base.OnProjectileDeactivated();
         GameObject spawnedPrefab = SimplePool.Spawn(prefab);
         spawnedPrefab.transform.Reset();
         spawnedPrefab.transform.position = this.transform.position;
