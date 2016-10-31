@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class ProjectileSound : MonoBehaviour
+public class AbilitySound : MonoBehaviour
 {
 
     AudioSource target;
