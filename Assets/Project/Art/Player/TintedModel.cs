@@ -23,6 +23,7 @@ public class TintedModel : MonoBehaviour {
             }
 
             foreach (Image tintedImage in tintedImages) {
+                tintedImage.material = tintedImage.material; //instantiate the material as a copy
                 tintedImage.material.color = Player.playerColoring[playerID];
             }
         }

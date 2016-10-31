@@ -8,7 +8,6 @@ using System.Collections.Generic;
 /// </summary>
 public class AutomaticBossSetup : BossSetup {
     protected override void Awake() {
-        base.Awake();
         BossSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<BossSetup>();
         foreach (BossSetup otherPlayerSetup in otherPlayerSetups) {
             if (this != otherPlayerSetup) {
@@ -16,6 +15,7 @@ public class AutomaticBossSetup : BossSetup {
                 return;
             }
         }
+        base.Awake();
     }
 
     void Start() {
