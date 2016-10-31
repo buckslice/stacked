@@ -110,6 +110,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPrefab: {fileID: 1000011671764720, guid: 0ae874c30b0dfe24595e50af04f4f049, type: 2}
-  uiIcon: {fileID: 0}
+  uiIcon: {fileID: 21300000, guid: 4f16c2ed0ccc7174abf80ee3c4d9613e, type: 3}
   vibrationDuration: 0.25
   vibrationStrength: 1
