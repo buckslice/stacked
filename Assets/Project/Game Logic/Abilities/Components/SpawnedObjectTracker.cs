@@ -28,7 +28,9 @@ public class SpawnedObjectTracker : ProjectileLifetimeAction, IDamageHolder {
         this.trackerReference = tracker;
     }
 
-    void Start() {
+
+
+    protected override void Start() {
         Assert.IsNotNull(trackerReference);
     }
 

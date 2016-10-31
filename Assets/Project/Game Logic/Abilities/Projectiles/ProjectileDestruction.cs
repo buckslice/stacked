@@ -20,18 +20,18 @@ public class ProjectileDestruction : MonoBehaviour {
     /// Can be null.
     /// </summary>
     PhotonView view;
-    ProjectileLifetimeAction[] pltas;
+    IProjectileDeactivatable[] deactivatables;
     IProjectileDeactivation[] projectileDeactivationTimers;
 
 	void Start () {
         view = GetComponent<PhotonView>();
-        pltas = GetComponentsInChildren<ProjectileLifetimeAction>();
+        deactivatables = GetComponentsInChildren<IProjectileDeactivatable>();
         projectileDeactivationTimers = GetComponentsInChildren<IProjectileDeactivation>();
 	}
 
     public void StartDestroySequence() {
-        foreach (ProjectileLifetimeAction plta in pltas) {
-            plta.OnProjectileDeactivated();
+        foreach (IProjectileDeactivatable deactivatable in deactivatables) {
+            deactivatable.OnProjectileDeactivated();
         }
 
         if (projectileDeactivationTimers.Length == 0) {
@@ -48,7 +48,9 @@ public class ProjectileDestruction : MonoBehaviour {
                 }
             }
 
-            Callback.FireAndForget(DestroyProjectile, duration, this);
+            Callback.FireAndForget(
+                () => Callback.FireForUpdate(DestroyProjectile, this), //wait an additional frame, to give all scripts a chance to run on the final frame
+                duration, this);
         }
     }
 

@@ -33,6 +33,7 @@ Shader "Custom/Smear"
 		struct Input
 		{
 			float2 uv_MainTex;
+			half4 color : COLOR;
 		};
 	
 		half _Glossiness;
@@ -85,12 +86,16 @@ Shader "Custom/Smear"
 			fixed3 smearOffset = -worldOffset.xyz * lerp(1, noise(worldPos * _NoiseScale), step(0, _NoiseScale));
 			worldPos.xyz += smearOffset;
 			v.vertex = mul(unity_WorldToObject, worldPos);
+
+			v.color = _Color;
+			v.color.a *= step(dirDot, 0);
 		}
 	
 		void surf(Input IN, inout SurfaceOutputStandard o)
 		{
+			clip(IN.color.a - 0.01);
 			// Albedo comes from a texture tinted by color
-			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+			fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * IN.color;
 			o.Albedo = c.rgb;
 	
 			// Metallic and smoothness come from slider variables

@@ -4,9 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
+/// Represents all scripts that need to have deactivate called
+/// </summary>
+public interface IProjectileDeactivatable {
+    void OnProjectileDeactivated();
+}
+
+/// <summary>
 /// Superclass for any component which needs to deal with the lifetime of a projectile.
 /// </summary>
-public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDespawnable {
+public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDespawnable, IProjectileDeactivatable {
 
     PhotonView view;
     ProjectileDestruction root;
@@ -20,7 +27,7 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDes
         }
     }
 
-    protected void Start() {
+    protected virtual void Start() {
         root = getRoot(this.transform);
     }
 

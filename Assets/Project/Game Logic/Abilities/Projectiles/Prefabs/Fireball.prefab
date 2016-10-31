@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000013570078042}
   - 198: {fileID: 198000014251581760}
   - 199: {fileID: 199000010231222274}
+  - 114: {fileID: 114000014261576806}
   m_Layer: 0
   m_Name: FireballParticles
   m_TagString: Untagged
@@ -59,6 +60,7 @@ GameObject:
   - 4: {fileID: 4000012309216548}
   - 33: {fileID: 33000010130424894}
   - 23: {fileID: 23000012062296220}
+  - 114: {fileID: 114000011867569078}
   m_Layer: 0
   m_Name: Visuals
   m_TagString: Untagged
@@ -75,6 +77,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010580956130}
   - 54: {fileID: 54000011593570458}
+  - 114: {fileID: 114000010052627588}
   - 114: {fileID: 114000011129702358}
   - 114: {fileID: 114000013116727130}
   - 114: {fileID: 114000011371509312}
@@ -192,6 +195,17 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &114000010052627588
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014041105046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 246aab6de22c0cd48972ab4e658fd8c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000010886602706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -257,6 +271,17 @@ MonoBehaviour:
   - {fileID: 114000013708613912}
   - {fileID: 114000010886602706}
   - {fileID: 114000013665024618}
+--- !u!114 &114000011867569078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013914142704}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c09da524be08c9b48b306f5e44866cf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012915792848
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -304,6 +329,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tagsMask:
     mask: 2
+--- !u!114 &114000014261576806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010313059248}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a4728bf1d0d0c94e9a1e75075029740, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135000013949492050
 SphereCollider:
   m_ObjectHideFlags: 1

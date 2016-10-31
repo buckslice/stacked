@@ -5,13 +5,16 @@ using System.Collections.Generic;
 /// <summary>
 /// See https://github.com/cjacobwade/HelpfulScripts/tree/master/SmearEffect
 /// </summary>
-public class SmearSetup : AbstractAttachableEffect {
+public class SmearSetup : AbstractAttachableEffect, IProjectileDeactivation {
 
     [SerializeField]
     protected Material material;
 
     [SerializeField]
-    protected int frameLag = 2;
+    protected float timeLag = 2;
+
+    [SerializeField]
+    protected float endDuration = 0.5f;
 
     protected Overlay targetOverlay;
 
@@ -25,22 +28,22 @@ public class SmearSetup : AbstractAttachableEffect {
     /// <summary>
     /// Count should always be frameLag.
     /// </summary>
-    Queue<Vector3> positions;
+    Queue<TimestampedData<Vector3>> positions;
 
     void Awake() {
-        positions = new Queue<Vector3>(frameLag);
-        for (int i = 0; i <= frameLag; i++) {
-            positions.Enqueue(transform.position);
-        }
+        positions = new Queue<TimestampedData<Vector3>>();
+
+        positions.Enqueue(new TimestampedData<Vector3>(Time.time, transform.position));
+        positions.Enqueue(new TimestampedData<Vector3>(Time.time + timeLag, transform.position));
     }
 
     public override void Initialize(Collider target) {
         base.Initialize(target);
 
         positions.Clear();
-        for (int i = 0; i <= frameLag; i++) {
-            positions.Enqueue(transform.position);
-        }
+
+        positions.Enqueue(new TimestampedData<Vector3>(Time.time, transform.position));
+        positions.Enqueue(new TimestampedData<Vector3>(Time.time + timeLag, transform.position));
 
         Renderer targetRenderer = target.GetComponentInChildren<Renderer>();
         if (targetRenderer == null) {
@@ -64,10 +67,19 @@ public class SmearSetup : AbstractAttachableEffect {
         }
     }
 
-    void LateUpdate() {
-        instantiatedMat.SetVector("_PrevPosition", positions.Dequeue());
+    float IProjectileDeactivation.getDeactivationTime() {
+        return endDuration;
+    }
+
+    void Update() {
+        positions.Enqueue(new TimestampedData<Vector3>(Time.time + timeLag, transform.position));
+
+        while (positions.Peek().outputTime < Time.time) {
+            positions.Dequeue();
+        }
+
+        instantiatedMat.SetVector("_PrevPosition", positions.Peek().data);
 
         instantiatedMat.SetVector("_Position", transform.position);
-        positions.Enqueue(transform.position);
     }
 }

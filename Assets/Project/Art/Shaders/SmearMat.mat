@@ -105,7 +105,7 @@ Material:
       second: 15
     - first:
         name: _NoiseStrength
-      second: 1
+      second: 2
     - first:
         name: _OcclusionStrength
       second: 1

@@ -8,7 +8,7 @@ public class DisableRendererWhenInactive : ProjectileLifetimeAction {
 
     Renderer rend;
 
-    void Awake() {
+    protected override void Awake() {
         rend = GetComponent<Renderer>();
     }
 

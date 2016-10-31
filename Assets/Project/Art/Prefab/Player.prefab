@@ -581,6 +581,7 @@ MonoBehaviour:
   - {fileID: 23000013598435690}
   - {fileID: 23000012213748954}
   - {fileID: 212000010048160716}
+  tintedImages: []
 --- !u!114 &114000012287730970
 MonoBehaviour:
   m_ObjectHideFlags: 1

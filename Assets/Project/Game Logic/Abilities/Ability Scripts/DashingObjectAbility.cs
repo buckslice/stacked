@@ -6,7 +6,10 @@ using System.Collections.Generic;
 /// <summary>
 /// Script attached as a child gameobject to an object which is thrown.
 /// </summary>
+[RequireComponent(typeof(ProjectileDestruction))]
 public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
+
+    ProjectileDestruction destruction;
 
     Vector3 startPosition;
     Vector3 destinationPosition;
@@ -17,6 +20,10 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
     Rigidbody targetRigid;
     bool active = true;
     float previousLerpValue = 0;
+
+    void Awake() {
+        destruction = GetComponent<ProjectileDestruction>();
+    }
 
     public void Initialize(Vector3 startPosition, Vector3 destinationPosition, float startTime, float endTime, AbilityNetworking targetNetworking, IMovement targetMovement, Rigidbody targetRigid) {
         this.startPosition = startPosition;
@@ -43,26 +50,26 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
 
         active = true;
         previousLerpValue = 0;
+
+        StartCoroutine(UpdateRoutine());
     }
 
-    void Update() {
+    IEnumerator UpdateRoutine() {
+        while (Time.time <= endTime) {
+            if (active) {
+                float lerpProgress = Mathf.InverseLerp(startTime, endTime, Time.time);
+                if (Time.time > endTime) {
+                    lerpProgress = 1;
+                }
 
-        if (active) {
-            float lerpProgress = Mathf.InverseLerp(startTime, endTime, Time.time);
-            if (Time.time > endTime)
-            { 
-                lerpProgress = 1;
+                Vector3 movementDiff = Vector3.Lerp(startPosition, destinationPosition, lerpProgress) - Vector3.Lerp(startPosition, destinationPosition, previousLerpValue);
+                previousLerpValue = lerpProgress;
+                targetRigid.MovePosition(movementDiff + targetRigid.position);
             }
-
-            Vector3 movementDiff = Vector3.Lerp(startPosition, destinationPosition, lerpProgress) - Vector3.Lerp(startPosition, destinationPosition, previousLerpValue);
-            previousLerpValue = lerpProgress;
-            targetRigid.MovePosition(movementDiff + targetRigid.position);
+            yield return null;
         }
 
-        if (Time.time > endTime) {
-            Destroy();
-            return;
-        }
+        Destroy();
     }
 
     public void Disable() {
@@ -84,6 +91,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
         targetNetworking = null;
         targetMovement = null;
         targetRigid = null;
-        SimplePool.Despawn(this.gameObject);
+
+        destruction.StartDestroySequence();
     }
 }
