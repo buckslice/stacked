@@ -31,6 +31,11 @@ public class ReadyChecker : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         text = GetComponent<Text>();
+        if (!PhotonNetwork.isMasterClient) {
+            //only master client can change scenes.
+            //TODO: add some way to show the countdown on all clients
+            this.enabled = false;
+        }
 	}
 
     void checkNotReady() {

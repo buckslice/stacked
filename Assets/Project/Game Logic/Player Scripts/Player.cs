@@ -27,7 +27,7 @@ public class Player : AbstractDamageTracker, IPlayerID {
     static int nextOpenPlayerIndex = 0;
 
     public Player(int ID, IDamageHolder holder) : base(holder) {
-        Assert.IsFalse(playerIndices.ContainsKey(ID));
+        Assert.IsFalse(playerIndices.ContainsKey(ID), ID.ToString());
         Assert.IsTrue(playerID < 256, "Too many players for byte networked IDs");
         playerID = ID;
 
