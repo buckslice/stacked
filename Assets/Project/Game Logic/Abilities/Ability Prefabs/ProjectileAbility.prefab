@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownSecs:
-    baseValue: 10.5
+    baseValue: 0.5
 --- !u!114 &114000012823381752
 MonoBehaviour:
   m_ObjectHideFlags: 1

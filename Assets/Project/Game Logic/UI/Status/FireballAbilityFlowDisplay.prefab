@@ -22,7 +22,6 @@ GameObject:
   - 114: {fileID: 114000011354588436}
   - 114: {fileID: 114000011290523250}
   - 114: {fileID: 114000012465753628}
-  - 114: {fileID: 114000012179724056}
   m_Layer: 5
   m_Name: FireballAbilityFlowDisplay
   m_TagString: Untagged
@@ -268,20 +267,6 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
---- !u!114 &114000012179724056
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010610008102}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb392a2a0bbaaf0428ee2d223ae0643a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  animatedImages:
-  - {fileID: 114000010727453724}
-  - {fileID: 114000013880342754}
 --- !u!114 &114000012465753628
 MonoBehaviour:
   m_ObjectHideFlags: 1
