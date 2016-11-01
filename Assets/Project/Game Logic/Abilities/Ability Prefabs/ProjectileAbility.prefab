@@ -85,8 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e266b120d8f3aa40915e8958c02953c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPrefab: {fileID: 1000011671764720, guid: 0ae874c30b0dfe24595e50af04f4f049, type: 2}
-  uiIcon: {fileID: 21300000, guid: 2ee4bd02fadb5f04a96a30a66f3f481e, type: 3}
+  uiPrefab: {fileID: 1000010610008102, guid: 75350e07e1caa9d4a9474d47ea1d53cf, type: 2}
   vibrationDuration: 0.25
   vibrationStrength: 1
 --- !u!114 &114000012175262170
@@ -101,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownSecs:
-    baseValue: 0.5
+    baseValue: 10.5
 --- !u!114 &114000012823381752
 MonoBehaviour:
   m_ObjectHideFlags: 1

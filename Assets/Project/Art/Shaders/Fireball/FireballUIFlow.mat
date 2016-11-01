@@ -152,6 +152,9 @@ Material:
         name: _StencilWriteMask
       second: 255
     - first:
+        name: _Strength
+      second: 0.2
+    - first:
         name: _TimeScale
       second: 0.4
     - first:

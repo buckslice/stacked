@@ -111,8 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mask: {fileID: 114000010943012556}
-  background: {fileID: 114000013846319990}
-  greyscaleBackground: {fileID: 114000011264720052}
+  tintedImages:
+  - {fileID: 114000013846319990}
   readyColor: {r: 1, g: 0.91409737, b: 0.43382353, a: 1}
   notReadyColor: {r: 0.71323526, g: 0.71323526, b: 0.71323526, a: 1}
 --- !u!114 &114000010943012556

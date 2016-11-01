@@ -18,12 +18,6 @@ public class AbilityUI : MonoBehaviour, IAbilityDisplayHolder {
     [SerializeField]
     protected GameObject uiPrefab;
 
-    /// <summary>
-    /// Icon can be null.
-    /// </summary>
-    [SerializeField]
-    protected Sprite uiIcon;
-
     [SerializeField]
     protected float vibrationDuration = 0.25f;
 
@@ -32,7 +26,7 @@ public class AbilityUI : MonoBehaviour, IAbilityDisplayHolder {
 
     IAbilityStatus ability;
     GameObject spawnedUIPrefab;
-    IAbilityDisplay display;
+    IAbilityDisplay[] displays;
     ControllerPlayerInput controllerInput = null;
 
     float cooldownProgress;
@@ -43,8 +37,10 @@ public class AbilityUI : MonoBehaviour, IAbilityDisplayHolder {
         RectTransform parent = GetComponentInParent<EntityUIGroupHolder>().EntityGroup.StatusHolder;
         spawnedUIPrefab = Instantiate(uiPrefab, parent) as GameObject;
         spawnedUIPrefab.GetComponent<RectTransform>().Reset();
-        display = spawnedUIPrefab.GetComponent<IAbilityDisplay>();
-        display.Initialize(this, uiIcon);
+        displays = spawnedUIPrefab.GetComponentsInChildren<IAbilityDisplay>();
+        foreach (IAbilityDisplay display in displays) {
+            display.Initialize(this);
+        }
 
         PlayerInputHolder holder = GetComponentInParent<PlayerInputHolder>();
         if (holder.HeldInput is ControllerPlayerInput) {
@@ -53,10 +49,14 @@ public class AbilityUI : MonoBehaviour, IAbilityDisplayHolder {
 	}
 
     void Update() {
-        display.setAbilityReady(ability.Ready());
+        foreach (IAbilityDisplay display in displays) {
+            display.setAbilityReady(ability.Ready());
+        }
 
         float newCooldownProgress = ability.cooldownProgress();
-        display.setCooldownProgress(newCooldownProgress);
+        foreach (IAbilityDisplay display in displays) {
+            display.setCooldownProgress(newCooldownProgress);
+        }
         trackVibration(cooldownProgress, newCooldownProgress);
         cooldownProgress = newCooldownProgress;
     }

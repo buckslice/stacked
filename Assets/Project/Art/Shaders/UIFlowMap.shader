@@ -4,7 +4,7 @@
 	{	
 		_FlowingTex("Flowing Texture", 2D) = "white" {}
 		_FlowMapTex("Flow Map", 2D) = "bump" {}
-		_DistortionStrength("Distortion Strength", Float) = 0.1
+		_Strength("Distortion Strength", Float) = 0.1
 		_TimeScale("Time Scale", Float) = 0.1
 		
 		_StencilComp ("Stencil Comparison", Float) = 8
@@ -75,10 +75,8 @@
 			sampler2D _FlowingTex;
 			sampler2D _FlowMapTex;
 
-			float _DistortionStrength;
+			float _Strength;
 			float _TimeScale;
-
-			fixed _Strength;
 			
 			fixed4 _TextureSampleAdd;
 
@@ -108,16 +106,20 @@
 
 				//map from [0, 1] to [-1, 1] space
 				displacement -= 0.5;
-				displacement *= 2 * _DistortionStrength;
+				displacement *= 2 * _Strength;
 
 				half timeFrac1 = frac(_TimeScale * _Time.y);
 				half timeFrac2 = frac(_TimeScale * _Time.y + 0.5);
 
 				half lerpValue = 2 * min(timeFrac1, 1 - timeFrac1);
 				
+				//center of offset is zero, not 0.5
+				timeFrac1 -= 0.5;
+				timeFrac2 -= 0.5;
+
 				fixed4 value1 = tex2D(_FlowingTex, i.texcoord - timeFrac1 * displacement);
 				fixed4 value2 = tex2D(_FlowingTex, i.texcoord - timeFrac2 * displacement);
-				fixed4 color = lerp(value2, value1, lerpValue);
+				fixed4 color = i.color * lerp(value2, value1, lerpValue);
 				
 				color.a *= UnityGet2DClipping(i.worldPosition.xy, _ClipRect);
 				

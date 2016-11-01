@@ -5,22 +5,19 @@ using System.Collections;
 using System.Collections.Generic;
 
 public interface IAbilityDisplay {
-    void Initialize(IAbilityDisplayHolder abilityUI, Sprite imageTex);
+    void Initialize(IAbilityDisplayHolder abilityUI);
     IAbilityDisplayHolder AbilityUI { get; }
     void setCooldownProgress(float progress);
     void setAbilityReady(bool ready);
 }
 
-public class AbilityDisplay : MonoBehaviour, IAbilityDisplay {
+public class ColoredAbilityDisplay : MonoBehaviour, IAbilityDisplay {
 
     [SerializeField]
     protected Image mask;
 
     [SerializeField]
-    protected Image background;
-
-    [SerializeField]
-    protected Image greyscaleBackground;
+    protected Image[] tintedImages;
 
     [SerializeField]
     protected Color readyColor = Color.yellow;
@@ -31,19 +28,21 @@ public class AbilityDisplay : MonoBehaviour, IAbilityDisplay {
     IAbilityDisplayHolder abilityUI;
     public IAbilityDisplayHolder AbilityUI { get { return abilityUI; } }
 
-    public void Initialize(IAbilityDisplayHolder abilityUI, Sprite imageTex) {
+    public void Initialize(IAbilityDisplayHolder abilityUI) {
         this.abilityUI = abilityUI;
-        if (imageTex != null) {
-            background.overrideSprite = imageTex;
-            greyscaleBackground.overrideSprite = imageTex;
-        }
     }
 
+    /// <summary>
+    /// TODO: maybe move this to a seprate script.
+    /// </summary>
+    /// <param name="progress"></param>
     public void setCooldownProgress(float progress) {
         mask.fillAmount = 1 - progress;
     }
 
     public void setAbilityReady(bool ready) {
-        background.color = ready ? readyColor : notReadyColor;
+        foreach (Image tintedImage in tintedImages) {
+            tintedImage.color = ready ? readyColor : notReadyColor;
+        }
     }
 }
