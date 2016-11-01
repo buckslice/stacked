@@ -21,4 +21,10 @@ public class RegistrationUI : MonoBehaviour {
         int playerID = GetComponent<IPlayerID>().PlayerID;
         instantiatedRegistrationBar.PlayerID = playerID;
 	}
+
+    void OnDestroy() {
+        if (instantiatedRegistrationBar != null) {
+            Destroy(instantiatedRegistrationBar.gameObject);
+        }
+    }
 }

@@ -113,6 +113,8 @@ public class PlayerRegistration : MonoBehaviour {
         //Send request to others
         RaiseEventOptions options = new RaiseEventOptions();
         options.Receivers = ReceiverGroup.Others;
+        //late-joins will need to see this, if we're still around
+        options.CachingOption = EventCaching.AddToRoomCacheGlobal;
 
         //Send the event to create the remote copies
         R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEREGISTRATION, payloadData, true, options);
@@ -150,6 +152,36 @@ public class PlayerRegistration : MonoBehaviour {
         sendRegistrationResponse(bindingID, (byte)playerID, owningClientActorID);
     }
 
+    void sendRemoval(byte playerID, int owningClientActorID) {
+
+        Packet payloadData = new Packet();
+
+        payloadData.Write(playerID);
+        payloadData.Write(owningClientActorID);
+
+        //Send request to all clients
+        RaiseEventOptions options = new RaiseEventOptions();
+        options.Receivers = ReceiverGroup.All;
+        //late-joins will need to see this, if we're still around
+        options.CachingOption = EventCaching.AddToRoomCacheGlobal;
+
+        //Send the event to create the remote copies
+        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.REMOVEREGISTRATION, payloadData.getData(), true, options);
+    }
+
+    void receiveRemoval(byte playerID, int owningClientActorID) {
+        if (registeredPlayers[playerID] != null && registeredPlayers[playerID].ownerActorID == owningClientActorID) {
+            Destroy(registeredPlayers[playerID].registeredPlayer.gameObject);
+
+            if (owningClientActorID == PhotonNetwork.player.ID) {
+                registeredBindings[registeredPlayers[playerID].bindingID] = false;
+            }
+
+            registeredPlayers[playerID] = null;
+            pressStartPrompts[playerID].gameObject.SetActive(true);
+        }
+    }
+
     public void OnEvent(byte eventcode, object content, int senderid)
     {
         switch (eventcode)
@@ -157,52 +189,61 @@ public class PlayerRegistration : MonoBehaviour {
             case (byte)Tags.EventCodes.REQUESTREGISTRATION:
                 receiveRegistrationRequest(bindingID: (byte)content, owningClientActorID: (byte)senderid);
                 break;
+
             case (byte)Tags.EventCodes.CREATEREGISTRATION:
                 byte[] payloadData = (byte[])content;
                 Assert.IsTrue(payloadData.Length == 3);
                 CreateRegisteredPlayer(bindingID: payloadData[0], playerId: payloadData[1], owningClientActorID: payloadData[2]);
                 break;
+
+            case (byte)Tags.EventCodes.REMOVEREGISTRATION:
+                Packet p = new Packet(content);
+                byte playerID = p.ReadByte();
+                int owningClientActorID = p.ReadInt();
+                receiveRemoval(playerID, owningClientActorID);
+                break;
+
             default:
                 break;
         }
     }
 
-    void CreateRegisteredPlayer(byte bindingID, byte playerId, byte owningClientActorID)
-    {
+    void CreateRegisteredPlayer(byte bindingID, byte playerId, byte owningClientActorID) {
         Assert.IsNull(registeredPlayers[playerId]);
-        if (owningClientActorID == PhotonNetwork.player.ID)
-        {
-            //if we own it, we need to create it
+        Assert.IsTrue(PhotonPlayer.Find(owningClientActorID) != null); //if this becomes a problem, ignore events for players who no longer exist
+        GameObject instantiatedRegisteredPlayer = (GameObject)Instantiate(registeredPlayerPrefab, Vector3.zero, Quaternion.identity);
+        RegisteredPlayer registeredPlayer = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();
 
-            GameObject instantiatedRegisteredPlayer = (GameObject)Instantiate(registeredPlayerPrefab, Vector3.zero, Quaternion.identity);
-            RegisteredPlayer registeredPlayer = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();
-            registeredPlayer.Initalize(possibleBindings[bindingID].HeldInput, playerId);
-            
+
+        if (owningClientActorID == PhotonNetwork.player.ID) {
+            //locally controlled player
+            registeredPlayer.Initalize(possibleBindings[bindingID].HeldInput, playerId, locallyControlled: true);
+
             ControllerPlayerInput controllerInput = possibleBindings[bindingID].HeldInput as ControllerPlayerInput;
             if (controllerInput != null) {
                 controllerInput.Vibrate(vibrationStrength, vibrationDuration);
             }
 
-            registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, registeredPlayer);
-
             registeredBindings[bindingID] = true;
+
+        } else {
+            //remotely controlled player
+            registeredPlayer.Initalize(possibleBindings[bindingID].HeldInput, playerId, locallyControlled: false);
         }
-        else
-        {
-            //otherwise, we just need to track it
-            registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, null);
-        }
+
+        registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, registeredPlayer);
+
+
         pressStartPrompts[playerId].gameObject.SetActive(false);
     }
 
     public void OnPhotonPlayerDisconnected(PhotonPlayer player)
     {
-        for (int i = 0; i < registeredPlayers.Length; i++)
-        {
-            if (registeredPlayers[i].ownerActorID == player.ID)
-            {
-                registeredPlayers[i] = null;
-                pressStartPrompts[i].gameObject.SetActive(true);
+        if (PhotonNetwork.isMasterClient) {
+            for (byte i = 0; i < registeredPlayers.Length; i++) {
+                if (registeredPlayers[i] != null && registeredPlayers[i].ownerActorID == player.ID) {
+                    sendRemoval(i, player.ID);
+                }
             }
         }
     }
@@ -219,12 +260,18 @@ public class PlayerRegistration : MonoBehaviour {
                     //if there exists an open ID
                     sendRegistrationRequest((byte)i);
                 }
+            } else if (registeredBindings[i] && possibleBindings[i].getCancel) {
+                for (byte j = 0; j < registeredPlayers.Length; j++) {
+                    if (registeredPlayers[j] != null && registeredPlayers[j].ownerActorID == PhotonNetwork.player.ID && registeredPlayers[j].bindingID == i) {
+                        sendRemoval(j, PhotonNetwork.player.ID);
+                    }
+                }
             }
         }
 
-        for (int i = 0; i < possibleBindings.Length; i++) {
-            if (registeredBindings[i]) {
-                if (possibleBindings[i].getStartDown) {
+        if (PhotonNetwork.isMasterClient) {
+            for (int i = 0; i < possibleBindings.Length; i++) {
+                if (registeredBindings[i] && possibleBindings[i].getStartDown) {
                     SceneManager.LoadScene(nextScene);
                 }
             }

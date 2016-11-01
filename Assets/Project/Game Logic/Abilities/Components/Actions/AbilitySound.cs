@@ -7,8 +7,9 @@ using System.Collections.Generic;
 public class AbilitySound : AbstractAbilityAction
 {
     AudioSource target;
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         target = GetComponent<AudioSource>();
     }
 

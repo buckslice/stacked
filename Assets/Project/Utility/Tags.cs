@@ -29,6 +29,7 @@ public static class Tags {
         CREATEADD,
         REQUESTREGISTRATION,
         CREATEREGISTRATION,
+        REMOVEREGISTRATION,
         CREATEBOSS,
     };
 

@@ -16,9 +16,6 @@ public class RegisteredPlayer : MonoBehaviour, IPlayerID {
     public IPlayerInput inputBindings { get { return input; } set { input = value; } }
 
     protected virtual void Awake () {
-        DontDestroyOnLoad(this.transform.root.gameObject);
-        SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-        registeredPlayers.Add(this);
     }
 
     void OnDestroy()
@@ -31,11 +28,17 @@ public class RegisteredPlayer : MonoBehaviour, IPlayerID {
     /// A constructor-style initializer.
     /// </summary>
     /// <param name="inputBindings"></param>
-    public void Initalize(IPlayerInput inputBindings, int playerID)
-    {
+    public void Initalize(IPlayerInput inputBindings, int playerID, bool locallyControlled = true) {
         this.inputBindings = inputBindings;
         inputBindings.Initialize(this);
         this.playerID = playerID;
+
+        if (locallyControlled) {
+            DontDestroyOnLoad(this.transform.root.gameObject);
+            SceneManager.sceneLoaded += SceneManager_sceneLoaded;
+        }
+
+        registeredPlayers.Add(this);
     }
 
     void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)

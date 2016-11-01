@@ -69,4 +69,10 @@ public class EntityUIGroupHolder : MonoBehaviour {
             CanvasHelper.PositionPlayerEntityGroup(instantiatedEntityGroupTransform, player.PlayerID);
         }
     }
+
+    void OnDestroy() {
+        if (instantiatedEntityGroupTransform != null) {
+            Destroy(instantiatedEntityGroupTransform.gameObject);
+        }
+    }
 }
