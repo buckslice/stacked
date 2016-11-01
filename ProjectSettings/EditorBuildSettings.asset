@@ -10,11 +10,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Project/Scenes/MainMenu.unity
   - enabled: 1
-    path: Assets/Project/Game Logic/Framework/Registration/PlayerRegistration.unity
-  - enabled: 1
     path: Assets/Project/Scenes/CharacterSelect.unity
-  - enabled: 0
-    path: Assets/Project/Game Logic/Framework/CharacterSelect/CharacterSelect.unity
   - enabled: 1
     path: Assets/Project/DevelopmentOnly/Derek.unity
   - enabled: 1
@@ -27,3 +23,5 @@ EditorBuildSettings:
     path: Assets/Project/Game Logic/Framework/GameEnd/VictoryPopup.unity
   - enabled: 1
     path: Assets/Project/Scenes/BossSelect.unity
+  - enabled: 1
+    path: Assets/Project/Scenes/PlayerRegistration.unity

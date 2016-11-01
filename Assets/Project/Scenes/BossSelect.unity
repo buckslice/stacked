@@ -172,6 +172,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1788399754}
     m_Modifications:
+    - target: {fileID: 114000012254337412, guid: 5f8c61848f6742041b07bbd75edf5e9d,
+        type: 2}
+      propertyPath: ObservedComponents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224000013299265976, guid: 5f8c61848f6742041b07bbd75edf5e9d,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -277,9 +282,20 @@ Prefab:
       propertyPath: speed
       value: 500
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012254337412, guid: 5f8c61848f6742041b07bbd75edf5e9d,
+        type: 2}
+      propertyPath: ObservedComponents.Array.data[0]
+      value: 
+      objectReference: {fileID: 91079746}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5f8c61848f6742041b07bbd75edf5e9d, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &91079746 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011394664140, guid: 5f8c61848f6742041b07bbd75edf5e9d,
+    type: 2}
+  m_PrefabInternal: {fileID: 91079745}
+  m_Script: {fileID: 11500000, guid: d9e11b0cd66b9f248aa145dc40f1570d, type: 3}
 --- !u!1001 &318695326
 Prefab:
   m_ObjectHideFlags: 0

@@ -5,6 +5,11 @@ using UnityEngine.EventSystems;
 
 public interface ISelection {
     bool CanSelect();
+    /// <summary>
+    /// Return result is if the action should be sent over the network
+    /// </summary>
+    /// <param name="data"></param>
+    /// <returns></returns>
     bool Select(ISelectable data);
 
     bool CanDeselect();

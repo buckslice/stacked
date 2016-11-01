@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class CharacterSelectIcon : MonoBehaviour {
+public class CharacterSelectIcon : MonoBehaviour, ISelectable {
     //[SerializeField]
     //protected GameObject playerSetup;
     //public GameObject getPlayerSetup()
