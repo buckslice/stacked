@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 // add this script to anything that should have health and be damageable
+[RequireComponent(typeof(PhotonView))]
 public class Health : MonoBehaviour {
 
     public delegate void OnDamage(float amount, int playerID);
@@ -11,6 +12,8 @@ public class Health : MonoBehaviour {
 
     public event OnDamage onDamage = delegate { };
     public event HealthChanged onHealthChanged = delegate { };
+
+    PhotonView view;
 
     [SerializeField]
     protected float _health = 100f;     // current health
@@ -29,8 +32,9 @@ public class Health : MonoBehaviour {
 
         onHealthChanged();
 
-        if (_health <= 0) {
-            Destroy(gameObject);
+        if (_health <= 0 && view.isMine) {
+            //Don't use PhotonNetwork.Destroy, since we didn't use PhotonNetwork.Instantiate()
+            Destroy(this.gameObject);
         }
 
         return _health - healthBefore;
@@ -42,6 +46,7 @@ public class Health : MonoBehaviour {
 
     void Awake() {
         maxHealth = health;
+        view = GetComponent<PhotonView>();
     }
 
     public virtual float Damage(float amount) {
