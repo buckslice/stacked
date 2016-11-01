@@ -121,6 +121,11 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
             return;
         }
 
+        PhotonView targetView = target.GetComponentInParent<PhotonView>();
+        if (targetView == null) {
+            return; //nothing to do; can't network the target
+        }
+
         //TODO : re-use this object?
         PhotonStream stream = new PhotonStream(true, null);
 
@@ -130,7 +135,6 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
             Assert.IsTrue(send || (stream.Count == 0), string.Format("Data written to stream but not flagged to be sent. {0}", abilityAction));
         }
 
-        PhotonView targetView = target.GetComponent<PhotonView>();
         if (targetView != null) {
             object[] data = new object[stream.Count + 1];
             data[0] = targetView.viewID;

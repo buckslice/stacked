@@ -11,14 +11,11 @@ public class AbilityKeybindingDisplay : MonoBehaviour {
     protected Text text;
 
 	void Update () {
+        Assert.IsNotNull(text);
         IAbilityDisplay display = GetComponent<IAbilityDisplay>();
 
         InputTrigger inputTrigger = ((MonoBehaviour)display.AbilityUI).GetComponent<InputTrigger>();
-        if (inputTrigger == null) {
-            return;
-        }
-
-        if (inputTrigger.PlayerInput == null) {
+        if (inputTrigger == null || inputTrigger.PlayerInput == null) {
             text.text = "";
             this.enabled = false;
         }

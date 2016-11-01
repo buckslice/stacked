@@ -51,7 +51,6 @@ public class DashAbility : AbstractAbilityAction
                                     rigid.position + Vector3.up * (coll.height - coll.radius),
                                     coll.radius - 0.05f, direction, out hit, dashDistance, layermask)) {
                 distance = hit.distance;
-                Debug.Log(hit.collider, hit.collider);
             } else {
                 distance = dashDistance; //max distance
             }

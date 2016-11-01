@@ -22,7 +22,6 @@ GameObject:
   - 114: {fileID: 114000010769103160}
   - 114: {fileID: 114000013220959254}
   - 114: {fileID: 114000012175262170}
-  - 114: {fileID: 114000012823381752}
   - 114: {fileID: 114000011026638230}
   - 114: {fileID: 114000011273711076}
   m_Layer: 0
@@ -58,7 +57,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000012175262170}
-  - {fileID: 114000012823381752}
   - {fileID: 114000011026638230}
 --- !u!114 &114000011026638230
 MonoBehaviour:
@@ -101,21 +99,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownSecs:
     baseValue: 0.5
---- !u!114 &114000012823381752
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013318780656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11f6261e7f6fb654295d6b6abce41dd6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activationsInMagazine:
-    baseValue: 10
-  reloadTimeSecs:
-    baseValue: 3
 --- !u!114 &114000013220959254
 MonoBehaviour:
   m_ObjectHideFlags: 1

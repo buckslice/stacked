@@ -177,10 +177,15 @@ public class AbilityNetworking : AbstractActivationNetworking {
     /// </summary>
     public void ActivateRemote(byte networkedAbilityId, object[] data)
     {
+#if UNITY_ENGINE
         if (!view.isMine) {
-            Debug.LogError("We do not own this object. All activations should originate from the owner. Discarding activation.");
+            RequireLocal requirement = abilityActivations[networkedAbilityID].GetComponentInChildren<RequireLocal>(); //one of the exceptions to this assumption
+            if(requirement == null) {
+            Debug.LogError("We do not own this object. All activations should originate from the owner. Discarding activation.", this);
             return;
+            }
         }
+#endif
 
         object[] joinedData = new object[data.Length + 1];
         joinedData[0] = networkedAbilityId;
@@ -197,15 +202,20 @@ public class AbilityNetworking : AbstractActivationNetworking {
     
     public override void NetworkedActivationRPC(object[] incomingData, PhotonMessageInfo info)
     {
-        if (view.isMine)
-        {
-            Debug.LogError("We own this object. All activations should originate from us. Discarding activation.");
-            return;
-        }
-
         byte networkedAbilityID = (byte)incomingData[0];
         object[] unjoinedData = new object[incomingData.Length - 1];
         Array.Copy(incomingData, 1, unjoinedData, 0, unjoinedData.Length);
+
+#if UNITY_ENGINE
+        if (view.isMine)
+        {
+            RequireLocal requirement = abilityActivations[networkedAbilityID].GetComponentInChildren<RequireLocal>(); //one of the exceptions to this assumption
+            if(requirement == null) {
+                Debug.LogError("We own this object. All activations should originate from us. Discarding activation.");
+                return;
+            }
+        }
+#endif
 
         abilityActivations[networkedAbilityID].Activate(unjoinedData, info);
     }

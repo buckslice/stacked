@@ -10,7 +10,7 @@ public class TitleScreen : MonoBehaviour {
     }
     public void Play()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(Tags.Scenes.PlayerRegistration);
     }
     public void Options()
     {
