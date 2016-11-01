@@ -20,8 +20,6 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
     public Image rightHalf;
     public Image readyImage;
 
-    PointerEventData pointer = new PointerEventData(EventSystem.current);
-    List<RaycastResult> results = new List<RaycastResult>();
     PhotonView view;
     PlayerInputHolder input;
     public IPlayerInputHolder Input { get { return input; } }

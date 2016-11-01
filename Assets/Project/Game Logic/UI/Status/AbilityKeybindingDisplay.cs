@@ -10,12 +10,17 @@ public class AbilityKeybindingDisplay : MonoBehaviour {
     [SerializeField]
     protected Text text;
 
-	void Start () {
+	void Update () {
         IAbilityDisplay display = GetComponent<IAbilityDisplay>();
 
         InputTrigger inputTrigger = ((MonoBehaviour)display.AbilityUI).GetComponent<InputTrigger>();
         if (inputTrigger == null) {
             return;
+        }
+
+        if (inputTrigger.PlayerInput == null) {
+            text.text = "";
+            this.enabled = false;
         }
 
         switch (inputTrigger.Binding) {
@@ -43,5 +48,7 @@ public class AbilityKeybindingDisplay : MonoBehaviour {
                 text.text = inputTrigger.PlayerInput.submitName;
                 break;
         }
+
+        this.enabled = false; //only run this once, on the first update. Lazy way to create a third activation function, to add to Awake() and Start().
 	}
 }
