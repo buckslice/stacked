@@ -265,7 +265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barType: 0
-  entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
+  entityGroupUIPrefab: {fileID: 1000012812799628, guid: b34630007d724c443a5456c66aa5be64,
     type: 2}
 --- !u!114 &114000011372161194
 MonoBehaviour:
