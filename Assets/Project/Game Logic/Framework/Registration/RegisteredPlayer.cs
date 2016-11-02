@@ -41,7 +41,7 @@ public class RegisteredPlayer : MonoBehaviour, IPlayerID {
         registeredPlayers.Add(this);
     }
 
-    void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    protected void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         if (arg0.name == Tags.Scenes.CharacterSelect)
         {

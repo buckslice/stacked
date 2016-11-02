@@ -9,9 +9,9 @@ public class RegistrationUI : MonoBehaviour {
     [SerializeField]
     protected GameObject registrationUIPrefab;
 
-    RegistrationUIBar instantiatedRegistrationBar;
+    protected RegistrationUIBar instantiatedRegistrationBar;
 
-	void Start () {
+	protected virtual void Start () {
         Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
         Debug.Assert(canvasRoot, "Scene requires a UI canvas for healthbars!");
 

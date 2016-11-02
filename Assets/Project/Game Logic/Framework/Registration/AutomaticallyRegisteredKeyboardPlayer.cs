@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,7 +21,7 @@ public class AutomaticallyRegisteredKeyboardPlayer : RegisteredPlayer {
                 return;
             }
         }
-        inputBindings = new KeyboardMousePlayerInput();
+        Initalize(new KeyboardMousePlayerInput(), playerID);
 
         // this is a race condition with R41DNetworking.Main initialization (both in Awake)
         //Assert.IsTrue(R41DNetworking.Main.NetworkingMode != R41DNetworkingMode.ONLINE, "Automatic Setups will not work correctly over the network."); //we aren't hooked up correctly for online
