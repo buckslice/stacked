@@ -23,6 +23,7 @@ GameObject:
   - 114: {fileID: 114000011742024632}
   - 114: {fileID: 114000011908951858}
   - 114: {fileID: 114000011836623774}
+  - 114: {fileID: 114000011527236844}
   - 114: {fileID: 114000010705023418}
   m_Layer: 0
   m_Name: KnockbackAbility
@@ -59,6 +60,20 @@ MonoBehaviour:
   knockbackDuration: 0.15
   knockbackedObjectPrefab: {fileID: 1000014203157394, guid: f1131dc6e3c98354c9a54dcf54a05656,
     type: 2}
+--- !u!114 &114000011527236844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013188378642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7e6038259858c948b2323f6616bf8e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage:
+    amount: 20
+    type: 0
 --- !u!114 &114000011742024632
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,6 +86,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityActions:
+  - {fileID: 114000011836623774}
+  - {fileID: 114000011527236844}
   - {fileID: 114000010705023418}
 --- !u!114 &114000011836623774
 MonoBehaviour:
@@ -103,9 +120,9 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013188378642}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1.5
-  m_Height: 4
+  m_Radius: 2
+  m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 2, z: 0}
