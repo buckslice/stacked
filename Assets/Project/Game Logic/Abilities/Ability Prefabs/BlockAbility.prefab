@@ -57,7 +57,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration:
-    baseValue: 1
+    baseValue: 2.5
 --- !u!114 &114000011154019226
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownSecs:
-    baseValue: 2
+    baseValue: 10
 --- !u!114 &114000012805822076
 MonoBehaviour:
   m_ObjectHideFlags: 1

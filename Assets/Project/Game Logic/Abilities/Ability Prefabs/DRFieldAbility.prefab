@@ -168,8 +168,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPrefab: {fileID: 1000011671764720, guid: 0ae874c30b0dfe24595e50af04f4f049, type: 2}
-  vibrationDuration: 0.25
-  vibrationStrength: 1
 --- !u!114 &114000010814263604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -195,7 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownSecs:
-    baseValue: 0.25
+    baseValue: 5
 --- !u!114 &114000011803473448
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -226,7 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownSecs:
-    baseValue: 1
+    baseValue: 5
 --- !u!114 &114000013116296740
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -239,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration:
-    baseValue: 2.5
+    baseValue: 2
   target: {fileID: 1000011806175498}
 --- !u!114 &114000013502101688
 MonoBehaviour:
