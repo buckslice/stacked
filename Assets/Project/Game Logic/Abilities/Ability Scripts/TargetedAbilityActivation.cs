@@ -130,6 +130,7 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
         PhotonStream stream = new PhotonStream(true, null);
 
         bool send = false;
+        Debug.Log(abilityActions.Length);
         foreach (TargetedAbilityAction abilityAction in abilityActions) {
             send |= abilityAction.Activate(target, stream);
             Assert.IsTrue(send || (stream.Count == 0), string.Format("Data written to stream but not flagged to be sent. {0}", abilityAction));

@@ -69,8 +69,8 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
     }
 
     public void Start() {
-        if (transform.parent == null) {
-            Debug.LogErrorFormat("Ability {0} has no parent; Destroying it.", this);
+        if (abilityNetwork == null) {
+            Debug.LogErrorFormat("Ability {0} has not been initialized; Destroying it.", this);
             Destroy(this.gameObject);
         }
 

@@ -39,7 +39,6 @@ public abstract class AbstractActivationNetworking : MonoBehaviour, IActivationN
 /// TODO: refactor rename?
 /// Photon requires that the target of an RPC be on the same gameObject as the photonview. This class fills that role.
 /// </summary>
-[RequireComponent(typeof(PhotonView))]
 public class AbilityNetworking : AbstractActivationNetworking {
 
     const string networkedActivationRPCName = "NetworkedActivationRPC";
@@ -114,6 +113,9 @@ public class AbilityNetworking : AbstractActivationNetworking {
             }
             foreach (TargetedAbilityActivation targetedAbilityActivation in multipleAbilities.targetedAbilityActivation) {
                 AddNetworkedAbility(targetedAbilityActivation);
+            }
+            foreach (IAbilityActivation spawnAbilityActivation in multipleAbilities.assortedOtherActivations) {
+                AddNetworkedAbility(spawnAbilityActivation);
             }
         } else {
 

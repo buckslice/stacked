@@ -17,7 +17,7 @@ public class ProjectileActivationNetworking : AbstractActivationNetworking {
 
         abilityActivation.Initialize(this);
 
-        if (view != null && !view.isMine) {
+        if (!view.isMine) {
             //we need to disable all ability activation scripts
             foreach (IUntargetedAbilityTrigger trigger in GetComponentsInChildren<IUntargetedAbilityTrigger>()) {
                 ((MonoBehaviour)trigger).enabled = false;
@@ -26,8 +26,6 @@ public class ProjectileActivationNetworking : AbstractActivationNetworking {
     }
 
     public override void ActivateRemote(IAbilityActivation ability, object[] data) {
-        if (view == null)
-            return;
 
         if (!view.isMine) {
             Debug.LogError("We do not own this object. All activations should originate from the owner. Discarding activation.");
