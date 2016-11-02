@@ -71,7 +71,7 @@ public class DashAbility : AbstractAbilityAction
 
         GameObject instantiatedDashingObjectAbility = SimplePool.Spawn(dashingObjectPrefab);
         DashingObjectAbility dashingObjectAbility = instantiatedDashingObjectAbility.GetComponent<DashingObjectAbility>();
-        dashingObjectAbility.Initialize(transform.position, endPosition, startTime, endTime, networking, movement, rigid);
+        dashingObjectAbility.Initialize(startPosition, endPosition, startTime, endTime, networking, movement, rigid);
 
         foreach (ProjectileProxy thrownObjectAbility in dashingObjectAbility.GetComponents<ThrownObjectAbility>()) {
             thrownObjectAbility.Initialize(networking, GetComponentInParent<IDamageHolder>());

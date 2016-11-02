@@ -34,6 +34,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
         this.targetMovement = targetMovement;
         this.targetRigid = targetRigid;
 
+        Assert.AreApproximatelyEqual((destinationPosition - startPosition).y, 0);
 
         targetMovement.HaltMovement();
         targetMovement.MovementInputEnabled.AddModifier(false);

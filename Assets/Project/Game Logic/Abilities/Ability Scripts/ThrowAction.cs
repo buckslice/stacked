@@ -28,7 +28,8 @@ public class ThrowAction : AbstractAbilityAction {
     }
 
     public override bool Activate(PhotonStream stream) {
-        Vector3 destinationPosition = transform.position + throwDistance * Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
+        Vector3 startPosition = transform.position;
+        Vector3 destinationPosition = startPosition + throwDistance * Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized;
         Rigidbody targetRigid = targetConnectingJoint.connectedBody;
         AbilityNetworking targetNetworking = targetRigid.transform.root.GetComponentInParent<AbilityNetworking>();
         IAbilities targetAbilities = targetRigid.transform.root.GetComponentInParent<IAbilities>();
@@ -41,7 +42,7 @@ public class ThrowAction : AbstractAbilityAction {
 
         GameObject instantiatedThrownObjectAbility = SimplePool.Spawn(thrownObjectAbilityPrefab);
         DashingObjectAbility dashingObjectAbility = instantiatedThrownObjectAbility.GetComponent<DashingObjectAbility>();
-        dashingObjectAbility.Initialize(transform.position, destinationPosition, Time.time, Time.time + throwDuration, targetNetworking, targetMovement, targetRigid);
+        dashingObjectAbility.Initialize(startPosition, destinationPosition, Time.time, Time.time + throwDuration, targetNetworking, targetMovement, targetRigid);
 
         foreach (ProjectileProxy thrownObjectAbility in instantiatedThrownObjectAbility.GetComponents<ProjectileProxy>()) {
             thrownObjectAbility.Initialize(targetNetworking, trackerReference);

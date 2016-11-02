@@ -143,6 +143,6 @@ public class BossAggro : MonoBehaviour, IMovement {
     public void setVelocity(Vector3 worldDirectionNormalized) { rigid.velocity = worldDirectionNormalized * agent.speed; }
 
     public Vector3 currentMovement() {
-        return rigid.transform.forward;
+        return agent.desiredVelocity;
     }
 }

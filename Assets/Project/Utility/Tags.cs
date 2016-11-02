@@ -136,6 +136,7 @@ public static class Tags {
         public const string Default = "Default";
         public const string Player = "Player";
         public const string StaticGeometry = "Static Geometry";
+        public const string StaticGeometryFloor = "Static Geometry Floor";
         public const string Enemy = "Enemy";
         public const string Boss = "Boss";
     }

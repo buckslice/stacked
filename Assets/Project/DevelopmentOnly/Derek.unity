@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 486555971}
   - 65: {fileID: 486555972}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -749,7 +749,7 @@ Prefab:
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
       propertyPath: bossData.abilities.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4000010670690832, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
       propertyPath: m_LocalPosition.x
@@ -791,7 +791,7 @@ Prefab:
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
       propertyPath: bossData.abilities.Array.data[2]
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
