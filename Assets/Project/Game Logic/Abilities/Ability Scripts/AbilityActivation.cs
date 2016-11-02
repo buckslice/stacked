@@ -69,7 +69,7 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
     }
 
     public void Start() {
-        if (abilityNetwork == null) {
+        if (transform.parent == null && abilityNetwork == null) {
             Debug.LogErrorFormat("Ability {0} has not been initialized; Destroying it.", this);
             Destroy(this.gameObject);
         }

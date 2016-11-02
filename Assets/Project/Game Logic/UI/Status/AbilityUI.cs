@@ -18,18 +18,9 @@ public class AbilityUI : MonoBehaviour, IAbilityDisplayHolder {
     [SerializeField]
     protected GameObject uiPrefab;
 
-    [SerializeField]
-    protected float vibrationDuration = 0.25f;
-
-    [SerializeField]
-    protected float vibrationStrength = 1;
-
     IAbilityStatus ability;
     GameObject spawnedUIPrefab;
     IAbilityDisplay[] displays;
-    ControllerPlayerInput controllerInput = null;
-
-    float cooldownProgress;
 
 
 	void Start () {
@@ -43,9 +34,6 @@ public class AbilityUI : MonoBehaviour, IAbilityDisplayHolder {
         }
 
         PlayerInputHolder holder = GetComponentInParent<PlayerInputHolder>();
-        if (holder.HeldInput is ControllerPlayerInput) {
-            controllerInput = (ControllerPlayerInput)holder.HeldInput;
-        }
 	}
 
     void Update() {
@@ -53,27 +41,15 @@ public class AbilityUI : MonoBehaviour, IAbilityDisplayHolder {
             display.setAbilityReady(ability.Ready());
         }
 
-        float newCooldownProgress = ability.cooldownProgress();
+        float cooldownProgress = ability.cooldownProgress();
         foreach (IAbilityDisplay display in displays) {
-            display.setCooldownProgress(newCooldownProgress);
+            display.setCooldownProgress(cooldownProgress);
         }
-        trackVibration(cooldownProgress, newCooldownProgress);
-        cooldownProgress = newCooldownProgress;
     }
 
     void OnDestroy() {
         if(spawnedUIPrefab != null) {
             Destroy(spawnedUIPrefab);
-        }
-    }
-
-    void trackVibration(float oldEdge, float newEdge) {
-        if (controllerInput == null) {
-            return;
-        }
-
-        if (oldEdge > 0 && newEdge == 0) {
-            controllerInput.Vibrate(vibrationStrength, vibrationDuration, this);
         }
     }
 }
