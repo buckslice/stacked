@@ -195,10 +195,10 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
             return false;
     } }
 
-    public string submitName { get { throw new System.NotSupportedException(); } }
-    public string cancelName { get { throw new System.NotSupportedException(); } }
-    public string startName { get { throw new System.NotSupportedException(); } }
-    public string basicAttackName { get { throw new System.NotSupportedException(); } }
-    public string ability1Name { get { throw new System.NotSupportedException(); } }
-    public string ability2Name { get { throw new System.NotSupportedException(); } }
+    public string submitName { get { return HeldInput.submitName; } }
+    public string cancelName { get { return HeldInput.cancelName; } }
+    public string startName { get { return HeldInput.startName; } }
+    public string basicAttackName { get { return HeldInput.basicAttackName; } }
+    public string ability1Name { get { return HeldInput.ability1Name; } }
+    public string ability2Name { get { return HeldInput.ability2Name; } }
 }

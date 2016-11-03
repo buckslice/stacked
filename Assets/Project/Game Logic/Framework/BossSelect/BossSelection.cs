@@ -11,6 +11,9 @@ public class BossSelection : MonoBehaviour, ISelection {
     [SerializeField]
     protected Image readyIndicator;
 
+    [SerializeField]
+    protected Text textPrompt;
+
     GameObject instantiatedBossSetup = null;
     public bool Ready { get { return instantiatedBossSetup != null; } }
 
@@ -19,10 +22,12 @@ public class BossSelection : MonoBehaviour, ISelection {
 
     void Awake() {
         input = GetComponent<IPlayerInputHolder>();
+        Assert.IsNotNull(input);
     }
 
     void Start() {
         transform.root.GetComponentInChildren<ReadyChecker>().AddPlayer(this);
+        Callback.FireForUpdate(() => textPrompt.text = string.Format("Press {0} to select", input.submitName), this);
     }
 
     public bool CanSelect() { 
@@ -41,6 +46,7 @@ public class BossSelection : MonoBehaviour, ISelection {
 
         instantiatedBossSetup = Instantiate(BossSetupNetworkedData.Main.bossDataPrefabs[(byte)bossSelectable.BossID]) as GameObject;
         readyIndicator.enabled = true;
+        textPrompt.text = string.Format("Press {0} to proceed", input.submitName);
         return true;
     }
 
@@ -55,6 +61,7 @@ public class BossSelection : MonoBehaviour, ISelection {
             Destroy(instantiatedBossSetup);
             instantiatedBossSetup = null; 
             readyIndicator.enabled = false;
+            textPrompt.text = string.Format("Press {0} to select", input.submitName);
             return true;
         }
     }
