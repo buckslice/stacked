@@ -52,6 +52,9 @@ public class PlayerRegistration : MonoBehaviour {
     protected RectTransform[] pressStartPrompts;
 
     [SerializeField]
+    protected GameObject continuePrompt;
+
+    [SerializeField]
     protected float vibrationDuration = 0.15f;
 
     [SerializeField]
@@ -179,6 +182,16 @@ public class PlayerRegistration : MonoBehaviour {
 
             registeredPlayers[playerID] = null;
             pressStartPrompts[playerID].gameObject.SetActive(true);
+
+            for (int i = 0; i < registeredPlayers.Length; i++) {
+                if (registeredPlayers[i] != null) { //if someone is still registered
+                    continuePrompt.SetActive(true);
+                    return;
+                }
+            }
+
+            //else nobody is still registered
+            continuePrompt.SetActive(false);
         }
     }
 
@@ -235,6 +248,7 @@ public class PlayerRegistration : MonoBehaviour {
 
 
         pressStartPrompts[playerId].gameObject.SetActive(false);
+        continuePrompt.SetActive(true);
     }
 
     public void OnPhotonPlayerDisconnected(PhotonPlayer player)

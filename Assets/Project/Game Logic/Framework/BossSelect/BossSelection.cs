@@ -46,7 +46,7 @@ public class BossSelection : MonoBehaviour, ISelection {
 
         instantiatedBossSetup = Instantiate(BossSetupNetworkedData.Main.bossDataPrefabs[(byte)bossSelectable.BossID]) as GameObject;
         readyIndicator.enabled = true;
-        textPrompt.text = string.Format("Press {0} to proceed", input.submitName);
+        textPrompt.text = string.Format("Press {0} to proceed", input.startName);
         return true;
     }
 

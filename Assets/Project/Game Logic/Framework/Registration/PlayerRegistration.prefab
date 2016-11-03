@@ -70,6 +70,7 @@ MonoBehaviour:
   registeredPlayerPrefab: {fileID: 1000013470432026, guid: b06cb6c7b52354c4ca8d947421baa44c,
     type: 2}
   playerRegistrationUIPrefabName: RegistrationUI
+  nextScene: BossSelect
   possibleBindings:
   - {fileID: 114000011048380482}
   - {fileID: 114000012135036892}
@@ -81,6 +82,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  continuePrompt: {fileID: 0}
+  vibrationDuration: 0.15
+  vibrationStrength: 1
 --- !u!114 &114000011737676832
 MonoBehaviour:
   m_ObjectHideFlags: 1
