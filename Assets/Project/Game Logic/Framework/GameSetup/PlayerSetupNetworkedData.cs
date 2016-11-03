@@ -28,6 +28,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         SHIELDING,
         DRFIELD,
         THROW,
+        MAGICSHOTGUN,
     }
 
     static PlayerSetupNetworkedData main;

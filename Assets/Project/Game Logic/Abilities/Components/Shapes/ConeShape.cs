@@ -90,4 +90,7 @@ public class ConeShape : MonoBehaviour, IShape {
         bool result = col.Raycast(ray, out ignore, raycastForward.magnitude);
         return result;
     }
+    void OnDrawGizmosSelected() {
+        Gizmos.DrawWireSphere(transform.position, radius);
+    }
 }
