@@ -58,7 +58,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   knockbackDistance: 10
   knockbackDuration: 0.15
-  knockbackedObjectPrefab: {fileID: 1000014203157394, guid: f1131dc6e3c98354c9a54dcf54a05656,
+  knockbackedObjectPrefab: {fileID: 1000012517307540, guid: 923b5a827ea5b624bb1452c53e1baa68,
     type: 2}
 --- !u!114 &114000011527236844
 MonoBehaviour:
