@@ -14,6 +14,7 @@ public class BossAggro : MonoBehaviour, IMovement {
 
     NavMeshAgent agent;
     Rigidbody rigid;
+    Animator animator;
 
     /// <summary>
     /// A float for each player showing their current aggro to boss. The index is the player's playerID.
@@ -39,6 +40,7 @@ public class BossAggro : MonoBehaviour, IMovement {
     void Start() {
         agent = GetComponent<NavMeshAgent>();
         rigid = GetComponent<Rigidbody>();
+        animator = GetComponentInChildren<Animator>();
 
         //createTime = Time.time;
 
@@ -81,6 +83,8 @@ public class BossAggro : MonoBehaviour, IMovement {
             agent.updateRotation = false;
             agent.updatePosition = false;
         }
+
+        animator.SetBool(Tags.AnimatorParams.Controlled, shouldChase);
     }
 
     // this function changes aggro if a player has surpassed current aggro holder by more than the threshold

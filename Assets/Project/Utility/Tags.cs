@@ -148,6 +148,7 @@ public static class Tags {
 
     public static class AnimatorParams
     {
+        public const string Controlled = "Controlled";
     }
 
     public static class PlayerPrefKeys
