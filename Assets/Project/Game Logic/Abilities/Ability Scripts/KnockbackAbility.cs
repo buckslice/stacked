@@ -38,7 +38,7 @@ public class KnockbackAbility : TypedTargetedAbilityAction {
     }
 
     public override bool Activate(GameObject context, PhotonStream stream) {
-        CapsuleCollider coll = context.GetComponent<CapsuleCollider>();
+        CapsuleCollider coll = context.GetComponentInChildren<CapsuleCollider>();
         Rigidbody rigid = context.GetComponentInParent<Rigidbody>();
         IMovement movement = context.GetComponentInParent<IMovement>();
         AbilityNetworking networking = rigid.GetComponent<AbilityNetworking>();

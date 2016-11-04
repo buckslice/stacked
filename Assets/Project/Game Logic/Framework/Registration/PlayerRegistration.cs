@@ -248,7 +248,9 @@ public class PlayerRegistration : MonoBehaviour {
 
 
         pressStartPrompts[playerId].gameObject.SetActive(false);
-        continuePrompt.SetActive(true);
+        if (PhotonNetwork.isMasterClient) {
+            continuePrompt.SetActive(true);
+        }
     }
 
     public void OnPhotonPlayerDisconnected(PhotonPlayer player)

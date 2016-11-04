@@ -115,6 +115,7 @@ GameObject:
   - 114: {fileID: 114000011968174942}
   - 114: {fileID: 114000010663278840}
   - 114: {fileID: 114000013869679022}
+  - 114: {fileID: 114000012060457128}
   m_Layer: 17
   m_Name: Boss
   m_TagString: Boss
@@ -549,6 +550,19 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114000012060457128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012221291214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 324817c2d284a3d40adafc62fcb643bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vibrationStrength: 0.5
+  vibrationDuration: 0.5
 --- !u!114 &114000012609291106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -599,7 +613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54e5844a67182d44c83ff7b9c078ce05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aggroToSurpass: 1
   shouldChase:
     baseValue: 1
 --- !u!114 &114000013869679022

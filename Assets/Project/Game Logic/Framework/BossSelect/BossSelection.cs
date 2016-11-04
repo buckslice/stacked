@@ -27,7 +27,7 @@ public class BossSelection : MonoBehaviour, ISelection {
 
     void Start() {
         transform.root.GetComponentInChildren<ReadyChecker>().AddPlayer(this);
-        Callback.FireForUpdate(() => textPrompt.text = string.Format("Press {0} to select", input.submitName), this);
+        Callback.FireForUpdate(UpdatePrompt, this);
     }
 
     public bool CanSelect() { 
@@ -46,7 +46,7 @@ public class BossSelection : MonoBehaviour, ISelection {
 
         instantiatedBossSetup = Instantiate(BossSetupNetworkedData.Main.bossDataPrefabs[(byte)bossSelectable.BossID]) as GameObject;
         readyIndicator.enabled = true;
-        textPrompt.text = string.Format("Press {0} to proceed", input.startName);
+        UpdatePrompt();
         return true;
     }
 
@@ -61,8 +61,22 @@ public class BossSelection : MonoBehaviour, ISelection {
             Destroy(instantiatedBossSetup);
             instantiatedBossSetup = null; 
             readyIndicator.enabled = false;
-            textPrompt.text = string.Format("Press {0} to select", input.submitName);
+            UpdatePrompt();
             return true;
+        }
+    }
+
+    void UpdatePrompt() {
+
+        if (!PhotonNetwork.isMasterClient) {
+            textPrompt.text = "";
+            return;
+        }
+
+        if (Ready) {
+            textPrompt.text = string.Format("Press {0} to proceed", input.startName);
+        } else {
+            textPrompt.text = string.Format("Press {0} to select", input.submitName);
         }
     }
 }

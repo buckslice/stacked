@@ -135,13 +135,12 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
             Assert.IsTrue(send || (stream.Count == 0), string.Format("Data written to stream but not flagged to be sent. {0}", abilityAction));
         }
 
-        if (targetView != null) {
-            object[] data = new object[stream.Count + 1];
-            data[0] = targetView.viewID;
-            stream.ToArray().CopyTo(data, 1);
+        object[] data = new object[stream.Count + 1];
+        data[0] = targetView.viewID;
+        stream.ToArray().CopyTo(data, 1);
 
-            abilityNetwork.ActivateRemote(this, data);
-        }
+        abilityNetwork.ActivateRemote(this, data);
+
     }
 
     public void Activate(object[] incomingData, PhotonMessageInfo info) {

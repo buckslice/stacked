@@ -48,4 +48,5 @@ MonoBehaviour:
   - NetworkedActivationWithDataRPC
   - ProjectileNetworkedActivationRPC
   - RPCDataTransfer
+  - RPCDeath
   DisableAutoOpenWizard: 1

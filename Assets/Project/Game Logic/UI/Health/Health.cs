@@ -34,10 +34,10 @@ public class Health : MonoBehaviour {
 
         if (_health <= 0 && view.isMine) {
             //Don't use PhotonNetwork.Destroy, since we didn't use PhotonNetwork.Instantiate()
-            Destroy(this.gameObject);
+            SendRPCDeath();
         }
 
-        return _health - healthBefore;
+        return healthBefore - _health;
     }
     protected float maxHealth;
     public float healthPercent { get { return health / maxHealth; } }
@@ -87,5 +87,14 @@ public class Health : MonoBehaviour {
 
     public void Kill() {
         setHealth(0);
+    }
+
+    void SendRPCDeath() {
+        view.RPC("RPCDeath", PhotonTargets.AllViaServer);
+    }
+
+    [PunRPC]
+    public void RPCDeath() {
+        Destroy(this.gameObject);
     }
 }

@@ -12,7 +12,7 @@ public class DamageAction : TypedTargetedAbilityAction {
     public IDamageHolder TrackerReference { get { return trackerReference; } set { trackerReference = value; } }
 
     [SerializeField]
-    protected Damage damage = 100;
+    protected Damage damage = new Damage(100, Damage.DamageType.MAGICAL);
 
     protected override void Start() {
         base.Start();
@@ -38,7 +38,15 @@ public class DamageAction : TypedTargetedAbilityAction {
     }
 
     public override bool Activate(GameObject target, PhotonStream stream) {
-        target.GetComponent<Damageable>().Damage(damage, trackerReference);
+        if (stream.isWriting) {
+            float trueDamage = target.GetComponent<Damageable>().Damage(damage, trackerReference);
+            stream.SendNext(trueDamage);
+        } else {
+            float trueDamage = (float)stream.ReceiveNext();
+            Damage ourDamage = new Damage(trueDamage, damage.Type);
+
+            target.GetComponentInChildren<Damageable>().Damage(ourDamage, trackerReference, trueDamage: true);
+        }
         return true;
     }
 }

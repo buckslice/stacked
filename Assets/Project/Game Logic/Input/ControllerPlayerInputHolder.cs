@@ -46,6 +46,9 @@ public class ControllerPlayerInput : IPlayerInput {
     private KeyCode ability1Key = Tags.Input.Joystick1.LeftBumper;
     private KeyCode ability2Key = Tags.Input.Joystick1.RightBumper;
 
+    const int maxControllers = 4;
+    public static readonly ControllerPlayerInput[] allControllers = new ControllerPlayerInput[maxControllers];
+
     MonoBehaviour holder;
 
     [SerializeField]
@@ -53,8 +56,18 @@ public class ControllerPlayerInput : IPlayerInput {
 
     //Transform player; //not needed yet
     public Transform Player { set { ; } } //set { player = value; }
-    public void Initialize(MonoBehaviour holder) { this.holder = holder; }
-    public void Deactivate() { vibrationAmount.Reset(); UpdateVibration(); }
+    public void Initialize(MonoBehaviour holder) {
+        this.holder = holder;
+
+        Assert.IsNull(allControllers[(int)controllerIndex]);
+        allControllers[(int)controllerIndex] = this;
+    }
+
+    public void Deactivate() {
+        vibrationAmount.Reset();
+        UpdateVibration();
+        allControllers[(int)controllerIndex] = null;
+    }
 
     AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
 
@@ -112,7 +125,6 @@ public class ControllerPlayerInput : IPlayerInput {
                 Debug.Assert(false, "Out of range player index!");
                 break;
         }
-
     }
 
     /// <summary>

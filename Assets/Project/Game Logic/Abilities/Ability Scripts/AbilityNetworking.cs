@@ -183,8 +183,8 @@ public class AbilityNetworking : AbstractActivationNetworking {
         if (!view.isMine) {
             RequireLocal requirement = abilityActivations[networkedAbilityID].GetComponentInChildren<RequireLocal>(); //one of the exceptions to this assumption
             if(requirement == null) {
-            Debug.LogError("We do not own this object. All activations should originate from the owner. Discarding activation.", this);
-            return;
+                Debug.LogError("We do not own this object. All activations should originate from the owner. Discarding activation.", this);
+                return;
             }
         }
 #endif

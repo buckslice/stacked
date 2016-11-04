@@ -25,10 +25,12 @@ public class Damage {
         this.type = type;
     }
 
+    
     public static implicit operator Damage(float amount)
     {
         return new Damage(amount);
     }
+    
 
     public static implicit operator float(Damage damage) {
         return damage.amount;
@@ -75,28 +77,36 @@ public class Damageable : MonoBehaviour {
         }
     }
 
-    public float Damage(Damage incoming)
+    public float Damage(Damage incoming, bool trueDamage = false)
     {
-        float actualDamageAmount = CalculateActualDamage(incoming);
+        float actualDamageAmount = trueDamage ? incoming.Amount : CalculateActualDamage(incoming);
         return health.Damage(actualDamageAmount);
     }
 
-    public float Damage(Damage incoming, IDamageHolder holderReference) {
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="incoming"></param>
+    /// <param name="holderReference"></param>
+    /// <param name="trueDamage">TrueDamage ignores damage reduction</param>
+    /// <returns></returns>
+    public float Damage(Damage incoming, IDamageHolder holderReference, bool trueDamage = false) {
         IDamageTracker rootDamageReference = holderReference.GetRootDamageTracker();
-        float dealtDamage = Damage(incoming, rootDamageReference);
+        float dealtDamage = Damage(incoming, rootDamageReference, trueDamage);
         EventLog.Log(this, "{0} did {1} {2} damage to {3} using {4}", rootDamageReference, dealtDamage, incoming.Type, selfTracker, holderReference);
         return dealtDamage;
     }
 
-    public float Damage(Damage incoming, IDamageTracker trackerReference) {
-        float actualDamageAmount = CalculateActualDamage(incoming);
+    public float Damage(Damage incoming, IDamageTracker trackerReference, bool trueDamage = false) {
+        float actualDamageAmount = trueDamage ? incoming.Amount : CalculateActualDamage(incoming);
+        Debug.Log(actualDamageAmount);
         float result = health.Damage(actualDamageAmount, trackerReference);
         trackerReference.AddDamageDealt(result);
         return result;
     }
 
-    public float Damage(Damage incoming, Player playerReference) {
-        float actualDamageAmount = CalculateActualDamage(incoming);
+    public float Damage(Damage incoming, Player playerReference, bool trueDamage = false) {
+        float actualDamageAmount = trueDamage ? incoming.Amount : CalculateActualDamage(incoming);
         float result = health.Damage(actualDamageAmount, playerReference);
         playerReference.AddDamageDealt(result);
         return result;
