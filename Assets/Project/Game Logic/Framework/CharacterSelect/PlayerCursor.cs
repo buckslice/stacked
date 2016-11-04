@@ -68,12 +68,12 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
             PlayerSetupNetworkedData.AbilityId newSelection = selectIcon.ability;
 
             selection1 = newSelection;
-            leftHalf.color = selectIcon.GetComponent<Image>().color;
+            leftHalf.color = selectIcon.color;
 
             RectTransform parent = holder.EntityGroup.StatusHolder;
             selection1Display = Instantiate(abilityDisplayPrefab, parent) as GameObject;
             selection1Display.GetComponent<RectTransform>().Reset();
-            selection1Display.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability1Name, selectIcon.abilityIcon);
+            selection1Display.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability1Name, selectIcon.visualsIcon);
 
         } else if (selection2Display == null) {
 
@@ -84,12 +84,12 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
             }
             selection2 = newSelection;
 
-            rightHalf.color = selectIcon.GetComponent<Image>().color;
+            rightHalf.color = selectIcon.color;
 
             RectTransform parent = holder.EntityGroup.StatusHolder;
             selection2Display = Instantiate(abilityDisplayPrefab, parent) as GameObject;
             selection2Display.GetComponent<RectTransform>().Reset();
-            selection2Display.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability2Name, selectIcon.abilityIcon);
+            selection2Display.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability2Name, selectIcon.visualsIcon);
 
             //create/recreate setupGO
             if (playerSetupGO != null) {

@@ -13,4 +13,8 @@ public class CharacterSelectIcon : MonoBehaviour, ISelectable {
     public PlayerSetupNetworkedData.AbilityId ability;
 
     public Sprite abilityIcon { get { return GetComponent<Image>().sprite; } }
+
+    public GameObject visualsIcon;
+
+    public Color color = Color.white;
 }

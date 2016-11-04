@@ -9,13 +9,18 @@ public class SelectedAbilityDisplay : MonoBehaviour {
     [SerializeField]
     protected Text bindingLabel;
 
-    [SerializeField]
-    protected Image icon;
+    GameObject visuals;
 
-    public void Initialize(string bindingText, Sprite imageTex) {
+    public void Initialize(string bindingText, GameObject originalVisuals) {
         this.bindingLabel.text = bindingText;
-        if (imageTex != null) {
-            icon.overrideSprite = imageTex;
+
+        if (visuals != null) {
+            Destroy(visuals);
         }
+
+        visuals = Instantiate(originalVisuals, this.transform) as GameObject;
+        RectTransform visualsTransform = visuals.GetComponent<RectTransform>();
+        visualsTransform.Reset();
+        visualsTransform.SetAsFirstSibling();
     }
 }

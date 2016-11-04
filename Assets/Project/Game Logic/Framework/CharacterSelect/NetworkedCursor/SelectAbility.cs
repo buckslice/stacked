@@ -44,13 +44,21 @@ public class SelectAbility : UntargetedAbilityConstraint {
 
     public override bool Activate(PhotonStream stream)
     {
-        pointer.position = new Vector3(transform.position.x, transform.position.y);
+        Vector2 position;
+        if (stream.isWriting) {
+            position = transform.position;
+            stream.SendNext(position);
+        } else {
+            position = (Vector2)stream.ReceiveNext();
+        }
+        pointer.position = position;
+
         results.Clear();
 
         EventSystem.current.RaycastAll(pointer, results);
 
         foreach (RaycastResult hit in results) {
-            ISelectable selectable = hit.gameObject.GetComponent<ISelectable>();
+            ISelectable selectable = hit.gameObject.GetComponentInParent<ISelectable>();
 
             if (selectable != null) {
                 return selection.Select(selectable);
