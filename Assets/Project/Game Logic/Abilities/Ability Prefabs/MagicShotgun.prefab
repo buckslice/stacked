@@ -28,6 +28,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000012434347880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000010233779598}
+  - 108: {fileID: 108000013154661362}
+  m_Layer: 0
+  m_Name: Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000012526953662
 GameObject:
   m_ObjectHideFlags: 1
@@ -60,6 +76,7 @@ GameObject:
   - 114: {fileID: 114000014162814200}
   - 114: {fileID: 114000012985639824}
   - 114: {fileID: 114000013787046914}
+  - 114: {fileID: 114000011325917098}
   m_Layer: 0
   m_Name: MagicShotgun
   m_TagString: Untagged
@@ -119,6 +136,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4000010233779598
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012434347880}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000010603109716}
+  m_RootOrder: 2
 --- !u!4 &4000010603109716
 Transform:
   m_ObjectHideFlags: 1
@@ -132,6 +162,7 @@ Transform:
   m_Children:
   - {fileID: 4000012158961742}
   - {fileID: 4000013696547794}
+  - {fileID: 4000010233779598}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000011694364330
@@ -202,6 +233,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000013696547794}
   m_RootOrder: 0
+--- !u!108 &108000013154661362
+Light:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012434347880}
+  m_Enabled: 1
+  serializedVersion: 7
+  m_Type: 2
+  m_Color: {r: 1, g: 0.72413796, b: 0, a: 1}
+  m_Intensity: 0
+  m_Range: 20
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!114 &114000010771651756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -228,6 +293,36 @@ MonoBehaviour:
   damage:
     amount: 100
     type: 0
+--- !u!114 &114000011325917098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012610251464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e23c2f54f0f4d840bb1a8d309074da9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetLight: {fileID: 108000013154661362}
+  intensityOverTime:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1.0062499
+      inSlope: -0.9999999
+      outSlope: -0.9999999
+      tangentMode: 10
+    - time: 1
+      value: 0.006250024
+      inSlope: -0.9999999
+      outSlope: -0.9999999
+      tangentMode: 10
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  intensity: 5
+  duration: 0.6
 --- !u!114 &114000011337695518
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -386,7 +481,7 @@ ParticleSystem:
   moveWithTransform: 0
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -1304564669
+  randomSeed: 1473615078
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -2120,7 +2215,7 @@ ParticleSystem:
   moveWithTransform: 0
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -1879735028
+  randomSeed: 519863432
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -3834,7 +3929,7 @@ ParticleSystem:
   moveWithTransform: 0
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: -1926362982
+  randomSeed: 1178483693
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -5568,7 +5663,7 @@ ParticleSystem:
   moveWithTransform: 0
   autoRandomSeed: 1
   scalingMode: 1
-  randomSeed: 1916047093
+  randomSeed: -2055270241
   InitialModule:
     serializedVersion: 2
     enabled: 1
