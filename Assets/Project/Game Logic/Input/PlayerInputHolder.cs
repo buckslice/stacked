@@ -98,47 +98,243 @@ public static class PlayerInputExtension
         {KeyCode.Space, "SPC"},
         {KeyCode.Escape, "ESC"},
 
-        {KeyCode.JoystickButton0, "A"},
-        {KeyCode.Joystick1Button0, "A"},
-        {KeyCode.Joystick2Button0, "A"},
-        {KeyCode.Joystick3Button0, "A"},
-        {KeyCode.Joystick4Button0, "A"},
+        {KeyCode.JoystickButton0, "Button 0"},
+        {KeyCode.Joystick1Button0, "Button 0"},
+        {KeyCode.Joystick2Button0, "Button 0"},
+        {KeyCode.Joystick3Button0, "Button 0"},
+        {KeyCode.Joystick4Button0, "Button 0"},
         
-        {KeyCode.JoystickButton1, "B"},
-        {KeyCode.Joystick1Button1, "B"},
-        {KeyCode.Joystick2Button1, "B"},
-        {KeyCode.Joystick3Button1, "B"},
-        {KeyCode.Joystick4Button1, "B"},
+        {KeyCode.JoystickButton1, "Button 1"},
+        {KeyCode.Joystick1Button1, "Button 1"},
+        {KeyCode.Joystick2Button1, "Button 1"},
+        {KeyCode.Joystick3Button1, "Button 1"},
+        {KeyCode.Joystick4Button1, "Button 1"},
         
-        {KeyCode.JoystickButton2, "X"},
-        {KeyCode.Joystick1Button2, "X"},
-        {KeyCode.Joystick2Button2, "X"},
-        {KeyCode.Joystick3Button2, "X"},
-        {KeyCode.Joystick4Button2, "X"},
+        {KeyCode.JoystickButton2, "Button 2"},
+        {KeyCode.Joystick1Button2, "Button 2"},
+        {KeyCode.Joystick2Button2, "Button 2"},
+        {KeyCode.Joystick3Button2, "Button 2"},
+        {KeyCode.Joystick4Button2, "Button 2"},
 
-        {KeyCode.JoystickButton3, "Y"},
-        {KeyCode.Joystick1Button3, "Y"},
-        {KeyCode.Joystick2Button3, "Y"},
-        {KeyCode.Joystick3Button3, "Y"},
-        {KeyCode.Joystick4Button3, "Y"},
+        {KeyCode.JoystickButton3, "Button 3"},
+        {KeyCode.Joystick1Button3, "Button 3"},
+        {KeyCode.Joystick2Button3, "Button 3"},
+        {KeyCode.Joystick3Button3, "Button 3"},
+        {KeyCode.Joystick4Button3, "Button 3"},
 
-        {KeyCode.JoystickButton4, "LB"},
-        {KeyCode.Joystick1Button4, "LB"},
-        {KeyCode.Joystick2Button4, "LB"},
-        {KeyCode.Joystick3Button4, "LB"},
-        {KeyCode.Joystick4Button4, "LB"},
+        {KeyCode.JoystickButton4, "Button 4"},
+        {KeyCode.Joystick1Button4, "Button 4"},
+        {KeyCode.Joystick2Button4, "Button 4"},
+        {KeyCode.Joystick3Button4, "Button 4"},
+        {KeyCode.Joystick4Button4, "Button 4"},
         
-        {KeyCode.JoystickButton5, "RB"},
-        {KeyCode.Joystick1Button5, "RB"},
-        {KeyCode.Joystick2Button5, "RB"},
-        {KeyCode.Joystick3Button5, "RB"},
-        {KeyCode.Joystick4Button5, "RB"},
-        
-        {KeyCode.JoystickButton7, "STA"},
-        {KeyCode.Joystick1Button7, "STA"},
-        {KeyCode.Joystick2Button7, "STA"},
-        {KeyCode.Joystick3Button7, "STA"},
-        {KeyCode.Joystick4Button7, "STA"},
+        {KeyCode.JoystickButton5, "Button 5"},
+        {KeyCode.Joystick1Button5, "Button 5"},
+        {KeyCode.Joystick2Button5, "Button 5"},
+        {KeyCode.Joystick3Button5, "Button 5"},
+        {KeyCode.Joystick4Button5, "Button 5"},
+
+        {KeyCode.JoystickButton6, "Button 6"},
+        {KeyCode.Joystick1Button6, "Button 6"},
+        {KeyCode.Joystick2Button6, "Button 6"},
+        {KeyCode.Joystick3Button6, "Button 6"},
+        {KeyCode.Joystick4Button6, "Button 6"},
+
+        {KeyCode.JoystickButton7, "Button 7"},
+        {KeyCode.Joystick1Button7, "Button 7"},
+        {KeyCode.Joystick2Button7, "Button 7"},
+        {KeyCode.Joystick3Button7, "Button 7"},
+        {KeyCode.Joystick4Button7, "Button 7"},
+
+        {KeyCode.JoystickButton8, "Button 8"},
+        {KeyCode.Joystick1Button8, "Button 8"},
+        {KeyCode.Joystick2Button8, "Button 8"},
+        {KeyCode.Joystick3Button8, "Button 8"},
+        {KeyCode.Joystick4Button8, "Button 8"},
+
+        {KeyCode.JoystickButton9, "Button 9"},
+        {KeyCode.Joystick1Button9, "Button 9"},
+        {KeyCode.Joystick2Button9, "Button 9"},
+        {KeyCode.Joystick3Button9, "Button 9"},
+        {KeyCode.Joystick4Button9, "Button 9"},
+
+        {KeyCode.JoystickButton10, "Button 10"},
+        {KeyCode.Joystick1Button10, "Button 10"},
+        {KeyCode.Joystick2Button10, "Button 10"},
+        {KeyCode.Joystick3Button10, "Button 10"},
+        {KeyCode.Joystick4Button10, "Button 10"},
+
+        {KeyCode.JoystickButton11, "Button 11"},
+        {KeyCode.Joystick1Button11, "Button 11"},
+        {KeyCode.Joystick2Button11, "Button 11"},
+        {KeyCode.Joystick3Button11, "Button 11"},
+        {KeyCode.Joystick4Button11, "Button 11"},
+
+        {KeyCode.JoystickButton12, "Button 12"},
+        {KeyCode.Joystick1Button12, "Button 12"},
+        {KeyCode.Joystick2Button12, "Button 12"},
+        {KeyCode.Joystick3Button12, "Button 12"},
+        {KeyCode.Joystick4Button12, "Button 12"},
+
+        {KeyCode.JoystickButton13, "Button 13"},
+        {KeyCode.Joystick1Button13, "Button 13"},
+        {KeyCode.Joystick2Button13, "Button 13"},
+        {KeyCode.Joystick3Button13, "Button 13"},
+        {KeyCode.Joystick4Button13, "Button 13"},
+
+        {KeyCode.JoystickButton14, "Button 14"},
+        {KeyCode.Joystick1Button14, "Button 14"},
+        {KeyCode.Joystick2Button14, "Button 14"},
+        {KeyCode.Joystick3Button14, "Button 14"},
+        {KeyCode.Joystick4Button14, "Button 14"},
+
+        {KeyCode.JoystickButton15, "Button 15"},
+        {KeyCode.Joystick1Button15, "Button 15"},
+        {KeyCode.Joystick2Button15, "Button 15"},
+        {KeyCode.Joystick3Button15, "Button 15"},
+        {KeyCode.Joystick4Button15, "Button 15"},
+
+        {KeyCode.JoystickButton16, "Button 16"},
+        {KeyCode.Joystick1Button16, "Button 16"},
+        {KeyCode.Joystick2Button16, "Button 16"},
+        {KeyCode.Joystick3Button16, "Button 16"},
+        {KeyCode.Joystick4Button16, "Button 16"},
+
+        {KeyCode.JoystickButton17, "Button 17"},
+        {KeyCode.Joystick1Button17, "Button 17"},
+        {KeyCode.Joystick2Button17, "Button 17"},
+        {KeyCode.Joystick3Button17, "Button 17"},
+        {KeyCode.Joystick4Button17, "Button 17"},
+
+        {KeyCode.JoystickButton18, "Button 18"},
+        {KeyCode.Joystick1Button18, "Button 18"},
+        {KeyCode.Joystick2Button18, "Button 18"},
+        {KeyCode.Joystick3Button18, "Button 18"},
+        {KeyCode.Joystick4Button18, "Button 18"},
+
+        {KeyCode.JoystickButton19, "Button 19"},
+        {KeyCode.Joystick1Button19, "Button 19"},
+        {KeyCode.Joystick2Button19, "Button 19"},
+        {KeyCode.Joystick3Button19, "Button 19"},
+        {KeyCode.Joystick4Button19, "Button 19"},
+    };
+
+
+    //Potentially move these to tags?
+    public static readonly Dictionary<KeyCode, int> buttonNumbers = new Dictionary<KeyCode, int>() {
+        {KeyCode.Joystick1Button0, 0 },
+        {KeyCode.Joystick1Button1, 1 },
+        {KeyCode.Joystick1Button2, 2 },
+        {KeyCode.Joystick1Button3, 3 },
+        {KeyCode.Joystick1Button4, 4 },
+        {KeyCode.Joystick1Button5, 5 },
+        {KeyCode.Joystick1Button6, 6 },
+        {KeyCode.Joystick1Button7, 7 },
+        {KeyCode.Joystick1Button8, 8 },
+        {KeyCode.Joystick1Button9, 9 },
+        {KeyCode.Joystick1Button10, 10 },
+        {KeyCode.Joystick1Button11, 11 },
+        {KeyCode.Joystick1Button12, 12 },
+        {KeyCode.Joystick1Button13, 13 },
+        {KeyCode.Joystick1Button14, 14 },
+        {KeyCode.Joystick1Button15, 15 },
+        {KeyCode.Joystick1Button16, 16 },
+        {KeyCode.Joystick1Button17, 17 },
+        {KeyCode.Joystick1Button18, 18 },
+        {KeyCode.Joystick1Button19, 19 },
+
+        {KeyCode.Joystick2Button0, 0 },
+        {KeyCode.Joystick2Button1, 1 },
+        {KeyCode.Joystick2Button2, 2 },
+        {KeyCode.Joystick2Button3, 3 },
+        {KeyCode.Joystick2Button4, 4 },
+        {KeyCode.Joystick2Button5, 5 },
+        {KeyCode.Joystick2Button6, 6 },
+        {KeyCode.Joystick2Button7, 7 },
+        {KeyCode.Joystick2Button8, 8 },
+        {KeyCode.Joystick2Button9, 9 },
+        {KeyCode.Joystick2Button10, 10 },
+        {KeyCode.Joystick2Button11, 11 },
+        {KeyCode.Joystick2Button12, 12 },
+        {KeyCode.Joystick2Button13, 13 },
+        {KeyCode.Joystick2Button14, 14 },
+        {KeyCode.Joystick2Button15, 15 },
+        {KeyCode.Joystick2Button16, 16 },
+        {KeyCode.Joystick2Button17, 17 },
+        {KeyCode.Joystick2Button18, 18 },
+        {KeyCode.Joystick2Button19, 19 },
+
+        {KeyCode.Joystick3Button0, 0 },
+        {KeyCode.Joystick3Button1, 1 },
+        {KeyCode.Joystick3Button2, 2 },
+        {KeyCode.Joystick3Button3, 3 },
+        {KeyCode.Joystick3Button4, 4 },
+        {KeyCode.Joystick3Button5, 5 },
+        {KeyCode.Joystick3Button6, 6 },
+        {KeyCode.Joystick3Button7, 7 },
+        {KeyCode.Joystick3Button8, 8 },
+        {KeyCode.Joystick3Button9, 9 },
+        {KeyCode.Joystick3Button10, 10 },
+        {KeyCode.Joystick3Button11, 11 },
+        {KeyCode.Joystick3Button12, 12 },
+        {KeyCode.Joystick3Button13, 13 },
+        {KeyCode.Joystick3Button14, 14 },
+        {KeyCode.Joystick3Button15, 15 },
+        {KeyCode.Joystick3Button16, 16 },
+        {KeyCode.Joystick3Button17, 17 },
+        {KeyCode.Joystick3Button18, 18 },
+        {KeyCode.Joystick3Button19, 19 },
+
+        {KeyCode.Joystick4Button0, 0 },
+        {KeyCode.Joystick4Button1, 1 },
+        {KeyCode.Joystick4Button2, 2 },
+        {KeyCode.Joystick4Button3, 3 },
+        {KeyCode.Joystick4Button4, 4 },
+        {KeyCode.Joystick4Button5, 5 },
+        {KeyCode.Joystick4Button6, 6 },
+        {KeyCode.Joystick4Button7, 7 },
+        {KeyCode.Joystick4Button8, 8 },
+        {KeyCode.Joystick4Button9, 9 },
+        {KeyCode.Joystick4Button10, 10 },
+        {KeyCode.Joystick4Button11, 11 },
+        {KeyCode.Joystick4Button12, 12 },
+        {KeyCode.Joystick4Button13, 13 },
+        {KeyCode.Joystick4Button14, 14 },
+        {KeyCode.Joystick4Button15, 15 },
+        {KeyCode.Joystick4Button16, 16 },
+        {KeyCode.Joystick4Button17, 17 },
+        {KeyCode.Joystick4Button18, 18 },
+        {KeyCode.Joystick4Button19, 19 }
+    };
+
+    public static readonly Dictionary<string, int> axisNumbers = new Dictionary<string, int>() {
+        {Tags.Input.Joystick1.HorizontalMovement, 0},
+        {Tags.Input.Joystick1.VerticalMovement, 1},
+        {Tags.Input.Joystick1.axis4, 2},
+        {Tags.Input.Joystick1.axis5, 3},
+        {Tags.Input.Joystick1.axis9, 4},
+        {Tags.Input.Joystick1.axis10, 5},
+
+        {Tags.Input.Joystick2.HorizontalMovement, 0},
+        {Tags.Input.Joystick2.VerticalMovement, 1},
+        {Tags.Input.Joystick2.axis4, 2},
+        {Tags.Input.Joystick2.axis5, 3},
+        {Tags.Input.Joystick2.axis9, 4},
+        {Tags.Input.Joystick2.axis10, 5},
+
+        {Tags.Input.Joystick3.HorizontalMovement, 0},
+        {Tags.Input.Joystick3.VerticalMovement, 1},
+        {Tags.Input.Joystick3.axis4, 2},
+        {Tags.Input.Joystick3.axis5, 3},
+        {Tags.Input.Joystick3.axis9, 4},
+        {Tags.Input.Joystick3.axis10, 5},
+
+        {Tags.Input.Joystick4.HorizontalMovement, 0},
+        {Tags.Input.Joystick4.VerticalMovement, 1},
+        {Tags.Input.Joystick4.axis4, 2},
+        {Tags.Input.Joystick4.axis5, 3},
+        {Tags.Input.Joystick4.axis9, 4},
+        {Tags.Input.Joystick4.axis10, 5},
     };
 }
 
@@ -183,6 +379,10 @@ public interface IPlayerInputHolder {
     /// </summary>
     /// <returns></returns>
     bool getAbility2 { get; }
+    /// <summary>
+    /// GetKey for the player's jump.
+    /// </summary>
+    bool getJump { get; }
 
     /// <summary>
     /// GetKeyDown for the menu submission.
@@ -213,6 +413,10 @@ public interface IPlayerInputHolder {
     /// </summary>
     /// <returns></returns>
     bool getAbility2Down { get; }
+    /// <summary>
+    /// GetKeyDown for the player's jump.
+    /// </summary>
+    bool getJumpDown { get; }
 
     /// <summary>
     /// GetKeyUp for the player's basic attack.
@@ -228,6 +432,10 @@ public interface IPlayerInputHolder {
     /// </summary>
     /// <returns></returns>
     bool getAbility2Up { get; }
+    /// <summary>
+    /// GetKeyUp for the player's jump.
+    /// </summary>
+    bool getJumpUp { get; }
 
     string submitName { get; }
     string cancelName { get; }
@@ -235,6 +443,7 @@ public interface IPlayerInputHolder {
     string basicAttackName { get; }
     string ability1Name { get; }
     string ability2Name { get; }
+    string jumpName { get; }
 }
 
 /// <summary>
@@ -257,6 +466,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getBasicAttack { get { return HeldInput.getBasicAttack; } }
     public bool getAbility1 { get { return HeldInput.getAbility1; } }
     public bool getAbility2 { get { return HeldInput.getAbility2; } }
+    public bool getJump { get { return HeldInput.getJump; } }
 
     public bool getSubmitDown { get { return HeldInput.getSubmitDown; } }
     public bool getCancelDown { get { return HeldInput.getCancelDown; } }
@@ -264,10 +474,12 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getBasicAttackDown { get { return HeldInput.getBasicAttackDown; } }
     public bool getAbility1Down { get { return HeldInput.getAbility1Down; } }
     public bool getAbility2Down { get { return HeldInput.getAbility2Down; } }
+    public bool getJumpDown { get { return HeldInput.getJumpDown; } }
 
     public bool getBasicAttackUp { get { return HeldInput.getBasicAttackUp; } }
     public bool getAbility1Up { get { return HeldInput.getAbility1Up; } }
     public bool getAbility2Up { get { return HeldInput.getAbility2Up; } }
+    public bool getJumpUp { get { return HeldInput.getJumpUp; } }
 
     public string submitName { get { return HeldInput.submitName; } }
     public string cancelName { get { return HeldInput.cancelName; } }
@@ -275,6 +487,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public string basicAttackName { get { return HeldInput.basicAttackName; } }
     public string ability1Name { get { return HeldInput.ability1Name; } }
     public string ability2Name { get { return HeldInput.ability2Name; } }
+    public string jumpName { get { return HeldInput.jumpName; } }
 
     void OnDestroy() {
         if (heldInput != null) {
@@ -300,6 +513,7 @@ public class NullInput : IPlayerInput
     public bool getBasicAttack { get { return false; } }
     public bool getAbility1 { get { return false; } }
     public bool getAbility2 { get { return false; } }
+    public bool getJump { get { return false; } }
 
     public bool getSubmitDown { get { return false; } }
     public bool getCancelDown { get { return false; } }
@@ -307,10 +521,12 @@ public class NullInput : IPlayerInput
     public bool getBasicAttackDown { get { return false; } }
     public bool getAbility1Down { get { return false; } }
     public bool getAbility2Down { get { return false; } }
+    public bool getJumpDown { get { return false; } }
 
     public bool getBasicAttackUp { get { return false; } }
     public bool getAbility1Up { get { return false; } }
     public bool getAbility2Up { get { return false; } }
+    public bool getJumpUp { get { return false; } }
 
     public string submitName { get{ return ""; } }
     public string cancelName { get{ return ""; } }
@@ -318,4 +534,5 @@ public class NullInput : IPlayerInput
     public string basicAttackName { get{ return ""; } }
     public string ability1Name { get{ return ""; } }
     public string ability2Name { get { return ""; } }
+    public string jumpName { get { return ""; } }
 }

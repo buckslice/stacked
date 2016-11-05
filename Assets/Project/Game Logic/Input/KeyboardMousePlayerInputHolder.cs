@@ -33,6 +33,7 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public KeyCode basicAttackKey = Tags.Input.BasicAttack;
     public KeyCode ability1Key = Tags.Input.Ability1;
     public KeyCode ability2Key = Tags.Input.Ability2;
+    public KeyCode jumpKey = Tags.Input.Jump;
 
     Transform player;
     public Transform Player { set { player = value; } }
@@ -67,6 +68,7 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public bool getBasicAttack { get { return Input.GetKey(basicAttackKey); } }
     public bool getAbility1 { get { return Input.GetKey(ability1Key); } }// || Input.GetMouseButton(0); } }
     public bool getAbility2 { get { return Input.GetKey(ability2Key); } }// || Input.GetMouseButton(1); } }
+    public bool getJump { get { return Input.GetKey(jumpKey); } }
 
     public bool getSubmitDown { get { return Input.GetKeyDown(submitKey); } }
     public bool getCancelDown { get { return Input.GetKeyDown(cancelKey1) || Input.GetKeyDown(cancelKey2); } }
@@ -74,10 +76,12 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public bool getBasicAttackDown { get { return Input.GetKeyDown(basicAttackKey); } }
     public bool getAbility1Down { get { return Input.GetKeyDown(ability1Key); } }
     public bool getAbility2Down { get { return Input.GetKeyDown(ability2Key); } }
+    public bool getJumpDown { get { return Input.GetKeyDown(jumpKey); } }
 
     public bool getBasicAttackUp { get { return Input.GetKeyUp(basicAttackKey); } }
     public bool getAbility1Up { get { return Input.GetKeyUp(ability1Key); } }
     public bool getAbility2Up { get { return Input.GetKeyUp(ability2Key); } }
+    public bool getJumpUp { get { return Input.GetKeyUp(jumpKey); } }
 
     public string submitName { get { return PlayerInputExtension.getBindingName(submitKey); } }
     public string cancelName { get { return PlayerInputExtension.getBindingName(cancelKey1); } }
@@ -85,6 +89,7 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public string basicAttackName { get { return PlayerInputExtension.getBindingName(basicAttackKey); } }
     public string ability1Name { get { return PlayerInputExtension.getBindingName(ability1Key); } }
     public string ability2Name { get { return PlayerInputExtension.getBindingName(ability2Key); } }
+    public string jumpName { get { return PlayerInputExtension.getBindingName(jumpKey); } }
 
     public override bool Equals(object obj) {
         var item = obj as KeyboardMousePlayerInput;

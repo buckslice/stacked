@@ -111,6 +111,16 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
             return false;
         }
     }
+    public bool getJump {
+        get {
+            foreach (IPlayerInput input in heldInputs) {
+                if (input.getJump) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     public bool getSubmitDown {
         get {
@@ -166,6 +176,16 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
             }
             return false;
     } }
+    public bool getJumpDown {
+        get {
+            foreach (IPlayerInput input in heldInputs) {
+                if (input.getJumpDown) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     public bool getBasicAttackUp {
         get {
@@ -194,6 +214,16 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
             }
             return false;
     } }
+    public bool getJumpUp {
+        get {
+            foreach (IPlayerInput input in heldInputs) {
+                if (input.getJumpUp) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     public string submitName { get { return HeldInput.submitName; } }
     public string cancelName { get { return HeldInput.cancelName; } }
@@ -201,4 +231,5 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
     public string basicAttackName { get { return HeldInput.basicAttackName; } }
     public string ability1Name { get { return HeldInput.ability1Name; } }
     public string ability2Name { get { return HeldInput.ability2Name; } }
+    public string jumpName { get { return HeldInput.jumpName; } }
 }
