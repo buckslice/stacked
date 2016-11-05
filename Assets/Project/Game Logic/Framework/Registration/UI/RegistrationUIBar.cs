@@ -12,6 +12,9 @@ public class RegistrationUIBar : MonoBehaviour {
     [SerializeField]
     protected Text title;
 
+    [SerializeField]
+    protected Text readyText;
+
     public Color color {
         set {
             foreach (Image tintedImage in tintedImages) {
@@ -28,4 +31,6 @@ public class RegistrationUIBar : MonoBehaviour {
             }
         }
     }
+
+    public bool ready { set { readyText.enabled = value; } }
 }

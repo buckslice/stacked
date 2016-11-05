@@ -11,12 +11,13 @@ public class PlayerRegistration : MonoBehaviour {
     static PlayerRegistration main;
     public static PlayerRegistration Main { get { return main; } }
 
-    class RegisteredPlayerGrouping
+    public class RegisteredPlayerGrouping
     {
         //TODO: add references to the containing RegisteredPlayerGrouping to its component objects
         public readonly int ownerActorID;
         public readonly int bindingID;
         public readonly RegisteredPlayer registeredPlayer;
+        public bool ready = false;
         public RegisteredPlayerGrouping(int ownerActorID, int bindingID, RegisteredPlayer registeredPlayer)
         {
             this.ownerActorID = ownerActorID;
@@ -67,6 +68,7 @@ public class PlayerRegistration : MonoBehaviour {
     private bool[] registeredBindings;
 
     private RegisteredPlayerGrouping[] registeredPlayers;
+    public RegisteredPlayerGrouping[] RegisteredPlayers { get { return registeredPlayers; } }
 
     private ButtonCheckMenu[] buttonCheckMenus;
 
@@ -175,6 +177,11 @@ public class PlayerRegistration : MonoBehaviour {
         R41DNetworking.RaiseEvent((byte)Tags.EventCodes.REMOVEREGISTRATION, payloadData.getData(), true, options);
     }
 
+    public void removePlayer(byte playerID) {
+        Assert.IsTrue(registeredPlayers[playerID] != null && registeredPlayers[playerID].ownerActorID == PhotonNetwork.player.ID);
+        sendRemoval(playerID, PhotonNetwork.player.ID);
+    }
+
     void receiveRemoval(byte playerID, int owningClientActorID) {
         if (registeredPlayers[playerID] != null && registeredPlayers[playerID].ownerActorID == owningClientActorID) {
             Destroy(registeredPlayers[playerID].registeredPlayer.gameObject);
@@ -198,6 +205,39 @@ public class PlayerRegistration : MonoBehaviour {
         }
     }
 
+    void sendReadyState(byte playerID, int owningClientActorID, bool state) {
+        Packet payloadData = new Packet();
+
+        payloadData.Write(playerID);
+        payloadData.Write(owningClientActorID);
+        payloadData.Write(state);
+
+        //Send request to all clients
+        RaiseEventOptions options = new RaiseEventOptions();
+        options.Receivers = ReceiverGroup.All;
+        //late-joins will need to see this, if we're still around
+        options.CachingOption = EventCaching.AddToRoomCacheGlobal;
+
+        //Send the event to create the remote copies
+        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.READYPLAYER, payloadData.getData(), true, options);
+    }
+
+    public void setPlayerReady(byte playerID, bool ready) {
+        Assert.IsTrue(registeredPlayers[playerID] != null && registeredPlayers[playerID].ownerActorID == PhotonNetwork.player.ID);
+        if (registeredPlayers[playerID].ready != ready) {
+            sendReadyState(playerID, PhotonNetwork.player.ID, ready);
+        }
+    }
+
+    void receiveReadyState(byte playerID, int owningClientActorID, bool state) {
+        if (registeredPlayers[playerID] != null && registeredPlayers[playerID].ownerActorID == owningClientActorID) {
+            registeredPlayers[playerID].ready = state;
+
+            RegistrationUI ui = registeredPlayers[playerID].registeredPlayer.GetComponent<RegistrationUI>();
+            ui.ready = state;
+        }
+    }
+
     public void OnEvent(byte eventcode, object content, int senderid)
     {
         switch (eventcode)
@@ -212,13 +252,21 @@ public class PlayerRegistration : MonoBehaviour {
                 CreateRegisteredPlayer(bindingID: payloadData[0], playerId: payloadData[1], owningClientActorID: payloadData[2]);
                 break;
 
-            case (byte)Tags.EventCodes.REMOVEREGISTRATION:
-                Packet p = new Packet(content);
-                byte playerID = p.ReadByte();
-                int owningClientActorID = p.ReadInt();
-                receiveRemoval(playerID, owningClientActorID);
-                break;
-
+            case (byte)Tags.EventCodes.REMOVEREGISTRATION: {
+                    Packet p = new Packet(content);
+                    byte playerID = p.ReadByte();
+                    int owningClientActorID = p.ReadInt();
+                    receiveRemoval(playerID, owningClientActorID);
+                    break;
+                }
+            case (byte)Tags.EventCodes.READYPLAYER: {
+                    Packet p = new Packet(content);
+                    byte playerID = p.ReadByte();
+                    int owningClientActorID = p.ReadInt();
+                    bool state = p.ReadBool();
+                    receiveReadyState(playerID, owningClientActorID, state);
+                    break;
+                }
             default:
                 break;
         }
@@ -267,42 +315,28 @@ public class PlayerRegistration : MonoBehaviour {
         }
     }
 
-    void Update()
-    {
-        for (int i=0; i<possibleBindings.Length; i++)
-        {
-            if (possibleBindings[i].AnyKey() && !possibleBindings[i].getCancel && !registeredBindings[i])
-            {
+    void Update() {
+        for (int i = 0; i < possibleBindings.Length; i++) {
+            if (possibleBindings[i].AnyKey() && !possibleBindings[i].getCancel && !registeredBindings[i]) {
                 int openPlayerID = getFirstAvailablePlayerID();
-                if (openPlayerID >= 0)
-                {
+                if (openPlayerID >= 0) {
                     //if there exists an open ID
                     sendRegistrationRequest((byte)i);
                 }
             }
-            //else if (registeredBindings[i] && possibleBindings[i].getCancel) {
-            //    for (byte j = 0; j < registeredPlayers.Length; j++) {
-            //        if (registeredPlayers[j] != null && registeredPlayers[j].ownerActorID == PhotonNetwork.player.ID && registeredPlayers[j].bindingID == i) {
-            //            sendRemoval(j, PhotonNetwork.player.ID);
-            //        }
-            //    }
-            //}
         }
 
         int ready = 0;
         int currentPlayers = 0;
-        for (int i=0; i< numPlayers; i++) {
-            if (registeredPlayers[i]!=null) {
+        for (int i = 0; i < numPlayers; i++) {
+            if (registeredPlayers[i] != null) {
                 currentPlayers++;
-                if (buttonCheckMenus[i] == null) {
-                    buttonCheckMenus[i] = registeredPlayers[i].registeredPlayer.GetComponent<ButtonCheckUI>().menu;
+                if (registeredPlayers[i].ready) {
+                    ready++;
                 }
             }
-            if (buttonCheckMenus[i]!=null && buttonCheckMenus[i].ready) {
-                ready++;
-            }
         }
-        if (ready!=0 && ready == currentPlayers) {
+        if (ready != 0 && ready == currentPlayers) {
             SceneManager.LoadScene(nextScene);
         }
     }

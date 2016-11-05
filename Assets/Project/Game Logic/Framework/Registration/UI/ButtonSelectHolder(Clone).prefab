@@ -106,7 +106,7 @@ GameObject:
   - 224: {fileID: 224000013525021016}
   - 114: {fileID: 114000010217336374}
   m_Layer: 5
-  m_Name: ButtonSelectHolder
+  m_Name: ButtonSelectHolder(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

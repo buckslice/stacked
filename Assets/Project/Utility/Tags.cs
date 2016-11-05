@@ -31,6 +31,7 @@ public static class Tags {
         CREATEREGISTRATION,
         REMOVEREGISTRATION,
         CREATEBOSS,
+        READYPLAYER,
     };
 
     public static class Input

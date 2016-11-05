@@ -121,7 +121,7 @@ GameObject:
   - 114: {fileID: 114000014208494346}
   - 114: {fileID: 114000011746130492}
   m_Layer: 17
-  m_Name: ExplosiveAdd
+  m_Name: Boomer
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -3,10 +3,18 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class ButtonCheckMenu : MonoBehaviour {
-    public IPlayerInput bindings;
-    public bool ready { get; private set; }
+    private IPlayerInput bindings;
+    private int playerID = -1;
+    public bool ready { 
+        get { return PlayerRegistration.Main.RegisteredPlayers[playerID].ready; }
+        private set {
+            PlayerRegistration.Main.setPlayerReady((byte)playerID, value);
+        }
+    }
 
-    private static float REPEAT_DELAY = 0.2f;
+    private const float REPEAT_DELAY = 0.2f;
+    private const int readyButton = 0;
+    private const int leaveButton = 1;
     private float currentDelay;
     private bool menuEnabled;
 
@@ -21,7 +29,7 @@ public class ButtonCheckMenu : MonoBehaviour {
         }
     }
     private MenuOption[] options;
-    private int currentButton = 0;
+    private int currentButton = readyButton;
 
     private Text previousButtonText;
     private Text currentButtonText;
@@ -36,34 +44,41 @@ public class ButtonCheckMenu : MonoBehaviour {
         ready = false;
     }
 
-    public void refreshOptions () {
-        options = new MenuOption[9];
-        options[0] = new MenuOption("Ready", "");
+    public void Initialize(IPlayerInput bindings, int playerID) {
+        this.bindings = bindings;
+        this.playerID = playerID;
+        refreshOptions();
+    }
+
+    void refreshOptions () {
+        options = new MenuOption[10];
+        options[0] = new MenuOption("Ready (Press ", bindings.startName + ")");
+        options[1] = new MenuOption("Leave (Press ", bindings.cancelName + ")");
         if (bindings.GetType() == typeof(ControllerPlayerInput)) {
             ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
             if (controllerInput.currentAxisType == ControllerPlayerInput.AxisType.XBOX) {
-                options[1] = new MenuOption("Current aiming axes - ", "XBOX");
+                options[2] = new MenuOption("Current aiming axes - ", "XBOX");
             }
             else if (controllerInput.currentAxisType == ControllerPlayerInput.AxisType.PS4) {
-                options[1] = new MenuOption("Current aiming axes - ", "PS4");
+                options[2] = new MenuOption("Current aiming axes - ", "PS4");
             }
         }
         else {
-            options[1] = new MenuOption("Current aiming axes", "");
+            options[2] = new MenuOption("Current aiming axes", "");
         }
-        options[2] = new MenuOption("Submit - ", bindings.submitName);
-        options[3] = new MenuOption("Cancel - ", bindings.cancelName);
-        options[4] = new MenuOption("Start - ", bindings.startName);
-        options[5] = new MenuOption("Ability 1 - ", bindings.ability1Name);
-        options[6] = new MenuOption("Ability 2 - ", bindings.ability2Name);
-        options[7] = new MenuOption("Basic Attack - ", bindings.basicAttackName);
-        options[8] = new MenuOption("Jump - ", bindings.jumpName);
+        options[3] = new MenuOption("Submit - ", bindings.submitName);
+        options[4] = new MenuOption("Cancel - ", bindings.cancelName);
+        options[5] = new MenuOption("Start - ", bindings.startName);
+        options[6] = new MenuOption("Ability 1 - ", bindings.ability1Name);
+        options[7] = new MenuOption("Ability 2 - ", bindings.ability2Name);
+        options[8] = new MenuOption("Basic Attack - ", bindings.basicAttackName);
+        options[9] = new MenuOption("Jump - ", bindings.jumpName);
 	}
 	
     private void getMovement() {
         if (currentDelay <= 0) {
             if (bindings.movementDirection.y > 0) {
-                if (currentButton == 0) {
+                if (currentButton == readyButton) {
                     currentButton = options.Length - 1;
                 }
                 else {
@@ -124,35 +139,37 @@ public class ButtonCheckMenu : MonoBehaviour {
             }
         }
         //If Keyboard
-        else {
-
+        else if (bindings.getStart && currentButton == readyButton) {
+            ready = true;
+            menuEnabled = false;
+        } else if (bindings.getCancel && currentButton == leaveButton) {
+            PlayerRegistration.Main.removePlayer((byte)playerID);
         }
     }
 
     private void onInput(KeyCode key) {
-        if (currentButton == 0) {
+        if (currentButton == readyButton) {
             menuEnabled = false;
             ready = true;
             return;
-        }
-        else if (currentButton == 1) {
+
+        } else if (currentButton == 2) {
             if (bindings.GetType() == typeof(ControllerPlayerInput)) {
                 ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
                 controllerInput.swapRightStickAndTriggers();
                 refreshOptions();
             }
-        }
-        else {
-            if (bindings.GetType() == typeof(ControllerPlayerInput)) {
-                ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-                controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton-2), PlayerInputExtension.buttonNumbers[key], ControllerPlayerInput.InputType.KEY);
-                refreshOptions();
-            }
+
+        } else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
+            ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
+            controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 2), PlayerInputExtension.buttonNumbers[key], ControllerPlayerInput.InputType.KEY);
+            refreshOptions();
+
         }
     }
 
     private void onInput(string axis) {
-        if (currentButton == 0) {
+        if (currentButton == readyButton) {
             return;
         }
         else if (currentButton == 1) {
@@ -183,12 +200,10 @@ public class ButtonCheckMenu : MonoBehaviour {
         if (menuEnabled) {
             getMovement();
             getInput();
-        }
-        else {
-            if (bindings.getCancelDown) {
-                menuEnabled = true;
-                ready = false;
-            }
+        } else if (bindings.getCancelDown) {
+            menuEnabled = true;
+            ready = false;
+
         }
         drawMenu();
 	}

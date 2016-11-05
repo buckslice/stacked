@@ -12,6 +12,8 @@ public class RegisteredPlayer : MonoBehaviour, IPlayerID {
     protected int playerID = -1;
     public int PlayerID { get { return playerID; } }
 
+    public bool locallyControlled { get; private set; }
+
     private IPlayerInput input;
     public IPlayerInput inputBindings { get { return input; } set { input = value; } }
 
@@ -32,6 +34,7 @@ public class RegisteredPlayer : MonoBehaviour, IPlayerID {
         this.inputBindings = inputBindings;
         inputBindings.Initialize(this);
         this.playerID = playerID;
+        this.locallyControlled = locallyControlled;
 
         if (locallyControlled) {
             DontDestroyOnLoad(this.transform.root.gameObject);
