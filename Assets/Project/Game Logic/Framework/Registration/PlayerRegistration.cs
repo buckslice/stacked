@@ -65,11 +65,14 @@ public class PlayerRegistration : MonoBehaviour {
 
     private RegisteredPlayerGrouping[] registeredPlayers;
 
+    private ButtonCheckMenu[] buttonCheckMenus;
+
     void Awake()
     {
         PhotonNetwork.OnEventCall += OnEvent;
         registeredPlayers = new RegisteredPlayerGrouping[numPlayers];
         registeredBindings = new bool[possibleBindings.Length];
+        buttonCheckMenus = new ButtonCheckMenu[registeredPlayers.Length];
         Assert.IsNull(main);
         main = this;
         Assert.IsTrue(pressStartPrompts.Length == numPlayers);
@@ -222,12 +225,28 @@ public class PlayerRegistration : MonoBehaviour {
             }
         }
 
-        for (int i = 0; i < possibleBindings.Length; i++) {
-            if (registeredBindings[i]) {
-                if (possibleBindings[i].getStartDown) {
-                    SceneManager.LoadScene(nextScene);
+        //for (int i = 0; i < possibleBindings.Length; i++) {
+        //    if (registeredBindings[i]) {
+        //        if (possibleBindings[i].getStartDown) {
+        //            //SceneManager.LoadScene(nextScene);
+        //        }
+        //    }
+        //}
+        int ready = 0;
+        int currentPlayers = 0;
+        for (int i=0; i< numPlayers; i++) {
+            if (registeredPlayers[i]!=null) {
+                currentPlayers++;
+                if (buttonCheckMenus[i] == null) {
+                    buttonCheckMenus[i] = registeredPlayers[i].registeredPlayer.GetComponent<ButtonCheckUI>().menu;
                 }
             }
+            if (buttonCheckMenus[i]!=null && buttonCheckMenus[i].ready) {
+                ready++;
+            }
+        }
+        if (ready!=0 && ready == currentPlayers) {
+            SceneManager.LoadScene(nextScene);
         }
     }
 

@@ -52,10 +52,12 @@ public static class Tags {
         public enum axes {
             HorizontalMovement,
             VerticalMovement,
-            HorizontalAiming,
-            VerticalAiming,
-            LeftTrigger,
-            RightTrigger
+            axis3,
+            axis4,
+            axis5,
+            axis6,
+            axis9,
+            axis10
         };
 
         public static class Joystick1
@@ -83,13 +85,15 @@ public static class Tags {
 
             public const string HorizontalMovement = "J1_HorizontalMovement";
             public const string VerticalMovement = "J1_VerticalMovement";
-            public const string HorizontalAiming = "J1_HorizontalAiming";
-            public const string VerticalAiming = "J1_VerticalAiming";
-            public const string LeftTrigger = "J1_LeftTrigger";
-            public const string RightTrigger = "J1_RightTrigger";
+            public const string axis3 = "J1_axis3";
+            public const string axis4 = "J1_axis4";
+            public const string axis5 = "J1_axis5";
+            public const string axis6 = "J1_axis6";
+            public const string axis9 = "J1_axis9";
+            public const string axis10 = "J1_axis10";
 
             public static readonly KeyCode[] allButtons = { button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15, button16, button17, button18, button19 };
-            public static readonly string[] allAxes = { HorizontalMovement, VerticalMovement, HorizontalAiming, VerticalAiming, LeftTrigger, RightTrigger };
+            public static readonly string[] allAxes = { HorizontalMovement, VerticalMovement, axis3, axis4, axis5, axis6, axis9, axis10};
         }
         public static class Joystick2
         {
@@ -116,13 +120,15 @@ public static class Tags {
 
             public const string HorizontalMovement = "J2_HorizontalMovement";
             public const string VerticalMovement = "J2_VerticalMovement";
-            public const string HorizontalAiming = "J2_HorizontalAiming";
-            public const string VerticalAiming = "J2_VerticalAiming";
-            public const string LeftTrigger = "J2_LeftTrigger";
-            public const string RightTrigger = "J2_RightTrigger";
+            public const string axis3 = "J2_axis3";
+            public const string axis4 = "J2_axis4";
+            public const string axis5 = "J2_axis5";
+            public const string axis6 = "J2_axis6";
+            public const string axis9 = "J2_axis9";
+            public const string axis10 = "J2_axis10";
 
             public static readonly KeyCode[] allButtons = { button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15, button16, button17, button18, button19 };
-            public static readonly string[] allAxes = { HorizontalMovement, VerticalMovement, HorizontalAiming, VerticalAiming, LeftTrigger, RightTrigger };
+            public static readonly string[] allAxes = { HorizontalMovement, VerticalMovement, axis3, axis4, axis5, axis6, axis9, axis10 };
         }
         public static class Joystick3
         {
@@ -149,13 +155,15 @@ public static class Tags {
 
             public const string HorizontalMovement = "J3_HorizontalMovement";
             public const string VerticalMovement = "J3_VerticalMovement";
-            public const string HorizontalAiming = "J3_HorizontalAiming";
-            public const string VerticalAiming = "J3_VerticalAiming";
-            public const string LeftTrigger = "J3_LeftTrigger";
-            public const string RightTrigger = "J3_RightTrigger";
+            public const string axis3 = "J3_axis3";
+            public const string axis4 = "J3_axis4";
+            public const string axis5 = "J3_axis5";
+            public const string axis6 = "J3_axis6";
+            public const string axis9 = "J3_axis9";
+            public const string axis10 = "J3_axis10";
 
             public static readonly KeyCode[] allButtons = { button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15, button16, button17, button18, button19 };
-            public static readonly string[] allAxes = { HorizontalMovement, VerticalMovement, HorizontalAiming, VerticalAiming, LeftTrigger, RightTrigger };
+            public static readonly string[] allAxes = { HorizontalMovement, VerticalMovement, axis3, axis4, axis5, axis6, axis9, axis10 };
         }
         public static class Joystick4
         {
@@ -182,13 +190,15 @@ public static class Tags {
 
             public const string HorizontalMovement = "J4_HorizontalMovement";
             public const string VerticalMovement = "J4_VerticalMovement";
-            public const string HorizontalAiming = "J4_HorizontalAiming";
-            public const string VerticalAiming = "J4_VerticalAiming";
-            public const string LeftTrigger = "J4_LeftTrigger";
-            public const string RightTrigger = "J4_RightTrigger";
+            public const string axis3 = "J4_axis3";
+            public const string axis4 = "J4_axis4";
+            public const string axis5 = "J4_axis5";
+            public const string axis6 = "J4_axis6";
+            public const string axis9 = "J4_axis9";
+            public const string axis10 = "J4_axis10";
 
             public static readonly KeyCode[] allButtons = { button0, button1, button2, button3, button4, button5, button6, button7, button8, button9, button10, button11, button12, button13, button14, button15, button16, button17, button18, button19 };
-            public static readonly string[] allAxes = { HorizontalMovement, VerticalMovement, HorizontalAiming, VerticalAiming, LeftTrigger, RightTrigger };
+            public static readonly string[] allAxes = { HorizontalMovement, VerticalMovement, axis3, axis4, axis5, axis6, axis9, axis10 };
         }
     }
 

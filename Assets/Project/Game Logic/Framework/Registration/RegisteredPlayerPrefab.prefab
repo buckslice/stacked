@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c77d9e9b55795419bdd327713577f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonCheckPrefab: {fileID: 1000012583875848, guid: 10225e69a7484fc478ef0fb1684cbf72,
+  buttonCheckPrefab: {fileID: 1000013898195722, guid: 662776b6bfdc0474badea01ffebf5905,
     type: 2}
 --- !u!114 &114000011806856506
 MonoBehaviour:

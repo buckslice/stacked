@@ -38,10 +38,11 @@ public class ControllerPlayerInput : IPlayerInput {
         PS4
     }
 
-    AxisType currentAxisType = AxisType.XBOX;
+    public AxisType currentAxisType { get; private set; }
 
-    private string horizontalAimingAxis = Tags.Input.Joystick1.HorizontalAiming;
-    private string verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
+    private string horizontalAimingAxis = Tags.Input.Joystick1.axis4;
+    private string verticalAimingAxis = Tags.Input.Joystick1.axis5;
+    public string[] bindableAxes { get; private set; }
 
     private bool[] axisStates;
     private bool[] axisUp;
@@ -65,6 +66,12 @@ public class ControllerPlayerInput : IPlayerInput {
         public Key(string axis) {
             this.axis = axis;
             this.type = InputType.AXIS;
+        }
+
+        public Key(Key toCopy) {
+            this.type = toCopy.type;
+            this.key = toCopy.key;
+            this.axis = toCopy.axis;
         }
     };
 
@@ -97,63 +104,68 @@ public class ControllerPlayerInput : IPlayerInput {
         axisStates = new bool[6];
         axisUp = new bool[6];
         axisDown = new bool[6];
+        currentAxisType = AxisType.XBOX;
 
         switch (controllerIndex) {
             case PlayerIndex.One:
                 horizontalMovementAxis = Tags.Input.Joystick1.HorizontalMovement;
                 verticalMovementAxis = Tags.Input.Joystick1.VerticalMovement;
-                horizontalAimingAxis = Tags.Input.Joystick1.HorizontalAiming;
-                verticalAimingAxis = Tags.Input.Joystick1.VerticalAiming;
+                horizontalAimingAxis = Tags.Input.Joystick1.axis4;
+                verticalAimingAxis = Tags.Input.Joystick1.axis5;
+                bindableAxes = new string[]{ Tags.Input.Joystick1.axis10, Tags.Input.Joystick1.axis9 };
 
-                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick1.RightTrigger);
+                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick1.axis10);
                 InputBindings[(int)Inputs.SUBMIT] = new Key(Tags.Input.Joystick1.button0);
                 InputBindings[(int)Inputs.CANCEL] = new Key(Tags.Input.Joystick1.button1);
                 InputBindings[(int)Inputs.START] = new Key(Tags.Input.Joystick1.button7);
                 InputBindings[(int)Inputs.ABILITY1] = new Key(Tags.Input.Joystick1.button4);
                 InputBindings[(int)Inputs.ABILITY2] = new Key(Tags.Input.Joystick1.button5);
-                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick1.LeftTrigger);
+                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick1.axis9);
                 break;
             case PlayerIndex.Two:
                 horizontalMovementAxis = Tags.Input.Joystick2.HorizontalMovement;
                 verticalMovementAxis = Tags.Input.Joystick2.VerticalMovement;
-                horizontalAimingAxis = Tags.Input.Joystick2.HorizontalAiming;
-                verticalAimingAxis = Tags.Input.Joystick2.VerticalAiming;
+                horizontalAimingAxis = Tags.Input.Joystick2.axis4;
+                verticalAimingAxis = Tags.Input.Joystick2.axis5;
+                bindableAxes = new string[]{ Tags.Input.Joystick2.axis10, Tags.Input.Joystick2.axis9 };
 
-                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick2.RightTrigger);
+                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick2.axis10);
                 InputBindings[(int)Inputs.SUBMIT] = new Key(Tags.Input.Joystick2.button0);
                 InputBindings[(int)Inputs.CANCEL] = new Key(Tags.Input.Joystick2.button1);
                 InputBindings[(int)Inputs.START] = new Key(Tags.Input.Joystick2.button7);
                 InputBindings[(int)Inputs.ABILITY1] = new Key(Tags.Input.Joystick2.button4);
                 InputBindings[(int)Inputs.ABILITY2] = new Key(Tags.Input.Joystick2.button5);
-                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick2.LeftTrigger);
+                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick2.axis9);
                 break;
             case PlayerIndex.Three:
                 horizontalMovementAxis = Tags.Input.Joystick3.HorizontalMovement;
                 verticalMovementAxis = Tags.Input.Joystick3.VerticalMovement;
-                horizontalAimingAxis = Tags.Input.Joystick3.HorizontalAiming;
-                verticalAimingAxis = Tags.Input.Joystick3.VerticalAiming;
+                horizontalAimingAxis = Tags.Input.Joystick3.axis4;
+                verticalAimingAxis = Tags.Input.Joystick3.axis5;
+                bindableAxes = new string[]{ Tags.Input.Joystick3.axis10, Tags.Input.Joystick3.axis9 };
 
-                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick3.RightTrigger);
+                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick3.axis10);
                 InputBindings[(int)Inputs.SUBMIT] = new Key(Tags.Input.Joystick3.button0);
                 InputBindings[(int)Inputs.CANCEL] = new Key(Tags.Input.Joystick3.button1);
                 InputBindings[(int)Inputs.START] = new Key(Tags.Input.Joystick3.button7);
                 InputBindings[(int)Inputs.ABILITY1] = new Key(Tags.Input.Joystick3.button4);
                 InputBindings[(int)Inputs.ABILITY2] = new Key(Tags.Input.Joystick3.button5);
-                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick3.LeftTrigger);
+                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick3.axis9);
                 break;
             case PlayerIndex.Four:
                 horizontalMovementAxis = Tags.Input.Joystick4.HorizontalMovement;
                 verticalMovementAxis = Tags.Input.Joystick4.VerticalMovement;
-                horizontalAimingAxis = Tags.Input.Joystick4.HorizontalAiming;
-                verticalAimingAxis = Tags.Input.Joystick4.VerticalAiming;
+                horizontalAimingAxis = Tags.Input.Joystick4.axis4;
+                verticalAimingAxis = Tags.Input.Joystick4.axis5;
+                bindableAxes = new string[]{ Tags.Input.Joystick4.axis10, Tags.Input.Joystick4.axis9 };
 
-                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick4.RightTrigger);
+                InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(Tags.Input.Joystick4.axis10);
                 InputBindings[(int)Inputs.SUBMIT] = new Key(Tags.Input.Joystick4.button0);
                 InputBindings[(int)Inputs.CANCEL] = new Key(Tags.Input.Joystick4.button1);
                 InputBindings[(int)Inputs.START] = new Key(Tags.Input.Joystick4.button7);
                 InputBindings[(int)Inputs.ABILITY1] = new Key(Tags.Input.Joystick4.button4);
                 InputBindings[(int)Inputs.ABILITY2] = new Key(Tags.Input.Joystick4.button5);
-                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick4.LeftTrigger);
+                InputBindings[(int)Inputs.JUMP] = new Key(Tags.Input.Joystick4.axis9);
                 break;
             default:
                 Debug.Assert(false, "Out of range player index!");
@@ -267,13 +279,22 @@ public class ControllerPlayerInput : IPlayerInput {
 
 
     //TODO re-do binding names
-    public string submitName { get { return PlayerInputExtension.getBindingName(0); } }
-    public string cancelName { get { return PlayerInputExtension.getBindingName(0); } }
-    public string startName { get { return PlayerInputExtension.getBindingName(0); } }
-    public string basicAttackName { get { return "DERP"; } }
-    public string ability1Name { get { return PlayerInputExtension.getBindingName(0); } }
-    public string ability2Name { get { return PlayerInputExtension.getBindingName(0); } }
-    public string jumpName { get { return "TODO"; } }
+
+    public string getBindingName(Inputs key) {
+        if (InputBindings[(int)key].type == InputType.KEY) {
+            return PlayerInputExtension.getBindingName(InputBindings[(int)key].key);
+        }
+        else {
+            return InputBindings[(int)key].axis;
+        }
+    }
+    public string submitName { get { return getBindingName(Inputs.SUBMIT); } }
+    public string cancelName { get { return getBindingName(Inputs.CANCEL); } }
+    public string startName { get { return getBindingName(Inputs.START); } }
+    public string basicAttackName { get { return getBindingName(Inputs.BASIC_ATTACK); } }
+    public string ability1Name { get { return getBindingName(Inputs.ABILITY1); } }
+    public string ability2Name { get { return getBindingName(Inputs.ABILITY2); } }
+    public string jumpName { get { return getBindingName(Inputs.JUMP); } }
 
     public void Vibrate(float strength, float duration, MonoBehaviour callingScript) {
         vibrationAmount.AddModifier(strength);
@@ -306,27 +327,44 @@ public class ControllerPlayerInput : IPlayerInput {
     }
 
     public void remap(Inputs input, int button, InputType type) {
+        Key oldKey = new Key(InputBindings[(int)input]);
         if (type == InputType.KEY) {
             InputBindings[(int)input].key = getInputByJoystickNumber(button);
             InputBindings[(int)input].type = InputType.KEY;
+
+            for (int i=0; i<InputBindings.Length; i++) { 
+                if (i!=(int)input && InputBindings[i].key == getInputByJoystickNumber(button)) {
+                    InputBindings[i] = oldKey;
+                }
+            }
         }
         else {
             InputBindings[(int)input].axis = getAxisByJoystickNumber(button);
             InputBindings[(int)input].type = InputType.AXIS;
+
+            for (int i = 0; i < InputBindings.Length; i++) {
+                if (i!=(int)input && InputBindings[i].axis == getAxisByJoystickNumber(button)) {
+                    InputBindings[i] = oldKey;
+                }
+            }
         }
     }
+
+
 
     //TODO check if other axes are currently bound, and bind the other axes to them
     public void swapRightStickAndTriggers() {
         if (currentAxisType == AxisType.XBOX) {
             currentAxisType = AxisType.PS4;
-            horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.RightTrigger);
-            verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.LeftTrigger);
+            horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis3);
+            verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis6);
+            bindableAxes = new string[]{};
         }
         else {
             currentAxisType = AxisType.XBOX;
-            horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.HorizontalAiming);
-            verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.VerticalAiming);
+            horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis4);
+            verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis5);
+            bindableAxes = new string[] { getAxisByJoystickNumber((int)Tags.Input.axes.axis10), getAxisByJoystickNumber((int)Tags.Input.axes.axis9), getAxisByJoystickNumber((int)Tags.Input.axes.axis6), getAxisByJoystickNumber((int)Tags.Input.axes.axis3) };
         }
     }
     

@@ -6,7 +6,7 @@ public class ButtonCheckUI : MonoBehaviour {
     [SerializeField]
     protected GameObject buttonCheckPrefab;
 
-    ButtonCheckMenu menu;
+    public ButtonCheckMenu menu { get; private set; }
     // Use this for initialization
     void Start () {
         Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
@@ -28,10 +28,6 @@ public class ButtonCheckUI : MonoBehaviour {
         menu = buttonCheckMenu.GetComponent<ButtonCheckMenu>();
         IPlayerInput bindings = GetComponent<RegisteredPlayer>().inputBindings;
         menu.bindings = bindings;
+        menu.refreshOptions();
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
