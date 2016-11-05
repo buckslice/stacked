@@ -24,6 +24,7 @@ GameObject:
   - 114: {fileID: 114000013924531590}
   - 114: {fileID: 114000012500633580}
   - 114: {fileID: 114000010519405010}
+  - 114: {fileID: 114000012744000100}
   - 114: {fileID: 114000012971760998}
   - 114: {fileID: 114000013041845476}
   - 114: {fileID: 114000010174383712}
@@ -92,6 +93,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f492db19569d444bd21f000b8790c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000012744000100
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013572229422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2657f23bfaa3e9c44a18152ca490dc24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  immunityDuration: 0.15
 --- !u!114 &114000012971760998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000010519405010}
+  - {fileID: 114000012744000100}
   - {fileID: 114000012971760998}
 --- !u!135 &135000012734228694
 SphereCollider:

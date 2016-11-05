@@ -24,6 +24,7 @@ GameObject:
   - 114: {fileID: 114000011908951858}
   - 114: {fileID: 114000013870712972}
   - 114: {fileID: 114000011836623774}
+  - 114: {fileID: 114000013421704082}
   - 114: {fileID: 114000011527236844}
   - 114: {fileID: 114000010705023418}
   m_Layer: 0
@@ -89,6 +90,7 @@ MonoBehaviour:
   abilityActions:
   - {fileID: 114000013870712972}
   - {fileID: 114000011836623774}
+  - {fileID: 114000013421704082}
   - {fileID: 114000011527236844}
   - {fileID: 114000010705023418}
 --- !u!114 &114000011836623774
@@ -115,6 +117,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94f492db19569d444bd21f000b8790c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000013421704082
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013188378642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2657f23bfaa3e9c44a18152ca490dc24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  immunityDuration: 0.15
 --- !u!114 &114000013870712972
 MonoBehaviour:
   m_ObjectHideFlags: 1
