@@ -9,8 +9,7 @@ public class CanvasMovement : MonoBehaviour {
     [SerializeField]
     protected float speed = 6;
 
-    [SerializeField]
-    protected double bufferDelaySecs = 0.2f;
+    protected double bufferDelaySecs = 0;
     public double BufferDelaySecs { get { return bufferDelaySecs; } }
 
     Queue<TimestampedData<Vector2>> bufferedTargetPositions = new Queue<TimestampedData<Vector2>>();
@@ -43,8 +42,8 @@ public class CanvasMovement : MonoBehaviour {
         input = GetComponent<IPlayerInputHolder>();
 
         //set up tracked data to match to our current position and rotation
-        previousTargetPosition = new TimestampedData<Vector2>(PhotonNetwork.time - 1, transform.position);
-        nextTargetPosition = new TimestampedData<Vector2>(PhotonNetwork.time, transform.position);
+        previousTargetPosition = new TimestampedData<Vector2>(PhotonNetwork.time - 1, rectTransform.anchoredPosition);
+        nextTargetPosition = new TimestampedData<Vector2>(PhotonNetwork.time, rectTransform.anchoredPosition);
     }
 
     // Update is called once per frame
@@ -62,7 +61,7 @@ public class CanvasMovement : MonoBehaviour {
     /// Updates our current position based off of player input.
     /// </summary>
     void UpdatePositionInput() {
-        Vector2 newPosition = rectTransform.anchoredPosition3D + (Vector3)input.movementDirection * speed *Time.deltaTime* Screen.width / 800.0f;
+        Vector2 newPosition = rectTransform.anchoredPosition3D + (Vector3)input.movementDirection * speed * Time.deltaTime;
 
         newPosition.x = Mathf.Clamp(newPosition.x, 0, canvasRoot.rect.width);
         newPosition.y = Mathf.Clamp(newPosition.y, 0, canvasRoot.rect.height);
@@ -85,16 +84,16 @@ public class CanvasMovement : MonoBehaviour {
 
         //limit our movement each frame to our max speed (with respect to the different dimensions). This prevents the jittery appearance of extrapolated data.
 
-        Vector2 newPosition = Vector2.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed);
+        Vector2 newPosition = Vector2.MoveTowards(rectTransform.anchoredPosition, targetPosition, Time.deltaTime * speed);
 
-        transform.position = newPosition;
+        rectTransform.anchoredPosition = newPosition;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
         TimestampedData<Vector2> positionData;
 
         if (stream.isWriting) {
-            positionData = new TimestampedData<Vector2>(info.timestamp, transform.position);
+            positionData = new TimestampedData<Vector2>(info.timestamp, rectTransform.anchoredPosition);
 
             // We own this player: send the others our data
             stream.SendNext(positionData.data);

@@ -70,14 +70,11 @@ public class PlayerRegistration : MonoBehaviour {
     private RegisteredPlayerGrouping[] registeredPlayers;
     public RegisteredPlayerGrouping[] RegisteredPlayers { get { return registeredPlayers; } }
 
-    private ButtonCheckMenu[] buttonCheckMenus;
-
     void Awake()
     {
         PhotonNetwork.OnEventCall += OnEvent;
         registeredPlayers = new RegisteredPlayerGrouping[numPlayers];
         registeredBindings = new bool[possibleBindings.Length];
-        buttonCheckMenus = new ButtonCheckMenu[registeredPlayers.Length];
         Assert.IsNull(main);
         main = this;
         Assert.IsTrue(pressStartPrompts.Length == numPlayers);

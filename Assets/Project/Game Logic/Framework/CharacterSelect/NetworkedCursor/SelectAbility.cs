@@ -24,6 +24,7 @@ public interface ISelectable { }
 public class SelectAbility : UntargetedAbilityConstraint {
 
     ISelection selection;
+    RectTransform canvas;
 
     PointerEventData pointer = new PointerEventData(EventSystem.current);
     List<RaycastResult> results = new List<RaycastResult>();
@@ -32,6 +33,7 @@ public class SelectAbility : UntargetedAbilityConstraint {
     {
         base.Start();
         selection = GetComponentInParent<ISelection>();
+        canvas = GetComponentInParent<Canvas>().GetComponent<RectTransform>();
     }
 
     public override void Activate() {
@@ -47,9 +49,8 @@ public class SelectAbility : UntargetedAbilityConstraint {
         Vector2 position;
         if (stream.isWriting) {
             position = transform.position;
-            stream.SendNext(position);
         } else {
-            position = (Vector2)stream.ReceiveNext();
+            position = canvas.TransformPoint((Vector2)stream.ReceiveNext());
         }
         pointer.position = position;
 
@@ -61,7 +62,13 @@ public class SelectAbility : UntargetedAbilityConstraint {
             ISelectable selectable = hit.gameObject.GetComponentInParent<ISelectable>();
 
             if (selectable != null) {
-                return selection.Select(selectable);
+                bool result = selection.Select(selectable);
+
+                if (result && stream.isWriting) { //only send if we need to
+                    stream.SendNext((Vector2)canvas.InverseTransformPoint(position));
+                }
+
+                return result;
             }
         }
         return false;

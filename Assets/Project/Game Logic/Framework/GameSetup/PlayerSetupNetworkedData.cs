@@ -181,7 +181,12 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         //    InstantiateAbility(ability, player.transform, abilityNetworking);
         //}
 
-        foreach (AbilityId ability in playerData.firstAbilities) {
+        foreach (AbilityId ability in playerData.basicAttacks) {
+            GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
+            Rebind(instantiatedAbility, AbilityKeybinding.BASICATTACK);
+        }
+
+        foreach (AbilityId ability in playerData.basicAttacks) {
             GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
             Rebind(instantiatedAbility, AbilityKeybinding.ABILITY1);
         }

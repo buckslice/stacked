@@ -139,20 +139,23 @@ public class ButtonCheckMenu : MonoBehaviour {
             }
         }
         //If Keyboard
-        else if (bindings.getStart && currentButton == readyButton) {
-            ready = true;
-            menuEnabled = false;
-        } else if (bindings.getCancel && currentButton == leaveButton) {
-            PlayerRegistration.Main.removePlayer((byte)playerID);
+        else if (currentButton == readyButton || currentButton == leaveButton) {
+            onInput(KeyCode.None);
         }
     }
 
     private void onInput(KeyCode key) {
         if (currentButton == readyButton) {
-            menuEnabled = false;
-            ready = true;
+            if (bindings.getStart) {
+                menuEnabled = false;
+                ready = true;
+            }
             return;
-
+        } else if (currentButton == leaveButton) {
+            if (bindings.getCancel) {
+                PlayerRegistration.Main.removePlayer((byte)playerID);
+            }
+            return;
         } else if (currentButton == 2) {
             if (bindings.GetType() == typeof(ControllerPlayerInput)) {
                 ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
@@ -162,25 +165,20 @@ public class ButtonCheckMenu : MonoBehaviour {
 
         } else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
             ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-            controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 2), PlayerInputExtension.buttonNumbers[key], ControllerPlayerInput.InputType.KEY);
+            controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 3), PlayerInputExtension.buttonNumbers[key], ControllerPlayerInput.InputType.KEY);
             refreshOptions();
 
         }
     }
 
     private void onInput(string axis) {
-        if (currentButton == readyButton) {
+        if (currentButton == readyButton || currentButton == leaveButton || currentButton == 2) {
             return;
-        }
-        else if (currentButton == 1) {
-            return;
-        }
-        else {
-            if (bindings.GetType() == typeof(ControllerPlayerInput)) {
-                ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-                controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 2), PlayerInputExtension.axisNumbers[axis], ControllerPlayerInput.InputType.AXIS);
-                refreshOptions();
-            }
+        } else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
+
+            ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
+            controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 2), PlayerInputExtension.axisNumbers[axis], ControllerPlayerInput.InputType.AXIS);
+            refreshOptions();
         }
     }
 

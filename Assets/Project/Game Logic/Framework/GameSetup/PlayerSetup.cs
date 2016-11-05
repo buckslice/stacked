@@ -15,6 +15,10 @@ public class PlayerSetup : MonoBehaviour {
     public class PlayerSetupData
     {
         [SerializeField]
+        [Tooltip("These abilities will be rebound as a basic attack")]
+        public PlayerSetupNetworkedData.AbilityId[] basicAttacks = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.FIREBALL };
+
+        [SerializeField]
         [Tooltip("These abilities will be rebound as a firstAbility")]
         public PlayerSetupNetworkedData.AbilityId[] firstAbilities;
 
