@@ -74,6 +74,7 @@ GameObject:
   - 114: {fileID: 114000011952247578}
   - 114: {fileID: 114000011603533410}
   - 114: {fileID: 114000010126061422}
+  - 114: {fileID: 114000013334310022}
   - 114: {fileID: 114000010647333662}
   m_Layer: 20
   m_Name: Ability
@@ -435,7 +436,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 4, y: 4, z: 1}
+  m_Size: {x: 2, y: 4, z: 2}
   m_Center: {x: 0, y: 2, z: 0}
 --- !u!65 &65000012728608326
 BoxCollider:
@@ -472,7 +473,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54e5844a67182d44c83ff7b9c078ce05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aggroToSurpass: 1
   shouldChase:
     baseValue: 1
 --- !u!114 &114000010126061422
@@ -596,7 +596,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4cacba6e1e0c91429710e6fbc10c853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 1000
+  _health: 100
 --- !u!114 &114000012033247674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -613,6 +613,18 @@ MonoBehaviour:
     baseValue: 1
   magicalVulnerabilityMultiplier:
     baseValue: 1
+--- !u!114 &114000013334310022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011785023964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1201cd738ecf2434b9e33b0ac46dd193, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 100010, guid: 031d08f52af1daa4f929b85221519426, type: 2}
 --- !u!114 &114000013432689322
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -639,6 +651,7 @@ MonoBehaviour:
   abilityActions:
   - {fileID: 114000011603533410}
   - {fileID: 114000010126061422}
+  - {fileID: 114000013334310022}
   - {fileID: 114000010647333662}
 --- !u!114 &114000014208494346
 MonoBehaviour:
@@ -664,7 +677,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 6
+  m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136000013427842344
 CapsuleCollider:

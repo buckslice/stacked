@@ -18,7 +18,7 @@ public class RequireLOS : TargetedAbilityConstraint {
         Vector3 direction = col.bounds.center - transform.position;
 
 
-        if (!Physics.Raycast(transform.position, direction, out hit, direction.magnitude, layermask)) {
+        if (!Physics.Raycast(transform.position, direction, out hit, direction.magnitude, layermask, QueryTriggerInteraction.Ignore)) {
             //if don't hit it, it's just not on our layermask
             return true;
         }

@@ -749,7 +749,7 @@ Prefab:
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
       propertyPath: bossData.abilities.Array.size
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4000010670690832, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
       propertyPath: m_LocalPosition.x
@@ -786,12 +786,17 @@ Prefab:
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
       propertyPath: bossData.abilities.Array.data[2]
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
       propertyPath: bossData.abilities.Array.data[3]
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
+        type: 2}
+      propertyPath: bossData.abilities.Array.data[4]
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
@@ -1241,7 +1246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 3
   playerData:
-    firstAbilities: 0c
+    firstAbilities: 0e
     secondAbilities: 01
     abilities: 
 --- !u!4 &2137640759

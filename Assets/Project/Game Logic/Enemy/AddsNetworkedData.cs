@@ -52,11 +52,11 @@ public class AddsNetworkedData : MonoBehaviour {
     /// </summary>
     /// <param name="input"></param>
     /// <param name="BossNumber"></param>
-    public void CreateAdd(AddID addType, Transform spawn) {
+    public GameObject CreateAdd(AddID addType, Transform spawn) {
         int allocatedViewId = PhotonNetwork.AllocateViewID();
 
         //Create our local copy
-        InstantiateAdd(allocatedViewId, addType, spawn.position, spawn.rotation);
+        GameObject result = InstantiateAdd(allocatedViewId, addType, spawn.position, spawn.rotation);
 
         //Create the network payload to send for remote copies
         Packet p = new Packet();
@@ -71,6 +71,7 @@ public class AddsNetworkedData : MonoBehaviour {
 
         //Send the event to create the remote copies
         R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEADD, p.getData(), true, options);
+        return result;
     }
 
     public void OnEvent(byte eventcode, object content, int senderid) {
@@ -92,7 +93,7 @@ public class AddsNetworkedData : MonoBehaviour {
     /// </summary>
     /// <param name="BossNumber"></param>
     /// <param name="allocatedViewId"></param>
-    public void InstantiateAdd(int allocatedViewId, AddID addType, Vector3 spawnPoint, Quaternion spawnOrientation) {
+    public GameObject InstantiateAdd(int allocatedViewId, AddID addType, Vector3 spawnPoint, Quaternion spawnOrientation) {
         GameObject addGO = (GameObject)Instantiate(addPrefabs[(byte)addType], spawnPoint, spawnOrientation); //TODO: double check this works
 
         //assign view ID
@@ -101,6 +102,8 @@ public class AddsNetworkedData : MonoBehaviour {
 
         DamageHolder damageHolder = addGO.GetComponent<DamageHolder>();
         damageHolder.Initialize(new Add(damageHolder));
+
+        return addGO;
 
         //TODO: add adds to camera?
         //Camera.main.transform.parent.GetComponent<CameraController>().boss = addGO.transform;

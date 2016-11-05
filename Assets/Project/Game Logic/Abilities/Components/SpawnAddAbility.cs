@@ -11,8 +11,12 @@ public class SpawnAddAbility : AbstractAbilityAction {
     [SerializeField]
     protected AddsNetworkedData.AddID addType;
 
+    [SerializeField]
+    protected string name;
+
     public override bool Activate(PhotonStream stream) {
-        AddsNetworkedData.Main.CreateAdd(addType, this.transform);
+        GameObject spawnedAdd = AddsNetworkedData.Main.CreateAdd(addType, this.transform);
+        spawnedAdd.name = name;
         return false;
     }
 }

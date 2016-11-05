@@ -83,8 +83,9 @@ public class BossAggro : MonoBehaviour, IMovement {
             agent.updateRotation = false;
             agent.updatePosition = false;
         }
-
-        animator.SetBool(Tags.AnimatorParams.Controlled, shouldChase);
+        if (animator != null) { //TODO: seperate script
+            animator.SetBool(Tags.AnimatorParams.Controlled, shouldChase);
+        }
     }
 
     // this function changes aggro if a player has surpassed current aggro holder by more than the threshold
