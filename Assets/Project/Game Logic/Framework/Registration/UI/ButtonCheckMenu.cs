@@ -18,9 +18,7 @@ public class ButtonCheckMenu : MonoBehaviour {
     private struct MenuOption
     {
         public string name;
-        public Rect rect;
-        public Rect textRect;
-        public ButtonState state;
+        public string currentBinding;
     }
     private MenuOption[] options;
     private int selectedNo = 0;
@@ -28,7 +26,7 @@ public class ButtonCheckMenu : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-	
+
 	}
 	
 	// Update is called once per frame

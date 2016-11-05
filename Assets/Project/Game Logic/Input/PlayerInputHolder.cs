@@ -301,6 +301,10 @@ public interface IPlayerInputHolder {
     /// </summary>
     /// <returns></returns>
     bool getAbility2 { get; }
+    /// <summary>
+    /// GetKey for the player's jump.
+    /// </summary>
+    bool getJump { get; }
 
     /// <summary>
     /// GetKeyDown for the menu submission.
@@ -331,6 +335,10 @@ public interface IPlayerInputHolder {
     /// </summary>
     /// <returns></returns>
     bool getAbility2Down { get; }
+    /// <summary>
+    /// GetKeyDown for the player's jump.
+    /// </summary>
+    bool getJumpDown { get; }
 
     /// <summary>
     /// GetKeyUp for the player's basic attack.
@@ -346,6 +354,10 @@ public interface IPlayerInputHolder {
     /// </summary>
     /// <returns></returns>
     bool getAbility2Up { get; }
+    /// <summary>
+    /// GetKeyUp for the player's jump.
+    /// </summary>
+    bool getJumpUp { get; }
 
     string submitName { get; }
     string cancelName { get; }
@@ -353,6 +365,7 @@ public interface IPlayerInputHolder {
     string basicAttackName { get; }
     string ability1Name { get; }
     string ability2Name { get; }
+    string jumpName { get; }
 }
 
 /// <summary>
@@ -375,6 +388,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getBasicAttack { get { return HeldInput.getBasicAttack; } }
     public bool getAbility1 { get { return HeldInput.getAbility1; } }
     public bool getAbility2 { get { return HeldInput.getAbility2; } }
+    public bool getJump { get { return HeldInput.getJump; } }
 
     public bool getSubmitDown { get { return HeldInput.getSubmitDown; } }
     public bool getCancelDown { get { return HeldInput.getCancelDown; } }
@@ -382,10 +396,12 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getBasicAttackDown { get { return HeldInput.getBasicAttackDown; } }
     public bool getAbility1Down { get { return HeldInput.getAbility1Down; } }
     public bool getAbility2Down { get { return HeldInput.getAbility2Down; } }
+    public bool getJumpDown { get { return HeldInput.getJumpDown; } }
 
     public bool getBasicAttackUp { get { return HeldInput.getBasicAttackUp; } }
     public bool getAbility1Up { get { return HeldInput.getAbility1Up; } }
     public bool getAbility2Up { get { return HeldInput.getAbility2Up; } }
+    public bool getJumpUp { get { return HeldInput.getJumpUp; } }
 
     public string submitName { get { return HeldInput.submitName; } }
     public string cancelName { get { return HeldInput.cancelName; } }
@@ -393,6 +409,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public string basicAttackName { get { return HeldInput.basicAttackName; } }
     public string ability1Name { get { return HeldInput.ability1Name; } }
     public string ability2Name { get { return HeldInput.ability2Name; } }
+    public string jumpName { get { return HeldInput.jumpName; } }
 
     void OnDestroy() {
         if (heldInput != null) {
@@ -418,6 +435,7 @@ public class NullInput : IPlayerInput
     public bool getBasicAttack { get { return false; } }
     public bool getAbility1 { get { return false; } }
     public bool getAbility2 { get { return false; } }
+    public bool getJump { get { return false; } }
 
     public bool getSubmitDown { get { return false; } }
     public bool getCancelDown { get { return false; } }
@@ -425,10 +443,12 @@ public class NullInput : IPlayerInput
     public bool getBasicAttackDown { get { return false; } }
     public bool getAbility1Down { get { return false; } }
     public bool getAbility2Down { get { return false; } }
+    public bool getJumpDown { get { return false; } }
 
     public bool getBasicAttackUp { get { return false; } }
     public bool getAbility1Up { get { return false; } }
     public bool getAbility2Up { get { return false; } }
+    public bool getJumpUp { get { return false; } }
 
     public string submitName { get{ return ""; } }
     public string cancelName { get{ return ""; } }
@@ -436,4 +456,5 @@ public class NullInput : IPlayerInput
     public string basicAttackName { get{ return ""; } }
     public string ability1Name { get{ return ""; } }
     public string ability2Name { get { return ""; } }
+    public string jumpName { get { return ""; } }
 }

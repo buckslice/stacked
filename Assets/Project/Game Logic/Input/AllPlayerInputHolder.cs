@@ -111,6 +111,16 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
             return false;
         }
     }
+    public bool getJump {
+        get {
+            foreach (IPlayerInput input in heldInputs) {
+                if (input.getJump) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     public bool getSubmitDown {
         get {
@@ -166,6 +176,16 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
             }
             return false;
     } }
+    public bool getJumpDown {
+        get {
+            foreach (IPlayerInput input in heldInputs) {
+                if (input.getJumpDown) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     public bool getBasicAttackUp {
         get {
@@ -195,10 +215,22 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
             return false;
     } }
 
+    public bool getJumpUp {
+        get {
+            foreach (IPlayerInput input in heldInputs) {
+                if (input.getJumpUp) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
     public string submitName { get { throw new System.NotSupportedException(); } }
     public string cancelName { get { throw new System.NotSupportedException(); } }
     public string startName { get { throw new System.NotSupportedException(); } }
     public string basicAttackName { get { throw new System.NotSupportedException(); } }
     public string ability1Name { get { throw new System.NotSupportedException(); } }
     public string ability2Name { get { throw new System.NotSupportedException(); } }
+    public string jumpName { get { throw new System.NotSupportedException(); } }
 }

@@ -273,6 +273,7 @@ public class ControllerPlayerInput : IPlayerInput {
     public string basicAttackName { get { return "DERP"; } }
     public string ability1Name { get { return PlayerInputExtension.getBindingName(0); } }
     public string ability2Name { get { return PlayerInputExtension.getBindingName(0); } }
+    public string jumpName { get { return "TODO"; } }
 
     public void Vibrate(float strength, float duration, MonoBehaviour callingScript) {
         vibrationAmount.AddModifier(strength);

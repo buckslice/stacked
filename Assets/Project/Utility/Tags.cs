@@ -47,6 +47,7 @@ public static class Tags {
         public const KeyCode BasicAttack = KeyCode.LeftShift; 
         public const KeyCode Ability1 = KeyCode.Q; 
         public const KeyCode Ability2 = KeyCode.E;
+        public const KeyCode Jump = KeyCode.Space;
 
         public enum axes {
             HorizontalMovement,
