@@ -104,7 +104,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
                 PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
                 playerSetup.Initalize(input.HeldInput, playerNumber);
                 PlayerSetup.PlayerSetupData pd = new PlayerSetup.PlayerSetupData();
-                pd.basicAttacks = new PlayerSetupNetworkedData.AbilityId[] { selection1 };
+                pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection1 };
                 pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
                 playerSetup.playerData = pd;
             }

@@ -186,7 +186,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
             Rebind(instantiatedAbility, AbilityKeybinding.BASICATTACK);
         }
 
-        foreach (AbilityId ability in playerData.basicAttacks) {
+        foreach (AbilityId ability in playerData.firstAbilities) {
             GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
             Rebind(instantiatedAbility, AbilityKeybinding.ABILITY1);
         }
