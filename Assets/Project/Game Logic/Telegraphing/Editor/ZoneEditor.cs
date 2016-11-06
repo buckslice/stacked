@@ -36,11 +36,17 @@ public class ZoneEditor : Editor {
 
         GUIContent teleMsg = new GUIContent("Is Telegraphed", "Should this zone have a warning visual before it activates?");
         targ.isTelegraphed = EditorGUILayout.Toggle(teleMsg, targ.isTelegraphed);
-
         if (targ.isTelegraphed) {
             targ.telegraphParticles = (ParticleSystem)EditorGUILayout.ObjectField("Telegraph Particle System Prefab", targ.telegraphParticles, typeof(ParticleSystem), false, null);
-            
             targ.telegraphDuration = EditorGUILayout.FloatField("Telegraph Duration", targ.telegraphDuration);
+        }
+
+        GUIContent flightMsg = new GUIContent("Flies to Destination", "Should this zone fly from where it is spawned to its target destination using a separate particle system?");
+        targ.fliesToDestination = EditorGUILayout.Toggle(flightMsg, targ.fliesToDestination);
+        if (targ.fliesToDestination) {
+            targ.flightParticles = (ParticleSystem)EditorGUILayout.ObjectField("Flight Particle System Prefab", targ.flightParticles, typeof(ParticleSystem), false, null);
+            targ.flightDuration = EditorGUILayout.FloatField("Flight Duration", targ.flightDuration);
+            targ.flightType = (FlightType)EditorGUILayout.EnumPopup("Flight Type", targ.flightType);
         }
 
         //DrawDefaultInspector();

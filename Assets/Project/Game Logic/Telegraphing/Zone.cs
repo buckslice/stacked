@@ -13,6 +13,13 @@ public enum ZoneType {
     EXPLODE_AFTER_TIMER
 }
 
+public enum FlightType {
+    LINEAR,
+    LERP,
+    ARC,
+    RANDOM,
+}
+
 public class Zone : MonoBehaviour {
     // WARNING : THIS CLASS USES CUSTOM EDITOR SO NEW VARIABLES WONT APPEAR WITHOUT ADDING TO THAT CLASS
     public ZoneShape shape;
@@ -26,14 +33,19 @@ public class Zone : MonoBehaviour {
     public ParticleSystem telegraphParticles;
     public float telegraphDuration = 3.0f;
 
+    public bool fliesToDestination = false;
+    public ParticleSystem flightParticles;
+    public float flightDuration = 2.0f;
+    public FlightType flightType;
+    Vector3 destination;
+
     // todo: add flexibility to work with gameobjects that have subparticle systems
     // todo: add velocity / movement so you can have death lines that you have to jump over or wandering fires
 
     float durTimer = 0.0f;
 
-    // TODO : change to max player count, also pool these zones
-    Collider[] buffer = new Collider[10];
-    Collider col;
+    Collider[] buffer = new Collider[32];
+    Collider col;   // this zones collider
 
     bool dying = false;
     bool setup = false; // for auto setup if Setup() is not called
@@ -103,10 +115,18 @@ public class Zone : MonoBehaviour {
 
     }
 
+    // helper overloads
+    public void Setup(Vector3 position) {
+        Setup(position, Vector3.one, position);
+    }
+    public void Setup(Vector3 position, Vector3 scale) {
+        Setup(position, scale, position);
+    }
+
     // sets position and size of zone
     // position is specified by the bottom center
     // size is width height length
-    public void Setup(Vector3 position, Vector3 scale) {
+    public void Setup(Vector3 position, Vector3 scale, Vector3 destination) {
         if (shape == ZoneShape.CIRCLE) { // makes sure scale vector for circles is uniform
             float maxDim = Mathf.Max(scale.x, Mathf.Max(scale.y, scale.z));
             scale = Vector3.one * maxDim;
@@ -115,20 +135,24 @@ public class Zone : MonoBehaviour {
         // set new position and scale
         transform.position = position;
         transform.localScale = scale;
+        this.destination = destination;
 
         Vector3 colSize = col.bounds.size;
         float ySize = shape == ZoneShape.CIRCLE ? 1.0f : colSize.y;
         float colVolume = colSize.x * ySize * colSize.z;
 
-        // setup particles
+        // setup main particles
         SetupParticleSystem(ref mainParticles, colVolume);
 
-        if (!isTelegraphed) {
-            mainParticles.Play();  // play on awake is disabled since emission rate is being set after initialization
-            // this is so the prewarm option will work correctly (prewarm is still optional though)
-        } else {
+        if (fliesToDestination) {
+            flightParticles = (ParticleSystem)Instantiate(flightParticles, transform, false);
+            flightParticles.Play();
+        }else if (isTelegraphed) {
             SetupParticleSystem(ref telegraphParticles, colVolume);
             telegraphParticles.Play();
+        } else {
+            mainParticles.Play();  // play on awake is disabled since emission rate is being set after initialization
+            // this is so the prewarm option will work correctly (prewarm is still optional though)
         }
 
         setup = true;
@@ -142,6 +166,17 @@ public class Zone : MonoBehaviour {
         if (!setup) {   // if not setup by now then just call setup with current transform
             Setup(transform.position, transform.localScale);
         }
+
+        if (fliesToDestination) {
+            durTimer += Time.deltaTime;
+            switch (flightType) {
+                default:
+                case FlightType.LINEAR:
+
+                    break;
+            }
+        }
+
 
         if (isTelegraphed) {
             durTimer += Time.deltaTime;
