@@ -106,6 +106,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
                 PlayerSetup.PlayerSetupData pd = new PlayerSetup.PlayerSetupData();
                 pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection1 };
                 pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
+                pd.abilities = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.JUMP };
                 playerSetup.playerData = pd;
             }
 

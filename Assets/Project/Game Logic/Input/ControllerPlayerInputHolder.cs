@@ -11,10 +11,6 @@ public class ControllerPlayerInputHolder : PlayerInputHolder {
     [SerializeField]
     protected ControllerPlayerInput bindings;
 
-    void Start() {
-        bindings.Start();
-    }
-
     public override IPlayerInput HeldInput {
         get {
             return bindings;
@@ -23,6 +19,10 @@ public class ControllerPlayerInputHolder : PlayerInputHolder {
             bindings = (ControllerPlayerInput)value;
             bindings.Player = this.transform;
         }
+    }
+
+    void Update() {
+        bindings.Update();
     }
 }
 
@@ -44,7 +44,7 @@ public class ControllerPlayerInput : IPlayerInput {
     private string verticalAimingAxis = Tags.Input.Joystick1.axis5;
     public string[] bindableAxes { get; private set; }
 
-    private bool[] axisStates;
+    public bool[] axisStates;
     private bool[] axisUp;
     private bool[] axisDown;
 
@@ -112,11 +112,11 @@ public class ControllerPlayerInput : IPlayerInput {
 
     AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
 
-    public void Start() {    // manually calling this in the holder..
+    public ControllerPlayerInput() {
         InputBindings = new Key[7];
-        axisStates = new bool[6];
-        axisUp = new bool[6];
-        axisDown = new bool[6];
+        axisStates = new bool[Tags.Input.Joystick1.allAxes.Length];
+        axisUp = new bool[Tags.Input.Joystick1.allAxes.Length];
+        axisDown = new bool[Tags.Input.Joystick1.allAxes.Length];
         currentAxisType = AxisType.XBOX;
 
         switch (controllerIndex) {
@@ -452,10 +452,11 @@ public class ControllerPlayerInput : IPlayerInput {
             if (!axisStates[i] && currentState) {
                 axisDown[i] = true;
             }
+            axisStates[i] = currentState;
         }
     }
 
-    void Update() {
+    public void Update() {
         setAxisFlags();
     }
 }

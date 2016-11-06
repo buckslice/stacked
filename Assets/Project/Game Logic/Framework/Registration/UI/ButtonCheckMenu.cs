@@ -125,7 +125,6 @@ public class ButtonCheckMenu : MonoBehaviour {
             foreach (KeyCode button in allButtons) {
                 if (Input.GetKeyDown(button)) {
                     onInput(button);
-                    print(button);
                 }
             }
             foreach(string axis in allAxes) {
@@ -177,7 +176,7 @@ public class ButtonCheckMenu : MonoBehaviour {
         } else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
 
             ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-            controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 2), PlayerInputExtension.axisNumbers[axis], ControllerPlayerInput.InputType.AXIS);
+            controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 3), PlayerInputExtension.axisNumbers[axis], ControllerPlayerInput.InputType.AXIS);
             refreshOptions();
         }
     }
