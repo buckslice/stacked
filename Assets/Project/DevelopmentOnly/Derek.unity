@@ -219,7 +219,7 @@ GameObject:
   - 65: {fileID: 486555972}
   m_Layer: 19
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1118,7 +1118,7 @@ GameObject:
   - 4: {fileID: 2066348728}
   m_Layer: 18
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -1246,6 +1246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 3
   playerData:
+    basicAttacks: 06
     firstAbilities: 0e
     secondAbilities: 01
     abilities: 
