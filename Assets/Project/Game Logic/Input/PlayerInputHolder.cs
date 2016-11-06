@@ -310,31 +310,39 @@ public static class PlayerInputExtension
     public static readonly Dictionary<string, int> axisNumbers = new Dictionary<string, int>() {
         {Tags.Input.Joystick1.HorizontalMovement, 0},
         {Tags.Input.Joystick1.VerticalMovement, 1},
-        {Tags.Input.Joystick1.axis4, 2},
-        {Tags.Input.Joystick1.axis5, 3},
-        {Tags.Input.Joystick1.axis9, 4},
-        {Tags.Input.Joystick1.axis10, 5},
+        {Tags.Input.Joystick1.axis3, 2},
+        {Tags.Input.Joystick1.axis4, 3},
+        {Tags.Input.Joystick1.axis5, 4},
+        {Tags.Input.Joystick1.axis6, 5},
+        {Tags.Input.Joystick1.axis9, 6},
+        {Tags.Input.Joystick1.axis10, 7},
 
         {Tags.Input.Joystick2.HorizontalMovement, 0},
         {Tags.Input.Joystick2.VerticalMovement, 1},
-        {Tags.Input.Joystick2.axis4, 2},
-        {Tags.Input.Joystick2.axis5, 3},
-        {Tags.Input.Joystick2.axis9, 4},
-        {Tags.Input.Joystick2.axis10, 5},
+        {Tags.Input.Joystick2.axis3, 2},
+        {Tags.Input.Joystick2.axis4, 3},
+        {Tags.Input.Joystick2.axis5, 4},
+        {Tags.Input.Joystick2.axis6, 5},
+        {Tags.Input.Joystick2.axis9, 6},
+        {Tags.Input.Joystick2.axis10, 7},
 
         {Tags.Input.Joystick3.HorizontalMovement, 0},
         {Tags.Input.Joystick3.VerticalMovement, 1},
-        {Tags.Input.Joystick3.axis4, 2},
-        {Tags.Input.Joystick3.axis5, 3},
-        {Tags.Input.Joystick3.axis9, 4},
-        {Tags.Input.Joystick3.axis10, 5},
+        {Tags.Input.Joystick3.axis3, 2},
+        {Tags.Input.Joystick3.axis4, 3},
+        {Tags.Input.Joystick3.axis5, 4},
+        {Tags.Input.Joystick3.axis6, 5},
+        {Tags.Input.Joystick3.axis9, 6},
+        {Tags.Input.Joystick3.axis10, 7},
 
         {Tags.Input.Joystick4.HorizontalMovement, 0},
         {Tags.Input.Joystick4.VerticalMovement, 1},
-        {Tags.Input.Joystick4.axis4, 2},
-        {Tags.Input.Joystick4.axis5, 3},
-        {Tags.Input.Joystick4.axis9, 4},
-        {Tags.Input.Joystick4.axis10, 5},
+        {Tags.Input.Joystick4.axis3, 2},
+        {Tags.Input.Joystick4.axis4, 3},
+        {Tags.Input.Joystick4.axis5, 4},
+        {Tags.Input.Joystick4.axis6, 5},
+        {Tags.Input.Joystick4.axis9, 6},
+        {Tags.Input.Joystick4.axis10, 7},
     };
 }
 
@@ -492,6 +500,12 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     void OnDestroy() {
         if (heldInput != null) {
             heldInput.Deactivate();
+        }
+    }
+
+    void Update() {
+        if (heldInput != null && heldInput.GetType() == typeof(ControllerPlayerInput)) {
+            ((ControllerPlayerInput)heldInput).Update();
         }
     }
 }

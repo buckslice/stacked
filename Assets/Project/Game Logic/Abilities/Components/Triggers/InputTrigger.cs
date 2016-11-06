@@ -68,7 +68,9 @@ public class InputTrigger : MonoBehaviour, IUntargetedAbilityTrigger, IAbilityKe
             case AbilityKeybinding.CANCELDOWN:
                 inputValue = playerInput.getCancelDown;
                 break;
-
+            case AbilityKeybinding.JUMP:
+                inputValue = playerInput.getJumpDown;
+                break;
             default:
                 inputValue = false;
                 break;

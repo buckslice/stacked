@@ -24,6 +24,10 @@ public class ControllerPlayerInputHolder : PlayerInputHolder {
             bindings.Player = this.transform;
         }
     }
+
+    void Update() {
+        bindings.Update();
+    }
 }
 
 [System.Serializable]
@@ -44,7 +48,7 @@ public class ControllerPlayerInput : IPlayerInput {
     private string verticalAimingAxis = Tags.Input.Joystick1.axis5;
     public string[] bindableAxes { get; private set; }
 
-    private bool[] axisStates;
+    public bool[] axisStates;
     private bool[] axisUp;
     private bool[] axisDown;
 
@@ -114,9 +118,9 @@ public class ControllerPlayerInput : IPlayerInput {
 
     public void Start() {    // manually calling this in the holder..
         InputBindings = new Key[7];
-        axisStates = new bool[6];
-        axisUp = new bool[6];
-        axisDown = new bool[6];
+        axisStates = new bool[Tags.Input.Joystick1.allAxes.Length];
+        axisUp = new bool[Tags.Input.Joystick1.allAxes.Length];
+        axisDown = new bool[Tags.Input.Joystick1.allAxes.Length];
         currentAxisType = AxisType.XBOX;
 
         switch (controllerIndex) {
@@ -452,10 +456,11 @@ public class ControllerPlayerInput : IPlayerInput {
             if (!axisStates[i] && currentState) {
                 axisDown[i] = true;
             }
+            axisStates[i] = currentState;
         }
     }
 
-    void Update() {
+    public void Update() {
         setAxisFlags();
     }
 }

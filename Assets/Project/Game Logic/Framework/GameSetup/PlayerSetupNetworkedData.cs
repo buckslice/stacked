@@ -29,6 +29,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         DRFIELD,
         THROW,
         MAGICSHOTGUN,
+        JUMP,
     }
 
     static PlayerSetupNetworkedData main;
@@ -194,6 +195,10 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         foreach (AbilityId ability in playerData.secondAbilities) {
             GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
             Rebind(instantiatedAbility, AbilityKeybinding.ABILITY2);
+        }
+
+        foreach (AbilityId ability in playerData.abilities) {
+            GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
         }
 
         return player;
