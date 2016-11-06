@@ -175,13 +175,6 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
 
         AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
 
-        // what is point of this first ability array derek?
-        // commenting this out for now because its null when created from code
-        //add abilities
-        //foreach (AbilityId ability in playerData.abilities) {
-        //    InstantiateAbility(ability, player.transform, abilityNetworking);
-        //}
-
         foreach (AbilityId ability in playerData.basicAttacks) {
             GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
             Rebind(instantiatedAbility, AbilityKeybinding.BASICATTACK);
@@ -198,7 +191,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         }
 
         foreach (AbilityId ability in playerData.abilities) {
-            GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
+            InstantiateAbility(ability, player.transform, abilityNetworking);
         }
 
         return player;

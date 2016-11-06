@@ -11,10 +11,6 @@ public class ControllerPlayerInputHolder : PlayerInputHolder {
     [SerializeField]
     protected ControllerPlayerInput bindings;
 
-    void Start() {
-        bindings.Start();
-    }
-
     public override IPlayerInput HeldInput {
         get {
             return bindings;
@@ -116,7 +112,7 @@ public class ControllerPlayerInput : IPlayerInput {
 
     AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
 
-    public void Start() {    // manually calling this in the holder..
+    public ControllerPlayerInput() {
         InputBindings = new Key[7];
         axisStates = new bool[Tags.Input.Joystick1.allAxes.Length];
         axisUp = new bool[Tags.Input.Joystick1.allAxes.Length];

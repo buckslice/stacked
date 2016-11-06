@@ -11,7 +11,8 @@ public class ShockwaveSetup : ProjectileLifetimeAction {
 
     Material shockwaveDistortionMat;
     // Use this for initialization
-    void Awake() {
+    protected override void Awake() {
+        base.Awake();
         MeshRenderer rend = GetComponent<MeshRenderer>();
         shockwaveDistortionMat = rend.material = rend.material; //craete a duplicate, since the setter does an implicit instantiate() call
     }
