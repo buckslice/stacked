@@ -13,19 +13,19 @@ public enum ZoneType {
     EXPLODE_AFTER_TIMER
 }
 
-public enum FlightType {
+public enum FlightType {    // todo make other types of flight movement
     LINEAR,
     LERP,
     ARC,
-    RANDOM,
+    //RANDOM,
 }
 
 public class Zone : MonoBehaviour {
     // WARNING : THIS CLASS USES CUSTOM EDITOR SO NEW VARIABLES WONT APPEAR WITHOUT ADDING TO THAT CLASS
     public ZoneShape shape;
     public ZoneType type;
-    public float healthChange = 1.0f;
-    public float duration = 10.0f;  // changes meaning depending on zonetype
+    public float healthChange = 1.0f;   // depends on zonetype
+    public float mainDuration = 10.0f;  // depends on zonetype
 
     public ParticleSystem mainParticles;
 
@@ -34,15 +34,17 @@ public class Zone : MonoBehaviour {
     public float telegraphDuration = 3.0f;
 
     public bool fliesToDestination = false;
-    public ParticleSystem flightParticles;
-    public float flightDuration = 2.0f;
     public FlightType flightType;
-    Vector3 destination;
+    public ParticleSystem flightParticles;
+    public bool speedBasedOnDuration = true;
+    public float flightDuration = 2.0f;
+    public float flightSpeedHorizontal = 5.0f;
+    public float initialYVel = 10.0f;
+    Vector3 flightTarget;
+    Vector3 flightStart;
 
     // todo: add flexibility to work with gameobjects that have subparticle systems
     // todo: add velocity / movement so you can have death lines that you have to jump over or wandering fires
-
-    float durTimer = 0.0f;
 
     Collider[] buffer = new Collider[32];
     Collider col;   // this zones collider
@@ -87,7 +89,7 @@ public class Zone : MonoBehaviour {
             ps.transform.localPosition = Vector3.zero;
             ps.transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
             ps.transform.localScale = new Vector3(1.0f, 1.0f, 0.0f);
-            if (pssm.shapeType != ParticleSystemShapeType.Circle) { // todo: need to figure out better way to handle different kinds of shapes
+            if (pssm.shapeType != ParticleSystemShapeType.CircleEdge) { // todo: need to figure out better way to handle different kinds of shapes
                 pssm.shapeType = ParticleSystemShapeType.Hemisphere;
             }
         }
@@ -131,70 +133,110 @@ public class Zone : MonoBehaviour {
             float maxDim = Mathf.Max(scale.x, Mathf.Max(scale.y, scale.z));
             scale = Vector3.one * maxDim;
         }
+        flightTarget = destination;
+        flightStart = position;
 
         // set new position and scale
         transform.position = position;
         transform.localScale = scale;
-        this.destination = destination;
 
         Vector3 colSize = col.bounds.size;
         float ySize = shape == ZoneShape.CIRCLE ? 1.0f : colSize.y;
         float colVolume = colSize.x * ySize * colSize.z;
 
-        // setup main particles
-        SetupParticleSystem(ref mainParticles, colVolume);
-
         if (fliesToDestination) {
+            // no auto scaling done for flight particles yet..
+            Vector3 locScale = flightParticles.transform.localScale;
             flightParticles = (ParticleSystem)Instantiate(flightParticles, transform, false);
-            flightParticles.Play();
-        }else if (isTelegraphed) {
-            SetupParticleSystem(ref telegraphParticles, colVolume);
-            telegraphParticles.Play();
-        } else {
-            mainParticles.Play();  // play on awake is disabled since emission rate is being set after initialization
-            // this is so the prewarm option will work correctly (prewarm is still optional though)
+            flightParticles.transform.localPosition = Vector3.zero;
+            flightParticles.transform.localScale = locScale;
         }
+        if (isTelegraphed) {
+            SetupParticleSystem(ref telegraphParticles, colVolume);
+        }
+        // setup main particle system
+        SetupParticleSystem(ref mainParticles, colVolume);
+        // play on awake is disabled since emission rate is being set after initialization
+        // this is so the prewarm option will work correctly (prewarm is still optional though)
 
         setup = true;
+
+        StartCoroutine(MainRoutine());
     }
 
     // Update is called once per frame
     void Update() {
-        if (dying) {
-            return;
-        }
         if (!setup) {   // if not setup by now then just call setup with current transform
             Setup(transform.position, transform.localScale);
         }
+    }
 
+    IEnumerator ArcFlightRoutine() {
+        float time = flightDuration;
+        if (!speedBasedOnDuration) {
+            float xd = flightTarget.x - flightStart.x;
+            float zd = flightTarget.z - flightStart.z;
+            float xzDist = Mathf.Sqrt(xd * xd + zd * zd);
+            time = xzDist / flightSpeedHorizontal;
+        }
+        float vel = initialYVel;
+        float accel = 2 * (-flightTarget.y + flightStart.y + vel * time) / (time * time);
+        float t = 0.0f;
+        while (t < time) {
+            float lerpX = Mathf.Lerp(flightStart.x, flightTarget.x, t / time);
+            float lerpZ = Mathf.Lerp(flightStart.z, flightTarget.z, t / time);
+            vel -= accel * Time.deltaTime;
+            float py = transform.position.y + vel * Time.deltaTime;
+            transform.position = new Vector3(lerpX, py, lerpZ);
+            t += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator BasicFlightRoutine(bool linear) {
+        float t = 0.0f;
+        while(t < flightDuration) {
+            transform.position = Vector3.Lerp(linear ? flightStart : transform.position, flightTarget, t / flightDuration);
+            t += Time.deltaTime;
+            yield return null;
+        }
+    }
+
+    IEnumerator MainRoutine() {
         if (fliesToDestination) {
-            durTimer += Time.deltaTime;
+            flightParticles.Play();
+
             switch (flightType) {
                 default:
+                case FlightType.ARC:
+                    yield return StartCoroutine(ArcFlightRoutine());
+                    break;
+                case FlightType.LERP:
+                    yield return StartCoroutine(BasicFlightRoutine(false));
+                    break;
                 case FlightType.LINEAR:
-
+                    yield return StartCoroutine(BasicFlightRoutine(false));
                     break;
             }
-        }
 
+            fliesToDestination = false;
+            flightParticles.Stop();
+            transform.position = flightTarget;
+        }
 
         if (isTelegraphed) {
-            durTimer += Time.deltaTime;
-            if (durTimer >= telegraphDuration) {
-                durTimer = 0.0f;
-                isTelegraphed = false;
-                telegraphParticles.Stop();
-                mainParticles.Play();
-            }
-        } else {
-            durTimer += Time.deltaTime;
-            if (durTimer >= duration) {
-                if (type == ZoneType.EXPLODE_AFTER_TIMER) {
-                    DamageAllPlayersInContact();
-                }
-                DestroyZone();
-            }
+            telegraphParticles.Play();
+            yield return new WaitForSeconds(telegraphDuration);
+            telegraphParticles.Stop();
+            isTelegraphed = false;
         }
+
+        mainParticles.Play();
+        yield return new WaitForSeconds(mainDuration);
+        if (type == ZoneType.EXPLODE_AFTER_TIMER) {
+            DamageAllPlayersInContact();
+        }
+        DestroyZone();
     }
 
     void DamageAllPlayersInContact() {
@@ -208,7 +250,7 @@ public class Zone : MonoBehaviour {
             float radius = transform.localScale.x / 2.0f;   // each component of scale vector is same
             count = Physics.OverlapSphereNonAlloc(transform.position, radius, buffer);
         }
-        
+
         for (int i = 0; i < count; ++i) {
             if (buffer[i].CompareTag(Tags.Player)) {
                 buffer[i].GetComponent<Damageable>().Damage(healthChange);
@@ -232,6 +274,7 @@ public class Zone : MonoBehaviour {
     void DestroyZone() {
         if (!dying) {
             dying = true;
+            StopAllCoroutines();
             Destroy(col);
             mainParticles.Stop();
             Destroy(gameObject, mainParticles.startLifetime);

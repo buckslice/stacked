@@ -32,7 +32,7 @@ public class VoidZoneAbility : DurationAbilityAction {
         if (armsAnimRoutine != null) {
             StopCoroutine(armsAnimRoutine);
         }
-        armsAnimRoutine = StartCoroutine(armAnim(true));
+        //armsAnimRoutine = StartCoroutine(armAnim(true));
     }
 
     protected override void OnDurationEnd() {
@@ -41,7 +41,7 @@ public class VoidZoneAbility : DurationAbilityAction {
         if (armsAnimRoutine != null) {
             StopCoroutine(armsAnimRoutine);
         }
-        armsAnimRoutine = StartCoroutine(armAnim(false));
+        //armsAnimRoutine = StartCoroutine(armAnim(false));
     }
 
     protected override void OnDurationTick(float lerpProgress) {
@@ -52,22 +52,22 @@ public class VoidZoneAbility : DurationAbilityAction {
         float p = (float)spawnedZones / totalZones;
         if (lerpProgress > p) {
 
-            Vector3 pos;
+            Vector3 targetPos;
             // first spawn a zone on each player
             if (spawnedZones < numPlayers) {
-                pos = Player.Players[spawnedZones].Holder.transform.position;
-                pos.y = 0.0f;
+                targetPos = Player.Players[spawnedZones].Holder.transform.position;
+                targetPos.y = 0.0f;
             } else {    // then spawn some extra random zones
                 float x = Random.Range(-40.0f, 40.0f);
                 float z = Random.Range(-40.0f, 40.0f);
-                pos = new Vector3(x, 0.0f, z);
+                targetPos = new Vector3(x, 0.0f, z);
             }
 
             float r = Random.Range(5.0f, 20.0f);
             Vector3 size = new Vector3(r, 1.0f, r);
 
             GameObject go = (GameObject)Instantiate(zonePrefab);
-            go.GetComponent<Zone>().Setup(pos, size);
+            go.GetComponent<Zone>().Setup(transform.position + Vector3.up * 3.0f, size, targetPos);
 
             spawnedZones++;
         }
