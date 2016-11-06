@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class JumpAbility : AbstractAbilityAction {
-    public static int MAX_JUMPS = 2;
+    public const int MAX_JUMPS = 2;
 
     [SerializeField]
     protected float jumpStrength = 100f;
