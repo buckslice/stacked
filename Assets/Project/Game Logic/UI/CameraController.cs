@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-using System.Linq;
 
 // attach to the camera
 public class CameraController : MonoBehaviour {
@@ -11,6 +10,7 @@ public class CameraController : MonoBehaviour {
     private readonly Vector3 padding = Vector3.one * 4.0f;
 
     private float minFollowDistance = 20.0f;
+    private float startY = 5.0f;
 
     private Vector3 camVel = Vector3.zero;
     private Vector3 boundsCenter = Vector3.zero;
@@ -21,15 +21,14 @@ public class CameraController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         PopulateTrackingList();
-        boundsCenter = GetTrackBounds().center;
-	}
+        boundsCenter = new BoundingSphere(trackingList).center;
+    }
 	
 	// Update is called once per frame
 	void Update () {
         PopulateTrackingList();
-
-        Bounds bounds = GetTrackBounds();
-        boundsCenter = Vector3.Lerp(boundsCenter, bounds.center, Time.deltaTime);
+        BoundingSphere boundingSphere = new BoundingSphere(trackingList);
+        boundsCenter = Vector3.Lerp(boundsCenter, boundingSphere.center, Time.deltaTime);
 
         // find XZ distance from camera to bounds center
         Vector3 xzCam = transform.position;
@@ -45,15 +44,18 @@ public class CameraController : MonoBehaviour {
             dir.Normalize();
         }
 
-        // calculate the follow distance for this frame
-        float maxBoundsDim = Mathf.Max(bounds.size.x, Mathf.Max(bounds.size.y, bounds.size.z));
-        float camFollowDist = maxBoundsDim * 0.75f;
+        // addded some magic variables here to also tweak camera height a bit
+        float camFollowDist = boundingSphere.radius * 1.5f + 5.0f;
+        float heightChange = boundingSphere.radius * 0.6f;
+        camFollowDist -= heightChange * 0.9f;
+        
         if(camFollowDist < minFollowDistance) {
             camFollowDist = minFollowDistance;
         }
 
         // calculate target camera follow position
         Vector3 targetPos = transform.position + dir * (camFollowDist - xzDist);
+        targetPos.y = startY + heightChange;
 
         // find best local rotation (hill climbing)
         targetPos = FindLocalBestRotation(targetPos, boundsCenter);
@@ -63,20 +65,6 @@ public class CameraController : MonoBehaviour {
 
         // lastly look at center of bounds
         transform.LookAt(boundsCenter);
-    }
-
-    // get bounding box around all relevant game entities that camera should track
-    Bounds GetTrackBounds() {
-        if (trackingList.Count == 0) {
-            return new Bounds();
-        }
-
-        // done like this to avoid including the origin
-        Bounds bounds = new Bounds(trackingList[0], padding);
-        for (int i = 1; i < trackingList.Count; ++i) {
-            bounds.Encapsulate(new Bounds(trackingList[i], padding));
-        }
-        return bounds;
     }
 
     // gets list of positions camera should track
@@ -155,4 +143,53 @@ public class CameraController : MonoBehaviour {
         }
         return max - min;
     }
+}
+
+
+public class BoundingSphere {
+    public Vector3 center;
+    public float radius;
+
+    public BoundingSphere(Vector3 center, float radius) {
+        this.center = center;
+        this.radius = radius;
+    }
+
+    // bouncing bubble algorithm
+    public BoundingSphere(List<Vector3> points) {
+        if (points.Count == 0) {
+            return;
+        }
+        Vector3 center = points[0];
+        float radius = 0.0001f;
+        Vector3 pos, d;
+        float len, alpha, alphaSqr;
+
+        for (int j = 0; j < 2; j++) {
+            for (int i = 0; i < points.Count; i++) {
+                pos = points[i];
+                d = pos - center;
+                if (d.sqrMagnitude > radius * radius) {
+                    alpha = d.magnitude / radius;
+                    alphaSqr = alpha * alpha;
+                    radius = 0.5f * (alpha + 1 / alpha) * radius;
+                    center = 0.5f * ((1 + 1 / alphaSqr) * center + (1 - 1 / alphaSqr) * pos);
+                }
+            }
+        }
+
+        for (int i = 0; i < points.Count; i++) {
+            pos = points[i];
+            d = pos - center;
+            if (d.sqrMagnitude > radius * radius) {
+                len = d.magnitude;
+                radius = (radius + len) / 2.0f;
+                center = center + ((len - radius) / len * d);
+            }
+        }
+
+        this.center = center;
+        this.radius = radius;
+    }
+
 }

@@ -17,7 +17,7 @@ public class CharacterSelectIcon : MonoBehaviour, ISelectable {
     public GameObject visualsIcon;
     public GameObject tooltip;
     public UIMeshLine tooltipLine;
-    public AnimationCurve tooltipAnimation;
+    public AnimationCurve tooltipAnimation; // should probably store this somewhere else
 
     public Color color = Color.white;
 
