@@ -30,6 +30,8 @@ public abstract class AbstractBuffField : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider target) {
+        if (!enabled) { return; }
+
         if (((1 << target.gameObject.layer) & layermask) == 0) {
             //not on layermask
             return;
@@ -51,6 +53,8 @@ public abstract class AbstractBuffField : MonoBehaviour {
     }
 
     void OnTriggerExit(Collider target) {
+        if (!enabled) { return; }
+
         if (appliedTargets.Remove(target)) {
             RemoveBuff(target);
         }

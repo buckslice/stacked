@@ -53,6 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: -1
   playerData:
+    basicAttacks: 06
     firstAbilities: 06
     secondAbilities: 09
-    abilities: 
+    abilities: 10

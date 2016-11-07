@@ -97,8 +97,6 @@ GameObject:
   - 114: {fileID: 114000013843805006}
   - 114: {fileID: 114000011651763664}
   - 198: {fileID: 198000010671603566}
-  - 114: {fileID: 114000010958774912}
-  - 114: {fileID: 114000011903847892}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -12587,42 +12585,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013059702806}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114000010958774912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5abe3c551985f345970d6d37a5e62ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.8
-  target: {fileID: 0}
-  animations:
-  - propertyName: _DistortionStrength
-    curve:
-      serializedVersion: 2
-      m_Curve:
-      - time: 0
-        value: 0
-        inSlope: 5.32503
-        outSlope: 5.32503
-        tangentMode: 0
-      - time: 0.6632018
-        value: 1.9729708
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      - time: 0.9906331
-        value: 1.0052743
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 0
 --- !u!114 &114000011651763664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12635,17 +12597,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeToLive: 1
---- !u!114 &114000011903847892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 100010}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5185810957bceb144bee9064cbbb7e1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000012175335688
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -12657,7 +12608,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da85d1fdedd94474bb8e9db0f3e5b60e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 0.8
+  duration: 0.3
 --- !u!114 &114000012246285794
 MonoBehaviour:
   m_ObjectHideFlags: 1
