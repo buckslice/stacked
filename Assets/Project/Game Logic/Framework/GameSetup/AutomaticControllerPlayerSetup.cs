@@ -8,6 +8,12 @@ using System.Collections.Generic;
 /// </summary>
 public class AutomaticControllerPlayerSetup : PlayerSetup {
     protected override void Awake() {
+
+        if (R41DNetworking.Main.NetworkingMode == R41DNetworkingMode.ONLINE) {
+            DestroyImmediate(this.transform.root.gameObject);
+            return;
+        }
+
         base.Awake();
         PlayerSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<PlayerSetup>();
         foreach (PlayerSetup otherPlayerSetup in otherPlayerSetups) {
@@ -19,6 +25,5 @@ public class AutomaticControllerPlayerSetup : PlayerSetup {
 
         //I have no idea why this creates a null pointer exception when there exists more than one AutomaticSetup in the scene. Stuff still works even when the exception is thrown.
         inputBindings = new ControllerPlayerInput();
-        Assert.IsTrue(R41DNetworking.Main.NetworkingMode != R41DNetworkingMode.ONLINE, "Automatic Setups will not work correctly over the network."); //we aren't hooked up correctly for online
     }
 }

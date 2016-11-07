@@ -8,6 +8,11 @@ using System.Collections.Generic;
 /// </summary>
 public class AutomaticBossSetup : BossSetup {
     protected override void Awake() {
+
+        if (R41DNetworking.Main.NetworkingMode == R41DNetworkingMode.ONLINE) {
+            DestroyImmediate(this.transform.root.gameObject);
+            return;
+        }
         BossSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<BossSetup>();
         foreach (BossSetup otherPlayerSetup in otherPlayerSetups) {
             if (this != otherPlayerSetup) {

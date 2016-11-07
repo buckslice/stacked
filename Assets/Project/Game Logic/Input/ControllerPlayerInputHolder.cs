@@ -104,14 +104,16 @@ public class ControllerPlayerInput : IPlayerInput {
     AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
 
     public void Initialize(MonoBehaviour holder) {
-        if (this.holder == null) { //first initialization
+        if (!initialized) {
+            initialized = true;
             Initialize();
         }
         this.holder = holder;
     }
 
-    void Initialize() {
+    bool initialized = false;
 
+    void Initialize() {
         Assert.IsNull(allControllers[(int)controllerIndex]);
         allControllers[(int)controllerIndex] = this;
 
@@ -243,8 +245,7 @@ public class ControllerPlayerInput : IPlayerInput {
     public bool getKey(Inputs key) {
         if (InputBindings[(int)key].type == InputType.KEY) {
             return Input.GetKey(InputBindings[(int)key].key);
-        }
-        else {
+        } else {
             return Input.GetAxisRaw(InputBindings[(int)key].axis) > deadZone;
         }
     }
@@ -252,8 +253,7 @@ public class ControllerPlayerInput : IPlayerInput {
     public bool getKeyDown(Inputs key) {
         if (InputBindings[(int)key].type == InputType.KEY) {
             return Input.GetKeyDown(InputBindings[(int)key].key);
-        }
-        else {
+        } else {
             return axisDown[getAxisNumberByString(InputBindings[(int)key].axis)];
         }
     }
@@ -261,8 +261,7 @@ public class ControllerPlayerInput : IPlayerInput {
     public bool getKeyUp(Inputs key) {
         if (InputBindings[(int)key].type == InputType.KEY) {
             return Input.GetKeyUp(InputBindings[(int)key].key);
-        }
-        else {
+        } else {
             return axisUp[getAxisNumberByString(InputBindings[(int)key].axis)];
         }
     }

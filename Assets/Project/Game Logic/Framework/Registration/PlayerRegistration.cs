@@ -325,15 +325,19 @@ public class PlayerRegistration : MonoBehaviour {
 
         int ready = 0;
         int currentPlayers = 0;
+        bool hasMasterPlayer = false;
         for (int i = 0; i < numPlayers; i++) {
             if (registeredPlayers[i] != null) {
                 currentPlayers++;
                 if (registeredPlayers[i].ready) {
                     ready++;
+                    if (registeredPlayers[i].ownerActorID == PhotonNetwork.player.ID) {
+                        hasMasterPlayer = true;
+                    }
                 }
             }
         }
-        if (ready != 0 && ready == currentPlayers) {
+        if (ready != 0 && ready == currentPlayers && hasMasterPlayer) {
             SceneManager.LoadScene(nextScene);
         }
     }

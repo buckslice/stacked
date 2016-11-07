@@ -12,6 +12,12 @@ public class AutomaticallyRegisteredKeyboardPlayer : RegisteredPlayer {
     protected override void Awake()
     {
         base.Awake();
+
+        if (R41DNetworking.Main.NetworkingMode == R41DNetworkingMode.ONLINE) {
+            DestroyImmediate(this.transform.root.gameObject);
+            return;
+        }
+
         RegisteredPlayer[] otherRegisteredPlayers = GameObject.FindObjectsOfType<RegisteredPlayer>();
         foreach (RegisteredPlayer otherRegisteredPlayer in otherRegisteredPlayers)
         {
@@ -22,8 +28,5 @@ public class AutomaticallyRegisteredKeyboardPlayer : RegisteredPlayer {
             }
         }
         Initalize(new KeyboardMousePlayerInput(), playerID);
-
-        // this is a race condition with R41DNetworking.Main initialization (both in Awake)
-        //Assert.IsTrue(R41DNetworking.Main.NetworkingMode != R41DNetworkingMode.ONLINE, "Automatic Setups will not work correctly over the network."); //we aren't hooked up correctly for online
     }
 }
