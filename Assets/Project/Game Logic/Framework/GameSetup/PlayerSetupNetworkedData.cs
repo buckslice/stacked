@@ -25,6 +25,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         BLINK,
         MELEECONEBASICATTACK,
         HEALINGSPHERE,
+        HEALINGBEAM,
         SHIELDING,
         DRFIELD,
         THROW,

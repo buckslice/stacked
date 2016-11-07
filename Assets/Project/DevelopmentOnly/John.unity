@@ -1224,6 +1224,14 @@ Prefab:
       propertyPath: bossData.abilities.Array.data[3]
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4000011232789038, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 20.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011232789038, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 9.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
   m_IsPrefabParent: 0
@@ -1622,8 +1630,8 @@ MonoBehaviour:
   playerData:
     basicAttacks: 06
     firstAbilities: 01
-    secondAbilities: 06
-    abilities: 0f
+    secondAbilities: 0b
+    abilities: 
 --- !u!4 &2137640759
 Transform:
   m_ObjectHideFlags: 0
