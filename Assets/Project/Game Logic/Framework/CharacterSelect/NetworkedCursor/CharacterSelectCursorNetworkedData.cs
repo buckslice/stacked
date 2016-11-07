@@ -103,6 +103,11 @@ public class CharacterSelectCursorNetworkedData : MonoBehaviour {
             cursor = (GameObject)Instantiate(cursorPrefab, screenCenter, Quaternion.identity, GameObject.Find("Canvas").transform);
         }
 
+        // place cursor directly before the tooltips
+        // so they are drawn over everything except tooltips
+        Transform toolTips = GameObject.Find("Tooltips").transform;
+        cursor.transform.SetSiblingIndex(toolTips.GetSiblingIndex());
+
         //assign view ID
         PhotonView toInitialize = cursor.GetComponent<PhotonView>();
         toInitialize.viewID = allocatedViewId;

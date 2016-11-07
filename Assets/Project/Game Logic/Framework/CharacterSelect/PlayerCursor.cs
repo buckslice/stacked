@@ -15,7 +15,6 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
     public int playerNumber = -1;
 
     public int PlayerID { get { return playerNumber; } }
-    public float moveSpeed = 4.0f;
     public Image leftHalf;
     public Image rightHalf;
     public Image readyImage;
@@ -37,7 +36,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
     public bool Ready { get; set; }
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         view = GetComponent<PhotonView>();
         input = GetComponent<PlayerInputHolder>();
         readyChecker = GameObject.Find("ReadyChecker").GetComponent<ReadyChecker>();
@@ -144,30 +143,25 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
         background.enabled = !isReady;
     }
 
-    // Update is called once per frame
-    void Update () {
-        //transform.Translate(input.movementDirection * moveSpeed *Time.deltaTime* Screen.width / 800.0f);
+    PointerEventData pointer = new PointerEventData(EventSystem.current);
+    List<RaycastResult> results = new List<RaycastResult>();
 
-        /*
-        if (input.getSubmitDown) {
-            pointer.position = new Vector3(transform.position.x, transform.position.y);
-            results.Clear();
+    // TODO: port this to work with networked abilities
+    // (or dont so players only see the tooltips they are hovering over)
+    void Update() {
+        pointer.position = transform.position;
+        results.Clear();
 
-            EventSystem.current.RaycastAll(pointer, results);
+        EventSystem.current.RaycastAll(pointer, results);
 
-            for(int i = 0; i < results.Count; ++i) {
-                GameObject rgo = results[i].gameObject;
-                if (rgo.CompareTag("AbilityIcon")) {
-                    CharacterSelectIcon selectIcon = rgo.GetComponent<CharacterSelectIcon>();
-
-                    Select(selectIcon);
-                }
+        for (int i = 0; i < results.Count; ++i) {
+            // make sure icon parent has an attached image component for this to raycast against
+            // did this to avoid calling GetComponentInParent every frame on many objects
+            GameObject rgo = results[i].gameObject;
+            if (rgo.CompareTag("AbilityIcon")) {
+                CharacterSelectIcon selectIcon = rgo.GetComponent<CharacterSelectIcon>();
+                selectIcon.SetHover();
             }
         }
-        if (input.getCancelDown) {
-
-            Deselect();
-        }
-         * */
-	}
+    }
 }
