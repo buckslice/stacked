@@ -296,12 +296,17 @@ public class ControllerPlayerInput : IPlayerInput {
 
     public string getBindingName(Inputs key) {
         if (InputBindings[(int)key].type == InputType.KEY) {
+
             return PlayerInputExtension.getBindingName(InputBindings[(int)key].key, currentAxisType);
+
+        } else if (InputBindings[(int)key].type == InputType.AXIS) {
+
+            int axisNumber = getAxisNumberByString(InputBindings[(int)key].axis);
+            return PlayerInputExtension.getBindingName(axisNumber, currentAxisType);
         }
-        else {
-            return InputBindings[(int)key].axis;
-        }
+        return "unknown type";
     }
+
     public string submitName { get { return getBindingName(Inputs.SUBMIT); } }
     public string cancelName { get { return getBindingName(Inputs.CANCEL); } }
     public string startName { get { return getBindingName(Inputs.START); } }
@@ -343,21 +348,22 @@ public class ControllerPlayerInput : IPlayerInput {
     public void remap(Inputs input, int button, InputType type) {
         Key oldKey = new Key(InputBindings[(int)input]);
         if (type == InputType.KEY) {
+
             InputBindings[(int)input].key = getInputByJoystickNumber(button);
             InputBindings[(int)input].type = InputType.KEY;
 
-            for (int i=0; i<InputBindings.Length; i++) { 
-                if (i!=(int)input && InputBindings[i].key == getInputByJoystickNumber(button)) {
+            for (int i = 0; i < InputBindings.Length; i++) {
+                if (i != (int)input && InputBindings[i].key == getInputByJoystickNumber(button)) {
                     InputBindings[i] = oldKey;
                 }
             }
-        }
-        else {
+        } else if (type == InputType.AXIS) {
+
             InputBindings[(int)input].axis = getAxisByJoystickNumber(button);
             InputBindings[(int)input].type = InputType.AXIS;
 
             for (int i = 0; i < InputBindings.Length; i++) {
-                if (i!=(int)input && InputBindings[i].axis == getAxisByJoystickNumber(button)) {
+                if (i != (int)input && InputBindings[i].axis == getAxisByJoystickNumber(button)) {
                     InputBindings[i] = oldKey;
                 }
             }
@@ -372,9 +378,10 @@ public class ControllerPlayerInput : IPlayerInput {
             currentAxisType = AxisType.PS4;
             horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis3);
             verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis6);
-            bindableAxes = new string[]{};
-        }
-        else {
+            bindableAxes = new string[] { };
+
+        } else {
+
             currentAxisType = AxisType.XBOX;
             horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis4);
             verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis5);

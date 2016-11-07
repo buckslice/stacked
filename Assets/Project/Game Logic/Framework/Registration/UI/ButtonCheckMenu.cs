@@ -13,8 +13,9 @@ public class ButtonCheckMenu : MonoBehaviour {
     }
 
     private const float REPEAT_DELAY = 0.2f;
-    private const int readyButton = 0;
-    private const int leaveButton = 1;
+    private const int readyButton = 1;
+    private const int leaveButton = 2;
+    private const int axisButton = 0;
     private float currentDelay;
     private bool menuEnabled;
 
@@ -52,20 +53,22 @@ public class ButtonCheckMenu : MonoBehaviour {
 
     void refreshOptions () {
         options = new MenuOption[10];
-        options[0] = new MenuOption("Ready (Press ", bindings.startName + ")");
-        options[1] = new MenuOption("Leave (Press ", bindings.cancelName + ")");
+
+        options[readyButton] = new MenuOption("Ready (Press ", bindings.startName + ")");
+        options[leaveButton] = new MenuOption("Leave (Press ", bindings.cancelName + ")");
+
+        string bindingModeName = "";
         if (bindings.GetType() == typeof(ControllerPlayerInput)) {
             ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
             if (controllerInput.currentAxisType == ControllerPlayerInput.AxisType.XBOX) {
-                options[2] = new MenuOption("Current aiming axes - ", "XBOX");
+                bindingModeName = "XBOX";
             }
             else if (controllerInput.currentAxisType == ControllerPlayerInput.AxisType.PS4) {
-                options[2] = new MenuOption("Current aiming axes - ", "PS4");
+                bindingModeName = "PS4";
             }
         }
-        else {
-            options[2] = new MenuOption("Current aiming axes", "");
-        }
+        options[axisButton] = new MenuOption("Current aiming axes - ", bindingModeName);
+
         options[3] = new MenuOption("Submit - ", bindings.submitName);
         options[4] = new MenuOption("Cancel - ", bindings.cancelName);
         options[5] = new MenuOption("Start - ", bindings.startName);
@@ -78,7 +81,7 @@ public class ButtonCheckMenu : MonoBehaviour {
     private void getMovement() {
         if (currentDelay <= 0) {
             if (bindings.movementDirection.y > 0) {
-                if (currentButton == readyButton) {
+                if (currentButton == 0) {
                     currentButton = options.Length - 1;
                 }
                 else {
@@ -155,7 +158,7 @@ public class ButtonCheckMenu : MonoBehaviour {
                 PlayerRegistration.Main.removePlayer((byte)playerID);
             }
             return;
-        } else if (currentButton == 2) {
+        } else if (currentButton == axisButton) {
             if (bindings.GetType() == typeof(ControllerPlayerInput)) {
                 ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
                 controllerInput.swapRightStickAndTriggers();
@@ -171,7 +174,7 @@ public class ButtonCheckMenu : MonoBehaviour {
     }
 
     private void onInput(string axis) {
-        if (currentButton == readyButton || currentButton == leaveButton || currentButton == 2) {
+        if (currentButton == readyButton || currentButton == leaveButton || currentButton == axisButton) {
             return;
         } else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
 

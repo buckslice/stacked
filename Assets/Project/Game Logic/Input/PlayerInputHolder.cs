@@ -75,6 +75,27 @@ public static class PlayerInputExtension
         }
     }
 
+    public static string getBindingName(int axisNumber, ControllerPlayerInput.AxisType type) {
+        switch (type) {
+            case ControllerPlayerInput.AxisType.XBOX:
+                if (xboxAxisNames.ContainsKey(axisNumber)) {
+                    return xboxAxisNames[axisNumber];
+                } else {
+                    return "";
+                }
+
+            case ControllerPlayerInput.AxisType.PS4:
+                if (ps4AxisNames.ContainsKey(axisNumber)) {
+                    return ps4AxisNames[axisNumber];
+                } else {
+                    return "";
+                }
+
+            default:
+                return "unknownAxisType";
+        }
+    }
+
     public static readonly Dictionary<KeyCode, string> bindingNames = new Dictionary<KeyCode, string>(){
         {KeyCode.A, "A"},
         {KeyCode.B, "B"},
@@ -463,8 +484,9 @@ public static class PlayerInputExtension
         {Tags.Input.Joystick1.axis4, 3},
         {Tags.Input.Joystick1.axis5, 4},
         {Tags.Input.Joystick1.axis6, 5},
-        {Tags.Input.Joystick1.axis9, 6},
-        {Tags.Input.Joystick1.axis10, 7},
+        {Tags.Input.Joystick1.axis7, 6},
+        {Tags.Input.Joystick1.axis9, 7},
+        {Tags.Input.Joystick1.axis10, 8},
 
         {Tags.Input.Joystick2.HorizontalMovement, 0},
         {Tags.Input.Joystick2.VerticalMovement, 1},
@@ -472,8 +494,9 @@ public static class PlayerInputExtension
         {Tags.Input.Joystick2.axis4, 3},
         {Tags.Input.Joystick2.axis5, 4},
         {Tags.Input.Joystick2.axis6, 5},
-        {Tags.Input.Joystick2.axis9, 6},
-        {Tags.Input.Joystick2.axis10, 7},
+        {Tags.Input.Joystick2.axis7, 6},
+        {Tags.Input.Joystick2.axis9, 7},
+        {Tags.Input.Joystick2.axis10, 8},
 
         {Tags.Input.Joystick3.HorizontalMovement, 0},
         {Tags.Input.Joystick3.VerticalMovement, 1},
@@ -481,8 +504,9 @@ public static class PlayerInputExtension
         {Tags.Input.Joystick3.axis4, 3},
         {Tags.Input.Joystick3.axis5, 4},
         {Tags.Input.Joystick3.axis6, 5},
-        {Tags.Input.Joystick3.axis9, 6},
-        {Tags.Input.Joystick3.axis10, 7},
+        {Tags.Input.Joystick3.axis7, 6},
+        {Tags.Input.Joystick3.axis9, 7},
+        {Tags.Input.Joystick3.axis10, 8},
 
         {Tags.Input.Joystick4.HorizontalMovement, 0},
         {Tags.Input.Joystick4.VerticalMovement, 1},
@@ -490,8 +514,33 @@ public static class PlayerInputExtension
         {Tags.Input.Joystick4.axis4, 3},
         {Tags.Input.Joystick4.axis5, 4},
         {Tags.Input.Joystick4.axis6, 5},
-        {Tags.Input.Joystick4.axis9, 6},
-        {Tags.Input.Joystick4.axis10, 7},
+        {Tags.Input.Joystick4.axis7, 6},
+        {Tags.Input.Joystick4.axis9, 7},
+        {Tags.Input.Joystick4.axis10, 8},
+    };
+
+    public static readonly Dictionary<int, string> xboxAxisNames = new Dictionary<int, string>() {
+        {0, "Left Stick Horizontal"},
+        {1, "Left Stick Vertical"},
+        {2, "Triggers"},
+        {3, "Right Stick Horizontal"},
+        {4, "Right Stick Vertical"},
+        {5, "D-Pad Horizontal"},
+        {6, "D-Pad Horizontal"},
+        {7, "LT"},
+        {8, "RT"},
+    };
+
+    public static readonly Dictionary<int, string> ps4AxisNames = new Dictionary<int, string>() {
+        {0, "Left Stick Horizontal"},
+        {1, "Left Stick Vertical"},
+        {2, "Triggers"},
+        {3, "Right Stick Horizontal"},
+        {4, "Right Stick Vertical"},
+        {5, "D-Pad Horizontal"},
+        {6, "D-Pad Horizontal"},
+        {7, "LT"},
+        {8, "RT"},
     };
 }
 
