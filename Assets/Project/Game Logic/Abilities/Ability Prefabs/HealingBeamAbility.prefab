@@ -89,6 +89,7 @@ GameObject:
   - 114: {fileID: 114000012416245808}
   - 114: {fileID: 114000011206782726}
   - 114: {fileID: 114000011141363674}
+  - 114: {fileID: 114000013173882382}
   m_Layer: 0
   m_Name: HealingBeamAbility
   m_TagString: Untagged
@@ -232,6 +233,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   binding: 0
+--- !u!114 &114000013173882382
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012971366954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e266b120d8f3aa40915e8958c02953c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiPrefab: {fileID: 1000013509053506, guid: 05ee104ca6ae2e14c867128e5112a74f, type: 2}
 --- !u!136 &136000012455467856
 CapsuleCollider:
   m_ObjectHideFlags: 1
