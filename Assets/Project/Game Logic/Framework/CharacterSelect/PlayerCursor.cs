@@ -19,6 +19,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
     public Image leftHalf;
     public Image rightHalf;
     public Image readyImage;
+    public Image background;
 
     PhotonView view;
     PlayerInputHolder input;
@@ -41,14 +42,13 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
         input = GetComponent<PlayerInputHolder>();
         readyChecker = GameObject.Find("ReadyChecker").GetComponent<ReadyChecker>();
         readyChecker.AddPlayer(this);
-        readyImage.enabled = false;
         holder = GetComponentInParent<EntityUIGroupHolder>();
 
         Assert.IsNotNull(BossSetup.Main);
         readyChecker.LevelToLoad = BossSetup.Main.BossData.sceneName;
 
-        Ready = false;
-	}
+        SetReady(false);
+    }
 
     public void Initialize(int playerNumber) {
         this.playerNumber = playerNumber;
@@ -110,8 +110,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
                 playerSetup.playerData = pd;
             }
 
-            Ready = true;
-            readyImage.enabled = true;
+            SetReady(true);
         }
         return true;
     }
@@ -134,10 +133,15 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
             return false; //no action taken
         }
 
-        Ready = false;
-        readyImage.enabled = false;
+        SetReady(false);
 
         return true;
+    }
+
+    void SetReady(bool isReady) {
+        Ready = isReady;
+        readyImage.enabled = isReady;
+        background.enabled = !isReady;
     }
 
     // Update is called once per frame

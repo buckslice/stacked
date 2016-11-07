@@ -355,6 +355,7 @@ MonoBehaviour:
   leftHalf: {fileID: 114000011388251054}
   rightHalf: {fileID: 114000010476259884}
   readyImage: {fileID: 114000010980961138}
+  background: {fileID: 114000012909132880}
 --- !u!114 &114000012200797662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -367,7 +368,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 150
-  bufferDelaySecs: 0.2
   controlEnabled: 1
 --- !u!114 &114000012440367496
 MonoBehaviour:
