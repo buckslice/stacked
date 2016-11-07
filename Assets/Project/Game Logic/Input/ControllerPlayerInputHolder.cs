@@ -11,23 +11,20 @@ public class ControllerPlayerInputHolder : PlayerInputHolder {
     [SerializeField]
     protected ControllerPlayerInput bindings;
 
-    public override IPlayerInput HeldInput {
+    public override IPlayerInput HeldInput { //use our local bindings variable instead of parent bindings
         get {
             return bindings;
         }
         set {
             bindings = (ControllerPlayerInput)value;
-            bindings.Player = this.transform;
+            Start();
         }
-    }
-
-    void Update() {
-        bindings.Update();
     }
 }
 
 [System.Serializable]
 public class ControllerPlayerInput : IPlayerInput {
+    [SerializeField]
     public XInputDotNetPure.PlayerIndex controllerIndex = PlayerIndex.One;
 
     private string horizontalMovementAxis = Tags.Input.Joystick1.HorizontalMovement;
@@ -97,12 +94,6 @@ public class ControllerPlayerInput : IPlayerInput {
 
     //Transform player; //not needed yet
     public Transform Player { set { ; } } //set { player = value; }
-    public void Initialize(MonoBehaviour holder) {
-        this.holder = holder;
-
-        Assert.IsNull(allControllers[(int)controllerIndex]);
-        allControllers[(int)controllerIndex] = this;
-    }
 
     public void Deactivate() {
         vibrationAmount.Reset();
@@ -112,7 +103,18 @@ public class ControllerPlayerInput : IPlayerInput {
 
     AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
 
-    public ControllerPlayerInput() {
+    public void Initialize(MonoBehaviour holder) {
+        if (this.holder == null) { //first initialization
+            Initialize();
+        }
+        this.holder = holder;
+    }
+
+    void Initialize() {
+
+        Assert.IsNull(allControllers[(int)controllerIndex]);
+        allControllers[(int)controllerIndex] = this;
+
         InputBindings = new Key[7];
         axisStates = new bool[Tags.Input.Joystick1.allAxes.Length];
         axisUp = new bool[Tags.Input.Joystick1.allAxes.Length];
@@ -294,7 +296,7 @@ public class ControllerPlayerInput : IPlayerInput {
 
     public string getBindingName(Inputs key) {
         if (InputBindings[(int)key].type == InputType.KEY) {
-            return PlayerInputExtension.getBindingName(InputBindings[(int)key].key);
+            return PlayerInputExtension.getBindingName(InputBindings[(int)key].key, currentAxisType);
         }
         else {
             return InputBindings[(int)key].axis;

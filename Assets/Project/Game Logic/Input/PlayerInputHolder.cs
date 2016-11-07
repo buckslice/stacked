@@ -14,6 +14,8 @@ public interface IPlayerInput : IPlayerInputHolder
     Transform Player { set; }
     void Initialize(MonoBehaviour holder);
     void Deactivate();
+
+    void Update();
 }
 
 /// <summary>
@@ -49,6 +51,27 @@ public static class PlayerInputExtension
             return bindingNames[keycode];
         } else {
             return "";
+        }
+    }
+
+    public static string getBindingName(KeyCode keycode, ControllerPlayerInput.AxisType type) {
+        switch (type) {
+            case ControllerPlayerInput.AxisType.XBOX:
+                if (xboxBindingNames.ContainsKey(keycode)) {
+                    return xboxBindingNames[keycode];
+                } else {
+                    return "";
+                }
+
+            case ControllerPlayerInput.AxisType.PS4:
+                if (ps4BindingNames.ContainsKey(keycode)) {
+                    return ps4BindingNames[keycode];
+                } else {
+                    return "";
+                }
+
+            default:
+                return "unknownAxisType";
         }
     }
 
@@ -97,54 +120,180 @@ public static class PlayerInputExtension
         {KeyCode.Backspace, "DEL"},
         {KeyCode.Space, "SPC"},
         {KeyCode.Escape, "ESC"},
+    };
 
-        {KeyCode.JoystickButton0, "Button 0"},
-        {KeyCode.Joystick1Button0, "Button 0"},
-        {KeyCode.Joystick2Button0, "Button 0"},
-        {KeyCode.Joystick3Button0, "Button 0"},
-        {KeyCode.Joystick4Button0, "Button 0"},
+    public static readonly Dictionary<KeyCode, string> xboxBindingNames = new Dictionary<KeyCode, string>(){
+
+        {KeyCode.JoystickButton0, "A"},
+        {KeyCode.Joystick1Button0, "A"},
+        {KeyCode.Joystick2Button0, "A"},
+        {KeyCode.Joystick3Button0, "A"},
+        {KeyCode.Joystick4Button0, "A"},
         
-        {KeyCode.JoystickButton1, "Button 1"},
-        {KeyCode.Joystick1Button1, "Button 1"},
-        {KeyCode.Joystick2Button1, "Button 1"},
-        {KeyCode.Joystick3Button1, "Button 1"},
-        {KeyCode.Joystick4Button1, "Button 1"},
+        {KeyCode.JoystickButton1, "B"},
+        {KeyCode.Joystick1Button1, "B"},
+        {KeyCode.Joystick2Button1, "B"},
+        {KeyCode.Joystick3Button1, "B"},
+        {KeyCode.Joystick4Button1, "B"},
         
-        {KeyCode.JoystickButton2, "Button 2"},
-        {KeyCode.Joystick1Button2, "Button 2"},
-        {KeyCode.Joystick2Button2, "Button 2"},
-        {KeyCode.Joystick3Button2, "Button 2"},
-        {KeyCode.Joystick4Button2, "Button 2"},
+        {KeyCode.JoystickButton2, "X"},
+        {KeyCode.Joystick1Button2, "X"},
+        {KeyCode.Joystick2Button2, "X"},
+        {KeyCode.Joystick3Button2, "X"},
+        {KeyCode.Joystick4Button2, "X"},
 
-        {KeyCode.JoystickButton3, "Button 3"},
-        {KeyCode.Joystick1Button3, "Button 3"},
-        {KeyCode.Joystick2Button3, "Button 3"},
-        {KeyCode.Joystick3Button3, "Button 3"},
-        {KeyCode.Joystick4Button3, "Button 3"},
+        {KeyCode.JoystickButton3, "Y"},
+        {KeyCode.Joystick1Button3, "Y"},
+        {KeyCode.Joystick2Button3, "Y"},
+        {KeyCode.Joystick3Button3, "Y"},
+        {KeyCode.Joystick4Button3, "Y"},
 
-        {KeyCode.JoystickButton4, "Button 4"},
-        {KeyCode.Joystick1Button4, "Button 4"},
-        {KeyCode.Joystick2Button4, "Button 4"},
-        {KeyCode.Joystick3Button4, "Button 4"},
-        {KeyCode.Joystick4Button4, "Button 4"},
+        {KeyCode.JoystickButton4, "LB"},
+        {KeyCode.Joystick1Button4, "LB"},
+        {KeyCode.Joystick2Button4, "LB"},
+        {KeyCode.Joystick3Button4, "LB"},
+        {KeyCode.Joystick4Button4, "LB"},
         
-        {KeyCode.JoystickButton5, "Button 5"},
-        {KeyCode.Joystick1Button5, "Button 5"},
-        {KeyCode.Joystick2Button5, "Button 5"},
-        {KeyCode.Joystick3Button5, "Button 5"},
-        {KeyCode.Joystick4Button5, "Button 5"},
+        {KeyCode.JoystickButton5, "RB"},
+        {KeyCode.Joystick1Button5, "RB"},
+        {KeyCode.Joystick2Button5, "RB"},
+        {KeyCode.Joystick3Button5, "RB"},
+        {KeyCode.Joystick4Button5, "RB"},
 
-        {KeyCode.JoystickButton6, "Button 6"},
-        {KeyCode.Joystick1Button6, "Button 6"},
-        {KeyCode.Joystick2Button6, "Button 6"},
-        {KeyCode.Joystick3Button6, "Button 6"},
-        {KeyCode.Joystick4Button6, "Button 6"},
+        {KeyCode.JoystickButton6, "BCK"},
+        {KeyCode.Joystick1Button6, "BCK"},
+        {KeyCode.Joystick2Button6, "BCK"},
+        {KeyCode.Joystick3Button6, "BCK"},
+        {KeyCode.Joystick4Button6, "BCK"},
 
-        {KeyCode.JoystickButton7, "Button 7"},
-        {KeyCode.Joystick1Button7, "Button 7"},
-        {KeyCode.Joystick2Button7, "Button 7"},
-        {KeyCode.Joystick3Button7, "Button 7"},
-        {KeyCode.Joystick4Button7, "Button 7"},
+        {KeyCode.JoystickButton7, "STRT"},
+        {KeyCode.Joystick1Button7, "STRT"},
+        {KeyCode.Joystick2Button7, "STRT"},
+        {KeyCode.Joystick3Button7, "STRT"},
+        {KeyCode.Joystick4Button7, "STRT"},
+
+        {KeyCode.JoystickButton8, "Button 8"},
+        {KeyCode.Joystick1Button8, "Button 8"},
+        {KeyCode.Joystick2Button8, "Button 8"},
+        {KeyCode.Joystick3Button8, "Button 8"},
+        {KeyCode.Joystick4Button8, "Button 8"},
+
+        {KeyCode.JoystickButton9, "Button 9"},
+        {KeyCode.Joystick1Button9, "Button 9"},
+        {KeyCode.Joystick2Button9, "Button 9"},
+        {KeyCode.Joystick3Button9, "Button 9"},
+        {KeyCode.Joystick4Button9, "Button 9"},
+
+        {KeyCode.JoystickButton10, "Button 10"},
+        {KeyCode.Joystick1Button10, "Button 10"},
+        {KeyCode.Joystick2Button10, "Button 10"},
+        {KeyCode.Joystick3Button10, "Button 10"},
+        {KeyCode.Joystick4Button10, "Button 10"},
+
+        {KeyCode.JoystickButton11, "Button 11"},
+        {KeyCode.Joystick1Button11, "Button 11"},
+        {KeyCode.Joystick2Button11, "Button 11"},
+        {KeyCode.Joystick3Button11, "Button 11"},
+        {KeyCode.Joystick4Button11, "Button 11"},
+
+        {KeyCode.JoystickButton12, "Button 12"},
+        {KeyCode.Joystick1Button12, "Button 12"},
+        {KeyCode.Joystick2Button12, "Button 12"},
+        {KeyCode.Joystick3Button12, "Button 12"},
+        {KeyCode.Joystick4Button12, "Button 12"},
+
+        {KeyCode.JoystickButton13, "Button 13"},
+        {KeyCode.Joystick1Button13, "Button 13"},
+        {KeyCode.Joystick2Button13, "Button 13"},
+        {KeyCode.Joystick3Button13, "Button 13"},
+        {KeyCode.Joystick4Button13, "Button 13"},
+
+        {KeyCode.JoystickButton14, "Button 14"},
+        {KeyCode.Joystick1Button14, "Button 14"},
+        {KeyCode.Joystick2Button14, "Button 14"},
+        {KeyCode.Joystick3Button14, "Button 14"},
+        {KeyCode.Joystick4Button14, "Button 14"},
+
+        {KeyCode.JoystickButton15, "Button 15"},
+        {KeyCode.Joystick1Button15, "Button 15"},
+        {KeyCode.Joystick2Button15, "Button 15"},
+        {KeyCode.Joystick3Button15, "Button 15"},
+        {KeyCode.Joystick4Button15, "Button 15"},
+
+        {KeyCode.JoystickButton16, "Button 16"},
+        {KeyCode.Joystick1Button16, "Button 16"},
+        {KeyCode.Joystick2Button16, "Button 16"},
+        {KeyCode.Joystick3Button16, "Button 16"},
+        {KeyCode.Joystick4Button16, "Button 16"},
+
+        {KeyCode.JoystickButton17, "Button 17"},
+        {KeyCode.Joystick1Button17, "Button 17"},
+        {KeyCode.Joystick2Button17, "Button 17"},
+        {KeyCode.Joystick3Button17, "Button 17"},
+        {KeyCode.Joystick4Button17, "Button 17"},
+
+        {KeyCode.JoystickButton18, "Button 18"},
+        {KeyCode.Joystick1Button18, "Button 18"},
+        {KeyCode.Joystick2Button18, "Button 18"},
+        {KeyCode.Joystick3Button18, "Button 18"},
+        {KeyCode.Joystick4Button18, "Button 18"},
+
+        {KeyCode.JoystickButton19, "Button 19"},
+        {KeyCode.Joystick1Button19, "Button 19"},
+        {KeyCode.Joystick2Button19, "Button 19"},
+        {KeyCode.Joystick3Button19, "Button 19"},
+        {KeyCode.Joystick4Button19, "Button 19"},
+    };
+
+    public static readonly Dictionary<KeyCode, string> ps4BindingNames = new Dictionary<KeyCode, string>(){
+
+        {KeyCode.JoystickButton0, "SQR"},
+        {KeyCode.Joystick1Button0, "SQR"},
+        {KeyCode.Joystick2Button0, "SQR"},
+        {KeyCode.Joystick3Button0, "SQR"},
+        {KeyCode.Joystick4Button0, "SQR"},
+        
+        {KeyCode.JoystickButton1, "X"},
+        {KeyCode.Joystick1Button1, "X"},
+        {KeyCode.Joystick2Button1, "X"},
+        {KeyCode.Joystick3Button1, "X"},
+        {KeyCode.Joystick4Button1, "X"},
+        
+        {KeyCode.JoystickButton2, "CIR"},
+        {KeyCode.Joystick1Button2, "CIR"},
+        {KeyCode.Joystick2Button2, "CIR"},
+        {KeyCode.Joystick3Button2, "CIR"},
+        {KeyCode.Joystick4Button2, "CIR"},
+
+        {KeyCode.JoystickButton3, "TRI"},
+        {KeyCode.Joystick1Button3, "TRI"},
+        {KeyCode.Joystick2Button3, "TRI"},
+        {KeyCode.Joystick3Button3, "TRI"},
+        {KeyCode.Joystick4Button3, "TRI"},
+
+        {KeyCode.JoystickButton4, "L1"},
+        {KeyCode.Joystick1Button4, "L1"},
+        {KeyCode.Joystick2Button4, "L1"},
+        {KeyCode.Joystick3Button4, "L1"},
+        {KeyCode.Joystick4Button4, "L1"},
+        
+        {KeyCode.JoystickButton5, "R1"},
+        {KeyCode.Joystick1Button5, "R1"},
+        {KeyCode.Joystick2Button5, "R1"},
+        {KeyCode.Joystick3Button5, "R1"},
+        {KeyCode.Joystick4Button5, "R1"},
+
+        {KeyCode.JoystickButton6, "L2"},
+        {KeyCode.Joystick1Button6, "L2"},
+        {KeyCode.Joystick2Button6, "L2"},
+        {KeyCode.Joystick3Button6, "L2"},
+        {KeyCode.Joystick4Button6, "L2"},
+
+        {KeyCode.JoystickButton7, "R2"},
+        {KeyCode.Joystick1Button7, "R2"},
+        {KeyCode.Joystick2Button7, "R2"},
+        {KeyCode.Joystick3Button7, "R2"},
+        {KeyCode.Joystick4Button7, "R2"},
 
         {KeyCode.JoystickButton8, "Button 8"},
         {KeyCode.Joystick1Button8, "Button 8"},
@@ -462,7 +611,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     private IPlayerInput heldInput;
     public virtual IPlayerInput HeldInput {
         get { return heldInput; }
-        set { heldInput = value; heldInput.Initialize(this); heldInput.Player = this.transform; }
+        set { heldInput = value; Start(); }
     }
 
     public Vector2 movementDirection { get { return HeldInput.movementDirection; } }
@@ -497,16 +646,19 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public string ability2Name { get { return HeldInput.ability2Name; } }
     public string jumpName { get { return HeldInput.jumpName; } }
 
+    protected void Start() {
+        HeldInput.Initialize(this);
+        HeldInput.Player = this.transform; 
+    }
+
     void OnDestroy() {
-        if (heldInput != null) {
-            heldInput.Deactivate();
+        if (HeldInput != null) {
+            HeldInput.Deactivate();
         }
     }
 
     void Update() {
-        if (heldInput != null && heldInput.GetType() == typeof(ControllerPlayerInput)) {
-            ((ControllerPlayerInput)heldInput).Update();
-        }
+        HeldInput.Update();
     }
 }
 
@@ -519,6 +671,7 @@ public class NullInput : IPlayerInput
     public Transform Player { set { ;} }
     public void Initialize(MonoBehaviour holder) { }
     public void Deactivate() { }
+    public void Update() { }
     public Vector2 movementDirection { get { return Vector2.zero; } }
     public Vector3 rotationDirection { get { return Vector3.zero; } }
     public bool getSubmit { get { return false; } }

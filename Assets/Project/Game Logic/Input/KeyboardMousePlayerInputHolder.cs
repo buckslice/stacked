@@ -62,6 +62,9 @@ public class KeyboardMousePlayerInput : IPlayerInput
             return pointInWorld - player.position;
         }
     }
+
+    public void Update() { }
+
     public bool getSubmit { get { return Input.GetKey(submitKey); } }
     public bool getCancel { get { return Input.GetKey(cancelKey1) || Input.GetKey(cancelKey2); } }
     public bool getStart { get { return Input.GetKey(startKey); } }
