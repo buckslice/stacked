@@ -90,6 +90,7 @@ GameObject:
   - 114: {fileID: 114000011206782726}
   - 114: {fileID: 114000011141363674}
   - 114: {fileID: 114000013173882382}
+  - 82: {fileID: 82000012852670876}
   m_Layer: 0
   m_Name: HealingBeamAbility
   m_TagString: Untagged
@@ -166,6 +167,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000013759151800}
   m_RootOrder: 1
+--- !u!82 &82000012852670876
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012971366954}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: e829a74c5af55964d93fea7ba1955b7a, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114000010104577104
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -208,6 +283,7 @@ MonoBehaviour:
   col: {fileID: 136000012455467856}
   beamParticles: {fileID: 198000013648774690}
   sparkParticles: {fileID: 198000011285132186}
+  source: {fileID: 82000012852670876}
 --- !u!114 &114000011206782726
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -308,7 +384,7 @@ ParticleSystem:
   moveWithTransform: 0
   autoRandomSeed: 1
   scalingMode: 2
-  randomSeed: 1739982851
+  randomSeed: -915156920
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -2032,7 +2108,7 @@ ParticleSystem:
   moveWithTransform: 0
   autoRandomSeed: 1
   scalingMode: 2
-  randomSeed: 1082546263
+  randomSeed: 1172946407
   InitialModule:
     serializedVersion: 2
     enabled: 1

@@ -6,6 +6,7 @@ public class HealingBeamAbility : DurationAbilityAction {
     public Collider col;
     public ParticleSystem beamParticles;
     public ParticleSystem sparkParticles;
+    public AudioSource source;
 
     protected override void Start() {
 
@@ -15,11 +16,13 @@ public class HealingBeamAbility : DurationAbilityAction {
         col.enabled = true;
         beamParticles.Play();
         sparkParticles.Play();
+        source.Play();
     }
 
     protected override void OnDurationEnd() {
         col.enabled = false;
         beamParticles.Stop();
         sparkParticles.Stop();
+        source.Stop();
     }
 }
