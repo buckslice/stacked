@@ -22,6 +22,7 @@ GameObject:
   - 135: {fileID: 135000011456459812}
   - 114: {fileID: 114000010814263604}
   - 114: {fileID: 114000011803473448}
+  - 114: {fileID: 114000012748771350}
   m_Layer: 0
   m_Name: DRField
   m_TagString: Untagged
@@ -37,6 +38,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010009405822}
+  - 114: {fileID: 114000010112978042}
   - 114: {fileID: 114000013502101688}
   - 114: {fileID: 114000010402583038}
   - 114: {fileID: 114000012725452722}
@@ -60,6 +62,7 @@ GameObject:
   - 4: {fileID: 4000010350666868}
   - 33: {fileID: 33000012168590028}
   - 23: {fileID: 23000011779508208}
+  - 114: {fileID: 114000010538796996}
   m_Layer: 0
   m_Name: DomeVisuals
   m_TagString: Untagged
@@ -144,6 +147,25 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012698350850}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114000010112978042
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012085715772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eeda91e7e58c574a9602b1af4a20f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 10
+  targets:
+  - target: {fileID: 114000012748771350}
+    function: x
+  - target: {fileID: 114000010814263604}
+    function: x
+  - target: {fileID: 114000010538796996}
+    function: 2*x
 --- !u!114 &114000010402583038
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -168,6 +190,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPrefab: {fileID: 1000011451044222, guid: 04f9e7aba0ff93f4bb83462cd86c1a24, type: 2}
+--- !u!114 &114000010538796996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012698350850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16364a9746b749e4696ddab13c52d278, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scaleFactor: {x: 1, y: 1, z: 1}
 --- !u!114 &114000010814263604
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -225,6 +259,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldownSecs:
     baseValue: 5
+--- !u!114 &114000012748771350
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011806175498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5590a6a76ea56c4ea7d5efda7ee6ed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013116296740
 MonoBehaviour:
   m_ObjectHideFlags: 1
