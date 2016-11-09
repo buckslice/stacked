@@ -31,6 +31,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         THROW,
         MAGICSHOTGUN,
         JUMP,
+        GRAB,
     }
 
     static PlayerSetupNetworkedData main;

@@ -167,7 +167,7 @@ public class PlayerMovement : MonoBehaviour, IMovement
     {
         if (!movementInputEnabled)
         {
-            rigid.velocity = Vector3.MoveTowards(rigid.velocity, Vector3.zero, Time.deltaTime * acceleration);
+            //rigid.velocity = Vector3.MoveTowards(rigid.velocity, Vector3.zero, Time.deltaTime * acceleration);
             return;
         }
         Vector3 velocity = rigid.velocity;
@@ -230,6 +230,8 @@ public class PlayerMovement : MonoBehaviour, IMovement
     /// </summary>
     void UpdatePositionNetworked()
     {
+        if (!MovementInputEnabled) { return; }
+
         while (bufferedTargetPositions.Count != 0 && nextTargetPosition.outputTime < PhotonNetwork.time)
         {
             //we have new data we can use
@@ -259,6 +261,8 @@ public class PlayerMovement : MonoBehaviour, IMovement
     /// </summary>
     void UpdateRotationNetworked()
     {
+        if (!RotationInputEnabled) { return; }
+
         while (bufferedTargetRotations.Count != 0 && nextTargetRotation.outputTime < PhotonNetwork.time)
         {
             //we have new data we can use

@@ -749,7 +749,7 @@ Prefab:
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
       propertyPath: bossData.abilities.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000010670690832, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
       propertyPath: m_LocalPosition.x
@@ -797,6 +797,11 @@ Prefab:
         type: 2}
       propertyPath: bossData.abilities.Array.data[4]
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
+        type: 2}
+      propertyPath: bossData.abilities.Array.data[1]
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
@@ -1247,10 +1252,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 3
   playerData:
-    basicAttacks: 06
-    firstAbilities: 0e
-    secondAbilities: 01
-    abilities: 
+    basicAttacks: 
+    firstAbilities: 
+    secondAbilities: 
+    abilities: 1011
 --- !u!4 &2137640759
 Transform:
   m_ObjectHideFlags: 0
@@ -1277,10 +1282,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   playerData:
-    basicAttacks: 06
+    basicAttacks: 
     firstAbilities: 
     secondAbilities: 
-    abilities: 
+    abilities: 1011
 --- !u!1 &2144715607
 GameObject:
   m_ObjectHideFlags: 0

@@ -28,7 +28,7 @@ public class PlayerSetup : MonoBehaviour {
 
         [SerializeField]
         [Tooltip("These abilities will retain their default bindings")]
-        public PlayerSetupNetworkedData.AbilityId[] abilities;
+        public PlayerSetupNetworkedData.AbilityId[] abilities = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.JUMP, PlayerSetupNetworkedData.AbilityId.GRAB };
 
         public byte[] toByteArray() {
             BinaryFormatter bf = new BinaryFormatter();

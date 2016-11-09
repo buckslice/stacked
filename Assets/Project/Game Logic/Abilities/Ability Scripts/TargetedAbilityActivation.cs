@@ -97,7 +97,7 @@ public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbi
     /// <returns></returns>
     public bool Ready(GameObject target) {
         foreach (ITargetedAbilityConstraint constraint in targetedConstraints) {
-            if (!constraint.isAbilityActivatible(target)) {
+            if ((constraint as MonoBehaviour).enabled && !constraint.isAbilityActivatible(target)) {
                 //cannot activate
                 return false;
             }

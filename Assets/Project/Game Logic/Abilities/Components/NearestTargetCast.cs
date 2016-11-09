@@ -24,8 +24,8 @@ public class NearestTargetCast : UntargetedAbilityConstraint, ITargetedAbilityTr
         base.Start();
         Assert.IsTrue(GetComponentsInChildren<TargetedAbilityActivation>().Length == 1);
         targetedActivation = GetComponentInChildren<TargetedAbilityActivation>();
-        shape = targetedActivation.GetComponent<IShape>();
-        Assert.IsTrue(targetedActivation.GetComponents<IShape>().Length == 1);
+        shape = GetComponent<IShape>();
+        Assert.IsTrue(GetComponents<IShape>().Length == 1);
     }
 
     public override bool isAbilityActivatible() {
@@ -55,7 +55,8 @@ public class NearestTargetCast : UntargetedAbilityConstraint, ITargetedAbilityTr
             }
         }
 
-        Assert.IsNotNull(target);
-        targetedAbilityTriggerEvent(target);
+        if (target != null) {
+            targetedAbilityTriggerEvent(target);
+        }
     }
 }

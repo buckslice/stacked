@@ -88,7 +88,7 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
                 return false;
             }
 
-            if (!constraint.isAbilityActivatible()) {
+            if (constraint.enabled && !constraint.isAbilityActivatible()) {
                 //cannot activate
                 return false;
             }
