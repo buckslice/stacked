@@ -9,7 +9,7 @@ using UnityEditor;
 #endif
 
 public interface IBalanceStat {
-    float Value { set; }
+    void setValue(float value, BalanceStat.StatType type);
 }
 
 /// <summary>
@@ -17,11 +17,21 @@ public interface IBalanceStat {
 /// </summary>
 /// <typeparam name="T"></typeparam>
 [ExecuteInEditMode]
-public class BalanceStat<T> : MonoBehaviour, IBalanceStat where T : IBalanceStat {
+public abstract class BalanceStat : MonoBehaviour, IBalanceStat {
+
+    public enum StatType {
+        ANY,
+        ANGLE,
+        COOLDOWN,
+        DAMAGE,
+        DURATION,
+        POWER,
+        RADIUS,
+        RANGE,
+    }
 
     [SerializeField]
     protected float value = 0;
-    public float Value { set { this.value = value; Update(); } }
 
     [SerializeField]
     protected BalanceStatReference[] targets;
@@ -33,15 +43,25 @@ public class BalanceStat<T> : MonoBehaviour, IBalanceStat where T : IBalanceStat
         if (targets == null) { return; }
 
         foreach (BalanceStatReference target in targets) {
-            if (target == null || target.Target<T>() == null) {
+            if (target == null || target.Target == null) {
                 break;
             }
 
-            target.Target<T>().Value = target.Evaulate(value);
+            target.Target.setValue(target.Evaulate(value), type);
         }
     }
 #endif
 
+    protected abstract StatType type { get; }
+
+    void IBalanceStat.setValue(float value, BalanceStat.StatType type) {
+        switch (type) {
+            case BalanceStat.StatType.ANY:
+            default:
+                this.value = value; Update();
+                break;
+        }
+    }
 }
 
 [System.Serializable]
@@ -59,10 +79,12 @@ public class BalanceStatReference {
 
     [SerializeField]
     private MonoBehaviour target;
-    public T Target<T>() { 
-        if (target == null) { return default(T); }
-        T result = (T)(target as object);
-        return result;
+    public IBalanceStat Target { 
+        get { 
+            if (target == null) { return null; }
+            IBalanceStat result = (IBalanceStat)(target as object);
+            return result;
+        }
     }
 
     [SerializeField]

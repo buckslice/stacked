@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class CircleShape : MonoBehaviour, IShape, IGenericStat {
+public class CircleShape : MonoBehaviour, IShape, IBalanceStat {
 
     [SerializeField]
     protected float radius;
@@ -36,7 +36,12 @@ public class CircleShape : MonoBehaviour, IShape, IGenericStat {
         return results.ToArray();
     }
 
-    float IBalanceStat.Value {
-        set { throw new System.NotImplementedException(); }
+    void IBalanceStat.setValue(float value, BalanceStat.StatType type) {
+        switch (type) {
+            case BalanceStat.StatType.RADIUS:
+            default:
+                radius = value;
+                break;
+        }
     }
 }

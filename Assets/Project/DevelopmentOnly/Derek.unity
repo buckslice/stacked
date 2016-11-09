@@ -1231,7 +1231,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 2137640759}
   - 114: {fileID: 2137640758}
-  - 114: {fileID: 2137640760}
   m_Layer: 0
   m_Name: AutomaticPlayerSetup
   m_TagString: Untagged
@@ -1253,7 +1252,7 @@ MonoBehaviour:
   playerID: 3
   playerData:
     basicAttacks: 
-    firstAbilities: 01
+    firstAbilities: 0f
     secondAbilities: 
     abilities: 1011
 --- !u!4 &2137640759
@@ -1269,23 +1268,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
---- !u!114 &2137640760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2137640757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerID: 1
-  playerData:
-    basicAttacks: 
-    firstAbilities: 01
-    secondAbilities: 
-    abilities: 1011
 --- !u!1 &2144715607
 GameObject:
   m_ObjectHideFlags: 0

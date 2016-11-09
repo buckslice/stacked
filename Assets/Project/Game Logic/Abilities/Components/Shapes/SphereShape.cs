@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class SphereShape : MonoBehaviour, IShape, IGenericStat {
+public class SphereShape : MonoBehaviour, IShape, IBalanceStat {
 
     [SerializeField]
     protected MultiplierFloatStat radius = new MultiplierFloatStat(5f);
@@ -15,7 +15,12 @@ public class SphereShape : MonoBehaviour, IShape, IGenericStat {
         return hits;
     }
 
-    float IBalanceStat.Value {
-        set { radius = new MultiplierFloatStat(value); }
+    void IBalanceStat.setValue(float value, BalanceStat.StatType type) {
+        switch (type) {
+            case BalanceStat.StatType.RADIUS:
+            default:
+                radius = new MultiplierFloatStat(value);
+                break;
+        }
     }
 }

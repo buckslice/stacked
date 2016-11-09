@@ -4,9 +4,14 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(SphereCollider))]
-public class SphereColliderRadiusStat : MonoBehaviour, IGenericStat {
+public class SphereColliderRadiusStat : MonoBehaviour, IBalanceStat {
 
-    float IBalanceStat.Value {
-        set { GetComponent<SphereCollider>().radius = value; }
+    void IBalanceStat.setValue(float value, BalanceStat.StatType type) {
+        switch (type) {
+            case BalanceStat.StatType.RADIUS:
+            default:
+                GetComponent<SphereCollider>().radius = new MultiplierFloatStat(value);
+                break;
+        }
     }
 }

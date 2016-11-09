@@ -99,7 +99,6 @@ public class Damageable : MonoBehaviour {
 
     public float Damage(Damage incoming, IDamageTracker trackerReference, bool trueDamage = false) {
         float actualDamageAmount = trueDamage ? incoming.Amount : CalculateActualDamage(incoming);
-        Debug.Log(actualDamageAmount);
         float result = health.Damage(actualDamageAmount, trackerReference);
         trackerReference.AddDamageDealt(result);
         return result;
