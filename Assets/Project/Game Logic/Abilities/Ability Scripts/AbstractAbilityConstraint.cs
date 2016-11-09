@@ -77,8 +77,9 @@ public abstract class UntargetedAbilityConstraint : AbstractAbilityAction, ITarg
 
         if (activation == null) {
             activation = GetComponent<AbilityActivation>();
-        } else {
-            Assert.IsNull(GetComponent<AbilityActivation>());
+        }
+        if (activation == null) {
+            activation = GetComponent<IAbilityConstrained>();
         }
 
         Assert.IsNotNull(activation);

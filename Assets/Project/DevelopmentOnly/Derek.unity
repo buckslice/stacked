@@ -1253,7 +1253,7 @@ MonoBehaviour:
   playerID: 3
   playerData:
     basicAttacks: 
-    firstAbilities: 
+    firstAbilities: 01
     secondAbilities: 
     abilities: 1011
 --- !u!4 &2137640759
@@ -1283,7 +1283,7 @@ MonoBehaviour:
   playerID: 1
   playerData:
     basicAttacks: 
-    firstAbilities: 
+    firstAbilities: 01
     secondAbilities: 
     abilities: 1011
 --- !u!1 &2144715607
