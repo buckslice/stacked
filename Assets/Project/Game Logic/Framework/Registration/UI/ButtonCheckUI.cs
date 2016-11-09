@@ -30,7 +30,7 @@ public class ButtonCheckUI : MonoBehaviour {
         }
         else {
             t.offsetMax = new Vector2(0, 150);
-            t.offsetMin = new Vector2(0, 150);
+            t.offsetMin = new Vector2(0, 100);
         }
         menu = buttonCheckMenu.GetComponent<ButtonCheckMenu>();
         IPlayerInput bindings = player.inputBindings;
