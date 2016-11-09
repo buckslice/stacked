@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(IMovement))] //not strictly required, but exists in all use cases I can think of
 [RequireComponent(typeof(Rigidbody))]
-public class Stackable : MonoBehaviour {
+public class Stackable : MonoBehaviour, IEnumerable<Rigidbody> {
 
     [SerializeField]
     protected Rigidbody targetHolder;
 
     [SerializeField]
-    FixedJoint targetConnectingJoint;
+    Joint targetConnectingJoint;
 
     [SerializeField]
-    FixedJoint holderConnectingJoint;
+    Joint holderConnectingJoint;
 
     Vector3 connectedOffset;
     Rigidbody selfRigidbody;
@@ -120,5 +120,58 @@ public class Stackable : MonoBehaviour {
             }
             return result;
         }
+    }
+
+    public class StackableEnumerator : IEnumerator<Rigidbody> {
+
+        Stackable originalTarget;
+        Stackable next;
+        bool hasOutputSelf;
+        bool started;
+
+        public StackableEnumerator(Stackable target) {
+            originalTarget = target;
+            Reset();
+        }
+
+        public Rigidbody Current {
+            get { return hasOutputSelf ? next.targetHolder : next.selfRigidbody; }
+        }
+
+        void System.IDisposable.Dispose() { }
+
+        object IEnumerator.Current {
+            get { return Current; }
+        }
+
+        bool IEnumerator.MoveNext() {
+            if (!started) {
+                started = true;
+                return true;
+            }
+
+            if (!hasOutputSelf) {
+                hasOutputSelf = true;
+                return true;
+            } else {
+                hasOutputSelf = false;
+                next = next.above;
+                return next != null;
+            }
+        }
+
+        public void Reset() {
+            next = originalTarget.bottommost;
+            hasOutputSelf = false;
+            started = false;
+        }
+    }
+
+    public IEnumerator<Rigidbody> GetEnumerator() {
+        return new StackableEnumerator(this);
+    }
+
+    IEnumerator IEnumerable.GetEnumerator() {
+        return GetEnumerator();
     }
 }

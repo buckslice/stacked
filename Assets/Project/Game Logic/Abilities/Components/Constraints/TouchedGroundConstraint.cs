@@ -25,18 +25,21 @@ public class TouchedGroundConstraint : UntargetedAbilityConstraint {
         if (currentJumps > 0) {
             return true;
         } else {
-            bool result = Physics.Raycast(this.transform.position, Vector3.down, groundCheckDistance, layermask);
-            if(result) {
+            RaycastHit info;
+            bool result = Physics.Raycast(this.transform.position, Vector3.down, out info, groundCheckDistance, layermask);
+            if(result && info.collider.CompareTag(Tags.Floor)) {
                 numJumps = currentJumps;
+                return true;
             }
-            return true;
         }
+
+        return false;
     }
 
     public override void Activate() { currentJumps--; }
 
     void OnTriggerEnter(Collider other) {
-        if (other.transform.CompareTag("Floor")) {
+        if (other.transform.CompareTag(Tags.Floor)) {
             currentJumps = numJumps;
         }
     }

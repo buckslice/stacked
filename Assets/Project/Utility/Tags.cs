@@ -19,6 +19,7 @@ public static class Tags {
     /// The only object which should be tagged with this tag is the root gameobject of the UI canvas tree.
     /// </summary>
     public const string CanvasRoot = "CanvasRoot";
+    public const string Floor = "Floor";
 
     public static readonly string[] tagsArray = new string[] { Player, Boss, CanvasRoot };
 

@@ -68,8 +68,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010292025714}
   - 54: {fileID: 54000012680470438}
-  - 138: {fileID: 138000011301998988}
   - 138: {fileID: 138000011464757470}
+  - 59: {fileID: 59000010563118684}
   m_Layer: 0
   m_Name: GrabbedObjectHolder
   m_TagString: Untagged
@@ -465,6 +465,38 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!59 &59000010563118684
+HingeJoint:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010942265794}
+  m_ConnectedBody: {fileID: 0}
+  m_Anchor: {x: 0, y: 0, z: 0}
+  m_Axis: {x: 0, y: 1, z: 0}
+  m_AutoConfigureConnectedAnchor: 0
+  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_UseSpring: 0
+  m_Spring:
+    spring: 0
+    damper: 0
+    targetPosition: 0
+  m_UseMotor: 0
+  m_Motor:
+    targetVelocity: 0
+    force: 0
+    freeSpin: 0
+  m_UseLimits: 0
+  m_Limits:
+    min: 0
+    max: 0
+    bounciness: 0
+    bounceMinVelocity: 0.2
+    contactDistance: 0
+  m_BreakForce: Infinity
+  m_BreakTorque: Infinity
+  m_EnableCollision: 0
+  m_EnablePreprocessing: 0
 --- !u!114 &114000010470707728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -691,7 +723,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetHolder: {fileID: 54000012680470438}
-  targetConnectingJoint: {fileID: 138000011301998988}
+  targetConnectingJoint: {fileID: 59000010563118684}
   holderConnectingJoint: {fileID: 138000011464757470}
 --- !u!114 &114000013047688542
 MonoBehaviour:
@@ -756,17 +788,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!138 &138000011301998988
-FixedJoint:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010942265794}
-  m_ConnectedBody: {fileID: 0}
-  m_BreakForce: Infinity
-  m_BreakTorque: Infinity
-  m_EnableCollision: 0
-  m_EnablePreprocessing: 0
 --- !u!138 &138000011464757470
 FixedJoint:
   m_ObjectHideFlags: 1

@@ -17,7 +17,6 @@ public class RequireStackableBelow : UntargetedAbilityConstraint {
     }
 
     public override bool isAbilityActivatible() {
-        Debug.Log((stackable.Below != null) == requiredBelowState, this);
         return (stackable.Below != null) == requiredBelowState;
     }
 

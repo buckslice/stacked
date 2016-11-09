@@ -79,7 +79,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010667845592}
-  - 114: {fileID: 114000012810939472}
+  - 114: {fileID: 114000010824901914}
   m_Layer: 17
   m_Name: SharedJump
   m_TagString: Untagged
@@ -238,6 +238,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73f1a63dea6ce94481f02408f2180ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000010824901914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012828423472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 193e1e32c094c2c458f2105b6a4b23d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impulse: {x: 0, y: 5, z: 0}
 --- !u!114 &114000011112162306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -314,20 +326,8 @@ MonoBehaviour:
   - {fileID: 114000011112162306}
   - {fileID: 114000014135220668}
   - {fileID: 114000010504641656}
-  - {fileID: 114000012810939472}
+  - {fileID: 114000010824901914}
   - {fileID: 114000014100759128}
---- !u!114 &114000012810939472
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012828423472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caa9b371ea4c7364dbe1c2f7e5ae47a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impulse: {x: 0, y: 5, z: 0}
 --- !u!114 &114000014054865788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -342,8 +342,8 @@ MonoBehaviour:
   abilityActions:
   - {fileID: 114000010276191500}
   - {fileID: 114000012267639464}
-  - {fileID: 114000012810939472}
   - {fileID: 114000010690280966}
+  - {fileID: 114000010824901914}
 --- !u!114 &114000014100759128
 MonoBehaviour:
   m_ObjectHideFlags: 1
