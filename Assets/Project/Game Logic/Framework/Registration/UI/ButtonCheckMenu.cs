@@ -52,7 +52,7 @@ public class ButtonCheckMenu : MonoBehaviour {
     }
 
     void refreshOptions () {
-        options = new MenuOption[10];
+        options = new MenuOption[3];
 
         options[readyButton] = new MenuOption("Ready (Press ", bindings.startName + ")");
         options[leaveButton] = new MenuOption("Leave (Press ", bindings.cancelName + ")");
@@ -69,13 +69,13 @@ public class ButtonCheckMenu : MonoBehaviour {
         }
         options[axisButton] = new MenuOption("Current aiming axes - ", bindingModeName);
 
-        options[3] = new MenuOption("Submit - ", bindings.submitName);
-        options[4] = new MenuOption("Cancel - ", bindings.cancelName);
-        options[5] = new MenuOption("Start - ", bindings.startName);
-        options[6] = new MenuOption("Ability 1 - ", bindings.ability1Name);
-        options[7] = new MenuOption("Ability 2 - ", bindings.ability2Name);
-        options[8] = new MenuOption("Basic Attack - ", bindings.basicAttackName);
-        options[9] = new MenuOption("Jump - ", bindings.jumpName);
+        //options[3] = new MenuOption("Submit - ", bindings.submitName);
+        //options[4] = new MenuOption("Cancel - ", bindings.cancelName);
+        //options[5] = new MenuOption("Start - ", bindings.startName);
+        //options[6] = new MenuOption("Ability 1 - ", bindings.ability1Name);
+        //options[7] = new MenuOption("Ability 2 - ", bindings.ability2Name);
+        //options[8] = new MenuOption("Basic Attack - ", bindings.basicAttackName);
+        //options[9] = new MenuOption("Jump - ", bindings.jumpName);
 	}
 	
     private void getMovement() {
@@ -153,35 +153,39 @@ public class ButtonCheckMenu : MonoBehaviour {
                 ready = true;
             }
             return;
-        } else if (currentButton == leaveButton) {
+        } 
+        else if (currentButton == leaveButton) {
             if (bindings.getCancel) {
                 PlayerRegistration.Main.removePlayer((byte)playerID);
             }
             return;
-        } else if (currentButton == axisButton) {
+        } 
+        else if (currentButton == axisButton) {
             if (bindings.GetType() == typeof(ControllerPlayerInput)) {
                 ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-                controllerInput.swapRightStickAndTriggers();
+                controllerInput.swapControllerType();
                 refreshOptions();
             }
 
-        } else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
-            ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-            controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 3), PlayerInputExtension.buttonNumbers[key], ControllerPlayerInput.InputType.KEY);
-            refreshOptions();
+        } 
+        //else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
+        //    ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
+        //    controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 3), PlayerInputExtension.buttonNumbers[key], ControllerPlayerInput.InputType.KEY);
+        //    refreshOptions();
 
-        }
+        //}
     }
 
     private void onInput(string axis) {
         if (currentButton == readyButton || currentButton == leaveButton || currentButton == axisButton) {
             return;
-        } else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
+        } 
+        //else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
 
-            ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-            controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 3), PlayerInputExtension.axisNumbers[axis], ControllerPlayerInput.InputType.AXIS);
-            refreshOptions();
-        }
+        //    ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
+        //    controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 3), PlayerInputExtension.axisNumbers[axis], ControllerPlayerInput.InputType.AXIS);
+        //    refreshOptions();
+        //}
     }
 
     private void drawMenu() {

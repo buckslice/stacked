@@ -322,11 +322,11 @@ public static class PlayerInputExtension
         {KeyCode.Joystick3Button8, "Button 8"},
         {KeyCode.Joystick4Button8, "Button 8"},
 
-        {KeyCode.JoystickButton9, "Button 9"},
-        {KeyCode.Joystick1Button9, "Button 9"},
-        {KeyCode.Joystick2Button9, "Button 9"},
-        {KeyCode.Joystick3Button9, "Button 9"},
-        {KeyCode.Joystick4Button9, "Button 9"},
+        {KeyCode.JoystickButton9, "STRT"},
+        {KeyCode.Joystick1Button9, "STRT"},
+        {KeyCode.Joystick2Button9, "STRT"},
+        {KeyCode.Joystick3Button9, "STRT"},
+        {KeyCode.Joystick4Button9, "STRT"},
 
         {KeyCode.JoystickButton10, "Button 10"},
         {KeyCode.Joystick1Button10, "Button 10"},

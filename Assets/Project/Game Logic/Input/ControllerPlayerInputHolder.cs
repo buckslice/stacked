@@ -372,11 +372,20 @@ public class ControllerPlayerInput : IPlayerInput {
 
 
     //TODO check if other axes are currently bound, and bind the other axes to them
-    public void swapRightStickAndTriggers() {
+    public void swapControllerType() {
         if (currentAxisType == AxisType.XBOX) {
             currentAxisType = AxisType.PS4;
             horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis3);
             verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis6);
+
+            InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(getInputByJoystickNumber(7));
+            InputBindings[(int)Inputs.SUBMIT] = new Key(getInputByJoystickNumber(1));
+            InputBindings[(int)Inputs.CANCEL] = new Key(getInputByJoystickNumber(2));
+            InputBindings[(int)Inputs.START] = new Key(getInputByJoystickNumber(9));
+            InputBindings[(int)Inputs.ABILITY1] = new Key(getInputByJoystickNumber(4));
+            InputBindings[(int)Inputs.ABILITY2] = new Key(getInputByJoystickNumber(5));
+            InputBindings[(int)Inputs.JUMP] = new Key(getInputByJoystickNumber(6));
+
             bindableAxes = new string[] { };
 
         } else {
@@ -384,6 +393,15 @@ public class ControllerPlayerInput : IPlayerInput {
             currentAxisType = AxisType.XBOX;
             horizontalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis4);
             verticalAimingAxis = getAxisByJoystickNumber((int)Tags.Input.axes.axis5);
+            InputBindings[(int)Inputs.BASIC_ATTACK] = new Key(getAxisByJoystickNumber((int)Tags.Input.axes.axis10));
+            InputBindings[(int)Inputs.SUBMIT] = new Key(getInputByJoystickNumber(0));
+            InputBindings[(int)Inputs.CANCEL] = new Key(getInputByJoystickNumber(1));
+            InputBindings[(int)Inputs.START] = new Key(getInputByJoystickNumber(7));
+            InputBindings[(int)Inputs.ABILITY1] = new Key(getInputByJoystickNumber(4));
+            InputBindings[(int)Inputs.ABILITY2] = new Key(getInputByJoystickNumber(5));
+            InputBindings[(int)Inputs.JUMP] = new Key(getAxisByJoystickNumber((int)Tags.Input.axes.axis9));
+
+
             bindableAxes = new string[] { getAxisByJoystickNumber((int)Tags.Input.axes.axis10), getAxisByJoystickNumber((int)Tags.Input.axes.axis9), getAxisByJoystickNumber((int)Tags.Input.axes.axis6), getAxisByJoystickNumber((int)Tags.Input.axes.axis3) };
         }
     }

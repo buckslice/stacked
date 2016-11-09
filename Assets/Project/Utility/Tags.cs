@@ -59,6 +59,7 @@ public static class Tags {
             axis4,
             axis5,
             axis6,
+            axis7,
             axis9,
             axis10
         };
