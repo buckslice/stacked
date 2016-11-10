@@ -10,8 +10,11 @@ public class Health : MonoBehaviour {
 
     public delegate void HealthChanged();
 
+    public delegate void OnDeath();
+
     public event OnDamage onDamage = delegate { };
     public event HealthChanged onHealthChanged = delegate { };
+    public event OnDeath onDeath = delegate { };
 
     PhotonView view;
 
@@ -32,9 +35,9 @@ public class Health : MonoBehaviour {
 
         onHealthChanged();
 
-        if (_health <= 0 && view.isMine) {
+        if (_health <= 0) {
             //Don't use PhotonNetwork.Destroy, since we didn't use PhotonNetwork.Instantiate()
-            SendRPCDeath();
+            onDeath();
         }
 
         return healthBefore - _health;
@@ -87,14 +90,5 @@ public class Health : MonoBehaviour {
 
     public void Kill() {
         setHealth(0);
-    }
-
-    void SendRPCDeath() {
-        view.RPC("RPCDeath", PhotonTargets.AllViaServer);
-    }
-
-    [PunRPC]
-    public void RPCDeath() {
-        Destroy(this.gameObject);
     }
 }
