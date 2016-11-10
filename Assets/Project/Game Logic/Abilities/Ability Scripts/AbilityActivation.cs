@@ -118,7 +118,8 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
         bool send = false;
         foreach (AbstractAbilityAction abilityAction in abilityActions) {
             send |= abilityAction.Activate(stream);
-            Assert.IsTrue(send || (stream.Count == 0), string.Format("Data written to stream but not flagged to be sent. {0}", abilityAction));
+            //Assert.IsTrue(send || (stream.Count == 0), string.Format("Data written to stream but not flagged to be sent. {0}", abilityAction));
+            //ConditionalActivations will always write data, even if it doesn't need to be sent.
         }
 
         if (send) {

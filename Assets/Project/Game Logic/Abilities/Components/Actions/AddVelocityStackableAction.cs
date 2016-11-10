@@ -14,7 +14,7 @@ public class AddVelocityStackableAction : AbstractAbilityAction {
     }
 
     public override bool Activate(PhotonStream stream) {
-        foreach (Rigidbody rigid in stackable) {
+        foreach (Rigidbody rigid in stackable.Rigidbodies()) {
             Debug.Log(rigid);
             rigid.velocity += impulse;
         }

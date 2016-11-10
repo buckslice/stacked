@@ -5,7 +5,11 @@ using System.Collections.Generic;
 
 [RequireComponent(typeof(IMovement))] //not strictly required, but exists in all use cases I can think of
 [RequireComponent(typeof(Rigidbody))]
-public class Stackable : MonoBehaviour, IEnumerable<Rigidbody> {
+public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
+
+    public delegate void StackableChangedEvent();
+
+    public event StackableChangedEvent changeEvent = delegate { };
 
     [SerializeField]
     protected Rigidbody targetHolder;
@@ -34,6 +38,22 @@ public class Stackable : MonoBehaviour, IEnumerable<Rigidbody> {
         connectedOffset = transform.localPosition;
     }
 
+    void changeEventAll() {
+        Stackable iteration = this;
+        while (iteration.below != null) {
+            iteration = iteration.below;
+            iteration.changeEvent();
+        }
+
+        iteration = this;
+        while (iteration.above != null) {
+            iteration = iteration.above;
+            iteration.changeEvent();
+        }
+
+        this.changeEvent();
+    }
+
     public void Grab(Stackable target) {
         Assert.IsTrue(target.below == null);
         
@@ -58,6 +78,8 @@ public class Stackable : MonoBehaviour, IEnumerable<Rigidbody> {
 
         target.below = this;
         above = target;
+
+        changeEventAll();
     }
 
     void DisconnectGrabbed() {
@@ -97,6 +119,14 @@ public class Stackable : MonoBehaviour, IEnumerable<Rigidbody> {
 
         if (targetAbove != null && targetBelow != null) {
             targetBelow.Grab(targetAbove);
+        } else {
+            changeEvent();
+            if (targetBelow != null) {
+                targetBelow.changeEventAll();
+            }
+            if (targetAbove != null) {
+                targetAbove.changeEventAll();
+            }
         }
 
         return true;
@@ -122,14 +152,14 @@ public class Stackable : MonoBehaviour, IEnumerable<Rigidbody> {
         }
     }
 
-    public class StackableEnumerator : IEnumerator<Rigidbody> {
+    public class StackableRigidbodyEnumerator : IEnumerator<Rigidbody> {
 
         Stackable originalTarget;
         Stackable next;
         bool hasOutputSelf;
         bool started;
 
-        public StackableEnumerator(Stackable target) {
+        public StackableRigidbodyEnumerator(Stackable target) {
             originalTarget = target;
             Reset();
         }
@@ -167,7 +197,53 @@ public class Stackable : MonoBehaviour, IEnumerable<Rigidbody> {
         }
     }
 
-    public IEnumerator<Rigidbody> GetEnumerator() {
+    public class StackableEnumerator : IEnumerator<Stackable> {
+
+        Stackable originalTarget;
+        Stackable next;
+        bool started;
+
+        public StackableEnumerator(Stackable target) {
+            originalTarget = target;
+            Reset();
+        }
+
+        public Stackable Current {
+            get { return next; }
+        }
+
+        void System.IDisposable.Dispose() { }
+
+        object IEnumerator.Current {
+            get { return Current; }
+        }
+
+        bool IEnumerator.MoveNext() {
+            if (!started) {
+                started = true;
+                return true;
+            }
+
+            next = next.above;
+            return next != null;
+        }
+
+        public void Reset() {
+            next = originalTarget.bottommost;
+            started = false;
+        }
+    }
+
+    public List<Rigidbody> Rigidbodies() {
+        List<Rigidbody> result = new List<Rigidbody>();
+        foreach (Stackable stackable in this) {
+            result.Add(stackable.targetHolder);
+            result.Add(stackable.selfRigidbody);
+        }
+        return result;
+    }
+
+    public IEnumerator<Stackable> GetEnumerator() {
         return new StackableEnumerator(this);
     }
 

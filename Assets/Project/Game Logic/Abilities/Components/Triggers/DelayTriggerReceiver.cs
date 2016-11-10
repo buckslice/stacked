@@ -3,6 +3,9 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// sends an activation to another trigger, after a delay.
+/// </summary>
 public class DelayTriggerReceiver : AbstractAbilityAction {
 
     [SerializeField]

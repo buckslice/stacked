@@ -19,9 +19,9 @@ public class MultipleAbilityActivationHolder : MonoBehaviour {
 
 	void Start () {
         //assert that we actually need this script
-        Assert.IsTrue(GetComponentsInChildren<AbilityActivation>().Length >= 2 || GetComponentsInChildren<TargetedAbilityActivation>().Length >= 2 || assortedOtherActivations.Length > 0);
+        Assert.IsTrue(GetComponentsInChildren<AbilityActivation>(true).Length >= 2 || GetComponentsInChildren<TargetedAbilityActivation>(true).Length >= 2 || assortedOtherActivations.Length > 0);
 
         //assert that all IAbilityActivations are contained by this script
-        Assert.IsTrue(abilityActivations.Length + targetedAbilityActivation .Length + assortedOtherActivations.Length == GetComponentsInChildren<IAbilityActivation>().Length);
+        Assert.IsTrue(abilityActivations.Length + targetedAbilityActivation.Length + assortedOtherActivations.Length == GetComponentsInChildren<IAbilityActivation>(true).Length);
 	}
 }

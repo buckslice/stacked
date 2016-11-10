@@ -27,7 +27,6 @@ public class ConditionalAbilityActivation : AbstractAbilityAction, IAbilityConst
 
         if (stream.isWriting) {
             foreach (UntargetedAbilityConstraint constraint in constraints) {
-                Debug.Log(constraint);
                 constraintsSatisfied &= constraint.isAbilityActivatible();
             }
             stream.SendNext(constraintsSatisfied);
@@ -35,12 +34,13 @@ public class ConditionalAbilityActivation : AbstractAbilityAction, IAbilityConst
             constraintsSatisfied = (bool)stream.ReceiveNext();
         }
 
+        bool send = false;
         foreach (AbstractAbilityAction abilityAction in constraintsSatisfied ? successAbilityActions : failAbilityActions) {
-            abilityAction.Activate(stream);
+            send |= abilityAction.Activate(stream);
         }
 
         //for now, always write and send. If necessary in the future, create a second PhotonStream to test if there is going to be any data needed to be sent.
-        return true;
+        return send;
     }
 
     void IAbilityConstrained.AddConstraint(UntargetedAbilityConstraint toAdd) {
