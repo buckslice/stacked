@@ -81,7 +81,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4000010004322054
 Transform:
   m_ObjectHideFlags: 1
@@ -282,6 +282,7 @@ MonoBehaviour:
   - {fileID: 114000012129481906}
   - {fileID: 114000010817242018}
   targetedAbilityActivation: []
+  assortedOtherActivations: []
 --- !u!114 &114000013561636554
 MonoBehaviour:
   m_ObjectHideFlags: 1

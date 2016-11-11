@@ -95,7 +95,7 @@ public class BossAggro : MonoBehaviour, IMovement {
             return;
         }
 
-        if (GetAggro(top) > GetAggro(aggroHolder) + aggroToSurpass) {
+        if (Player.GetPlayerByID(aggroHolder).dead || GetAggro(top) > GetAggro(aggroHolder) + aggroToSurpass) {
             aggroHolder = top;  // a player has surpassed current aggro holder by the threshold, so pull aggro
         }
     }
@@ -104,6 +104,7 @@ public class BossAggro : MonoBehaviour, IMovement {
         int id = -1;
         float aggro = -1.0f;
         foreach (Player p in Player.Players) {
+            if (p.dead) { continue; }
             float a = GetAggro(p.PlayerID);
             if (a > aggro) {
                 aggro = a;

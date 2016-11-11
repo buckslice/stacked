@@ -13,7 +13,7 @@ public class CheckGameEnd : MonoBehaviour {
     protected string gameVictoryPopupSceneName = Tags.Scenes.VictoryPopup;
 
     public void Update() {
-        if (Player.Players.Count == 0) {
+        if (Player.AllPlayersDead()) {
             SceneManager.LoadScene(gameDefeatPopupSceneName, LoadSceneMode.Additive);
             Destroy(this);
         } else if (Boss.Bosses.Count == 0) {

@@ -77,7 +77,9 @@ public class CameraController : MonoBehaviour {
     void PopulateTrackingList() {
         trackingList.Clear();
         foreach (Player player in Player.Players) {
-            trackingList.Add(player.Holder.transform.position);
+            if (!player.dead) {
+                trackingList.Add(player.Holder.transform.position);
+            }
         }
         if (boss != null) {
             trackingList.Add(boss.position);

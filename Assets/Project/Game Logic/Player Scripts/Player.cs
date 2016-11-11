@@ -20,6 +20,8 @@ public class Player : AbstractDamageTracker, IPlayerID {
     protected int playerID;
     public int PlayerID { get { return playerID; } }
 
+    public bool dead = false;
+
     static List<Player> playersList = new List<Player>();
     static Dictionary<int, int> playerIndices = new Dictionary<int, int>(); // maps playerID to player's index in the list
     public static List<Player> Players { get { return playersList; } }
@@ -74,6 +76,16 @@ public class Player : AbstractDamageTracker, IPlayerID {
         } else {
             return null;
         }
+    }
+
+    public static bool AllPlayersDead() {
+        foreach(Player player in playersList) {
+            if (!player.dead) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     public static readonly Color[] playerColoring = { Color.red, Color.blue, Color.green, Color.yellow };

@@ -59,6 +59,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000010921779880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012648552706}
+  m_Layer: 13
+  m_Name: Abilities
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000010942265794
 GameObject:
   m_ObjectHideFlags: 0
@@ -122,7 +137,9 @@ GameObject:
   - 114: {fileID: 114000010768180734}
   - 114: {fileID: 114000011992759020}
   - 114: {fileID: 114000014272793304}
-  - 114: {fileID: 114000011541129136}
+  - 114: {fileID: 114000012148692944}
+  - 114: {fileID: 114000012541213606}
+  - 114: {fileID: 114000012545875036}
   m_Layer: 13
   m_Name: DeathAbility
   m_TagString: Untagged
@@ -276,6 +293,7 @@ Transform:
   - {fileID: 4000010722053186}
   - {fileID: 4000010292025714}
   - {fileID: 4000012472006442}
+  - {fileID: 4000012648552706}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000012014954638
@@ -305,6 +323,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000011678190840}
   m_RootOrder: 2
+--- !u!4 &4000012648552706
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010921779880}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000011678190840}
+  m_RootOrder: 3
 --- !u!4 &4000013132483600
 Transform:
   m_ObjectHideFlags: 1
@@ -621,7 +652,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000014272793304}
-  - {fileID: 114000011541129136}
+  - {fileID: 114000012148692944}
+  - {fileID: 114000012541213606}
+  - {fileID: 114000012545875036}
 --- !u!114 &114000010790980418
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -693,17 +726,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114000011541129136
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012883233424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb95b9e14bcb449418c578001093c6cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011992759020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -732,6 +754,19 @@ MonoBehaviour:
   - {fileID: 23000012213748954}
   - {fileID: 212000010048160716}
   tintedImages: []
+--- !u!114 &114000012148692944
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012883233424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dce846d2b17c464692a0c4ac2bec7b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1000010921779880}
+  outcomeState: 0
 --- !u!114 &114000012287730970
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -781,6 +816,30 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114000012541213606
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012883233424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dce846d2b17c464692a0c4ac2bec7b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1000011357093268}
+  outcomeState: 0
+--- !u!114 &114000012545875036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012883233424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 955314a724f497c4abc90b46e2147336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012755470936
 MonoBehaviour:
   m_ObjectHideFlags: 1
