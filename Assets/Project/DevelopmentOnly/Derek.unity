@@ -644,6 +644,52 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
+--- !u!1 &1257912977
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1257912979}
+  - 114: {fileID: 1257912978}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1257912978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257912977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 2
+  playerData:
+    basicAttacks: 
+    firstAbilities: 
+    secondAbilities: 
+    abilities: 
+--- !u!4 &1257912979
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257912977}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.7848489, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 12
 --- !u!1 &1639919830
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,11 +792,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
-        type: 2}
-      propertyPath: bossData.abilities.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 4000010670690832, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -782,31 +823,6 @@ Prefab:
     - target: {fileID: 4000010670690832, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
       propertyPath: m_RootOrder
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
-        type: 2}
-      propertyPath: bossData.abilities.Array.data[2]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
-        type: 2}
-      propertyPath: bossData.abilities.Array.data[3]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
-        type: 2}
-      propertyPath: bossData.abilities.Array.data[4]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
-        type: 2}
-      propertyPath: bossData.abilities.Array.data[1]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
-        type: 2}
-      propertyPath: bossData.abilities.Array.data[0]
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
@@ -1257,8 +1273,8 @@ MonoBehaviour:
   playerID: 3
   playerData:
     basicAttacks: 
-    firstAbilities: 0f
-    secondAbilities: 
+    firstAbilities: 0b
+    secondAbilities: 0d
     abilities: 1011
 --- !u!4 &2137640759
 Transform:

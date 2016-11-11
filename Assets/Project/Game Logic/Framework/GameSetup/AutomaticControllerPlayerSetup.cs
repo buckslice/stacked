@@ -8,13 +8,11 @@ using System.Collections.Generic;
 /// </summary>
 public class AutomaticControllerPlayerSetup : PlayerSetup {
     protected override void Awake() {
-
-        if (R41DNetworking.Main.NetworkingMode == R41DNetworkingMode.ONLINE) {
+        if (R41DNetworking.Main != null && R41DNetworking.Main.NetworkingMode == R41DNetworkingMode.ONLINE) {
             DestroyImmediate(this.transform.root.gameObject);
             return;
         }
 
-        base.Awake();
         PlayerSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<PlayerSetup>();
         foreach (PlayerSetup otherPlayerSetup in otherPlayerSetups) {
             if (this != otherPlayerSetup && !(otherPlayerSetup is AutomaticControllerPlayerSetup) && !(otherPlayerSetup is AutomaticKeyboardPlayerSetup)) {
@@ -23,6 +21,9 @@ public class AutomaticControllerPlayerSetup : PlayerSetup {
             }
         }
 
+        base.Awake();
+
+        
         //I have no idea why this creates a null pointer exception when there exists more than one AutomaticSetup in the scene. Stuff still works even when the exception is thrown.
         inputBindings = new ControllerPlayerInput();
     }

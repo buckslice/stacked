@@ -26,6 +26,9 @@ public static class IDamageHolderExtension {
 public interface IDamageTracker : IDamageHolder {
     float DamageDealt { get; }
     void AddDamageDealt(float damage);
+
+    float HealingDone { get; }
+    void AddHealingDone(float healing);
 }
 
 [System.Serializable]
@@ -35,6 +38,12 @@ public abstract class AbstractDamageTracker : IDamageTracker {
     protected float damageDealt = 0;
     public float DamageDealt { get { return damageDealt; } }
     public virtual void AddDamageDealt(float damage) { damageDealt += damage; }
+
+    [ReadOnly]
+    [SerializeField]
+    protected float healingDone = 0;
+    public float HealingDone { get { return healingDone; } }
+    public virtual void AddHealingDone(float healing) { healingDone += healing; }
 
     public IDamageTracker DamageTracker { get { return this; } }
 

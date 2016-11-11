@@ -32,8 +32,6 @@ public class AbilityUI : MonoBehaviour, IAbilityDisplayHolder {
         foreach (IAbilityDisplay display in displays) {
             display.Initialize(this);
         }
-
-        PlayerInputHolder holder = GetComponentInParent<PlayerInputHolder>();
 	}
 
     void Update() {

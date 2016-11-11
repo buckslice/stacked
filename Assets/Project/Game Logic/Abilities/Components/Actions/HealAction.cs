@@ -6,13 +6,13 @@ using System.Collections.Generic;
 /// <summary>
 /// TODO : Distinguish between damage and healing
 /// </summary>
-public class DamageAction : TypedTargetedAbilityAction {
+public class HealAction : TypedTargetedAbilityAction {
 
     IDamageHolder trackerReference;
     public IDamageHolder TrackerReference { get { return trackerReference; } set { trackerReference = value; } }
 
     [SerializeField]
-    protected Damage damage = new Damage(100, Damage.DamageType.MAGICAL);
+    protected float healing = 100;
 
     protected override void Start() {
         base.Start();
@@ -29,7 +29,7 @@ public class DamageAction : TypedTargetedAbilityAction {
             }
         }
 
-        
+
         Assert.IsNotNull(trackerReference);
     }
 
@@ -42,13 +42,13 @@ public class DamageAction : TypedTargetedAbilityAction {
             Damageable damageable = target.GetComponent<Damageable>();
             if (damageable == null) { return false; }
 
-            float trueDamage = damageable.Damage(damage, trackerReference);
-            stream.SendNext(trueDamage);
-        } else {
-            float trueDamage = (float)stream.ReceiveNext();
-            Damage ourDamage = new Damage(trueDamage, damage.Type);
+            float trueHealing = damageable.Heal(healing, trackerReference);
+            stream.SendNext(trueHealing);
 
-            target.GetComponentInChildren<Damageable>().Damage(ourDamage, trackerReference, trueDamage: true);
+        } else {
+
+            float trueHealing = (float)stream.ReceiveNext();
+            target.GetComponentInChildren<Damageable>().Heal(trueHealing, trackerReference);
         }
         return true;
     }

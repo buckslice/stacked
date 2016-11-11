@@ -110,4 +110,23 @@ public class Damageable : MonoBehaviour {
         playerReference.AddDamageDealt(result);
         return result;
     }
+
+    public float Heal(float incoming, IDamageHolder holderReference) {
+        IDamageTracker rootDamageReference = holderReference.GetRootDamageTracker();
+        float healingDone = Heal(incoming, rootDamageReference);
+        EventLog.Log(this, "{0} healed {1} damage on {2} using {3}", rootDamageReference, healingDone, selfTracker, holderReference);
+        return healingDone;
+    }
+
+    public float Heal(float incoming, Player playerReference) {
+        float actualHealingAmount = health.Heal(incoming, playerReference);
+        playerReference.AddHealingDone(actualHealingAmount);
+        return actualHealingAmount;
+    }
+
+    public float Heal(float incoming, IDamageTracker trackerReference) {
+        float actualHealingAmount = health.Heal(incoming, trackerReference);
+        trackerReference.AddHealingDone(actualHealingAmount);
+        return actualHealingAmount;
+    }
 }

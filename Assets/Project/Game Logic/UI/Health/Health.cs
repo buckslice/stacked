@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -7,16 +8,16 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour {
 
     public delegate void OnDamage(float amount, int playerID);
+    public delegate void OnHeal(float amount, int playerID);
 
     public delegate void HealthChanged();
 
     public delegate void OnDeath();
 
     public event OnDamage onDamage = delegate { };
+    public event OnDamage onHeal = delegate { };
     public event HealthChanged onHealthChanged = delegate { };
     public event OnDeath onDeath = delegate { };
-
-    PhotonView view;
 
     [SerializeField]
     protected float _health = 100f;     // current health
@@ -49,26 +50,28 @@ public class Health : MonoBehaviour {
 
     void Awake() {
         maxHealth = health;
-        view = GetComponent<PhotonView>();
     }
 
     public virtual float Damage(float amount) {
+        Assert.IsTrue(amount >= 0);
         return setHealth(_health - amount);
     }
 
     public float Damage(float amount, int playerID)
     {
+        Assert.IsTrue(amount >= 0);
         float result = Damage(amount);
         onDamage(amount, playerID);
         return result;
     }
 
-    public float Damage(float amount, Player playerReference)
-    {
+    public float Damage(float amount, Player playerReference) {
+        Assert.IsTrue(amount >= 0);
         return Damage(amount, playerReference.PlayerID);
     }
 
     public float Damage(float amount, IDamageTracker trackerReference) {
+        Assert.IsTrue(amount >= 0);
         if (trackerReference is Player) {
             return Damage(amount, (Player)trackerReference);
         } else {
@@ -76,8 +79,30 @@ public class Health : MonoBehaviour {
         }
     }
 
-    public float Heal(float amount) {
-        return -Damage(-amount);
+    public virtual float Heal(float amount) {
+        Assert.IsTrue(amount >= 0);
+        return setHealth(_health + amount);
+    }
+
+    public float Heal(float amount, int playerID) {
+        Assert.IsTrue(amount >= 0);
+        float result = Heal(amount);
+        onHeal(amount, playerID);
+        return result;
+    }
+
+    public float Heal(float amount, Player playerReference) {
+        Assert.IsTrue(amount >= 0);
+        return Heal(amount, playerReference.PlayerID);
+    }
+
+    public float Heal(float amount, IDamageTracker trackerReference) {
+        Assert.IsTrue(amount >= 0);
+        if (trackerReference is Player) {
+            return Heal(amount, (Player)trackerReference);
+        } else {
+            return Heal(amount);
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info) {
