@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class CameraController : MonoBehaviour {
 
     public Transform boss { get; set; }
+
+    public bool shouldRotate = true;
     
     private readonly Vector3 padding = Vector3.one * 4.0f;
 
@@ -47,7 +49,7 @@ public class CameraController : MonoBehaviour {
         // addded some magic variables here to also tweak camera height a bit
         float camFollowDist = boundingSphere.radius * 1.5f + 5.0f;
         float heightChange = boundingSphere.radius * 0.6f;
-        camFollowDist -= heightChange * 0.9f;
+        camFollowDist -= heightChange * 0.5f;
         
         if(camFollowDist < minFollowDistance) {
             camFollowDist = minFollowDistance;
@@ -57,11 +59,15 @@ public class CameraController : MonoBehaviour {
         Vector3 targetPos = transform.position + dir * (camFollowDist - xzDist);
         targetPos.y = startY + heightChange;
 
-        // find best local rotation (hill climbing)
-        targetPos = FindLocalBestRotation(targetPos, boundsCenter);
+        if (shouldRotate) {
+            // find best local rotation (hill climbing)
+            targetPos = FindLocalBestRotation(targetPos, boundsCenter);
+        }
+        // if someone moves toward camera then scoot it back
+        // if people running far on the sides then zoom out
 
         // set camera position using smoothdamp
-        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref camVel, 1.0f);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref camVel, 200.0f * Time.deltaTime);
 
         // lastly look at center of bounds
         transform.LookAt(boundsCenter);
