@@ -12,8 +12,7 @@ using System.IO;
 public class PlayerSetup : MonoBehaviour {
 
     [System.Serializable]
-    public class PlayerSetupData
-    {
+    public class PlayerSetupData {
         [SerializeField]
         [Tooltip("These abilities will be rebound as a basic attack")]
         public PlayerSetupNetworkedData.AbilityId[] basicAttacks = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.FIREBALL };
@@ -55,18 +54,21 @@ public class PlayerSetup : MonoBehaviour {
     [SerializeField]
     public PlayerSetupData playerData;
 
-    private IPlayerInput input = null;
-    public IPlayerInput inputBindings { set { input = value; } }
+    //private IPlayerInput input = null;
+    //public IPlayerInput inputBindings { set { input = value; } }
+
+    public IPlayerInput inputBindings { set; private get; }
+
+    public bool AIPlayer = false;
 
     //additional player data goes here
 
-    protected virtual void Awake () {
+    protected virtual void Awake() {
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
         DontDestroyOnLoad(this.transform.root.gameObject);
-	}
+    }
 
-    void OnDestroy()
-    {
+    void OnDestroy() {
         SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
     }
 
@@ -75,16 +77,21 @@ public class PlayerSetup : MonoBehaviour {
     /// </summary>
     /// <param name="inputBindings"></param>
     /// <param name="playerNumber"></param>
-    public void Initalize(IPlayerInput inputBindings, int playerNumber)
-    {
+    public void Initalize(IPlayerInput inputBindings, int playerNumber) {
         this.inputBindings = inputBindings;
         this.playerID = playerNumber;
     }
 
-    void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
-    {
+    void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1) {
         //TODO: maybe make sure it's the right scene?
-        PlayerSetupNetworkedData.Main.CreatePlayer((byte)playerID, input, playerData);
+        GameObject pgo;
+
+        if (AIPlayer) {
+            pgo = PlayerSetupNetworkedData.Main.CreateAIPlayer((byte)playerID, playerData);
+        } else {
+            pgo = PlayerSetupNetworkedData.Main.CreatePlayer((byte)playerID, inputBindings, playerData);
+        }
+
         Destroy(this.transform.root.gameObject);
         //player was created, our job is done. May want to change this so that the player's spawning data is persisted.
     }

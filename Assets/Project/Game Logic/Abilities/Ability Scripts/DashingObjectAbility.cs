@@ -83,7 +83,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
     void Destroy() {
         if (active) {
             targetMovement.MovementInputEnabled.RemoveModifier(false);
-            targetMovement.setVelocity((destinationPosition - startPosition).normalized);
+            targetMovement.SetVelocity((destinationPosition - startPosition).normalized);
             active = false;
         }
 

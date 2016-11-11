@@ -145,9 +145,9 @@ public class BossAggro : MonoBehaviour, IMovement {
             agent.ResetPath();
         }
     }
-    public void setVelocity(Vector3 worldDirectionNormalized) { rigid.velocity = worldDirectionNormalized * agent.speed; }
+    public void SetVelocity(Vector3 worldDirectionNormalized) { rigid.velocity = worldDirectionNormalized * agent.speed; }
 
-    public Vector3 currentMovement() {
+    public Vector3 CurrentMovement() {
         return agent.desiredVelocity;
     }
 }

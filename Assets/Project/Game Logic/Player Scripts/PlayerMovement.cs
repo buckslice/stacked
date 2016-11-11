@@ -9,13 +9,13 @@ public interface IMovement {
     AllBoolStat ControlEnabled { get; }
     AllBoolStat MovementInputEnabled { get; }
     void HaltMovement();
-    void setVelocity(Vector3 worldDirectionNormalized);
+    void SetVelocity(Vector3 worldDirectionNormalized);
 
     /// <summary>
     /// Returns the current movement direction.
     /// </summary>
     /// <returns></returns>
-    Vector3 currentMovement();
+    Vector3 CurrentMovement();
 }
 
 /// <summary>
@@ -138,13 +138,13 @@ public class PlayerMovement : MonoBehaviour, IMovement
         }
     }
 
-    public void setVelocity(Vector3 worldDirectionNormalized)
+    public void SetVelocity(Vector3 worldDirectionNormalized)
     {
         Assert.AreApproximatelyEqual(worldDirectionNormalized.y, 0);
         rigid.velocity = speed * worldDirectionNormalized;
     }
 
-    public Vector3 currentMovement() {
+    public Vector3 CurrentMovement() {
         if (!view.isMine) {
             return nextTargetPosition.data - previousTargetPosition.data;
 

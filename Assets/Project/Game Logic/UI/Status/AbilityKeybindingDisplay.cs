@@ -10,7 +10,8 @@ public class AbilityKeybindingDisplay : MonoBehaviour {
     [SerializeField]
     protected Text text;
 
-	void Update () {
+
+	void Update () {    // only run once as third activation function
         Assert.IsNotNull(text);
         IAbilityDisplay display = GetComponent<IAbilityDisplay>();
 
@@ -18,6 +19,7 @@ public class AbilityKeybindingDisplay : MonoBehaviour {
         if (inputTrigger == null || inputTrigger.PlayerInput == null) {
             text.text = "";
             this.enabled = false;
+            return;
         }
 
         switch (inputTrigger.Binding) {

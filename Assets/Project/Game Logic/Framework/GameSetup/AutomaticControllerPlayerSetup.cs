@@ -8,6 +8,7 @@ using System.Collections.Generic;
 /// </summary>
 public class AutomaticControllerPlayerSetup : PlayerSetup {
     protected override void Awake() {
+
         if (R41DNetworking.Main != null && R41DNetworking.Main.NetworkingMode == R41DNetworkingMode.ONLINE) {
             DestroyImmediate(this.transform.root.gameObject);
             return;
