@@ -95,7 +95,7 @@ public class Health : MonoBehaviour {
 
     public virtual float Heal(float amount) {
         Assert.IsTrue(amount >= 0);
-        return setHealth(_health + amount);
+        return SetHealth(_health + amount);
     }
 
     public float Heal(float amount, int playerID) {

@@ -29,6 +29,7 @@ public class StackBuff : MonoBehaviour, IDisabledStart {
             }
         }
 
+        //tracker can be null if the scene is ending, which throws a null pointer exception. Doesn't particularly matter.
         tracker.UpdateTargets(newSet);
     }
 

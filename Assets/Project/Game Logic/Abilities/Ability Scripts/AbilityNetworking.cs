@@ -119,16 +119,16 @@ public class AbilityNetworking : AbstractActivationNetworking {
             }
         } else {
 
-            Assert.IsTrue(ability.GetComponentsInChildren<AbilityActivation>().Length <= 1);
-            Assert.IsTrue(ability.GetComponentsInChildren<TargetedAbilityActivation>().Length <= 1);
-            Assert.IsTrue(ability.GetComponentsInChildren<IAbilityActivation>().Length > 0);
+            Assert.IsTrue(ability.GetComponentsInChildren<AbilityActivation>(true).Length <= 1);
+            Assert.IsTrue(ability.GetComponentsInChildren<TargetedAbilityActivation>(true).Length <= 1);
+            Assert.IsTrue(ability.GetComponentsInChildren<IAbilityActivation>(true).Length > 0);
 
-            AbilityActivation untargetedActivation = ability.GetComponentInChildren<AbilityActivation>();
+            AbilityActivation untargetedActivation = ability.GetComponentInChildren<AbilityActivation>(true);
             if (untargetedActivation != null) {
                 AddNetworkedAbility(untargetedActivation);
             }
 
-            TargetedAbilityActivation targetedActivation = ability.GetComponentInChildren<TargetedAbilityActivation>();
+            TargetedAbilityActivation targetedActivation = ability.GetComponentInChildren<TargetedAbilityActivation>(true);
             if (targetedActivation != null) {
                 AddNetworkedAbility(targetedActivation);
             }

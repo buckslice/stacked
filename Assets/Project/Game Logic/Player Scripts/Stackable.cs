@@ -152,6 +152,8 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
         }
     }
 
+    public bool Stacked { get { return above != null || below != null; } }
+
     public class StackableRigidbodyEnumerator : IEnumerator<Rigidbody> {
 
         Stackable originalTarget;

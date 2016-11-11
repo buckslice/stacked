@@ -83,17 +83,18 @@ public class PlayerSetup : MonoBehaviour {
     }
 
     void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1) {
-        //TODO: maybe make sure it's the right scene?
-        GameObject pgo;
+        //maybe make sure it's the right scene (or at least not a menu scene)
+        if (arg0.name == Tags.Scenes.BossSelect || arg0.name == Tags.Scenes.CharacterSelect || arg0.name == Tags.Scenes.MainMenu
+            || arg0.name == Tags.Scenes.Options || arg0.name == Tags.Scenes.PlayerRegistration) { return; }
 
         if (AIPlayer) {
-            pgo = PlayerSetupNetworkedData.Main.CreateAIPlayer((byte)playerID, playerData);
+            PlayerSetupNetworkedData.Main.CreateAIPlayer((byte)playerID, playerData);
         } else {
-            pgo = PlayerSetupNetworkedData.Main.CreatePlayer((byte)playerID, inputBindings, playerData);
+            PlayerSetupNetworkedData.Main.CreatePlayer((byte)playerID, inputBindings, playerData);
         }
 
+        //TODO: move destruction to game end screens. We'll only destroy if we're going back to char select and not restarting the fight.
         Destroy(this.transform.root.gameObject);
-        //player was created, our job is done. May want to change this so that the player's spawning data is persisted.
     }
 
 }

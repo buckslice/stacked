@@ -17,14 +17,17 @@ public class BuffTrigger : AbstractAbilityAction, ITargetedAbilityTrigger {
     public event TargetedTrigger targetedAbilityTriggerEvent = (target) => { };
 
     protected override void Awake() {
-        base.Awake();
+        //base.Awake(); //remove call to base.Awake to disable that we're being activated. We'll probably be on a child gameObject to the activation.
         tracker = GetComponent<BuffTracker>();
         targetedAbilityTriggerEvent += FireUntargetedEvent;
     }
 
     public override bool Activate(PhotonStream stream) {
-        foreach (Collider target in tracker) {
-            targetedAbilityTriggerEvent(target.gameObject);
+        if (stream.isWriting) {
+            //we don't want to create another activation on the client
+            foreach (Collider target in tracker) {
+                targetedAbilityTriggerEvent(target.gameObject);
+            }
         }
         return false; //let child ability activation handle it
     }

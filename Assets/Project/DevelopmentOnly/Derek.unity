@@ -677,6 +677,7 @@ MonoBehaviour:
     firstAbilities: 
     secondAbilities: 
     abilities: 
+  AIPlayer: 0
 --- !u!4 &1257912979
 Transform:
   m_ObjectHideFlags: 0
@@ -1276,6 +1277,7 @@ MonoBehaviour:
     firstAbilities: 0b
     secondAbilities: 0d
     abilities: 1011
+  AIPlayer: 0
 --- !u!4 &2137640759
 Transform:
   m_ObjectHideFlags: 0

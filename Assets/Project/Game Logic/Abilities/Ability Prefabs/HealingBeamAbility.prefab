@@ -36,6 +36,7 @@ GameObject:
   - 4: {fileID: 4000010544633852}
   - 114: {fileID: 114000011173019884}
   - 114: {fileID: 114000013798937358}
+  - 114: {fileID: 114000012699645416}
   m_Layer: 0
   m_Name: EffectTrigger
   m_TagString: Untagged
@@ -86,7 +87,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013759151800}
   - 136: {fileID: 136000012455467856}
-  - 114: {fileID: 114000010104577104}
   - 114: {fileID: 114000010493953470}
   - 114: {fileID: 114000010216210944}
   - 114: {fileID: 114000014164626682}
@@ -113,6 +113,7 @@ GameObject:
   - 114: {fileID: 114000011206782726}
   - 114: {fileID: 114000011912376678}
   - 114: {fileID: 114000013173882382}
+  - 114: {fileID: 114000014077948280}
   m_Layer: 0
   m_Name: HealingBeamAbility
   m_TagString: Untagged
@@ -197,7 +198,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012028111306}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 15}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -226,7 +227,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010500951008}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -307,18 +308,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114000010104577104
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012028111306}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c4fbf2c5129f7b43b2f47a32731b402, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  healsPerSecond: 10
 --- !u!114 &114000010175712568
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -445,6 +434,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   binding: 0
+--- !u!114 &114000012699645416
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011680287334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e202999e2ad6a4dae877e5a6ea397e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotator: {fileID: 4000014066844054}
 --- !u!114 &114000013173882382
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -470,6 +471,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000011279026744}
+  - {fileID: 114000012699645416}
+--- !u!114 &114000014077948280
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012971366954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ab7f16b23587204ea321e90f44528fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityActivations:
+  - {fileID: 114000010175712568}
+  - {fileID: 114000013798937358}
+  targetedAbilityActivation:
+  - {fileID: 114000010609407380}
+  assortedOtherActivations: []
 --- !u!114 &114000014164626682
 MonoBehaviour:
   m_ObjectHideFlags: 1
