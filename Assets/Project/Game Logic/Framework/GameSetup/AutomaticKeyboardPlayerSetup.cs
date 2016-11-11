@@ -10,23 +10,25 @@ public class AutomaticKeyboardPlayerSetup : PlayerSetup
 {
     protected override void Awake()
     {
+        if (R41DNetworking.Main != null && R41DNetworking.Main.NetworkingMode == R41DNetworkingMode.ONLINE) {
+            DestroyImmediate(this.transform.root.gameObject);
+            return;
+        }
+
+        PlayerSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<PlayerSetup>();
+        foreach (PlayerSetup otherPlayerSetup in otherPlayerSetups)
+        {
+            if (this != otherPlayerSetup && !(otherPlayerSetup is AutomaticControllerPlayerSetup) && !(otherPlayerSetup is AutomaticKeyboardPlayerSetup))
+            {
+                //if there exists a player setup that was set up properly, instead of for quick setup, delete the one for quick setup (ourselves)
+                DestroyImmediate(this.transform.root.gameObject);
+                return;
+            }
+        }
+
         base.Awake();
-
-        // What is purpose? why would you want to delete yourself if there are other PlayerSetups?
-
-        //PlayerSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<PlayerSetup>();
-        //foreach (PlayerSetup otherPlayerSetup in otherPlayerSetups)
-        //{
-        //    if (this != otherPlayerSetup && !(otherPlayerSetup is AutomaticControllerPlayerSetup) && !(otherPlayerSetup is AutomaticKeyboardPlayerSetup))
-        //    {
-        //        DestroyImmediate(this.transform.root.gameObject);
-        //        return;
-        //    }
-        //}
 
         //I have no idea why this creates a null pointer exception when there exists more than one AutomaticSetup in the scene. Stuff still works even when the exception is thrown.
         inputBindings = new KeyboardMousePlayerInput();
-
-        Assert.IsTrue(R41DNetworking.Main.NetworkingMode != R41DNetworkingMode.ONLINE, "Automatic Setups will not work correctly over the network."); //we aren't hooked up correctly for online
     }
 }
