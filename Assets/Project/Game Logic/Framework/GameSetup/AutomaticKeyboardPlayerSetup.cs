@@ -11,15 +11,18 @@ public class AutomaticKeyboardPlayerSetup : PlayerSetup
     protected override void Awake()
     {
         base.Awake();
-        PlayerSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<PlayerSetup>();
-        foreach (PlayerSetup otherPlayerSetup in otherPlayerSetups)
-        {
-            if (this != otherPlayerSetup && !(otherPlayerSetup is AutomaticControllerPlayerSetup) && !(otherPlayerSetup is AutomaticKeyboardPlayerSetup))
-            {
-                DestroyImmediate(this.transform.root.gameObject);
-                return;
-            }
-        }
+
+        // What is purpose? why would you want to delete yourself if there are other PlayerSetups?
+
+        //PlayerSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<PlayerSetup>();
+        //foreach (PlayerSetup otherPlayerSetup in otherPlayerSetups)
+        //{
+        //    if (this != otherPlayerSetup && !(otherPlayerSetup is AutomaticControllerPlayerSetup) && !(otherPlayerSetup is AutomaticKeyboardPlayerSetup))
+        //    {
+        //        DestroyImmediate(this.transform.root.gameObject);
+        //        return;
+        //    }
+        //}
 
         //I have no idea why this creates a null pointer exception when there exists more than one AutomaticSetup in the scene. Stuff still works even when the exception is thrown.
         inputBindings = new KeyboardMousePlayerInput();

@@ -37,7 +37,7 @@ public class DashAbility : AbstractAbilityAction
 
         if (stream.isWriting) {
             //calculate end point of the dash from our current position and rotation
-            Vector3 direction = movement.currentMovement();
+            Vector3 direction = movement.CurrentMovement();
             // if player is not moving in any direction blink should just go forward
             if(!direction.magnitude.AlmostEquals(1, 0.01f)) {
                 direction = rigid.transform.forward;

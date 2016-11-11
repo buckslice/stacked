@@ -9,10 +9,11 @@ using System.Collections.Generic;
 public class AutomaticControllerPlayerSetup : PlayerSetup {
     protected override void Awake() {
 
-        if (R41DNetworking.Main.NetworkingMode == R41DNetworkingMode.ONLINE) {
-            DestroyImmediate(this.transform.root.gameObject);
-            return;
-        }
+        // TODO: fix this, not safe, sometimes R41DNetworking.Main Awake gets called second
+        //if (R41DNetworking.Main.NetworkingMode == R41DNetworkingMode.ONLINE) {
+        //    DestroyImmediate(this.transform.root.gameObject);
+        //    return;
+        //}
 
         base.Awake();
         PlayerSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<PlayerSetup>();

@@ -26,7 +26,7 @@ public class Health : MonoBehaviour {
     /// </summary>
     /// <param name="value"></param>
     /// <returns></returns>
-    private float setHealth(float value) {
+    private float SetHealth(float value) {
         float healthBefore = _health;
         _health = value;
         if (_health > maxHealth) {
@@ -42,6 +42,20 @@ public class Health : MonoBehaviour {
 
         return healthBefore - _health;
     }
+
+    // explicitely set health and max health
+    public void SetHealth(float health, float max) {
+        _health = health;
+        maxHealth = max;
+        if(_health > maxHealth) {
+            health = maxHealth;
+        }
+        onHealthChanged();
+        if (_health <= 0) {
+            onDeath();
+        }
+    }
+
     protected float maxHealth;
     public float healthPercent { get { return health / maxHealth; } }
 
@@ -53,7 +67,7 @@ public class Health : MonoBehaviour {
     }
 
     public virtual float Damage(float amount) {
-        return setHealth(_health - amount);
+        return SetHealth(_health - amount);
     }
 
     public float Damage(float amount, int playerID)
@@ -84,11 +98,11 @@ public class Health : MonoBehaviour {
         if (stream.isWriting) {
             stream.SendNext(health);
         } else {
-            setHealth((float)stream.ReceiveNext());
+            SetHealth((float)stream.ReceiveNext());
         }
     }
 
     public void Kill() {
-        setHealth(0);
+        SetHealth(0);
     }
 }

@@ -115,6 +115,65 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         return player;
     }
 
+    public GameObject CreateAIPlayer(byte playerID, PlayerSetup.PlayerSetupData playerData) {
+        int allocatedViewId = PhotonNetwork.AllocateViewID();
+
+        GameObject player = (GameObject)Instantiate(basePlayerPrefab, Vector3.zero, Quaternion.identity);
+        //assign view ID
+        PhotonView toInitialize = player.GetComponent<PhotonView>();
+        toInitialize.viewID = allocatedViewId;
+
+        // destroy unnecessary scripts
+        player.AddComponent<AIMovement>();
+        player.GetComponent<Rigidbody>().isKinematic = true;
+
+        DestroyImmediate(player.GetComponent<PlayerMovement>());
+        DestroyImmediate(player.GetComponent<PlayerInputHolder>());
+
+        // temp for camera testing, make ai players immune to damage
+        Damageable dmg = player.GetComponentInChildren<Damageable>();
+        dmg.PhysicalVulnerabilityMultiplier.AddModifier(0);
+        dmg.MagicalVulnerabilityMultiplier.AddModifier(0);
+
+        AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
+
+        foreach (AbilityId ability in playerData.basicAttacks) {
+            InstantiateAbility(ability, player.transform, abilityNetworking);
+        }
+        foreach (AbilityId ability in playerData.firstAbilities) {
+            InstantiateAbility(ability, player.transform, abilityNetworking);
+        }
+        foreach (AbilityId ability in playerData.secondAbilities) {
+            InstantiateAbility(ability, player.transform, abilityNetworking);
+        }
+        foreach (AbilityId ability in playerData.abilities) {
+            InstantiateAbility(ability, player.transform, abilityNetworking);
+        }
+
+        // destroy all input triggers
+        InputTrigger[] triggers = player.GetComponentsInChildren<InputTrigger>();
+        for(int i = 0; i < triggers.Length; ++i) {
+            DestroyImmediate(triggers[i]);
+        }
+
+        player.name = "Player" + (playerID + 1) + "-AI";
+
+        if (BossSetup.Main != null && BossSetup.Main.PlayerSpawnPoints.Length > playerID) {
+            player.transform.position = BossSetup.Main.PlayerSpawnPoints[playerID].position;
+            player.transform.rotation = BossSetup.Main.PlayerSpawnPoints[playerID].rotation;
+        }
+
+        DamageHolder damageHolder = player.GetComponent<DamageHolder>();
+
+        //assign playerID
+        damageHolder.Initialize(new Player(playerID, damageHolder));
+
+        RaiseEvent(Tags.EventCodes.CREATEPLAYER, playerID, allocatedViewId, playerData);
+
+        return player;
+
+    }
+
     void RaiseEvent(Tags.EventCodes eventCode, byte playerID, int allocatedViewId, PlayerSetup.PlayerSetupData playerData) {
         //Create the network payload to send for remote copies
         object[] payloadData = new object[3];
@@ -155,8 +214,6 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
             player.transform.rotation = BossSetup.Main.PlayerSpawnPoints[playerID].rotation;
         }
         
-        
-
         DamageHolder damageHolder = player.GetComponent<DamageHolder>();
 
         //assign playerID
@@ -198,4 +255,5 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
 
         return player;
     }
+
 }
