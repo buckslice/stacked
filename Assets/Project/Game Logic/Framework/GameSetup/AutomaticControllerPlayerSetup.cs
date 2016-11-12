@@ -16,7 +16,10 @@ public class AutomaticControllerPlayerSetup : PlayerSetup {
 
         PlayerSetup[] otherPlayerSetups = GameObject.FindObjectsOfType<PlayerSetup>();
         foreach (PlayerSetup otherPlayerSetup in otherPlayerSetups) {
-            if (this != otherPlayerSetup && !(otherPlayerSetup is AutomaticControllerPlayerSetup) && !(otherPlayerSetup is AutomaticKeyboardPlayerSetup)) {
+            if (this != otherPlayerSetup &&
+                !(otherPlayerSetup is AutomaticControllerPlayerSetup) &&
+                !(otherPlayerSetup is AutomaticKeyboardPlayerSetup) &&
+                !otherPlayerSetup.AIPlayer) {
                 //if there exists a player setup that was set up properly, instead of for quick setup, delete the one for quick setup (ourselves)
                 DestroyImmediate(this.transform.root.gameObject);
                 return;

@@ -8,8 +8,6 @@ public class CameraController : MonoBehaviour {
     public Transform boss { get; set; }
 
     public bool shouldRotate = true;
-    
-    private readonly Vector3 padding = Vector3.one * 4.0f;
 
     private float minFollowDistance = 20.0f;
     private float startY = 5.0f;
