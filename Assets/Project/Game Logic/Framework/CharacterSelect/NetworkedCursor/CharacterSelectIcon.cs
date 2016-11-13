@@ -27,12 +27,17 @@ public class CharacterSelectIcon : MonoBehaviour, ISelectable {
         hover = true;
     }
 
+    ReadyChecker checker;
+    void Start() {
+        checker = FindObjectOfType<ReadyChecker>();
+    }
+
     // if nobody has hovered over this icon this frame then disable tooltip
     void LateUpdate() {
         if(!tooltip || !tooltipLine) {
             return;
         }
-        if (!hover) {
+        if (!hover || checker.ArePlayersReady()) {
             if (animRoutine != null) {
                 StopCoroutine(animRoutine);
                 animRoutine = null;

@@ -38,6 +38,10 @@ public class ReadyChecker : MonoBehaviour {
         }
 	}
 
+    public bool ArePlayersReady() {
+        return state != State.NOTREADY;
+    }
+
     void checkNotReady() {
         if (!AllPlayersReady()) {
             state = State.NOTREADY;
@@ -56,6 +60,9 @@ public class ReadyChecker : MonoBehaviour {
                 break;
 
             case State.READY:
+                text.text = "Press Start to Begin!";
+                text.fontSize = 50;
+                transform.localScale = Vector3.one;
                 foreach (ISelection player in players) {
                     if (player.Input.getSubmitDown || player.Input.getStartDown) {
                         state = State.COUNTINGDOWN;
@@ -67,11 +74,11 @@ public class ReadyChecker : MonoBehaviour {
                 break;
 
             case State.COUNTINGDOWN:
-
                 countDownTime -= Time.deltaTime;
                 int intTime = (int)countDownTime;
                 transform.localScale = Vector3.one * (1.0f + (countDownTime - intTime) * 2.5f);
                 text.text = "" + (intTime + 1);
+                text.fontSize = 200;
 
                 //countdown complete
                 if (countDownTime <= 0.0f) {
