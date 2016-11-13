@@ -7,10 +7,9 @@ using System.Collections.Generic;
 [RequireComponent(typeof(EntityUIGroupHolder))]
 public class HealthUI : MonoBehaviour {
 
-    [SerializeField]
-    protected HealthBarType barType = HealthBarType.FLOATING;
     Health health;
     HealthBar bar;
+    public HealthBarType barType;
 
     void Start() {
         health = GetComponent<Health>();
@@ -20,7 +19,9 @@ public class HealthUI : MonoBehaviour {
 
         CanvasHelper ch = canvasRoot.GetComponent<CanvasHelper>();
 
-        GameObject healthBar = (GameObject)Instantiate(ch.playerHealthBarPrefab, GetComponent<EntityUIGroupHolder>().EntityGroup.HealthBarHolder);
+        Object barPrefab = barType == HealthBarType.MINIMAL ? ch.playerHealthBarPrefab : ch.bossHealthBarPrefab;
+        GameObject healthBar = (GameObject)Instantiate(barPrefab, GetComponent<EntityUIGroupHolder>().EntityGroup.HealthBarHolder);
+
         (healthBar.transform as RectTransform).Reset();
         bar = healthBar.GetComponent<HealthBar>();
 
@@ -52,11 +53,10 @@ public class HealthUI : MonoBehaviour {
             bar.followOffset = new Vector3(0.0f, bounds.size.y * 1.5f, 0.0f);
         }
         */
-        bar.type = barType;
         bar.SetText(gameObject.name);
         Player player = GetComponent<DamageHolder>().GetRootDamageTracker() as Player;
         if (player != null) {
-            bar.SetColor(Player.playerColoring[player.PlayerID]);
+            bar.SetTextColor(Player.playerColoring[player.PlayerID]);
         }
     }
 

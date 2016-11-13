@@ -2,11 +2,16 @@
 using System.Collections;
 using UnityEngine.UI;
 
+public enum AnchorType {
+    CORNERS,        // bars in 4 corners
+    FLOATING,       // 2D UI floating over entity
+    //BOSS,         // big bar at top         // not yet implemented
+    //WORLDSPACE    // 3D worldspace maybe?   // not yet implemented
+};
+
 public enum HealthBarType {
-    PLAYER,     // bars at bottom, smash bros style
-    BOSS,       // big bar at top
-    FLOATING,   // 2D UI floating over mob
-    WORLDSPACE  // 3D worldspace maybe?
+    MINIMAL,
+    BOSS,
 };
 
 public class HealthBar : MonoBehaviour {
@@ -27,18 +32,6 @@ public class HealthBar : MonoBehaviour {
     float healthPercent = 1.0f;
     float lerpPos = 1.0f;
 
-    public HealthBarType type { get; set; }
-    public Transform followTransform { get; set; }
-    public Vector3 followOffset { get; set; }
-    public CanvasScaler scaler { get; set; }
-
-    private RectTransform rt;
-
-    // Use this for initialization
-    void Start () {
-        rt = GetComponent<RectTransform>();
-    }
-
 	// Update is called once per frame
 	void Update () {
         mainBar.rectTransform.anchorMin = new Vector2(0.0f, 0.0f);
@@ -51,16 +44,6 @@ public class HealthBar : MonoBehaviour {
         lerpPos = Mathf.Lerp(lerpPos, healthPercent, Time.deltaTime * 2.0f);
         lerpBar.rectTransform.anchorMin = new Vector2(healthPercent, 0.0f);
         lerpBar.rectTransform.anchorMax = new Vector2(lerpPos, 1.0f);
-
-        if (type == HealthBarType.FLOATING && followTransform) {
-            Vector3 sp = Camera.main.WorldToScreenPoint(followTransform.position + followOffset);
-            // need to account for canvas scaler (disable this if we stop using scaler)
-            float scale = Mathf.Lerp(scaler.referenceResolution.x / Screen.width, 
-                                     scaler.referenceResolution.y / Screen.height, 
-                                     scaler.matchWidthOrHeight);
-            Vector2 screenPoint = new Vector2(sp.x * scale, sp.y * scale);
-            rt.anchoredPosition = screenPoint;
-        }
     }
 
     public void SetPercent(float percent) {
@@ -68,11 +51,15 @@ public class HealthBar : MonoBehaviour {
     }
 
     public void SetText(string t) {
-        text.text = t;
+        if (text) {
+            text.text = t;
+        }
     }
 
-    public void SetColor(Color c) {
-        text.color = c;
+    public void SetTextColor(Color c) {
+        if (text) {
+            text.color = c;
+        }
     }
 
 }

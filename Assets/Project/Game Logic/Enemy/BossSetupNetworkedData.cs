@@ -32,9 +32,6 @@ public class BossSetupNetworkedData : MonoBehaviour {
     [SerializeField]
     protected GameObject baseBossPrefab;
 
-    [SerializeField]
-    protected GameObject healthBarPrefab;
-
     /// <summary>
     /// When an ability prefab is created, its prefab needs to be added here. Do not remove legacy abilities. Order matters.
     /// </summary>

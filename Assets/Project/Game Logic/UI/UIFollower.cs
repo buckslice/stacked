@@ -14,20 +14,22 @@ public class UIFollower : MonoBehaviour {
 
     Transform followTransform;
     Vector3 followOffset;
+    Vector2 pixelOffset;
 
     /// <summary>
     /// Constructor-like method for initialization.
     /// </summary>
     /// <param name="followTransform"></param>
     /// <param name="followOffset"></param>
-    public void Initialize(CanvasHelper canvasHelper, Transform followTransform, Vector3 followOffset) {
+    public void Initialize(CanvasHelper canvasHelper, Transform followTransform, Vector3 followOffset, Vector2 pixelOffset) {
         this.followTransform = followTransform;
         this.followOffset = followOffset;
+        this.pixelOffset = pixelOffset;
         canvasScaler = canvasHelper.scaler;
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Initialize(CanvasHelper canvasHelper, Transform followTransform) { Initialize(canvasHelper, followTransform, Vector3.zero); }
+    public void Initialize(CanvasHelper canvasHelper, Transform followTransform) { Initialize(canvasHelper, followTransform, Vector3.zero, Vector2.zero); }
 	
 	void Update () {
         if(followTransform == null)
@@ -42,6 +44,6 @@ public class UIFollower : MonoBehaviour {
                                  canvasScaler.referenceResolution.y / Screen.height,
                                  canvasScaler.matchWidthOrHeight);
         Vector2 scaledScreenPoint = new Vector2(screenPoint.x * scale, screenPoint.y * scale);
-        rectTransform.anchoredPosition = scaledScreenPoint;
+        rectTransform.anchoredPosition = scaledScreenPoint + pixelOffset;
 	}
 }

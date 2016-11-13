@@ -11,13 +11,16 @@ using System.Collections.Generic;
 public class EntityUIGroupHolder : MonoBehaviour {
 
     [SerializeField]
-    public HealthBarType barType = HealthBarType.PLAYER;
+    public AnchorType anchorType = AnchorType.FLOATING;
+
+    public Vector3 worldOffset = Vector3.zero;
+    public Vector2 pixelOffset = Vector2.zero;
 
     [SerializeField]
     protected GameObject entityGroupUIPrefab;
 
-    RectTransform instantiatedEntityGroupTransform;
-    public RectTransform EntityGroupTransform { get { return instantiatedEntityGroupTransform; } }
+    RectTransform groupTransform;
+    public RectTransform EntityGroupTransform { get { return groupTransform; } }
     EntityUIGroup entityGroup;
     public EntityUIGroup EntityGroup { get { return entityGroup; } }
 
@@ -29,50 +32,36 @@ public class EntityUIGroupHolder : MonoBehaviour {
         Assert.IsNotNull(canvasHelper);
         
 
-        if (barType == HealthBarType.PLAYER) {
-            // need to implement boss bars still so this is temp
-            instantiatedEntityGroupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, canvasHelper.transform)).GetComponent<RectTransform>();
+        if (anchorType == AnchorType.CORNERS) {
+            groupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, canvasHelper.transform)).GetComponent<RectTransform>();
         } else {
-            // need to implement boss bars still so this is temp
+            groupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, canvasHelper.floatingHealthBarGroup)).GetComponent<RectTransform>();
+            groupTransform.localScale = Vector3.one;
+            groupTransform.SetAsFirstSibling(); // so boss bars are drawn on top
 
-            instantiatedEntityGroupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, canvasHelper.floatingHealthBarGroup)).GetComponent<RectTransform>();
-            instantiatedEntityGroupTransform.localScale = Vector3.one;
-
-            UIFollower follower = instantiatedEntityGroupTransform.GetComponent<UIFollower>();
+            UIFollower follower = groupTransform.GetComponent<UIFollower>();
             if (follower != null) {
-                /*
-                // try to find bounds for object to use as floating health bar offset
-                Bounds bounds = new Bounds();
-                Collider col = GetComponent<Collider>();
-                if (col) {
-                    bounds = col.bounds;
-                } else {
-                    Renderer rend = GetComponent<Renderer>();
-                    if (rend) {
-                        bounds = rend.bounds;
-                    }
-                } */
 
                 Debug.Assert(canvasHelper.scaler, "Need canvas scaler on canvas!");
-                follower.Initialize(canvasHelper, this.transform);
+                follower.Initialize(canvasHelper, transform, worldOffset, pixelOffset);
             }
         }
-        entityGroup = instantiatedEntityGroupTransform.GetComponent<EntityUIGroup>();
+        entityGroup = groupTransform.GetComponent<EntityUIGroup>();
 	}
 
     void Start() {
-        if (barType == HealthBarType.PLAYER) {
+        if (anchorType == AnchorType.CORNERS) {
             IPlayerID player = GetComponent<IPlayerID>();
             if (player == null) {
                 player = (Player)GetComponent<IDamageHolder>().DamageTracker;
             }
-            CanvasHelper.PositionPlayerEntityGroup(instantiatedEntityGroupTransform, player.PlayerID);
+            CanvasHelper.PositionPlayerEntityGroup(groupTransform, player.PlayerID);
         }
     }
 
     void OnDestroy() {
-        if (instantiatedEntityGroupTransform != null) {
-            Destroy(instantiatedEntityGroupTransform.gameObject);
+        if (groupTransform != null) {
+            Destroy(groupTransform.gameObject);
         }
     }
 }

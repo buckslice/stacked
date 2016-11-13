@@ -806,8 +806,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c391354431d034d807b44860098975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barType: 0
-  entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
+  anchorType: 1
+  worldOffset: {x: 0, y: 0, z: 0}
+  pixelOffset: {x: 0, y: -50}
+  entityGroupUIPrefab: {fileID: 1000010754579422, guid: 8bddf36708c2a5146b73878ebed847a3,
     type: 2}
 --- !u!114 &114000010911628036
 MonoBehaviour:

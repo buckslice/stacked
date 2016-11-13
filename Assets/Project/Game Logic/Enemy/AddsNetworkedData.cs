@@ -20,9 +20,6 @@ public class AddsNetworkedData : MonoBehaviour {
     static AddsNetworkedData main;
     public static AddsNetworkedData Main { get { return main; } }
 
-    [SerializeField]
-    protected GameObject healthBarPrefab;
-
     /// <summary>
     /// When an add is created, its data needs to be added here. Do not remove legacy data. Order matters.
     /// </summary>

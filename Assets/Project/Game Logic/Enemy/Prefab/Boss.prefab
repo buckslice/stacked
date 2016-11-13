@@ -2475,7 +2475,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c391354431d034d807b44860098975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barType: 2
+  anchorType: 1
+  worldOffset: {x: 0, y: 0, z: 0}
+  pixelOffset: {x: 0, y: 30}
   entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
     type: 2}
 --- !u!114 &114000011028298642
@@ -2615,7 +2617,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2495d9e5c95e546a815b22270a9bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barType: 2
+  barType: 1
 --- !u!114 &114000013718368240
 MonoBehaviour:
   m_ObjectHideFlags: 1

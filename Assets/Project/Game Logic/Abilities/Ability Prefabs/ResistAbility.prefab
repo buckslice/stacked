@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e266b120d8f3aa40915e8958c02953c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPrefab: {fileID: 1000011671764720, guid: 0ae874c30b0dfe24595e50af04f4f049, type: 2}
+  uiPrefab: {fileID: 1000013895660994, guid: 1003bbd1cb2fc9a4caaf56cf2b5a268d, type: 2}
 --- !u!114 &114000011038005484
 MonoBehaviour:
   m_ObjectHideFlags: 1
