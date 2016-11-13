@@ -32,6 +32,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         MAGICSHOTGUN,
         JUMP,
         GRAB,
+        REVIVE,
     }
 
     static PlayerSetupNetworkedData main;

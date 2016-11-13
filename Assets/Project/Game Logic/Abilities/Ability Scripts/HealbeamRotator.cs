@@ -19,7 +19,8 @@ public class HealbeamRotator : AbstractAbilityAction {
 
     State currentState = State.UNSTACKED;
 
-	void Start () {
+	protected override void Start () {
+        base.Start();
         stackable = GetComponentInParent<Stackable>();
         input = GetComponentInParent<IPlayerInputHolder>();
 	}

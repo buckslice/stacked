@@ -4,9 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
+/// Interface for AbilityActivation and TargetedAbilityActivation, so that untargeted constraints can add themselves to both
+/// </summary>
+public interface IAbilityTargetedConstrained : IAbilityConstrained {
+    void AddConstraint(ITargetedAbilityConstraint toAdd);
+    bool RemoveConstraint(ITargetedAbilityConstraint toRemove);
+}
+
+/// <summary>
 /// Filters triggers to activate abilities. Acts with reference to a target.
 /// </summary>
-public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityConstrained, IAbilityStatus {
+public class TargetedAbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityTargetedConstrained, IAbilityStatus {
     /// <summary>
     /// List of abilityActions to activate with this ability, includes Constraints. Order must be the same on all clients.
     /// </summary>

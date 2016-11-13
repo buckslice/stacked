@@ -6,6 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Applies a buff/debuff to targets in the current stack.
 /// </summary>
+[RequireComponent(typeof(BuffTracker))]
 public class StackBuff : MonoBehaviour, IDisabledStart {
 
     BuffTracker tracker;
@@ -13,6 +14,7 @@ public class StackBuff : MonoBehaviour, IDisabledStart {
 
     void Awake() {
         tracker = GetComponent<BuffTracker>();
+        Assert.IsNotNull(tracker);
     }
 
     void IDisabledStart.DisabledStart() {
@@ -21,7 +23,7 @@ public class StackBuff : MonoBehaviour, IDisabledStart {
     }
 
     void stackable_changeEvent() {
-        if (!enabled) { return; }
+        if (!isActiveAndEnabled) { return; }
         HashSet<Collider> newSet = new HashSet<Collider>();
         foreach (Stackable stackElement in stackable) {
             foreach (Collider col in stackElement.GetComponentsInChildren<Collider>()) {
