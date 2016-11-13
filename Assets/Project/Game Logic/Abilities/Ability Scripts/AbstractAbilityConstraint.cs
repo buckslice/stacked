@@ -19,7 +19,7 @@ public interface ITargetedAbilityConstraint {
 /// A targeted ability action that imposes constraints on what it can be activated with.
 /// </summary>
 public abstract class TypedTargetedAbilityAction : TargetedAbilityAction, ITargetedAbilityConstraint {
-    protected IAbilityConstrained activation = null;
+    protected IAbilityTargetedConstrained activation = null;
     protected override void Start() {
         base.Start();
         linkActivation();
@@ -30,14 +30,14 @@ public abstract class TypedTargetedAbilityAction : TargetedAbilityAction, ITarge
     }
 
     protected void linkActivation() {
-        activation = GetComponent<TargetedAbilityActivation>();
+        activation = GetComponent<IAbilityTargetedConstrained>();
 
-        ((TargetedAbilityActivation)activation).AddConstraint(this);
+        activation.AddConstraint(this);
     }
 
     protected void removeActivation() {
         if (activation != null) {
-            ((TargetedAbilityActivation)activation).RemoveConstraint(this);
+            activation.RemoveConstraint(this);
         }
     }
 
@@ -73,7 +73,7 @@ public abstract class UntargetedAbilityConstraint : AbstractAbilityAction, ITarg
     }
 
     protected void linkActivation() {
-        activation = GetComponent<TargetedAbilityActivation>();
+        activation = GetComponent<IAbilityTargetedConstrained>();
 
         if (activation == null) {
             activation = GetComponent<AbilityActivation>();

@@ -3,7 +3,10 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class DeathAbility : UntargetedAbilityConstraint {
+public class SetDeathStateAction : UntargetedAbilityConstraint {
+
+    [SerializeField]
+    protected bool outcomeState;
 
     IDamageHolder playerHolder;
     Player player { get { return playerHolder.GetRootDamageTracker() as Player; } }
@@ -14,11 +17,11 @@ public class DeathAbility : UntargetedAbilityConstraint {
     }
 
     public override bool isAbilityActivatible() {
-        return !player.dead;
+        return player.dead != outcomeState;
     }
 
     public override void Activate() {
+        player.dead = outcomeState;
         GetComponentInParent<Rigidbody>().isKinematic = true;   // so player doesnt fall through ground while dead 
-        player.dead = true;
     }
 }

@@ -825,6 +825,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
+        type: 2}
+      propertyPath: bossData.abilities.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
   m_IsPrefabParent: 0
@@ -1274,9 +1279,9 @@ MonoBehaviour:
   playerID: 3
   playerData:
     basicAttacks: 
-    firstAbilities: 0b
+    firstAbilities: 0a
     secondAbilities: 0d
-    abilities: 1011
+    abilities: 101112
   AIPlayer: 0
 --- !u!4 &2137640759
 Transform:
