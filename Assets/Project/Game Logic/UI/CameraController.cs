@@ -11,40 +11,34 @@ public enum CameraType {
 public class CameraController : MonoBehaviour {
 
     public Transform boss { get; set; }
-
     public CameraType camType;
-
-    public LayerMask groundLayer;
     public bool trackDeadPlayers = true;
+    public float camSmoothTime = 2.0f;
 
+    // fixed variables
+    float padding = 0.2f;   // percentage of width / height
+    float minHeight = 18.0f;
+    Vector3 targetPos;
+
+    // rotate variables
     float minFollowDistance = 20.0f;
     float startY = 5.0f;
-
     Vector3 camVel = Vector3.zero;
     Vector3 boundsCenter = Vector3.zero;
 
-    public Image topLeft;
-    public Image botLeft;
-    public Image topRight;
-    public Image botRight;
-
     // list of positions being tracked by camera this frame
     List<Vector3> trackingList = new List<Vector3>();
-
-    Plane[] frustum;
-    BoundingSphere bounds;
 
     // Use this for initialization
     void Start() {
         PopulateTrackingList();
         boundsCenter = new BoundingSphere(trackingList).center;
+        targetPos = transform.position;
     }
 
     // Update is called once per frame
     void Update() {
         PopulateTrackingList();
-        bounds = new BoundingSphere(trackingList);
-        boundsCenter = Vector3.Lerp(boundsCenter, bounds.center, Time.deltaTime);
 
         if (camType == CameraType.ROTATE) {
             UpdateCamTypeRotate();
@@ -54,6 +48,9 @@ public class CameraController : MonoBehaviour {
     }
 
     void UpdateCamTypeRotate() {
+        BoundingSphere bounds = new BoundingSphere(trackingList);
+        boundsCenter = Vector3.Lerp(boundsCenter, bounds.center, Time.deltaTime);
+
         // find XZ distance from camera to bounds center
         Vector3 xzCam = transform.position;
         xzCam.y = 0.0f;
@@ -86,7 +83,7 @@ public class CameraController : MonoBehaviour {
         targetPos = FindLocalBestRotation(targetPos, boundsCenter);
 
         // set camera position using smoothdamp
-        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref camVel, 2.0f);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref camVel, camSmoothTime);
 
         // lastly look at center of bounds
         transform.LookAt(boundsCenter);
@@ -95,28 +92,104 @@ public class CameraController : MonoBehaviour {
     void UpdateCamTypeFixed() {
         Camera cmain = Camera.main;
         Vector2 min, max;
-
-        // at this point same aspect ratio
-        // zoom in first then left right forward backward
         Vector3 startPos = transform.position;  // backup to restore to at the end
+        transform.position = targetPos; // start at target since it is usually close to solution
 
-        int counter = 1000;
+        // make sure camera is never looking up
+        Vector3 rot = transform.eulerAngles;
+        if(rot.x < 5.0f || rot.x > 90.0f) {
+            transform.rotation = Quaternion.Euler(5.0f, rot.y, 0.0f);
+        }
 
-        float step = 10.0f;
-        float stepThresh = 0.01f;
+        float startStep = 2.0f;
+        const float stepThresh = 1.0f;  // larger steps cause gridlike movement
+        float step = startStep;
         bool dir = true;
+        int count = 0;
+        // move forward and backward in camera look direction
         Vector3 forward = transform.forward;
-        while (step > stepThresh && --counter > 0) {
+        while (step > stepThresh) {
+            Vector3 posi = transform.position + forward * step;
+            Vector3 poso = transform.position - forward * step;
+
+            transform.position = posi;
+            GetMinMax(out min, out max);
+            float scoref = Mathf.Abs(1.0f - (max.x - min.x) / cmain.pixelWidth);
+            transform.position = poso;
+            GetMinMax(out min, out max);
+            float scoreb = Mathf.Abs(1.0f - (max.x - min.x) / cmain.pixelWidth);
+
+            if (scoref < scoreb) {
+                if (!dir) {
+                    dir = !dir;
+                    step *= 0.5f;
+                }
+                transform.position = posi;
+            } else {
+                if (dir) {
+                    dir = !dir;
+                    step *= 0.5f;
+                }
+                transform.position = poso;
+            }
+            count++;
+        }
+
+        // if y position is below height then move back along forward vector
+        // place is it minimum height
+        float ty = transform.position.y;
+        if (ty < minHeight) {
+            // will be moving camera backwards as long as camera is looking down
+            transform.position += forward * (minHeight - ty) / forward.y;
+        }
+
+        // move left right on xz plane
+        step = startStep;
+        Vector3 right = transform.right;
+        while (step > stepThresh) {
+            Vector3 posl = transform.position + right * step;
+            Vector3 posr = transform.position - right * step;
+
+            transform.position = posl;
+            GetMinMax(out min, out max);
+            float scorel = Mathf.Abs((min.x + (max.x - min.x) / 2.0f) - cmain.pixelWidth / 2.0f);
+            transform.position = posr;
+            GetMinMax(out min, out max);
+            float scorer = Mathf.Abs((min.x + (max.x - min.x) / 2.0f) - cmain.pixelWidth / 2.0f);
+
+            if (scorel < scorer) {
+                if (!dir) {
+                    dir = !dir;
+                    step *= 0.5f;
+                }
+                transform.position = posl;
+            } else {
+                if (dir) {
+                    dir = !dir;
+                    step *= 0.5f;
+                }
+                transform.position = posr;
+            }
+            count++;
+        }
+
+        step = startStep;
+        // move forward and backward on xz plane (check for when looking straight down)
+        if (Mathf.Abs(forward.x) < 0.01f && Mathf.Abs(forward.z) < 0.01f) {
+            forward = transform.up;
+        }
+        forward.y = 0.0f;
+        forward.Normalize();
+        while (step > stepThresh) {
             Vector3 posf = transform.position + forward * step;
             Vector3 posb = transform.position - forward * step;
 
             transform.position = posf;
             GetMinMax(out min, out max);
-            float scoref = Mathf.Abs(1.0f - (max.x - min.x) / cmain.pixelWidth);
+            float scoref = Mathf.Abs((min.y + (max.y - min.y) / 2.0f) - cmain.pixelHeight / 2.0f);
             transform.position = posb;
             GetMinMax(out min, out max);
-            float scoreb = Mathf.Abs(1.0f - (max.x - min.x) / cmain.pixelWidth);
-            //Debug.Log(scoref + " " + scoreb);
+            float scoreb = Mathf.Abs((min.y + (max.y - min.y) / 2.0f) - cmain.pixelHeight / 2.0f);
 
             if (scoref < scoreb) {
                 if (!dir) {
@@ -131,39 +204,14 @@ public class CameraController : MonoBehaviour {
                 }
                 transform.position = posb;
             }
+            count++;
         }
+        //Debug.Log(count);
 
-        if(counter <= 0) {
-            Debug.Break();
-        }
-
-        step = 10.0f;
-        Vector3 right = transform.right;
-        while(step > stepThresh) {
-            
-        }
-
-        //if(min.x + (max.x - min.x)/2.0f < (cmain.pixelWidth / 2.0f)) {
-        //    transform.position -= transform.right * 0.1f;
-        //} else {
-        //    transform.position += transform.right * 0.1f;
-        //}
-
-        //Vector3 f = transform.forward;
-        //f.y = 0.0f;
-        //f.Normalize();
-        //if (min.y < 0) {
-        //    transform.position -= f * 0.1f;
-        //} else {
-        //    transform.position += f * 0.1f; 
-        //}
-
-
-        //topLeft.rectTransform.position = new Vector2(min.x, max.y);
-        //botLeft.rectTransform.position = new Vector2(min.x, min.y);
-        //topRight.rectTransform.position = new Vector2(max.x, max.y);
-        //botRight.rectTransform.position = new Vector2(max.x, min.y);
-
+        // set final calculated position as the target and lerp towards it
+        targetPos = transform.position;
+        transform.position = Vector3.SmoothDamp(startPos, targetPos, ref camVel, camSmoothTime);
+        //transform.position = targetPos;   // for debugging
 
     }
 
@@ -181,8 +229,6 @@ public class CameraController : MonoBehaviour {
             max.y = Mathf.Max(max.y, s.y);
         }
 
-        //Debug.Log(min.ToString() + " " + max.ToString());
-
         float width = max.x - min.x;
         float height = max.y - min.y;
         if (width / height > cmain.aspect) { // if current aspect ration is > cam aspect, scale up height
@@ -195,11 +241,13 @@ public class CameraController : MonoBehaviour {
             max.x += halfDiff;
         }
 
-        float pad = 0.2f;   // todo make this public variable
-        min.x -= cmain.pixelWidth * pad;
-        min.y -= cmain.pixelHeight * pad;
-        max.x += cmain.pixelWidth * pad;
-        max.y += cmain.pixelHeight * pad;
+        min.x -= cmain.pixelWidth * padding;
+        max.x += cmain.pixelWidth * padding;
+
+        //min.y -= cmain.pixelHeight * padding;
+        //max.y += cmain.pixelHeight * padding;
+        min.y -= cmain.pixelHeight * padding * 1.3f;   // favor players running down so they have more of warning
+        max.y += cmain.pixelHeight * padding * 0.7f;   // since players going towards top of screen can see more
     }
 
     // gets list of positions camera should track

@@ -53,7 +53,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013823788200}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -66,10 +66,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010720952264}
-  m_LocalRotation: {x: 0.053508658, y: 0.93849635, z: -0.2959067, w: 0.16970782}
-  m_LocalPosition: {x: -10, y: 20, z: 10}
+  m_LocalRotation: {x: 0.0669364, y: 0.9064292, z: -0.38631463, w: 0.15705623}
+  m_LocalPosition: {x: -32.97, y: 44.7, z: 25}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 35, y: 159.5, z: 0}
+  m_LocalEulerAnglesHint: {x: 46.163002, y: 160.628, z: 0}
   m_Children:
   - {fileID: 4000011219258564}
   m_Father: {fileID: 0}
@@ -134,9 +134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camType: 1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 524288
+  trackDeadPlayers: 1
+  camSmoothTime: 1
 --- !u!114 &114000012663679526
 MonoBehaviour:
   m_ObjectHideFlags: 1
