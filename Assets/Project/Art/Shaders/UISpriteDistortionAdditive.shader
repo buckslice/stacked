@@ -1,4 +1,4 @@
-﻿Shader "Custom/SpriteDistortionAdditive"
+﻿Shader "UI/Custom/SpriteDistortionAdditive"
 {
 	Properties
 	{	
