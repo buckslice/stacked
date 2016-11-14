@@ -110,8 +110,17 @@ Material:
         name: _SpecularHighlights
       second: 1
     - first:
+        name: _Speed
+      second: 0.5
+    - first:
         name: _SrcBlend
       second: 1
+    - first:
+        name: _Strength
+      second: 1.5
+    - first:
+        name: _Tile
+      second: 5
     - first:
         name: _UVSec
       second: 0
