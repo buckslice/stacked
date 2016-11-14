@@ -159,6 +159,7 @@ GameObject:
   - 114: {fileID: 114000012541213606}
   - 114: {fileID: 114000014178908188}
   - 114: {fileID: 114000012545875036}
+  - 114: {fileID: 114000010978339556}
   m_Layer: 13
   m_Name: DeathAbility
   m_TagString: Untagged
@@ -770,6 +771,7 @@ MonoBehaviour:
   - {fileID: 114000012541213606}
   - {fileID: 114000014178908188}
   - {fileID: 114000012545875036}
+  - {fileID: 114000010978339556}
 --- !u!114 &114000010786169638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -795,6 +797,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilities:
   - {fileID: 1000012883233424}
+  - {fileID: 1000013465250004}
 --- !u!114 &114000010909636592
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -822,6 +825,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69262099c7e902c409d4119e1bf2fab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000010978339556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012883233424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac204da975476a24db30e3cb52a4c61d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  screenShakeDuration: 0.5
 --- !u!114 &114000011127376752
 MonoBehaviour:
   m_ObjectHideFlags: 1
