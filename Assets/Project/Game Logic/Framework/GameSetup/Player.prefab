@@ -810,8 +810,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchorType: 1
-  worldOffset: {x: 0, y: 0, z: 0}
-  pixelOffset: {x: 0, y: -50}
+  offsetType: 2
+  offset: {x: 0, y: -2, z: 0}
   entityGroupUIPrefab: {fileID: 1000010754579422, guid: 8bddf36708c2a5146b73878ebed847a3,
     type: 2}
 --- !u!114 &114000010911628036

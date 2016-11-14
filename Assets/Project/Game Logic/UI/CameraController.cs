@@ -12,8 +12,8 @@ public class CameraController : MonoBehaviour {
 
     public Transform boss { get; set; }
     public CameraType camType;
-    public bool trackDeadPlayers = true;
     public float camSmoothTime = 2.0f;
+    public bool trackDeadPlayers = true;
 
     // fixed variables
     float padding = 0.2f;   // percentage of width / height
@@ -90,6 +90,10 @@ public class CameraController : MonoBehaviour {
     }
 
     void UpdateCamTypeFixed() {
+        if(trackingList.Count <= 1) {
+            return;
+        }
+
         Camera cmain = Camera.main;
         Vector2 min, max;
         Vector3 startPos = transform.position;  // backup to restore to at the end
@@ -210,7 +214,14 @@ public class CameraController : MonoBehaviour {
 
         // set final calculated position as the target and lerp towards it
         targetPos = transform.position;
-        transform.position = Vector3.SmoothDamp(startPos, targetPos, ref camVel, camSmoothTime);
+
+        // if target position is in front of us reduce smooth speed to slowly zoom in
+        float dot = Vector3.Dot(transform.forward, (targetPos - startPos).normalized);
+        if(dot < 0.0f) {
+            dot = 0.0f;
+        }
+
+        transform.position = Vector3.SmoothDamp(startPos, targetPos, ref camVel, camSmoothTime + dot);
         //transform.position = targetPos;   // for debugging
 
     }
@@ -246,21 +257,8 @@ public class CameraController : MonoBehaviour {
 
         //min.y -= cmain.pixelHeight * padding;
         //max.y += cmain.pixelHeight * padding;
-        min.y -= cmain.pixelHeight * padding * 1.3f;   // favor players running down so they have more of warning
-        max.y += cmain.pixelHeight * padding * 0.7f;   // since players going towards top of screen can see more
-    }
-
-    // gets list of positions camera should track
-    void PopulateTrackingList() {
-        trackingList.Clear();
-        foreach (Player player in Player.Players) {
-            if (trackDeadPlayers || !player.dead) {
-                trackingList.Add(player.Holder.transform.position);
-            }
-        }
-        if (boss != null) {
-            trackingList.Add(boss.position);
-        }
+        min.y -= cmain.pixelHeight * padding * 1.2f;   // favor players running down so they have more of warning
+        max.y += cmain.pixelHeight * padding * 0.8f;   // since players going towards top of screen can see more
     }
 
     Vector3 RotatePoint(Vector3 point, Vector3 pivot, Vector3 axis, float angle) {
@@ -327,6 +325,19 @@ public class CameraController : MonoBehaviour {
             }
         }
         return max - min;
+    }
+
+    // gets list of positions camera should track
+    void PopulateTrackingList() {
+        trackingList.Clear();
+        foreach (Player player in Player.Players) {
+            if (trackDeadPlayers || !player.dead) {
+                trackingList.Add(player.Holder.transform.position);
+            }
+        }
+        if (boss != null) {
+            trackingList.Add(boss.position);
+        }
     }
 }
 

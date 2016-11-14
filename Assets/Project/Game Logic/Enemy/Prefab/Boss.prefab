@@ -2476,8 +2476,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchorType: 1
-  worldOffset: {x: 0, y: 0, z: 0}
-  pixelOffset: {x: 0, y: 30}
+  offsetType: 2
+  offset: {x: 0, y: 2.5, z: 0}
   entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
     type: 2}
 --- !u!114 &114000011028298642
@@ -2646,6 +2646,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldChase:
+    baseValue: 1
+  shouldMove:
     baseValue: 1
 --- !u!114 &114000013869679022
 MonoBehaviour:
