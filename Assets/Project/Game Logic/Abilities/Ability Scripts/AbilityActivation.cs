@@ -70,7 +70,10 @@ public class AbilityActivation : MonoBehaviour, IAbilityActivation, IAbilityCons
 
     public void Start() {
         if (abilityNetwork == null) {
-            Debug.LogErrorFormat("Ability {0} has not been initialized.", this);
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name != Tags.Scenes.BossSelect) {
+                //Ignore for boss select; I haven't created an order of execution which requires initialization before start in that scene.
+                Debug.LogErrorFormat("Ability {0} has not been initialized.", this);
+            }
             if (transform.parent == null) {
                 Destroy(this.gameObject);
             }

@@ -296,7 +296,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c391354431d034d807b44860098975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barType: 0
+  anchorType: 0
+  worldOffset: {x: 0, y: 0, z: 0}
+  pixelOffset: {x: 0, y: 0}
   entityGroupUIPrefab: {fileID: 1000012812799628, guid: b34630007d724c443a5456c66aa5be64,
     type: 2}
 --- !u!114 &114000011372161194
@@ -351,7 +353,6 @@ MonoBehaviour:
   abilityDisplayPrefab: {fileID: 1000010063827236, guid: 87754d651fb8b4948a310ae56843fb96,
     type: 2}
   playerNumber: -1
-  moveSpeed: 500
   leftHalf: {fileID: 114000011388251054}
   rightHalf: {fileID: 114000010476259884}
   readyImage: {fileID: 114000010980961138}

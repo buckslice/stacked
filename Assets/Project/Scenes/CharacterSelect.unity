@@ -381,7 +381,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 190429763}
   - 114: {fileID: 190429762}
-  - 114: {fileID: 190429764}
   m_Layer: 0
   m_Name: AutomaticBossSetup
   m_TagString: Untagged
@@ -418,20 +417,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
---- !u!114 &190429764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 190429761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa419a822e13c744491264c8800f92bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 512
-  height: 512
-  fileName: Output
 --- !u!1 &210183313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1229,12 +1214,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f1c3299f6912a4eba6a6b883211355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealthBarGroup: {fileID: 0}
-  bossHealthBarGroup: {fileID: 0}
   floatingHealthBarGroup: {fileID: 0}
   playerHealthBarPrefab: {fileID: 0}
   bossHealthBarPrefab: {fileID: 0}
-  floatingHealthBarPrefab: {fileID: 0}
   scaler: {fileID: 566795493}
 --- !u!1 &584444683
 GameObject:
@@ -5768,7 +5750,7 @@ GameObject:
   - 81: {fileID: 1793513774}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
