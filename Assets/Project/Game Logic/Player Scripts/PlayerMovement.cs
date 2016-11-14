@@ -10,6 +10,7 @@ public interface IMovement {
     AllBoolStat MovementInputEnabled { get; }
     void HaltMovement();
     void SetVelocity(Vector3 worldDirectionNormalized);
+    void MovePosition(Vector3 worldPosition);
 
     /// <summary>
     /// Returns the current movement direction.
@@ -145,6 +146,10 @@ public class PlayerMovement : MonoBehaviour, IMovement, IRotation {
     {
         Assert.AreApproximatelyEqual(worldDirectionNormalized.y, 0);
         rigid.velocity = speed * worldDirectionNormalized;
+    }
+
+    public void MovePosition(Vector3 worldPosition) {
+        rigid.MovePosition(worldPosition);
     }
 
     public Vector3 CurrentMovement() {

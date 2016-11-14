@@ -58,6 +58,10 @@ public class AIMovement : MonoBehaviour, IMovement {
         agent.velocity = worldDirectionNormalized * agent.speed;
     }
 
+    public void MovePosition(Vector3 worldPosition) {
+        agent.Warp(worldPosition);
+    }
+
     public Vector3 CurrentMovement() {
         return agent.velocity;
     }

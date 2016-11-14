@@ -45,6 +45,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
 
         targetRigid.rotation = Quaternion.LookRotation(destinationPosition - startPosition, Vector3.up);
         targetRigid.position = startPosition;
+        targetMovement.MovePosition(startPosition);
         this.transform.position = targetNetworking.transform.position;
         this.transform.SetParent(targetNetworking.transform);
         this.transform.Reset();
@@ -65,7 +66,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
 
                 Vector3 movementDiff = Vector3.Lerp(startPosition, destinationPosition, lerpProgress) - Vector3.Lerp(startPosition, destinationPosition, previousLerpValue);
                 previousLerpValue = lerpProgress;
-                targetRigid.MovePosition(movementDiff + targetRigid.position);
+                targetMovement.MovePosition(movementDiff + targetRigid.position);
             }
             yield return null;
         }
