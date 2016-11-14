@@ -5,12 +5,17 @@ using System.Linq;
 
 [RequireComponent(typeof(NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
-public class BossAggro : MonoBehaviour, IMovement {
+public class BossAggro : MonoBehaviour, IMovement, IRotation {
     [SerializeField]
     protected AllBoolStat shouldChase = new AllBoolStat(true);
+
+    [SerializeField]
+    protected AllBoolStat shouldMove = new AllBoolStat(true);
+
     public AllBoolStat ShouldChase { get { return shouldChase; } }
     public AllBoolStat ControlEnabled { get { return shouldChase; } }
-    public AllBoolStat MovementInputEnabled { get { return shouldChase; } }
+    public AllBoolStat MovementInputEnabled { get { return shouldMove; } }
+    public AllBoolStat RotationInputEnabled { get { return shouldChase; } }
 
     NavMeshAgent agent;
     Rigidbody rigid;
@@ -62,7 +67,8 @@ public class BossAggro : MonoBehaviour, IMovement {
         if (shouldChase) {
             agent.enabled = true;
             agent.updateRotation = true;
-            agent.updatePosition = true;
+            agent.updatePosition = shouldMove;
+
             if (aggroHolder >= 0) {
                 Player target = Player.GetPlayerByID(aggroHolder);
 

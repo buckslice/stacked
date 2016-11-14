@@ -18,6 +18,10 @@ public interface IMovement {
     Vector3 CurrentMovement();
 }
 
+public interface IRotation {
+    AllBoolStat RotationInputEnabled { get; }
+}
+
 /// <summary>
 /// Denotes a script which overrides an IMovement. New IMovementOverrides will disable previous ones.
 /// </summary>
@@ -27,8 +31,7 @@ public interface IMovementOverride {
 
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(IPlayerInputHolder))]
-public class PlayerMovement : MonoBehaviour, IMovement
-{
+public class PlayerMovement : MonoBehaviour, IMovement, IRotation {
 
     [SerializeField]
     protected MultiplierFloatStat speed = new MultiplierFloatStat(6);

@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public abstract class DurationAbilityAction : AbstractAbilityAction {
+public abstract class DurationAbilityAction : AbstractAbilityAction, IBalanceStat {
 
     [SerializeField]
     protected MultiplierFloatStat duration = new MultiplierFloatStat(1);
@@ -43,4 +43,13 @@ public abstract class DurationAbilityAction : AbstractAbilityAction {
     protected virtual void OnDurationTick(float lerpProgress) { }
     protected abstract void OnDurationEnd();
     protected virtual void OnDurationInterrupted() { }
+
+    void IBalanceStat.setValue(float value, BalanceStat.StatType type) {
+        switch(type) {
+            case BalanceStat.StatType.DURATION:
+            default:
+                duration = new MultiplierFloatStat(value);
+                break;
+        }
+    }
 }
