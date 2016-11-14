@@ -134,8 +134,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camType: 1
-  trackDeadPlayers: 1
   camSmoothTime: 1
+  trackDeadPlayers: 1
 --- !u!114 &114000012663679526
 MonoBehaviour:
   m_ObjectHideFlags: 1

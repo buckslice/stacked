@@ -12,9 +12,8 @@ public class EntityUIGroupHolder : MonoBehaviour {
 
     [SerializeField]
     public AnchorType anchorType = AnchorType.FLOATING;
-
-    public Vector3 worldOffset = Vector3.zero;
-    public Vector2 pixelOffset = Vector2.zero;
+    public CameraOffsetType offsetType = CameraOffsetType.WORLD;
+    public Vector3 offset = Vector3.zero;
 
     [SerializeField]
     protected GameObject entityGroupUIPrefab;
@@ -43,7 +42,7 @@ public class EntityUIGroupHolder : MonoBehaviour {
             if (follower != null) {
 
                 Debug.Assert(canvasHelper.scaler, "Need canvas scaler on canvas!");
-                follower.Initialize(canvasHelper, transform, worldOffset, pixelOffset);
+                follower.Initialize(canvasHelper, transform, offset, offsetType);
             }
         }
         entityGroup = groupTransform.GetComponent<EntityUIGroup>();
