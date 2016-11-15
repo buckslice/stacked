@@ -25,6 +25,8 @@ public class AIMovement : MonoBehaviour, IMovement {
     NavMeshAgent agent;
     float timer = 100.0f;
 
+    IMovementOverride currentOverride = null;
+
     // Use this for initialization
     void Awake() {
         agent = GetComponent<NavMeshAgent>();
@@ -49,9 +51,6 @@ public class AIMovement : MonoBehaviour, IMovement {
 
     public void HaltMovement() {
         agent.ResetPath();
-        foreach (IMovementOverride movementOverride in GetComponentsInChildren<IMovementOverride>()) {
-            movementOverride.Disable();
-        }
     }
 
     public void SetVelocity(Vector3 worldDirectionNormalized) {
@@ -66,4 +65,18 @@ public class AIMovement : MonoBehaviour, IMovement {
         return agent.velocity;
     }
 
+    bool IMovement.SetCurrentMovementOverride(IMovementOverride movementOverride) {
+        bool result = currentOverride != null;
+        if (result) {
+            currentOverride.Disable();
+            MovementInputEnabled.RemoveModifier(false);
+        }
+
+        if (movementOverride != null) {
+            MovementInputEnabled.AddModifier(false);
+        }
+
+        currentOverride = movementOverride;
+        return result;
+    }
 }

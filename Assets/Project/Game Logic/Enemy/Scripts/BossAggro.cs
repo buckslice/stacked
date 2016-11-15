@@ -13,13 +13,16 @@ public class BossAggro : MonoBehaviour, IMovement, IRotation {
     protected AllBoolStat shouldMove = new AllBoolStat(true);
 
     public AllBoolStat ShouldChase { get { return shouldChase; } }
-    public AllBoolStat ControlEnabled { get { return shouldChase; } }
+    public AllBoolStat ControlEnabled { get { Debug.LogWarning("I (Derek) am depreciating ControlEnabled in favor of MovementInputEnabled and RotationInputEnabled.", this);  return shouldChase; } }
     public AllBoolStat MovementInputEnabled { get { return shouldMove; } }
     public AllBoolStat RotationInputEnabled { get { return shouldChase; } }
 
     NavMeshAgent agent;
     Rigidbody rigid;
     Animator animator;
+
+    IMovementOverride currentMovementOverride = null;
+    IRotationOverride currentRotationOverride = null;
 
     /// <summary>
     /// A float for each player showing their current aggro to boss. The index is the player's playerID.
@@ -161,5 +164,25 @@ public class BossAggro : MonoBehaviour, IMovement, IRotation {
 
     public Vector3 CurrentMovement() {
         return agent.desiredVelocity;
+    }
+
+    bool IMovement.SetCurrentMovementOverride(IMovementOverride movementOverride) {
+        bool result = currentMovementOverride != null;
+        if (result) {
+            currentMovementOverride.Disable();
+        }
+
+        currentMovementOverride = movementOverride;
+        return result;
+    }
+
+    bool IRotation.SetCurrentRotationOverride(IRotationOverride rotationOverride) {
+        bool result = currentRotationOverride != null;
+        if (result) {
+            currentRotationOverride.Disable();
+        }
+
+        currentRotationOverride = rotationOverride;
+        return result;
     }
 }

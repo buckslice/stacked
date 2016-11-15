@@ -12,6 +12,8 @@ public interface IMovement {
     void SetVelocity(Vector3 worldDirectionNormalized);
     void MovePosition(Vector3 worldPosition);
 
+    bool SetCurrentMovementOverride(IMovementOverride movementOverride);
+
     /// <summary>
     /// Returns the current movement direction.
     /// </summary>
@@ -19,15 +21,23 @@ public interface IMovement {
     Vector3 CurrentMovement();
 }
 
-public interface IRotation {
-    AllBoolStat RotationInputEnabled { get; }
-}
-
 /// <summary>
 /// Denotes a script which overrides an IMovement. New IMovementOverrides will disable previous ones.
 /// </summary>
 public interface IMovementOverride {
-    void Disable();
+    bool Disable();
+}
+
+public interface IRotation {
+    AllBoolStat RotationInputEnabled { get; }
+    bool SetCurrentRotationOverride(IRotationOverride rotationOverride);
+}
+
+/// <summary>
+/// Denotes a script which overrides an IRotation. New IRotationOverride will disable previous ones.
+/// </summary>
+public interface IRotationOverride {
+    bool Disable();
 }
 
 [RequireComponent(typeof(PhotonView))]
@@ -52,19 +62,22 @@ public class PlayerMovement : MonoBehaviour, IMovement, IRotation {
     /// </summary>
     [SerializeField]
     protected AllBoolStat controlEnabled = new AllBoolStat(true);
-    public AllBoolStat ControlEnabled { get { return controlEnabled; } }
+    public AllBoolStat ControlEnabled { get { Debug.LogWarning("I (Derek) am depreciating ControlEnabled in favor of MovementInputEnabled and RotationInputEnabled.", this); return controlEnabled; } }
 
     [SerializeField]
-    public AllBoolStat movementInputEnabled = new AllBoolStat(true);
+    protected AllBoolStat movementInputEnabled = new AllBoolStat(true);
     public AllBoolStat MovementInputEnabled { get { return movementInputEnabled; } }
 
     [SerializeField]
-    public AllBoolStat rotationInputEnabled = new AllBoolStat(true);
+    protected AllBoolStat rotationInputEnabled = new AllBoolStat(true);
     public AllBoolStat RotationInputEnabled { get { return rotationInputEnabled; } }
 
     Rigidbody rigid;
     PhotonView view;
     IPlayerInputHolder input;
+
+    IMovementOverride currentMovementOverride = null;
+    IRotationOverride currentRotationOverride = null;
 
     /// <summary>
     /// Photon timestamp of the most recent data, used to warn if data is being received out of order.
@@ -326,5 +339,25 @@ public class PlayerMovement : MonoBehaviour, IMovement, IRotation {
             bufferedTargetPositions.Enqueue(positionData);
             bufferedTargetRotations.Enqueue(rotationData);
         }
+    }
+
+    bool IMovement.SetCurrentMovementOverride(IMovementOverride movementOverride) {
+        bool result = currentMovementOverride != null;
+        if (result) {
+            currentMovementOverride.Disable();
+        }
+
+        currentMovementOverride = movementOverride;
+        return result;
+    }
+
+    bool IRotation.SetCurrentRotationOverride(IRotationOverride rotationOverride) {
+        bool result = currentRotationOverride != null;
+        if (result) {
+            currentRotationOverride.Disable();
+        }
+
+        currentRotationOverride = rotationOverride;
+        return result;
     }
 }

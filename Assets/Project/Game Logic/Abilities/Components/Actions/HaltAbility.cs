@@ -12,7 +12,7 @@ public class HaltAbility : DurationAbilityAction {
     Coroutine activeRoutine;
 
     protected override void Start() {
-        Debug.LogWarning("I (Derek) am depreciating this in favor of combinations of disable-duration scripts");
+        Debug.LogWarning("I (Derek) am depreciating this in favor of combinations of disable-duration scripts", this);
         base.Start();
         movement = GetComponentInParent<IMovement>();
         targetAbilities = GetComponentInParent<IAbilities>();

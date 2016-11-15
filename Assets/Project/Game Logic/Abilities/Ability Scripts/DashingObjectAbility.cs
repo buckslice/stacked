@@ -38,10 +38,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
 
         targetMovement.HaltMovement();
         targetMovement.MovementInputEnabled.AddModifier(false);
-
-        foreach (IMovementOverride movementOverride in this.targetNetworking.transform.GetComponentsInChildren<IMovementOverride>()) {
-            movementOverride.Disable();
-        }
+        targetMovement.SetCurrentMovementOverride(this);
 
         targetRigid.rotation = Quaternion.LookRotation(destinationPosition - startPosition, Vector3.up);
         targetRigid.position = startPosition;
@@ -74,11 +71,13 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
         Destroy();
     }
 
-    public void Disable() {
+    public bool Disable() {
         if (active) {
             targetMovement.MovementInputEnabled.RemoveModifier(false);
             active = false;
+            return true;
         }
+        return false;
     }
 
     void Destroy() {
