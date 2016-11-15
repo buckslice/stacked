@@ -22,6 +22,5 @@ public class SetDeathStateAction : UntargetedAbilityConstraint {
 
     public override void Activate() {
         player.dead = outcomeState;
-        GetComponentInParent<Rigidbody>().isKinematic = true;   // so player doesnt fall through ground while dead 
     }
 }
