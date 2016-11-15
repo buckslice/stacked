@@ -5,6 +5,8 @@ using System.Collections.Generic;
 
 /// <summary>
 /// An ability that requires the player to not move while it is active.
+/// 
+/// NOTE: this disables ALL abilities, including sub-activations like doing damage. Consider using a oneHotAbility constraint.
 /// </summary>
 public class DisableAbilitiesDuration : DurationAbilityAction {
     

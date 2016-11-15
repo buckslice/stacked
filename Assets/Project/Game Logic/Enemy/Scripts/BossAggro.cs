@@ -166,6 +166,14 @@ public class BossAggro : MonoBehaviour, IMovement, IRotation {
         return agent.desiredVelocity;
     }
 
+    Quaternion IRotation.CurrentRotation() {
+        return rigid.rotation;
+    }
+
+    void IRotation.MoveRotation(Quaternion rotation) {
+        rigid.MoveRotation(rotation);
+    }
+
     bool IMovement.SetCurrentMovementOverride(IMovementOverride movementOverride) {
         bool result = currentMovementOverride != null;
         if (result) {

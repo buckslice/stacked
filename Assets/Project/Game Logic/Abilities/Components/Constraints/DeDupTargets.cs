@@ -2,11 +2,12 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// Makes targets immune for a period of time.
 /// </summary>
-public class DeDupTargets : TargetedAbilityConstraint {
+public class DeDupTargets : TargetedAbilityConstraint, IBalanceStat {
 
     [SerializeField]
     protected float immunityDuration = 1;
@@ -34,5 +35,14 @@ public class DeDupTargets : TargetedAbilityConstraint {
     public void Reset() {
         immuneTargetsQueue.Clear();
         immuneTargetsSet.Clear();
+    }
+
+    void IBalanceStat.setValue(float value, BalanceStat.StatType type) {
+        switch(type) {
+            case BalanceStat.StatType.DURATION:
+            default:
+                immunityDuration = value;
+                break;
+        }
     }
 }

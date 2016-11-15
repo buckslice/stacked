@@ -31,6 +31,13 @@ public interface IMovementOverride {
 public interface IRotation {
     AllBoolStat RotationInputEnabled { get; }
     bool SetCurrentRotationOverride(IRotationOverride rotationOverride);
+    void MoveRotation(Quaternion rotation);
+
+    /// <summary>
+    /// Returns the current forward direction.
+    /// </summary>
+    /// <returns></returns>
+    Quaternion CurrentRotation();
 }
 
 /// <summary>
@@ -179,6 +186,14 @@ public class PlayerMovement : MonoBehaviour, IMovement, IRotation {
         } else {
             return Vector3.zero;
         }
+    }
+
+    Quaternion IRotation.CurrentRotation() {
+        return rigid.rotation;
+    }
+
+    void IRotation.MoveRotation(Quaternion rotation) {
+        rigid.MoveRotation(rotation);
     }
 
     /// <summary>

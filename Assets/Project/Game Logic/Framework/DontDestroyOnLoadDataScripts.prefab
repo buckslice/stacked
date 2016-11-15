@@ -247,8 +247,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseBossPrefab: {fileID: 1000012221291214, guid: 9746dbe808fe8fb4eb1e9b54fea252ae,
     type: 2}
-  healthBarPrefab: {fileID: 1000011406441348, guid: cf67071413b28654ba45234c318dbf33,
-    type: 2}
   abilityPrefabs:
   - {fileID: 1000010525559686, guid: 510621ad74052db48ae7655f8cc63af4, type: 2}
   - {fileID: 1000010506637404, guid: 8fd245ec13ee79b4581a3d7b8bdd95f1, type: 2}
@@ -256,6 +254,7 @@ MonoBehaviour:
   - {fileID: 1000013477630102, guid: 01a9e718b7e4d344ba8dab73c14cc5ca, type: 2}
   - {fileID: 1000010579664738, guid: 8c24a6c0c2d74b54aa85d17e3b728893, type: 2}
   - {fileID: 1000013188378642, guid: 8824b3bc150776f4fb06283090be9115, type: 2}
+  - {fileID: 1000013816809266, guid: 9e35766a04b964643892d0e8470a7d08, type: 2}
   bossDataPrefabs:
   - {fileID: 1000011969965616, guid: b14c7e3f7438aa4498bcdff4311988fe, type: 2}
   - {fileID: 1000012265965068, guid: 8f4fc3196c0bc184193615c3635de759, type: 2}
@@ -293,7 +292,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a60a497ca508384ab5158170af70bbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarPrefab: {fileID: 1000011406441348, guid: cf67071413b28654ba45234c318dbf33,
-    type: 2}
   addPrefabs:
   - {fileID: 1000012301487708, guid: 3b276311c66b11341a60a3cbec12544d, type: 2}

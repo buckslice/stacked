@@ -44,7 +44,7 @@ public abstract class DurationAbilityAction : AbstractAbilityAction, IBalanceSta
     protected abstract void OnDurationEnd();
     protected virtual void OnDurationInterrupted() { }
 
-    void IBalanceStat.setValue(float value, BalanceStat.StatType type) {
+    public virtual void setValue(float value, BalanceStat.StatType type) {
         switch(type) {
             case BalanceStat.StatType.DURATION:
             default:
