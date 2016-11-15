@@ -64,7 +64,12 @@ public class BossSetup : MonoBehaviour
             return;
         }
         BossSetupNetworkedData.Main.CreateBoss(bossData, spawnPoint);
-        Destroy(this.transform.root.gameObject);
-        //boss was created, our job is done. May want to change this so that the boss's spawning data is persisted.
+        //Destruction now handled in game-end screens
+    }
+
+    public static void DestroyAllBossSetups() {
+        if (main != null) {
+            Destroy(main.transform.root.gameObject);
+        }
     }
 }

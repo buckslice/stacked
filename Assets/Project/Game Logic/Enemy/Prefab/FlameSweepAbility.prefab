@@ -407,6 +407,7 @@ MonoBehaviour:
   abilityActions:
   - {fileID: 114000014047023106}
   - {fileID: 114000011010294296}
+  - {fileID: 114000013205873384}
   - {fileID: 114000011254559574}
 --- !u!114 &114000014047023106
 MonoBehaviour:

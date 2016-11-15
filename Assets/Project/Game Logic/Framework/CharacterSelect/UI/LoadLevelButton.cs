@@ -26,4 +26,8 @@ public class LoadLevelButton : MonoBehaviour {
     {
         R41DNetworking.Main.LoadLevel(levelName);
     }
+
+    public void loadSameLevel() {
+        SceneManager.LoadScene(BossSetup.Main.BossData.sceneName);
+    }
 }

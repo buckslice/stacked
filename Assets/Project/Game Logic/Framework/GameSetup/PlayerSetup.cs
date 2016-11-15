@@ -85,7 +85,8 @@ public class PlayerSetup : MonoBehaviour {
     void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1) {
         //maybe make sure it's the right scene (or at least not a menu scene)
         if (arg0.name == Tags.Scenes.BossSelect || arg0.name == Tags.Scenes.CharacterSelect || arg0.name == Tags.Scenes.MainMenu
-            || arg0.name == Tags.Scenes.Options || arg0.name == Tags.Scenes.PlayerRegistration) { return; }
+            || arg0.name == Tags.Scenes.Options || arg0.name == Tags.Scenes.PlayerRegistration || arg0.name == Tags.Scenes.VictoryPopup
+            || arg0.name == Tags.Scenes.DefeatPopup) { return; }
 
         if (AIPlayer) {
             PlayerSetupNetworkedData.Main.CreateAIPlayer((byte)playerID, playerData);
@@ -93,8 +94,12 @@ public class PlayerSetup : MonoBehaviour {
             PlayerSetupNetworkedData.Main.CreatePlayer((byte)playerID, inputBindings, playerData);
         }
 
-        //TODO: move destruction to game end screens. We'll only destroy if we're going back to char select and not restarting the fight.
-        Destroy(this.transform.root.gameObject);
+        //Destruction now handled in game-end screens
     }
 
+    public static void DestroyAllPlayerSetups() {
+        foreach (PlayerSetup setup in GameObject.FindObjectsOfType<PlayerSetup>()) {
+            Destroy(setup.transform.root.gameObject);
+        }
+    }
 }

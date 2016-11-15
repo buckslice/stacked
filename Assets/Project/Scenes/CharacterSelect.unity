@@ -1116,6 +1116,7 @@ GameObject:
   - 114: {fileID: 566795493}
   - 114: {fileID: 566795492}
   - 114: {fileID: 566795496}
+  - 114: {fileID: 566795497}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: CanvasRoot
@@ -1222,6 +1223,17 @@ MonoBehaviour:
   playerHealthBarPrefab: {fileID: 0}
   bossHealthBarPrefab: {fileID: 0}
   scaler: {fileID: 566795493}
+--- !u!114 &566795497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 566795491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea62bb1b869edf34687a255b39896312, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &584444683
 GameObject:
   m_ObjectHideFlags: 0
