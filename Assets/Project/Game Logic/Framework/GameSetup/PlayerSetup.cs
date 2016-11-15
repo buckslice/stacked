@@ -15,7 +15,7 @@ public class PlayerSetup : MonoBehaviour {
     public class PlayerSetupData {
         [SerializeField]
         [Tooltip("These abilities will be rebound as a basic attack")]
-        public PlayerSetupNetworkedData.AbilityId[] basicAttacks = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.FIREBALL };
+        public PlayerSetupNetworkedData.AbilityId[] basicAttacks = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.GRAB };
 
         [SerializeField]
         [Tooltip("These abilities will be rebound as a firstAbility")]
@@ -27,7 +27,7 @@ public class PlayerSetup : MonoBehaviour {
 
         [SerializeField]
         [Tooltip("These abilities will retain their default bindings")]
-        public PlayerSetupNetworkedData.AbilityId[] abilities = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.JUMP, PlayerSetupNetworkedData.AbilityId.GRAB };
+        public PlayerSetupNetworkedData.AbilityId[] abilities = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.JUMP, PlayerSetupNetworkedData.AbilityId.FIREBALL };
 
         public byte[] toByteArray() {
             BinaryFormatter bf = new BinaryFormatter();

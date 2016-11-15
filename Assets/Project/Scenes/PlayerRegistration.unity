@@ -258,6 +258,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013979244318, guid: 08228c30b36b4c44092cd1e115a58c2b,
+        type: 2}
+      propertyPath: networkingMode
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 08228c30b36b4c44092cd1e115a58c2b, type: 2}
   m_IsPrefabParent: 0
@@ -2334,12 +2339,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50f1c3299f6912a4eba6a6b883211355, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealthBarGroup: {fileID: 0}
-  bossHealthBarGroup: {fileID: 0}
   floatingHealthBarGroup: {fileID: 0}
   playerHealthBarPrefab: {fileID: 0}
   bossHealthBarPrefab: {fileID: 0}
-  floatingHealthBarPrefab: {fileID: 0}
   scaler: {fileID: 706101881}
 --- !u!1 &735564314
 GameObject:
