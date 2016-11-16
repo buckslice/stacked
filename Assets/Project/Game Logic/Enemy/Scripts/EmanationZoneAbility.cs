@@ -5,10 +5,9 @@ using System.Collections;
 public class EmanationZoneAbility : DurationAbilityAction {
 
     public Object zonePrefab;   // prob temp till more robust system is added for spawning zone effects
+    public int zonesToSpawn = 5;   // spawns one on each player and some extra
 
-    public int extraZonesToSpawn = 5;   // spawns one on each player and some extra
-    private int spawnedZones = 0;
-
+    int spawnedZones = 0;
     BossAggro boss;
 
     protected override void Start() {
@@ -27,23 +26,12 @@ public class EmanationZoneAbility : DurationAbilityAction {
     }
 
     protected override void OnDurationTick(float lerpProgress) {
-        int numPlayers = Player.Players.Count;
-        numPlayers = 0;
-        int totalZones = numPlayers + extraZonesToSpawn;
-
-        float p = (float)spawnedZones / totalZones;
+        float p = (float)spawnedZones / zonesToSpawn;
         if (lerpProgress > p) {
-
             Vector3 targetPos;
-            // first spawn a zone on each player
-            if (spawnedZones < numPlayers) {
-                targetPos = Player.Players[spawnedZones].Holder.transform.position;
-                targetPos.y = 0.0f;
-            } else {    // then spawn some extra random zones
-                float x = Random.Range(-40.0f, 40.0f);
-                float z = Random.Range(-40.0f, 40.0f);
-                targetPos = new Vector3(x, 0.0f, z);
-            }
+            float x = Random.Range(-40.0f, 40.0f);
+            float z = Random.Range(-40.0f, 40.0f);
+            targetPos = new Vector3(x, 0.0f, z);
 
             GameObject go = (GameObject)Instantiate(zonePrefab);
             go.GetComponent<Zone>().Setup(targetPos, Vector3.one);

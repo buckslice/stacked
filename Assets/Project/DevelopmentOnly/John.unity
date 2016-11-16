@@ -1499,7 +1499,7 @@ MonoBehaviour:
     basicAttacks: 06
     firstAbilities: 01
     secondAbilities: 0b
-    abilities: 
+    abilities: 10
   AIPlayer: 0
 --- !u!4 &2137640759
 Transform:

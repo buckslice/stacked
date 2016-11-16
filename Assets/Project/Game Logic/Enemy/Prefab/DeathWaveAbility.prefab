@@ -24,7 +24,7 @@ GameObject:
   - 114: {fileID: 114000013490263154}
   - 114: {fileID: 114000013525386002}
   m_Layer: 0
-  m_Name: EmanationZoneAbility
+  m_Name: DeathWaveAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,4 +97,4 @@ MonoBehaviour:
   duration:
     baseValue: 5
   zonePrefab: {fileID: 1000013036402934, guid: eb439765020340a4486f6477c5198693, type: 2}
-  extraZonesToSpawn: 5
+  zonesToSpawn: 5

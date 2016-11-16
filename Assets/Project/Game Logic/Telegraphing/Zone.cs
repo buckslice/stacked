@@ -51,7 +51,7 @@ public class Zone : MonoBehaviour {
 
     public Vector3 velocity;
     public float emanationSpeed = 1.0f;
-    public float emanationRadius = 1.0f;    // radius of ring
+    public float discWidth = 1.0f;    // radius of emanation disc
 
     Vector3 flightTarget;
     Vector3 flightStart;
@@ -95,8 +95,11 @@ public class Zone : MonoBehaviour {
         ParticleSystem.ShapeModule pssm = ps.shape;
 
         if (type == ZoneType.EMANATING) {
-            origVolume /= psScale.x;    // doing it by area
-            ps.transform.localPosition = Vector3.up * 0.5f;
+            float newLifeTime = discWidth / emanationSpeed;
+            origVolume = psScale.x / (mainParticles.startLifetime / newLifeTime);
+            mainParticles.startLifetime = newLifeTime;
+
+            ps.transform.localPosition = Vector3.up;
             ps.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
             ps.transform.localScale = new Vector3(0.5f, 0.5f, 1.0f);
             pssm.shapeType = ParticleSystemShapeType.CircleEdge;
@@ -153,7 +156,7 @@ public class Zone : MonoBehaviour {
     // size is width height length
     public void Setup(Vector3 position, Vector3 scale, Vector3 destination) {
         if (type == ZoneType.EMANATING) {
-            scale = Vector3.one;
+            scale = new Vector3(1.0f, 0.5f, 1.0f);  // make a little shorter to be easier to jump over
         } else if (shape == ZoneShape.CIRCLE) { // makes sure scale vector for circles is uniform
             float maxDim = Mathf.Max(scale.x, Mathf.Max(scale.y, scale.z));
             scale = Vector3.one * maxDim;
@@ -292,6 +295,11 @@ public class Zone : MonoBehaviour {
     }
 
     void DamageAllPlayersInContact() {
+        if (type == ZoneType.EMANATING) {
+            Debug.LogWarning("EXPLODE zone effect not currenly implemented with emanating zones");
+            return;
+        }
+
         int count = 0;
 
         if (shape == ZoneShape.SQUARE) {
@@ -315,11 +323,20 @@ public class Zone : MonoBehaviour {
             return;
         }
         if (action == ZoneAction.DAMAGE_OVER_TIME || action == ZoneAction.HEALING_OVER_TIME) {
-            c.GetComponent<Damageable>().Damage(healthChange * Time.fixedDeltaTime);
+            if (type != ZoneType.EMANATING || InZoneDisc(c.transform.position)) {
+                c.GetComponent<Damageable>().Damage(healthChange * Time.fixedDeltaTime);
+            }
         } else if (action == ZoneAction.EXPLODE_ON_CONTACT) {
             DamageAllPlayersInContact();
             DestroyZone();
         }
+    }
+
+    bool InZoneDisc(Vector3 position) {
+        float sqrDist = Vector3.SqrMagnitude(transform.position - position);
+        float max = transform.localScale.x / 2.0f;  // radius
+        float min = max - discWidth;
+        return sqrDist < max * max && sqrDist > min * min;
     }
 
     // destroys this object after the particle system ends

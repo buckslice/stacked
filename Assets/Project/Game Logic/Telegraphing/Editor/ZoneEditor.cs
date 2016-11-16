@@ -41,6 +41,7 @@ public class ZoneEditor : Editor {
 
         if(targ.type == ZoneType.EMANATING) {
             targ.emanationSpeed = EditorGUILayout.FloatField("Emanation Speed", targ.emanationSpeed);
+            targ.discWidth = EditorGUILayout.FloatField("Disc Width", targ.discWidth);
         }
 
         targ.mainParticles = (ParticleSystem)EditorGUILayout.ObjectField("Main Particle System Prefab", targ.mainParticles, typeof(ParticleSystem), false, null);

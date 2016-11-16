@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000010663647736}
   - 114: {fileID: 114000013615044742}
   m_Layer: 0
-  m_Name: EmanationZone
+  m_Name: DeathWave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35,7 +35,7 @@ Transform:
   m_GameObject: {fileID: 1000013036402934}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.71, y: 1.37, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,18 +54,21 @@ MonoBehaviour:
   type: 2
   shape: 1
   action: 1
-  healthChange: 1
+  healthChange: 40
   mainDuration: 10
-  mainParticles: {fileID: 0}
+  mainParticles: {fileID: 198000010591633626, guid: 54bed2c35af12b84a9bfb4236ddb4680,
+    type: 2}
   isTelegraphed: 0
   telegraphParticles: {fileID: 0}
   telegraphDuration: 3
-  fliesToDestination: 0
-  flightType: 0
-  flightParticles: {fileID: 0}
+  fliesToDestination: 1
+  flightType: 2
+  flightParticles: {fileID: 198000013237610656, guid: d888acd8cb5e8f140aa336a3b4423a8f,
+    type: 2}
   speedBasedOnDuration: 1
   flightDuration: 2
   flightSpeedHorizontal: 5
   initialYVel: 10
   velocity: {x: 0, y: 0, z: 0}
-  emanationSpeed: 1
+  emanationSpeed: 4
+  discWidth: 2
