@@ -3,10 +3,8 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Intended to be used for development only, in order to mock a player isntead of going through character select.
-/// </summary>
-public class AutomaticBossSetup : BossSetup {
+public class AutomaticStackedBossSetup : StackedBossSetup {
+
     protected override void Awake() {
 
         if (R41DNetworking.Main != null && R41DNetworking.Main.NetworkingMode == R41DNetworkingMode.ONLINE) {

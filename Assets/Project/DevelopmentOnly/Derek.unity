@@ -191,6 +191,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d3ecae7dd160534a9493004a7b022d6, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &282661869 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000011232789038, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1762543353}
 --- !u!1 &483907700
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,9 +837,35 @@ Prefab:
       propertyPath: bossData.abilities.Array.data[0]
       value: 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1762543354 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000011236129322, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1762543353}
+--- !u!114 &1762543355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1762543354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00ac7122f966bc498c52aa40547200a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 282661869}
+  playerSpawnPoints: []
+  bossData:
+  - bossID: 2
+    sceneName: Derek
+    abilities: 
+  - bossID: 3
+    sceneName: Derek
+    abilities: 
 --- !u!1001 &1826589521
 Prefab:
   m_ObjectHideFlags: 0

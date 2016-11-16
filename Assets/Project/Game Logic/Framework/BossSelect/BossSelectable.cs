@@ -14,6 +14,6 @@ public class BossSelectable : MonoBehaviour, ISelectable {
     public BossSetupNetworkedData.BossID BossID { get { return bossID; } }
 
     void Start() {
-        titleText.text = BossSetupNetworkedData.Main.bossDataPrefabs[(byte)bossID].GetComponent<BossSetup>().BossData.sceneName;
+        titleText.text = BossSetupNetworkedData.Main.bossDataPrefabs[(byte)bossID].GetComponent<IBossSetup>().BossData.sceneName;
     }
 }

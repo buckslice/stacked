@@ -31,9 +31,7 @@ public abstract class AbstractBossSetup : MonoBehaviour, IBossSetup {
     static IBossSetup main;
     public static IBossSetup Main { get { return main; } }
 
-    [SerializeField]
-    protected BossSetupData bossData;
-    public BossSetupData BossData { get { return bossData; } }
+    public abstract BossSetupData BossData { get; }
 
     [SerializeField]
     protected Transform spawnPoint;
@@ -71,7 +69,11 @@ public abstract class AbstractBossSetup : MonoBehaviour, IBossSetup {
 /// Class to hold boss data, and to spawn said boss after the next scene change.
 /// </summary>
 public class BossSetup : AbstractBossSetup, IBossSetup {
-    
+
+    [SerializeField]
+    protected BossSetupData bossData;
+    public override BossSetupData BossData { get { return bossData; } }
+
     protected override void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         if (!PhotonNetwork.isMasterClient)

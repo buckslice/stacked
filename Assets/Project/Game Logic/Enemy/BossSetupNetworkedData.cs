@@ -26,6 +26,8 @@ public class BossSetupNetworkedData : MonoBehaviour {
     public enum BossID : byte {
         JOHN,
         DEREK,
+        BOSS1_1,
+        BOSS1_2,
     }
 
     static BossSetupNetworkedData main;
@@ -83,11 +85,11 @@ public class BossSetupNetworkedData : MonoBehaviour {
     /// </summary>
     /// <param name="input"></param>
     /// <param name="BossNumber"></param>
-    public void CreateBoss(BossSetup.BossSetupData bossData, Transform spawn) {
+    public GameObject CreateBoss(BossSetup.BossSetupData bossData, Transform spawn) {
         int allocatedViewId = PhotonNetwork.AllocateViewID();
 
         //Create our local copy
-        InstantiateBoss(allocatedViewId, bossData, spawn.position, spawn.rotation);
+        GameObject result = InstantiateBoss(allocatedViewId, bossData, spawn.position, spawn.rotation);
 
         //Create the network payload to send for remote copies
         Packet p = new Packet();
@@ -102,6 +104,8 @@ public class BossSetupNetworkedData : MonoBehaviour {
 
         //Send the event to create the remote copies
         R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEBOSS, p.getData(), true, options);
+
+        return result;
     }
 
     public void OnEvent(byte eventcode, object content, int senderid) {
@@ -123,7 +127,7 @@ public class BossSetupNetworkedData : MonoBehaviour {
     /// </summary>
     /// <param name="BossNumber"></param>
     /// <param name="allocatedViewId"></param>
-    public void InstantiateBoss(int allocatedViewId, BossSetup.BossSetupData BossData, Vector3 spawnPoint, Quaternion spawnOrientation) {
+    public GameObject InstantiateBoss(int allocatedViewId, BossSetup.BossSetupData BossData, Vector3 spawnPoint, Quaternion spawnOrientation) {
         GameObject bossGO = (GameObject)Instantiate(baseBossPrefabs[(byte)BossData.bossID], spawnPoint, spawnOrientation); //TODO: double check this works
         bossGO.name = "Boss";
 
@@ -144,5 +148,7 @@ public class BossSetupNetworkedData : MonoBehaviour {
         foreach (AbilityId ability in BossData.abilities) {
             InstantiateAbility(ability, bossGO.transform, abilityNetworking);
         }
+
+        return bossGO;
     }
 }

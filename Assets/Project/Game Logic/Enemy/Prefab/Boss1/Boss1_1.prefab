@@ -39,6 +39,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000010602768874
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000013604919748}
+  - 114: {fileID: 114000012103746532}
+  - 114: {fileID: 114000011715148904}
+  - 114: {fileID: 114000013257284194}
+  m_Layer: 17
+  m_Name: SetupAbility
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000012371503666
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +121,6 @@ GameObject:
   - 4: {fileID: 4000014080152210}
   - 33: {fileID: 33000011516928550}
   - 23: {fileID: 23000013793568412}
-  - 95: {fileID: 95000011526622704}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -139,8 +156,22 @@ Transform:
   - {fileID: 4000014059303464}
   - {fileID: 4000014180262700}
   - {fileID: 4000013090475344}
+  - {fileID: 4000013604919748}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!4 &4000013604919748
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010602768874}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000013346805066}
+  m_RootOrder: 4
 --- !u!4 &4000014059303464
 Transform:
   m_ObjectHideFlags: 1
@@ -290,23 +321,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 2, z: 2.5}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!95 &95000011526622704
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014146623968}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 686efe7f080d86f46a633e474cb9310b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114000010033171096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -337,7 +351,7 @@ MonoBehaviour:
   shouldChase:
     baseValue: 1
   shouldMove:
-    baseValue: 0
+    baseValue: 1
 --- !u!114 &114000010277982498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -401,6 +415,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73f1a63dea6ce94481f02408f2180ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000011715148904
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010602768874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11947bc9006a067449189a1fa60cc4ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011782342384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -440,6 +465,19 @@ MonoBehaviour:
   viewIdField: 0
   instantiationId: -1
   isRuntimeInstantiated: 0
+--- !u!114 &114000012103746532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010602768874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6cbc1fd32de5b14a873399bb58fa41f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityActions:
+  - {fileID: 114000013257284194}
 --- !u!114 &114000012840221916
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -500,6 +538,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 314d17722f64fd944a92f5763a738e85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000013257284194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010602768874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0397d5653820e7047a187e4dabbbc7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013635681030
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -513,6 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilities:
   - {fileID: 1000012889225660}
+  - {fileID: 1000010602768874}
 --- !u!136 &136000013413118170
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -545,7 +595,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1000010035444456}
   m_Enabled: 1
   m_Radius: 1.5
-  m_Speed: 3.5
+  m_Speed: 0.5
   m_Acceleration: 16
   avoidancePriority: 50
   m_AngularSpeed: 360
