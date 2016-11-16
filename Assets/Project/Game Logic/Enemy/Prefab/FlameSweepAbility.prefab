@@ -300,7 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
-    amount: 50
+    amount: 25
     type: 1
 --- !u!114 &114000011832330200
 MonoBehaviour:
