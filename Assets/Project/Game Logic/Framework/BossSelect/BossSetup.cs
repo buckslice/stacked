@@ -4,23 +4,32 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-/// <summary>
-/// Class to hold boss data, and to spawn said boss after the next scene change.
-/// </summary>
-public class BossSetup : MonoBehaviour
-{
-    static BossSetup main;
-    public static BossSetup Main { get { return main; } }
+public interface IBossSetup {
+    BossSetup.BossSetupData BossData {
+        get;
+    }
+
+    Transform[] PlayerSpawnPoints {
+        get;
+    }
+}
+
+public abstract class AbstractBossSetup : MonoBehaviour, IBossSetup {
 
     [System.Serializable]
-    public class BossSetupData
-    {
+    public class BossSetupData {
+        [SerializeField]
+        public BossSetupNetworkedData.BossID bossID;
+
         [SerializeField]
         public string sceneName;
 
         [SerializeField]
         public BossSetupNetworkedData.AbilityId[] abilities;
     }
+
+    static IBossSetup main;
+    public static IBossSetup Main { get { return main; } }
 
     [SerializeField]
     protected BossSetupData bossData;
@@ -33,27 +42,37 @@ public class BossSetup : MonoBehaviour
     protected Transform[] playerSpawnPoints;
     public Transform[] PlayerSpawnPoints { get { return playerSpawnPoints; } }
 
-    protected virtual void Awake()
-    {
+    protected virtual void Awake() {
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-        if (main != null)
-        {
-            Destroy(Main.transform.root.gameObject);
+        if (main != null) {
+            Destroy((Main as Object as MonoBehaviour).transform.root.gameObject);
         }
         main = this;
         DontDestroyOnLoad(this.transform.root.gameObject);
     }
 
-    void OnDestroy()
-    {
+    void OnDestroy() {
         SceneManager.sceneLoaded -= SceneManager_sceneLoaded;
-        if (Main == this)
-        {
+        if (this == (Object)Main) {
             main = null;
         }
     }
 
-    void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    protected abstract void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1);
+
+    public static void DestroyAllBossSetups() {
+        if (main != null) {
+            Destroy((Main as Object as MonoBehaviour).transform.root.gameObject);
+        }
+    }
+}
+
+/// <summary>
+/// Class to hold boss data, and to spawn said boss after the next scene change.
+/// </summary>
+public class BossSetup : AbstractBossSetup, IBossSetup {
+    
+    protected override void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
         if (!PhotonNetwork.isMasterClient)
         {
@@ -63,13 +82,8 @@ public class BossSetup : MonoBehaviour
         {
             return;
         }
+
         BossSetupNetworkedData.Main.CreateBoss(bossData, spawnPoint);
         //Destruction now handled in game-end screens
-    }
-
-    public static void DestroyAllBossSetups() {
-        if (main != null) {
-            Destroy(main.transform.root.gameObject);
-        }
     }
 }

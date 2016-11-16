@@ -245,8 +245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62086a4f3388f1d469f2518af95f0306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseBossPrefab: {fileID: 1000012221291214, guid: 9746dbe808fe8fb4eb1e9b54fea252ae,
-    type: 2}
+  baseBossPrefabs:
+  - {fileID: 1000012221291214, guid: 9746dbe808fe8fb4eb1e9b54fea252ae, type: 2}
+  - {fileID: 1000012221291214, guid: 9746dbe808fe8fb4eb1e9b54fea252ae, type: 2}
   abilityPrefabs:
   - {fileID: 1000010525559686, guid: 510621ad74052db48ae7655f8cc63af4, type: 2}
   - {fileID: 1000010506637404, guid: 8fd245ec13ee79b4581a3d7b8bdd95f1, type: 2}

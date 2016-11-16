@@ -23,15 +23,18 @@ public class BossSetupNetworkedData : MonoBehaviour {
     }
 
     public enum BossID : byte {
+        JOHN,
         DEREK,
-        JOHN
     }
 
     static BossSetupNetworkedData main;
     public static BossSetupNetworkedData Main { get { return main; } }
 
+    /// <summary>
+    /// When a boss is created, its prefab needs to be added here. Do not remove legacy bosses. Order matters.
+    /// </summary>
     [SerializeField]
-    protected GameObject baseBossPrefab;
+    protected GameObject[] baseBossPrefabs;
 
     /// <summary>
     /// When an ability prefab is created, its prefab needs to be added here. Do not remove legacy abilities. Order matters.
@@ -120,7 +123,7 @@ public class BossSetupNetworkedData : MonoBehaviour {
     /// <param name="BossNumber"></param>
     /// <param name="allocatedViewId"></param>
     public void InstantiateBoss(int allocatedViewId, BossSetup.BossSetupData BossData, Vector3 spawnPoint, Quaternion spawnOrientation) {
-        GameObject bossGO = (GameObject)Instantiate(baseBossPrefab, spawnPoint, spawnOrientation); //TODO: double check this works
+        GameObject bossGO = (GameObject)Instantiate(baseBossPrefabs[(byte)BossData.bossID], spawnPoint, spawnOrientation); //TODO: double check this works
         bossGO.name = "Boss";
 
         //assign view ID

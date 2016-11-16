@@ -2,9 +2,9 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class TimestampedData<T>
-{
+public class TimestampedData<T> : System.IComparable {
     /// <summary>
     /// Time at which this data will be exactly displayed to the player.
     /// </summary>
@@ -35,5 +35,10 @@ public class TimestampedData<T>
             float timeDifference = (float)(end.outputTime - start.outputTime);
             return distanceDifference / timeDifference;
         }
+    }
+
+    int IComparable.CompareTo(object obj) {
+        TimestampedData<T> other = obj as TimestampedData<T>;
+        return this.outputTime.CompareTo(other.outputTime);
     }
 }
