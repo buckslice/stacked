@@ -3,7 +3,7 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AnimateShader : MonoBehaviour {
+public class AnimateShader : MonoBehaviour, IBalanceStat {
 
     [System.Serializable]
     public class ShaderAnimation {
@@ -20,11 +20,14 @@ public class AnimateShader : MonoBehaviour {
     [SerializeField]
     protected ShaderAnimation[] animations;
 
-    Material mat;
+    InstantiatedMaterialHolder matHolder;
     Coroutine activeRoutine;
 
 	void Awake () {
-        mat = target.material = target.material; //force it to be an instance, not the original
+        matHolder = target.GetComponent<InstantiatedMaterialHolder>();
+        if (matHolder == null) {
+            matHolder = target.gameObject.AddComponent<InstantiatedMaterialHolder>();
+        }
 	}
 
     public void Play() {
@@ -34,8 +37,17 @@ public class AnimateShader : MonoBehaviour {
 
         activeRoutine = Callback.DoLerp((float l) => {
             for (int i = 0; i < animations.Length; i++) {
-                mat.SetFloat(animations[i].propertyName, animations[i].curve.Evaluate(l));
+                matHolder.Mat.SetFloat(animations[i].propertyName, animations[i].curve.Evaluate(l));
             }
         }, duration, this).FollowedBy(() => activeRoutine = null, this);
+    }
+
+    void IBalanceStat.setValue(float value, BalanceStat.StatType type) {
+        switch (type) {
+            case BalanceStat.StatType.DURATION:
+            default:
+                duration = value;
+                break;
+        }
     }
 }
