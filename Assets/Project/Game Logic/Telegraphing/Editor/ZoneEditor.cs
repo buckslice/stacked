@@ -10,28 +10,37 @@ public class ZoneEditor : Editor {
     public override void OnInspectorGUI() {
         Zone targ = (Zone)target;
 
-        targ.shape = (ZoneShape)EditorGUILayout.EnumPopup("Zone Shape", targ.shape);
         targ.type = (ZoneType)EditorGUILayout.EnumPopup("Zone Type", targ.type);
 
-        switch (targ.type) {
-            case ZoneType.DAMAGE_OVER_TIME:
+        if (targ.type != ZoneType.EMANATING) {
+            targ.shape = (ZoneShape)EditorGUILayout.EnumPopup("Zone Shape", targ.shape);
+        }
+
+        targ.action = (ZoneAction)EditorGUILayout.EnumPopup("Zone Action", targ.action);
+
+        switch (targ.action) {
+            case ZoneAction.DAMAGE_OVER_TIME:
                 targ.healthChange = EditorGUILayout.FloatField("Damage Per Second", targ.healthChange);
                 targ.mainDuration = EditorGUILayout.FloatField("Duration", targ.mainDuration);
                 break;
-            case ZoneType.HEALING_OVER_TIME:
+            case ZoneAction.HEALING_OVER_TIME:
                 targ.healthChange = EditorGUILayout.FloatField("Healing Per Second", targ.healthChange);
                 targ.mainDuration = EditorGUILayout.FloatField("Duration", targ.mainDuration);
                 break;
-            case ZoneType.EXPLODE_AFTER_TIMER:
+            case ZoneAction.EXPLODE_AFTER_TIMER:
                 targ.healthChange = EditorGUILayout.FloatField("Explosion Damage", targ.healthChange);
                 targ.mainDuration = EditorGUILayout.FloatField("Timer", targ.mainDuration);
                 break;
-            case ZoneType.EXPLODE_ON_CONTACT:
+            case ZoneAction.EXPLODE_ON_CONTACT:
                 targ.healthChange = EditorGUILayout.FloatField("Explosion Damage", targ.healthChange);
                 targ.mainDuration = EditorGUILayout.FloatField("Duration", targ.mainDuration);
                 break;
             default:
                 break;
+        }
+
+        if(targ.type == ZoneType.EMANATING) {
+            targ.emanationSpeed = EditorGUILayout.FloatField("Emanation Speed", targ.emanationSpeed);
         }
 
         targ.mainParticles = (ParticleSystem)EditorGUILayout.ObjectField("Main Particle System Prefab", targ.mainParticles, typeof(ParticleSystem), false, null);

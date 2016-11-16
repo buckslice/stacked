@@ -985,7 +985,7 @@ Prefab:
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
       propertyPath: bossData.abilities.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000010670690832, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
       propertyPath: m_LocalPosition.x
@@ -1063,7 +1063,7 @@ Prefab:
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
       propertyPath: bossData.abilities.Array.data[1]
-      value: 1
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
@@ -1082,6 +1082,11 @@ Prefab:
     - target: {fileID: 4000011232789038, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
       propertyPath: m_LocalPosition.z
       value: 9.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
+        type: 2}
+      propertyPath: bossData.abilities.Array.data[0]
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}

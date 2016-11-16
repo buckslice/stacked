@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum ZoneType {
+    STATIONARY, // stays still once placed
+    MOVING,     // moves around with given velocity
+    EMANATING,  // pulses out from a location (defaults to circle shape)
+    //WANDER,   // wanders around randomly from starting position
+}
+
 public enum ZoneShape {
     SQUARE,
     CIRCLE
 }
 
-public enum ZoneType {
+public enum ZoneAction {
     HEALING_OVER_TIME,
     DAMAGE_OVER_TIME,
     EXPLODE_ON_CONTACT,
@@ -14,18 +21,19 @@ public enum ZoneType {
 }
 
 public enum FlightType {    // todo make other types of flight movement
-    LINEAR,
-    LERP,
-    ARC,
-    //RANDOM,
+    LINEAR,     // move linearly towards target position
+    LERP,       // lerps towards target position
+    ARC,        // lerps in the xz direction but arcs in the y
+    //RANDOM,   // something like an overshooting homing missile, but with random start direction
 }
 
 public class Zone : MonoBehaviour {
     // WARNING : THIS CLASS USES CUSTOM EDITOR SO NEW VARIABLES WONT APPEAR WITHOUT ADDING TO THAT CLASS
-    public ZoneShape shape;
     public ZoneType type;
-    public float healthChange = 1.0f;   // depends on zonetype
-    public float mainDuration = 10.0f;  // depends on zonetype
+    public ZoneShape shape;
+    public ZoneAction action;
+    public float healthChange = 1.0f;   // depends on zone action
+    public float mainDuration = 10.0f;  // depends on zone action
 
     public ParticleSystem mainParticles;
 
@@ -40,6 +48,11 @@ public class Zone : MonoBehaviour {
     public float flightDuration = 2.0f;
     public float flightSpeedHorizontal = 5.0f;
     public float initialYVel = 10.0f;
+
+    public Vector3 velocity;
+    public float emanationSpeed = 1.0f;
+    public float emanationRadius = 1.0f;    // radius of ring
+
     Vector3 flightTarget;
     Vector3 flightStart;
 
@@ -56,7 +69,8 @@ public class Zone : MonoBehaviour {
     void Awake() {
         Debug.Assert(mainParticles, "Zone needs a particle system prefab");
 
-        if (shape == ZoneShape.SQUARE) {
+        if (shape == ZoneShape.SQUARE || type == ZoneType.EMANATING) {
+            shape = ZoneShape.SQUARE;
             BoxCollider bc = gameObject.AddComponent<BoxCollider>();
             bc.center = Vector3.up * 0.5f;
             col = bc;
@@ -80,7 +94,13 @@ public class Zone : MonoBehaviour {
 
         ParticleSystem.ShapeModule pssm = ps.shape;
 
-        if (shape == ZoneShape.SQUARE) {
+        if (type == ZoneType.EMANATING) {
+            origVolume /= psScale.x;    // doing it by area
+            ps.transform.localPosition = Vector3.up * 0.5f;
+            ps.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
+            ps.transform.localScale = new Vector3(0.5f, 0.5f, 1.0f);
+            pssm.shapeType = ParticleSystemShapeType.CircleEdge;
+        } else if (shape == ZoneShape.SQUARE) {
             ps.transform.localPosition = Vector3.up * 0.5f;
             ps.transform.localRotation = Quaternion.identity;
             ps.transform.localScale = Vector3.one;
@@ -124,12 +144,17 @@ public class Zone : MonoBehaviour {
     public void Setup(Vector3 position, Vector3 scale) {
         Setup(position, scale, position);
     }
+    //public void Setup(Vector3 position, Vector3 scale, Vector3 velocity) {
+
+    //}
 
     // sets position and size of zone
     // position is specified by the bottom center
     // size is width height length
     public void Setup(Vector3 position, Vector3 scale, Vector3 destination) {
-        if (shape == ZoneShape.CIRCLE) { // makes sure scale vector for circles is uniform
+        if (type == ZoneType.EMANATING) {
+            scale = Vector3.one;
+        } else if (shape == ZoneShape.CIRCLE) { // makes sure scale vector for circles is uniform
             float maxDim = Mathf.Max(scale.x, Mathf.Max(scale.y, scale.z));
             scale = Vector3.one * maxDim;
         }
@@ -195,11 +220,34 @@ public class Zone : MonoBehaviour {
 
     IEnumerator BasicFlightRoutine(bool linear) {
         float t = 0.0f;
-        while(t < flightDuration) {
+        while (t < flightDuration) {
             transform.position = Vector3.Lerp(linear ? flightStart : transform.position, flightTarget, t / flightDuration);
             t += Time.deltaTime;
             yield return null;
         }
+    }
+
+    IEnumerator EmanationRoutine() {
+        // grow zone based upon speed until duration is over
+        // increase particle emission based on scale
+        // radius can be function of particle duration
+        ParticleSystem.EmissionModule psem = mainParticles.emission;
+        float c = psem.rate.constant;
+        float t = 0.0f;
+        while (t < mainDuration) {
+            Vector3 scale = transform.localScale;
+            float radiusGrowthSpeed = emanationSpeed * 2.0f * Time.deltaTime;
+            scale.x += radiusGrowthSpeed;
+            scale.z += radiusGrowthSpeed;
+            transform.localScale = scale;
+
+            psem.rate = scale.x * c;
+            mainParticles.maxParticles = (int)(psem.rate.constant * mainParticles.startLifetime);
+
+            t += Time.deltaTime;
+            yield return null;
+        }
+
     }
 
     IEnumerator MainRoutine() {
@@ -215,7 +263,7 @@ public class Zone : MonoBehaviour {
                     yield return StartCoroutine(BasicFlightRoutine(false));
                     break;
                 case FlightType.LINEAR:
-                    yield return StartCoroutine(BasicFlightRoutine(false));
+                    yield return StartCoroutine(BasicFlightRoutine(true));
                     break;
             }
 
@@ -232,8 +280,12 @@ public class Zone : MonoBehaviour {
         }
 
         mainParticles.Play();
-        yield return new WaitForSeconds(mainDuration);
-        if (type == ZoneType.EXPLODE_AFTER_TIMER) {
+        if (type == ZoneType.EMANATING) {
+            yield return StartCoroutine(EmanationRoutine());
+        } else {
+            yield return new WaitForSeconds(mainDuration);
+        }
+        if (action == ZoneAction.EXPLODE_AFTER_TIMER) {
             DamageAllPlayersInContact();
         }
         DestroyZone();
@@ -262,9 +314,9 @@ public class Zone : MonoBehaviour {
         if (isTelegraphed || !c.CompareTag(Tags.Player)) {
             return;
         }
-        if (type == ZoneType.DAMAGE_OVER_TIME || type == ZoneType.HEALING_OVER_TIME) {
+        if (action == ZoneAction.DAMAGE_OVER_TIME || action == ZoneAction.HEALING_OVER_TIME) {
             c.GetComponent<Damageable>().Damage(healthChange * Time.fixedDeltaTime);
-        } else if (type == ZoneType.EXPLODE_ON_CONTACT) {
+        } else if (action == ZoneAction.EXPLODE_ON_CONTACT) {
             DamageAllPlayersInContact();
             DestroyZone();
         }
