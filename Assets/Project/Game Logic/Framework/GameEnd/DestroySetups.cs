@@ -8,9 +8,17 @@ using System.Collections.Generic;
 /// </summary>
 public class DestroySetups : MonoBehaviour {
 
+    public bool destroyPlayerSetups = true;
+    public bool destroyBossSetups = true;
+
     public void Activate() {
-        PlayerSetup.DestroyAllPlayerSetups();
-        BossSetup.DestroyAllBossSetups();
+        if (destroyPlayerSetups) {
+            PlayerSetup.DestroyAllPlayerSetups();
+        }
+
+        if (destroyBossSetups) {
+            BossSetup.DestroyAllBossSetups();
+        }
     }
 
 }

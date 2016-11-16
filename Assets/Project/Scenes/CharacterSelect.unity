@@ -1234,6 +1234,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea62bb1b869edf34687a255b39896312, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destroyPlayerSetups: 1
+  destroyBossSetups: 0
 --- !u!1 &584444683
 GameObject:
   m_ObjectHideFlags: 0
