@@ -10,8 +10,10 @@ public class TouchedGroundConstraint : UntargetedAbilityConstraint {
 
     [SerializeField]
     protected int numJumps = 2;
+    
+    [SerializeField]
+    protected int currentJumps;
 
-    int currentJumps;
     int layermask;
 
     protected override void Start() {
@@ -24,14 +26,15 @@ public class TouchedGroundConstraint : UntargetedAbilityConstraint {
     public override bool isAbilityActivatible() {
         if (currentJumps > 0) {
             return true;
-        } else {
-            RaycastHit info;
-            bool result = Physics.Raycast(this.transform.position, Vector3.down, out info, groundCheckDistance, layermask);
-            if(result && info.collider.CompareTag(Tags.Floor)) {
-                numJumps = currentJumps;
-                return true;
-            }
-        }
+        } 
+        //else {
+        //    RaycastHit info;
+        //    bool result = Physics.Raycast(this.transform.position, Vector3.down, out info, groundCheckDistance, layermask);
+        //    if(result && info.collider.CompareTag(Tags.Floor)) {
+        //        currentJumps = numJumps;
+        //        return true;
+        //    }
+        //}
 
         return false;
     }

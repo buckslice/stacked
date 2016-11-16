@@ -22,11 +22,11 @@ GameObject:
   - 136: {fileID: 136000011771433208}
   - 114: {fileID: 114000012525877432}
   - 114: {fileID: 114000010388060556}
-  - 114: {fileID: 114000011112162306}
   - 114: {fileID: 114000014135220668}
   - 114: {fileID: 114000010504641656}
   - 114: {fileID: 114000014153498590}
   - 114: {fileID: 114000014100759128}
+  - 114: {fileID: 114000013560656820}
   m_Layer: 17
   m_Name: UnstackedJump
   m_TagString: Untagged
@@ -226,7 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f0684d7b4c2e7a448e08d6dbf8f8dce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numJumps: 2
+  numJumps: 1
+  currentJumps: 0
 --- !u!114 &114000010690280966
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,19 +251,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   impulse: {x: 0, y: 5, z: 0}
---- !u!114 &114000011112162306
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011761407026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a673583f36105c3449219bc1076f318f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownSecs:
-    baseValue: 0.01
 --- !u!114 &114000011323248888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -323,11 +311,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityActions:
-  - {fileID: 114000011112162306}
   - {fileID: 114000014135220668}
-  - {fileID: 114000010504641656}
   - {fileID: 114000010824901914}
   - {fileID: 114000014100759128}
+  - {fileID: 114000010504641656}
+  - {fileID: 114000013560656820}
+--- !u!114 &114000013560656820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011761407026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a673583f36105c3449219bc1076f318f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldownSecs:
+    baseValue: 0.01
 --- !u!114 &114000014054865788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -406,4 +407,4 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.7, z: 0}

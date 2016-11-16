@@ -179,7 +179,7 @@ GameObject:
   - 4: {fileID: 93838827}
   - 33: {fileID: 93838829}
   - 23: {fileID: 93838828}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: Visuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -468,7 +468,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 549058703}
-  m_Layer: 18
+  m_Layer: 19
   m_Name: Floor
   m_TagString: Floor
   m_Icon: {fileID: 0}
@@ -808,7 +808,7 @@ MonoBehaviour:
     secondAbilities: 
     abilities: 100612
   AIPlayer: 0
-  bindings: 1
+  bindings: 0
   controllerIndex: 0
 --- !u!4 &1276618380
 Transform:
