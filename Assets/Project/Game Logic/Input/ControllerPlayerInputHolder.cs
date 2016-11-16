@@ -306,8 +306,6 @@ public class ControllerPlayerInput : IPlayerInput {
     }
 
 
-
-    //TODO check if other axes are currently bound, and bind the other axes to them
     public void swapControllerType() {
         if (currentAxisType == AxisType.XBOX) {
             setPS4Bindings();
@@ -315,6 +313,10 @@ public class ControllerPlayerInput : IPlayerInput {
         else {
             setXboxBindings();
         }
+    }
+
+    public void rebindToDefault() {
+        setXboxBindings();
     }
     
     private void setXboxBindings() {
