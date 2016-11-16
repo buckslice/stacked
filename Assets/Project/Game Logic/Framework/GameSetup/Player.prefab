@@ -263,6 +263,7 @@ GameObject:
   - 114: {fileID: 114000011127376752}
   - 114: {fileID: 114000010786169638}
   - 114: {fileID: 114000011240769542}
+  - 114: {fileID: 114000010156258706}
   m_Layer: 13
   m_Name: OnRevivalAbility
   m_TagString: Untagged
@@ -774,6 +775,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114000010156258706
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013465250004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2b1443f3512768418b2700d98dd8778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration:
+    baseValue: 1
+  resistAmount: 0
 --- !u!114 &114000010470707728
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1226,6 +1241,7 @@ MonoBehaviour:
   - {fileID: 114000011127376752}
   - {fileID: 114000010786169638}
   - {fileID: 114000011240769542}
+  - {fileID: 114000010156258706}
 --- !u!114 &114000013854347498
 MonoBehaviour:
   m_ObjectHideFlags: 1
