@@ -332,3 +332,9 @@ MonoBehaviour:
   - bossID: 3
     sceneName: Derek
     abilities: 06
+  - bossID: 3
+    sceneName: Derek
+    abilities: 03
+  - bossID: 3
+    sceneName: Derek
+    abilities: 01
