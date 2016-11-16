@@ -117,6 +117,7 @@ public class PlayerMovement : MonoBehaviour, IMovement, IRotation {
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
+        rigid.freezeRotation = true;
         view = GetComponent<PhotonView>();
         input = GetComponent<IPlayerInputHolder>();
 
