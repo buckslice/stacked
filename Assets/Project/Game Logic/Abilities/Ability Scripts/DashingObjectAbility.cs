@@ -15,7 +15,7 @@ public class DashingObjectAbility : MonoBehaviour, IMovementOverride {
     Vector3 destinationPosition;
     float startTime;
     float endTime;
-    AbilityNetworking targetNetworking;
+    protected AbilityNetworking targetNetworking;
     IMovement targetMovement;
     Rigidbody targetRigid;
     bool active = true;

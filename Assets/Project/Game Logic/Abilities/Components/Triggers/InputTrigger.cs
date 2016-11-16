@@ -72,7 +72,7 @@ public class InputTrigger : MonoBehaviour, IUntargetedAbilityTrigger, IAbilityKe
                 inputValue = playerInput.getJumpDown;
                 break;
             case AbilityKeybinding.AIM:
-                inputValue = (playerInput.rotationDirection.magnitude > 0);
+                inputValue = (playerInput.rotationDirection.magnitude > 0.5f);
                 break;
             default:
                 inputValue = false;
