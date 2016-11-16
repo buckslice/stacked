@@ -520,6 +520,8 @@ MonoBehaviour:
     secondAbilities: 
     abilities: 
   AIPlayer: 0
+  bindings: 0
+  controllerIndex: 0
 --- !u!4 &1257912979
 Transform:
   m_ObjectHideFlags: 0
