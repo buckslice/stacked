@@ -14,16 +14,18 @@ public class TouchedGroundConstraint : UntargetedAbilityConstraint {
     [SerializeField]
     protected int currentJumps;
 
-    int layermask;
+    //int layermask;
 
     protected override void Start() {
         base.Start();
 
         currentJumps = numJumps;
-        layermask = LayerMask.GetMask(Tags.Layers.StaticGeometryFloor);
+        //layermask = LayerMask.GetMask(Tags.Layers.StaticGeometryFloor);
     }
 
     public override bool isAbilityActivatible() {
+        return currentJumps > 0;
+        /*
         if (currentJumps > 0) {
             return true;
         } 
@@ -37,6 +39,7 @@ public class TouchedGroundConstraint : UntargetedAbilityConstraint {
         //}
 
         return false;
+         * */
     }
 
     public override void Activate() { currentJumps--; }
