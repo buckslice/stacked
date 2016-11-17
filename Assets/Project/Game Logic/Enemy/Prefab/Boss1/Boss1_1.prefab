@@ -50,7 +50,7 @@ GameObject:
   - 114: {fileID: 114000012103746532}
   - 114: {fileID: 114000011715148904}
   - 114: {fileID: 114000013257284194}
-  - 114: {fileID: 114000011800632132}
+  - 114: {fileID: 114000011560121098}
   m_Layer: 17
   m_Name: SetupAbility
   m_TagString: Untagged
@@ -416,6 +416,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a73f1a63dea6ce94481f02408f2180ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000011560121098
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010602768874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b162cde6867d5446a3d50a41dc852b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011715148904
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -440,18 +451,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vibrationStrength: 0.5
   vibrationDuration: 0.5
---- !u!114 &114000011800632132
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010602768874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 193e1e32c094c2c458f2105b6a4b23d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impulse: {x: 0, y: 0, z: 0}
 --- !u!114 &114000011946199656
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -491,7 +490,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000013257284194}
-  - {fileID: 114000011800632132}
+  - {fileID: 114000011560121098}
 --- !u!114 &114000012840221916
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -91,64 +91,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 23800000, guid: a18a12354ce786548878137b223e3457, type: 2}
---- !u!1001 &203815860
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -11.26
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_RootOrder
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2300000, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 5d650ffefb7b06649b2a7c84d9decc47, type: 2}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 27a44fe7e59e86b4c815bc6c6fcedb58, type: 3}
-  m_IsPrefabParent: 0
 --- !u!1001 &248712740
 Prefab:
   m_ObjectHideFlags: 0
@@ -865,7 +807,7 @@ MonoBehaviour:
     abilities: 
   - bossID: 3
     sceneName: Derek
-    abilities: 
+    abilities: 06
 --- !u!1001 &1826589521
 Prefab:
   m_ObjectHideFlags: 0
@@ -949,7 +891,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
 --- !u!1 &1959176701
 GameObject:
   m_ObjectHideFlags: 0

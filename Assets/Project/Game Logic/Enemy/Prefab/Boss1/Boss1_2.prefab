@@ -121,7 +121,6 @@ GameObject:
   - 114: {fileID: 114000011806048306}
   - 114: {fileID: 114000014151875512}
   - 114: {fileID: 114000013874577358}
-  - 114: {fileID: 114000013746908938}
   m_Layer: 17
   m_Name: SetupAbility
   m_TagString: Untagged
@@ -369,7 +368,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000013874577358}
-  - {fileID: 114000013746908938}
 --- !u!114 &114000011831526772
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -469,18 +467,6 @@ MonoBehaviour:
   targetHolder: {fileID: 54000010088081118}
   targetConnectingJoint: {fileID: 59000012059870816}
   holderConnectingJoint: {fileID: 138000012255984346}
---- !u!114 &114000013746908938
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013822119604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 193e1e32c094c2c458f2105b6a4b23d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  impulse: {x: 0, y: 0, z: 0}
 --- !u!114 &114000013804038212
 MonoBehaviour:
   m_ObjectHideFlags: 1

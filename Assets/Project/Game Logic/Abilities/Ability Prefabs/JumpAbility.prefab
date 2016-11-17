@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193e1e32c094c2c458f2105b6a4b23d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  impulse: {x: 0, y: 5, z: 0}
+  impulse: {x: 0, y: 6.264184, z: 0}
 --- !u!114 &114000011323248888
 MonoBehaviour:
   m_ObjectHideFlags: 1
