@@ -12,15 +12,8 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
     public event StackableChangedEvent changeEvent = delegate { };
 
     [SerializeField]
-    protected Rigidbody targetHolder;
+    StackableJoint connectingJoint;
 
-    [SerializeField]
-    Joint targetConnectingJoint;
-
-    [SerializeField]
-    Joint holderConnectingJoint;
-
-    Vector3 connectedOffset;
     Rigidbody selfRigidbody;
     IMovement selfMovement;
 
@@ -31,11 +24,8 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
     public Stackable Below { get { return below; } }
 
     protected void Start() {
-        holderConnectingJoint.connectedBody = selfRigidbody = GetComponent<Rigidbody>();
         selfMovement = GetComponent<IMovement>();
-        Assert.IsTrue(holderConnectingJoint.connectedBody != targetHolder);
-        targetConnectingJoint.autoConfigureConnectedAnchor = false;
-        connectedOffset = transform.localPosition;
+        selfRigidbody = GetComponent<Rigidbody>();
     }
 
     void changeEventAll() {
@@ -63,19 +53,14 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
             detached.PlaceAtop(target.topmost);
         }
 
-        targetHolder.gameObject.SetActive(true);
+        connectingJoint.enabled = true;
         Rigidbody targetRigid = target.selfRigidbody;
 
         IMovement targetMovement = target.selfMovement;
         targetMovement.MovementInputEnabled.AddModifier(false);
         targetMovement.HaltMovement();
 
-        targetRigid.transform.position = targetHolder.position;
-        targetRigid.transform.rotation = targetRigid.transform.rotation = targetHolder.rotation;
-        targetConnectingJoint.connectedBody = targetRigid;
-
-        holderConnectingJoint.connectedAnchor = connectedOffset; //prevent drift from physics shenannigans
-
+        connectingJoint.Target = targetRigid;
         target.below = this;
         above = target;
 
@@ -87,11 +72,11 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
 
         IMovement targetMovement = above.selfMovement;
 
-        targetConnectingJoint.connectedBody = null;
+        connectingJoint.Target = null;
 
         targetMovement.MovementInputEnabled.RemoveModifier(false);
 
-        targetHolder.gameObject.SetActive(false);
+        connectingJoint.enabled = false;
         above.below = null;
         above = null;
     }
@@ -158,7 +143,6 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
 
         Stackable originalTarget;
         Stackable next;
-        bool hasOutputSelf;
         bool started;
 
         public StackableRigidbodyEnumerator(Stackable target) {
@@ -167,7 +151,7 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
         }
 
         public Rigidbody Current {
-            get { return hasOutputSelf ? next.targetHolder : next.selfRigidbody; }
+            get { return next.selfRigidbody; }
         }
 
         void System.IDisposable.Dispose() { }
@@ -182,19 +166,12 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
                 return true;
             }
 
-            if (!hasOutputSelf) {
-                hasOutputSelf = true;
-                return true;
-            } else {
-                hasOutputSelf = false;
-                next = next.above;
-                return next != null;
-            }
+            next = next.above;
+            return next != null;
         }
 
         public void Reset() {
             next = originalTarget.bottommost;
-            hasOutputSelf = false;
             started = false;
         }
     }
@@ -239,7 +216,6 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
     public List<Rigidbody> Rigidbodies() {
         List<Rigidbody> result = new List<Rigidbody>();
         foreach (Stackable stackable in this) {
-            result.Add(stackable.targetHolder);
             result.Add(stackable.selfRigidbody);
         }
         return result;
