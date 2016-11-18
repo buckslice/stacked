@@ -53,8 +53,8 @@ public class VoidZoneAbility : DurationAbilityAction {
         if (lerpProgress > p) {
 
             Vector3 targetPos;
-            // first spawn a zone on each player
-            if (spawnedZones < numPlayers) {
+            // spawn a zone on each alive player
+            if (spawnedZones < numPlayers && !Player.Players[spawnedZones].dead) {
                 targetPos = Player.Players[spawnedZones].Holder.transform.position;
                 targetPos.y = 0.0f;
             } else {    // then spawn some extra random zones

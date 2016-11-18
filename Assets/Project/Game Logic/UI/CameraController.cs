@@ -13,7 +13,7 @@ public class CameraController : MonoBehaviour {
     public Transform boss { get; set; }
     public CameraType camType;
     public float camSmoothTime = 2.0f;
-    public bool trackDeadPlayers = true;
+    private bool trackDeadPlayers = false;
 
     // fixed variables
     float padding = 0.2f;   // percentage of width / height
