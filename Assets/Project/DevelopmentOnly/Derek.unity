@@ -1138,7 +1138,7 @@ MonoBehaviour:
   playerID: 3
   playerData:
     basicAttacks: 
-    firstAbilities: 01
+    firstAbilities: 0b
     secondAbilities: 0d
     abilities: 10111206060606
   AIPlayer: 0

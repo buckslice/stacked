@@ -59,7 +59,7 @@ public class HealbeamRotator : AbstractAbilityAction {
 
         switch (newState) {
             case State.UNSTACKED:
-                rotator.rotation = Quaternion.identity;
+                rotator.localRotation = Quaternion.identity;
                 break;
             case State.UP:
                 rotator.rotation = Quaternion.Euler(-90, 0, 0);

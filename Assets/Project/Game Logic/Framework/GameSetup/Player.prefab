@@ -983,6 +983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fe5ffeef83a7b94b811eef05f4206de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wobbleDelay: 0
 --- !u!114 &114000011992759020
 MonoBehaviour:
   m_ObjectHideFlags: 1
