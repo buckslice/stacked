@@ -403,11 +403,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b590eb10a111ad246b12e88566aff4d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bossData:
-    sceneName: Derek
-    abilities: 00010205
   spawnPoint: {fileID: 190429763}
   playerSpawnPoints: []
+  bossData:
+    bossID: 0
+    sceneName: Derek
+    abilities: 00010205
 --- !u!4 &190429763
 Transform:
   m_ObjectHideFlags: 0
@@ -933,7 +934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &499465601
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3318,7 +3319,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1086366517
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3866,7 +3867,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1530605117
 RectTransform:
   m_ObjectHideFlags: 0
