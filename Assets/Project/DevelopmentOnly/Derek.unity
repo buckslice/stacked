@@ -804,10 +804,10 @@ MonoBehaviour:
   bossData:
   - bossID: 2
     sceneName: Derek
-    abilities: 05
+    abilities: 0008
   - bossID: 3
     sceneName: Derek
-    abilities: 06
+    abilities: 0608
 --- !u!1001 &1826589521
 Prefab:
   m_ObjectHideFlags: 0
@@ -1140,7 +1140,7 @@ MonoBehaviour:
     basicAttacks: 
     firstAbilities: 01
     secondAbilities: 0d
-    abilities: 101112
+    abilities: 10111206060606
   AIPlayer: 0
 --- !u!4 &2137640759
 Transform:
