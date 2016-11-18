@@ -8,7 +8,7 @@ public class DelayTriggerPublisher : MonoBehaviour, IUntargetedAbilityTrigger {
     public event UntargetedAbilityTrigger abilityTriggerEvent = delegate { };
 
     public void Trigger() {
-        if (enabled) {
+        if (isActiveAndEnabled) {
             abilityTriggerEvent();
         }
     }

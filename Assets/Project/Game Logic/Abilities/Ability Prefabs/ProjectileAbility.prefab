@@ -23,7 +23,6 @@ GameObject:
   - 114: {fileID: 114000013220959254}
   - 114: {fileID: 114000012175262170}
   - 114: {fileID: 114000011026638230}
-  - 114: {fileID: 114000011273711076}
   - 114: {fileID: 114000011005061394}
   - 114: {fileID: 114000011018474026}
   - 82: {fileID: 82000012612341972}
@@ -177,18 +176,6 @@ MonoBehaviour:
   prefab: {fileID: 1000014041105046, guid: eed8910440f2b1643a55970815574193, type: 2}
   networkPosition: 1
   networkRotation: 1
---- !u!114 &114000011273711076
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013318780656}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e266b120d8f3aa40915e8958c02953c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiPrefab: {fileID: 1000014252183480, guid: 923086c70869f0d4d80f5b765a7db188, type: 2}
 --- !u!114 &114000012175262170
 MonoBehaviour:
   m_ObjectHideFlags: 1
