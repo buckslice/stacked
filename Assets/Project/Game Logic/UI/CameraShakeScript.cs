@@ -15,14 +15,16 @@ public class CameraShakeScript : MonoBehaviour
 
     private bool shakeStart;
 
+    Transform cam;
+
     void Awake()
     {
-
+        cam = Camera.main.transform;
     }
 
     void OnEnable()
     {
-        originalPos = Camera.main.transform.localPosition;
+        originalPos = cam.localPosition;
     }
     
     void Update()
@@ -35,18 +37,18 @@ public class CameraShakeScript : MonoBehaviour
         //if shake has started and still shake left
         else if (shake > 0 && shakeStart)
         {
-            Camera.main.transform.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
+            cam.localPosition = originalPos + Random.insideUnitSphere * shakeAmount;
 
             shake -= Time.deltaTime * decreaseFactor;
         }
         else if (shake <= 0 && shakeStart)
         {
             shake = 0f;
-            Camera.main.transform.localPosition = originalPos;
+            cam.localPosition = originalPos;
         }
         else
         {
-            Camera.main.transform.localPosition = originalPos;
+            cam.localPosition = originalPos;
         }
     }
 

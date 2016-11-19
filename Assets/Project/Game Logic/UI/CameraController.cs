@@ -29,8 +29,11 @@ public class CameraController : MonoBehaviour {
     // list of positions being tracked by camera this frame
     List<Vector3> trackingList = new List<Vector3>();
 
+    Camera mainCam;
+
     // Use this for initialization
     void Start() {
+        mainCam = Camera.main;
         PopulateTrackingList();
         boundsCenter = new BoundingSphere(trackingList).center;
         targetPos = transform.position;
@@ -94,7 +97,6 @@ public class CameraController : MonoBehaviour {
             return;
         }
 
-        Camera cmain = Camera.main;
         Vector2 min, max;
         Vector3 startPos = transform.position;  // backup to restore to at the end
         transform.position = targetPos; // start at target since it is usually close to solution
@@ -118,10 +120,10 @@ public class CameraController : MonoBehaviour {
 
             transform.position = posi;
             GetMinMax(out min, out max);
-            float scoref = Mathf.Abs(1.0f - (max.x - min.x) / cmain.pixelWidth);
+            float scoref = Mathf.Abs(1.0f - (max.x - min.x) / mainCam.pixelWidth);
             transform.position = poso;
             GetMinMax(out min, out max);
-            float scoreb = Mathf.Abs(1.0f - (max.x - min.x) / cmain.pixelWidth);
+            float scoreb = Mathf.Abs(1.0f - (max.x - min.x) / mainCam.pixelWidth);
 
             if (scoref < scoreb) {
                 if (!dir) {
@@ -156,10 +158,10 @@ public class CameraController : MonoBehaviour {
 
             transform.position = posl;
             GetMinMax(out min, out max);
-            float scorel = Mathf.Abs((min.x + (max.x - min.x) / 2.0f) - cmain.pixelWidth / 2.0f);
+            float scorel = Mathf.Abs((min.x + (max.x - min.x) / 2.0f) - mainCam.pixelWidth / 2.0f);
             transform.position = posr;
             GetMinMax(out min, out max);
-            float scorer = Mathf.Abs((min.x + (max.x - min.x) / 2.0f) - cmain.pixelWidth / 2.0f);
+            float scorer = Mathf.Abs((min.x + (max.x - min.x) / 2.0f) - mainCam.pixelWidth / 2.0f);
 
             if (scorel < scorer) {
                 if (!dir) {
@@ -190,10 +192,10 @@ public class CameraController : MonoBehaviour {
 
             transform.position = posf;
             GetMinMax(out min, out max);
-            float scoref = Mathf.Abs((min.y + (max.y - min.y) / 2.0f) - cmain.pixelHeight / 2.0f);
+            float scoref = Mathf.Abs((min.y + (max.y - min.y) / 2.0f) - mainCam.pixelHeight / 2.0f);
             transform.position = posb;
             GetMinMax(out min, out max);
-            float scoreb = Mathf.Abs((min.y + (max.y - min.y) / 2.0f) - cmain.pixelHeight / 2.0f);
+            float scoreb = Mathf.Abs((min.y + (max.y - min.y) / 2.0f) - mainCam.pixelHeight / 2.0f);
 
             if (scoref < scoreb) {
                 if (!dir) {
@@ -228,12 +230,11 @@ public class CameraController : MonoBehaviour {
 
     // returns min and max bounds of tracked things in viewport pixels
     void GetMinMax(out Vector2 min, out Vector2 max) {
-        Camera cmain = Camera.main;
-        Vector3 s = cmain.WorldToScreenPoint(trackingList[0]);
+        Vector3 s = mainCam.WorldToScreenPoint(trackingList[0]);
         min.x = max.x = s.x;
         min.y = max.y = s.y;
         for (int i = 1; i < trackingList.Count; ++i) {
-            s = cmain.WorldToScreenPoint(trackingList[i]);
+            s = mainCam.WorldToScreenPoint(trackingList[i]);
             min.x = Mathf.Min(min.x, s.x);
             min.y = Mathf.Min(min.y, s.y);
             max.x = Mathf.Max(max.x, s.x);
@@ -242,23 +243,23 @@ public class CameraController : MonoBehaviour {
 
         float width = max.x - min.x;
         float height = max.y - min.y;
-        if (width / height > cmain.aspect) { // if current aspect ration is > cam aspect, scale up height
-            float halfDiff = (width / cmain.aspect - height) / 2.0f;
+        if (width / height > mainCam.aspect) { // if current aspect ration is > cam aspect, scale up height
+            float halfDiff = (width / mainCam.aspect - height) / 2.0f;
             min.y -= halfDiff;
             max.y += halfDiff;
         } else {    // if less than scale up width
-            float halfDiff = (height * cmain.aspect - width) / 2.0f;
+            float halfDiff = (height * mainCam.aspect - width) / 2.0f;
             min.x -= halfDiff;
             max.x += halfDiff;
         }
 
-        min.x -= cmain.pixelWidth * padding;
-        max.x += cmain.pixelWidth * padding;
+        min.x -= mainCam.pixelWidth * padding;
+        max.x += mainCam.pixelWidth * padding;
 
         //min.y -= cmain.pixelHeight * padding;
         //max.y += cmain.pixelHeight * padding;
-        min.y -= cmain.pixelHeight * padding * 1.2f;   // favor players running down so they have more of warning
-        max.y += cmain.pixelHeight * padding * 0.8f;   // since players going towards top of screen can see more
+        min.y -= mainCam.pixelHeight * padding * 1.2f;   // favor players running down so they have more of warning
+        max.y += mainCam.pixelHeight * padding * 0.8f;   // since players going towards top of screen can see more
     }
 
     Vector3 RotatePoint(Vector3 point, Vector3 pivot, Vector3 axis, float angle) {

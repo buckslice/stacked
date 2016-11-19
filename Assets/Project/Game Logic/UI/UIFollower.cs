@@ -22,6 +22,7 @@ public class UIFollower : MonoBehaviour {
     Transform followTransform;
     Vector3 offset;
     CameraOffsetType offsetType;
+    Camera cam;
 
     /// <summary>
     /// Constructor-like method for initialization.
@@ -34,6 +35,7 @@ public class UIFollower : MonoBehaviour {
         this.offsetType = offsetType;
         canvasScaler = canvasHelper.scaler;
         rectTransform = GetComponent<RectTransform>();
+        cam = Camera.main;
     }
 
     public void Initialize(CanvasHelper canvasHelper, Transform followTransform) { Initialize(canvasHelper, followTransform, Vector3.zero, CameraOffsetType.WORLD); }
@@ -55,14 +57,14 @@ public class UIFollower : MonoBehaviour {
                 pixelOffset = new Vector2(offset.x, offset.y);
                 break;
             case CameraOffsetType.CAMERA_LOCAL:
-                Transform t = Camera.main.transform.parent;
+                Transform t = cam.transform.parent;
                 worldOffset = t.right * offset.x + t.up * offset.y + t.forward * offset.z;
                 break;
             default:
                 break;
         }
 
-        Vector3 screenPoint = Camera.main.WorldToScreenPoint(followTransform.position + worldOffset);
+        Vector3 screenPoint = cam.WorldToScreenPoint(followTransform.position + worldOffset);
         // need to account for canvas scaler (disable this if we stop using scaler)
         float scale = Mathf.Lerp(canvasScaler.referenceResolution.x / Screen.width,
                                  canvasScaler.referenceResolution.y / Screen.height,

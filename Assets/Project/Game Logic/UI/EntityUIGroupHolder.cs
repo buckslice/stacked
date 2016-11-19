@@ -29,7 +29,6 @@ public class EntityUIGroupHolder : MonoBehaviour {
 
         CanvasHelper canvasHelper = canvasRoot.GetComponent<CanvasHelper>();
         Assert.IsNotNull(canvasHelper);
-        
 
         if (anchorType == AnchorType.CORNERS) {
             groupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, canvasHelper.transform)).GetComponent<RectTransform>();

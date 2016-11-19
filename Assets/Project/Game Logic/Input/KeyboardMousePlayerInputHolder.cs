@@ -36,8 +36,11 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public KeyCode jumpKey = Tags.Input.Jump;
 
     Transform player;
+    Camera cam;
     public Transform Player { set { player = value; } }
-    public void Initialize(MonoBehaviour holder) { }
+    public void Initialize(MonoBehaviour holder) {
+        cam = Camera.main;
+    }
     public void Deactivate() { }
 
     public Vector2 movementDirection
@@ -53,7 +56,7 @@ public class KeyboardMousePlayerInput : IPlayerInput
     {
         get
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             float distance = ((player.position.y - ray.origin.y) / ray.direction.y);
             Vector3 pointInWorld = ray.origin + (distance * ray.direction);
 
