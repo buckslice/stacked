@@ -127,6 +127,16 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
         }
     }
 
+    public int elevationInStack() {
+        int result = 0;
+        Stackable current = this;
+        while (current.below != null) {
+            current = current.below;
+            result++;
+        }
+        return result;
+    }
+
     public Stackable bottommost {
         get {
             Stackable result = this;
