@@ -10,13 +10,13 @@ using System;
 public class DelayTriggerReceiver : AbstractAbilityAction, IBalanceStat {
 
     [SerializeField]
-    protected DelayTriggerPublisher publisher;
+    protected MonoBehaviour publisher;
 
     [SerializeField]
     protected float delay = 1;
 
     public override bool Activate(PhotonStream stream) {
-        Callback.FireAndForget(publisher.Trigger, delay, this);
+        Callback.FireAndForget((publisher as IRemoteTrigger).Trigger, delay, this);
         return false; //the delayed ability will handle networking
     }
 

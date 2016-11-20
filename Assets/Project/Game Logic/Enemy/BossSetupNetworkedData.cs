@@ -29,6 +29,8 @@ public class BossSetupNetworkedData : MonoBehaviour {
         DEREK,
         BOSS1_1,
         BOSS1_2,
+        BOSS1_3,
+        BOSS1_4,
     }
 
     static BossSetupNetworkedData main;

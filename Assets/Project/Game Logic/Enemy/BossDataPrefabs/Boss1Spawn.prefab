@@ -328,13 +328,13 @@ MonoBehaviour:
   bossData:
   - bossID: 2
     sceneName: Derek
-    abilities: 0507
+    abilities: 05
   - bossID: 3
     sceneName: Derek
-    abilities: 06
-  - bossID: 3
+    abilities: 
+  - bossID: 4
     sceneName: Derek
-    abilities: 03
-  - bossID: 3
+    abilities: 
+  - bossID: 5
     sceneName: Derek
-    abilities: 01
+    abilities: 

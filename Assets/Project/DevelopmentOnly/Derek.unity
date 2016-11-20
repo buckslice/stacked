@@ -796,10 +796,10 @@ MonoBehaviour:
   bossData:
   - bossID: 2
     sceneName: Derek
-    abilities: 0008
+    abilities: 
   - bossID: 3
     sceneName: Derek
-    abilities: 0608
+    abilities: 
 --- !u!1001 &1826589521
 Prefab:
   m_ObjectHideFlags: 0

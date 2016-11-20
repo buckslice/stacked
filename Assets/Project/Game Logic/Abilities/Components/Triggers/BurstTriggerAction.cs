@@ -6,7 +6,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Because I don't want to script 25 activations of deathwave.
 /// </summary>
-public class BurstTrigger : MonoBehaviour, IUntargetedAbilityTrigger, IRemoteTrigger {
+public class BurstTriggerAction : AbstractAbilityAction, IUntargetedAbilityTrigger {
 
     [SerializeField]
     protected int activationsPerBurst = 3;
@@ -18,11 +18,12 @@ public class BurstTrigger : MonoBehaviour, IUntargetedAbilityTrigger, IRemoteTri
 
     Coroutine burstRoutine;
 
-    public void Trigger() {
+    public override bool Activate(PhotonStream stream) {
         if (burstRoutine != null) {
             StopCoroutine(burstRoutine);
         }
         burstRoutine = StartCoroutine(BurstRoutine());
+        return false; //let triggered activations handle it
     }
 
     public IEnumerator BurstRoutine() {
@@ -31,7 +32,7 @@ public class BurstTrigger : MonoBehaviour, IUntargetedAbilityTrigger, IRemoteTri
         for (int i = 1; i < activationsPerBurst; i++) {
             abilityTriggerEvent();
 
-            while (Time.time < startTime + i * timeBetweenActivations) {
+            while(Time.time < startTime + i * timeBetweenActivations) {
                 yield return null;
             }
             abilityTriggerEvent();

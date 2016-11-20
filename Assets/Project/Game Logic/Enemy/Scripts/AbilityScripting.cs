@@ -3,12 +3,20 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Interface for all triggers which are activated remotely by another script.
+/// </summary>
+public interface IRemoteTrigger {
+    void Trigger();
+}
+
 public class AbilityScripting : MonoBehaviour {
 
     [System.Serializable]
     public class TriggerEvent {
         [SerializeField]
-        public DelayTriggerPublisher trigger;
+        protected MonoBehaviour trigger;
+        public IRemoteTrigger Trigger { get { return trigger as IRemoteTrigger; } }
 
         [SerializeField]
         public float RangeStartTime;
@@ -32,8 +40,8 @@ public class AbilityScripting : MonoBehaviour {
     }
 
     void Update() {
-        while(Time.time >= cycleEvents.Peek().outputTime) {
-            events[cycleEvents.Dequeue().data].trigger.Trigger();
+        while(cycleEvents.Count > 0 && Time.time >= cycleEvents.Peek().outputTime) {
+            events[cycleEvents.Dequeue().data].Trigger.Trigger();
         }
 
         if(Time.time >= cycleStartTime + cycleLength) {
