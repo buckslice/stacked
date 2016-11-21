@@ -136,7 +136,6 @@ GameObject:
   - 4: {fileID: 4000011750139056}
   - 114: {fileID: 114000010762106748}
   - 114: {fileID: 114000010941878082}
-  - 114: {fileID: 114000013744510982}
   - 114: {fileID: 114000012927453562}
   - 114: {fileID: 114000013944563938}
   - 114: {fileID: 114000011792894746}
@@ -478,7 +477,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityActions:
-  - {fileID: 114000013744510982}
   - {fileID: 114000012927453562}
   - {fileID: 114000013944563938}
   - {fileID: 114000011792894746}
@@ -616,10 +614,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration:
-    baseValue: 0.45
+    baseValue: 0.5
   overlayAttachmentPrefab: {fileID: 1000010284582006, guid: 02067b946416b80458febb74a322d8d5,
     type: 2}
-  pulseDuration: 0.45
+  pulseDuration: 0.5
 --- !u!114 &114000011854860270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -793,19 +791,6 @@ MonoBehaviour:
     baseValue: 1
   shouldMove:
     baseValue: 0
---- !u!114 &114000013744510982
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013502383226}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bf36f703a73ffe4fba72f46c8efa423, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldownSecs:
-    baseValue: 10
 --- !u!114 &114000013944563938
 MonoBehaviour:
   m_ObjectHideFlags: 1

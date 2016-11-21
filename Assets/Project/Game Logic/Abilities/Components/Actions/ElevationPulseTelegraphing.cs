@@ -53,27 +53,35 @@ public class ElevationPulseTelegraphing : DurationAbilityAction {
                 startTime += pulseDuration;
             }
 
-            Color resultColor;
+            Color resultColor1;
+            Color resultColor2;
             int elevation = stackable.elevationInStack();
             if (elevation == 0) {
-                resultColor = Color.white;
+                resultColor1 = resultColor2 = Color.white;
             } else {
+
                 HashSet<int> targetPlayers = Player.PlayersOnElevation(elevation);
-                resultColor = targetPlayers.Count == 0 ? Color.clear : Player.playerColoring[targetPlayers.First()];
+                if (targetPlayers.Count == 0) {
+                    resultColor1 = resultColor2 = Color.clear;
+                } else {
+                    resultColor1 = Player.playerColoring[targetPlayers.First()];
+                    if (targetPlayers.Count > 1) {
+                        resultColor2 = Player.playerColoring[targetPlayers.Last()];
+                    } else {
+                        resultColor2 = resultColor1;
+                    }
+                    Debug.Log(resultColor1);
+                }
             }
 
             float progress = (Time.time - startTime) / pulseDuration;
 
             float animationValue = (1 - progress) * (1 - progress);
-            resultColor.a *= animationValue;
-
-            /*
-            Debug.Log(attachment);
-            Debug.Log(attachment.Material);
-            Debug.Log(resultColor);
-            */
+            resultColor1.a *= animationValue;
+            resultColor2.a *= animationValue;
              
-            attachment.Material.SetColor(Tags.ShaderParams.color, resultColor);
+            attachment.Material.SetColor("_Color1", resultColor1);
+            attachment.Material.SetColor("_Color2", resultColor2);
             yield return null;
         }
     }

@@ -471,10 +471,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration:
-    baseValue: 0.45
+    baseValue: 0.5
   overlayAttachmentPrefab: {fileID: 1000010284582006, guid: 02067b946416b80458febb74a322d8d5,
     type: 2}
-  pulseDuration: 0.45
+  pulseDuration: 0.5
 --- !u!114 &114000010581647776
 MonoBehaviour:
   m_ObjectHideFlags: 1
