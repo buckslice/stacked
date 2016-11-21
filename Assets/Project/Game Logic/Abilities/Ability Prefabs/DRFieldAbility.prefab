@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb87ccfc0ac04604d880ac1c64599bc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overlayAttachmentPrefab: {fileID: 1000012458312090, guid: ba9448a449e680d468c4769e3ae0b6a0,
+  overlayAttachmentPrefab: {fileID: 1000010041725978, guid: b4e04345378292942b378ceb62363755,
     type: 2}
   magicalDamageResistanceBuff: 0.1
   physicalDamageResistanceBuff: 0.1

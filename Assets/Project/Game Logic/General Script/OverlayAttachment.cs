@@ -14,6 +14,7 @@ public abstract class AbstractAttachableEffect : MonoBehaviour, IDespawnable {
     public virtual void Initialize(Collider target) {
         this.targetCollider = target;
         this.transform.SetParent(target.transform);
+        this.transform.localPosition = Vector3.zero;
     }
 
     public abstract void Despawn();
