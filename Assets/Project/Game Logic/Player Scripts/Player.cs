@@ -29,7 +29,7 @@ public class Player : AbstractDamageTracker, IPlayerID {
     static int nextOpenPlayerIndex = 0;
 
     static Dictionary<int, HashSet<int>> playersOnElevation = new Dictionary<int, HashSet<int>>();
-    public static ICollection<int> PlayersOnElevation(int elevation) { ensureElevation(elevation); return playersOnElevation[elevation]; }
+    public static HashSet<int> PlayersOnElevation(int elevation) { ensureElevation(elevation); return playersOnElevation[elevation]; }
 
     Stackable stackable;
     int stackElevation = 0;

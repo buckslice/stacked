@@ -46,6 +46,7 @@ GameObject:
   - 114: {fileID: 114000010456577334}
   - 114: {fileID: 114000011712575030}
   - 114: {fileID: 114000013855623464}
+  - 114: {fileID: 114000012761953002}
   m_Layer: 0
   m_Name: FlameSweepActivation
   m_TagString: Untagged
@@ -1454,6 +1455,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e63203be06417e54bbae0ba055061e60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000012761953002
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010412913700}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddb615d545f2564283fc8d34cf39fbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration:
+    baseValue: 3
+  overlayAttachmentPrefab: {fileID: 1000010284582006, guid: 02067b946416b80458febb74a322d8d5,
+    type: 2}
+  pulseDuration: 0.5
 --- !u!114 &114000012839472768
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1519,6 +1536,7 @@ MonoBehaviour:
   - {fileID: 114000012448417262}
   - {fileID: 114000010456577334}
   - {fileID: 114000011712575030}
+  - {fileID: 114000012761953002}
 --- !u!114 &114000013352074842
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1748,6 +1766,8 @@ MonoBehaviour:
   - target: {fileID: 114000010456577334}
     function: x
   - target: {fileID: 114000013855623464}
+    function: x
+  - target: {fileID: 114000012761953002}
     function: x
 --- !u!114 &114000014151875512
 MonoBehaviour:

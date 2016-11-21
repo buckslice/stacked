@@ -89,6 +89,7 @@ GameObject:
   - 114: {fileID: 114000014262723214}
   - 114: {fileID: 114000010768343588}
   - 114: {fileID: 114000012598908442}
+  - 114: {fileID: 114000012516642950}
   m_Layer: 0
   m_Name: DeathWaveAbility
   m_TagString: Untagged
@@ -625,6 +626,7 @@ MonoBehaviour:
   - {fileID: 114000014262723214}
   - {fileID: 114000010768343588}
   - {fileID: 114000012598908442}
+  - {fileID: 114000012516642950}
 --- !u!114 &114000011669396666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -700,6 +702,22 @@ MonoBehaviour:
   abilityActions:
   - {fileID: 114000013257284194}
   - {fileID: 114000011560121098}
+--- !u!114 &114000012516642950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011571735820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddb615d545f2564283fc8d34cf39fbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration:
+    baseValue: 5
+  overlayAttachmentPrefab: {fileID: 1000010284582006, guid: 02067b946416b80458febb74a322d8d5,
+    type: 2}
+  pulseDuration: 0.5
 --- !u!114 &114000012598908442
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -723,8 +741,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b431540c81514394e985480543b536f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activationsPerBurst: 40
-  timeBetweenActivations: 0.5
+  activationsPerBurst: 4
+  timeBetweenActivations: 5.5
 --- !u!114 &114000012840221916
 MonoBehaviour:
   m_ObjectHideFlags: 1

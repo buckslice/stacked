@@ -125,6 +125,7 @@ GameObject:
   - 114: {fileID: 114000010351738160}
   - 114: {fileID: 114000010581647776}
   - 114: {fileID: 114000014178314588}
+  - 114: {fileID: 114000010480929208}
   m_Layer: 0
   m_Name: SpawnExplosiveAddAbility
   m_TagString: Untagged
@@ -434,6 +435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000014178314588}
+  - {fileID: 114000010480929208}
 --- !u!114 &114000010380741952
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -457,6 +459,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb95b9e14bcb449418c578001093c6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000010480929208
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013693389514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddb615d545f2564283fc8d34cf39fbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration:
+    baseValue: 0.45
+  overlayAttachmentPrefab: {fileID: 1000010284582006, guid: 02067b946416b80458febb74a322d8d5,
+    type: 2}
+  pulseDuration: 0.45
 --- !u!114 &114000010581647776
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -36,15 +36,14 @@ public class OverlayAttachment : AbstractAttachableEffect {
     protected Material overlayEffect;
 
     protected Overlay targetOverlay;
-    /// <summary>
-    /// Index in the targetRenderer's .materials array
-    /// </summary>
-    protected int index;
+
+    protected Material material;
+    public Material Material { get { return material; } }
 
     public override void Initialize(Collider target) {
         base.Initialize(target);
 
-        Renderer targetRenderer = target.GetComponentInChildren<Renderer>();
+        Renderer targetRenderer = target.transform.root.GetComponentInChildren<Renderer>();
         if (targetRenderer == null) {
             return;
         }
@@ -53,13 +52,15 @@ public class OverlayAttachment : AbstractAttachableEffect {
         if (targetOverlay == null) {
             targetOverlay = targetRenderer.gameObject.AddComponent<Overlay>();
         }
-        targetOverlay.Add(overlayEffect);
+        material = targetOverlay.Add(overlayEffect);
+        Assert.IsNotNull(material);
     }
 
     public override void Despawn() {
         if (targetOverlay != null) {
             targetOverlay.Remove(overlayEffect);
             targetOverlay = null;
+            material = null;
         }
     }
 }

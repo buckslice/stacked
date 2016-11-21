@@ -139,6 +139,7 @@ GameObject:
   - 114: {fileID: 114000013744510982}
   - 114: {fileID: 114000012927453562}
   - 114: {fileID: 114000013944563938}
+  - 114: {fileID: 114000011792894746}
   m_Layer: 0
   m_Name: VoidZoneAbility
   m_TagString: Untagged
@@ -480,6 +481,7 @@ MonoBehaviour:
   - {fileID: 114000013744510982}
   - {fileID: 114000012927453562}
   - {fileID: 114000013944563938}
+  - {fileID: 114000011792894746}
 --- !u!114 &114000010836214270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -602,6 +604,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wobbleDelay: 0.1
+--- !u!114 &114000011792894746
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013502383226}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ddb615d545f2564283fc8d34cf39fbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration:
+    baseValue: 0.45
+  overlayAttachmentPrefab: {fileID: 1000010284582006, guid: 02067b946416b80458febb74a322d8d5,
+    type: 2}
+  pulseDuration: 0.45
 --- !u!114 &114000011854860270
 MonoBehaviour:
   m_ObjectHideFlags: 1

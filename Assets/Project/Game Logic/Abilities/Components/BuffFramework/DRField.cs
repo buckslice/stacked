@@ -55,6 +55,7 @@ public class DRField : MonoBehaviour, IDisabledAwake {
 
             if (activeOverlays[target] != null) {
                 activeOverlays[target].Destroy();
+                SimplePool.Despawn(activeOverlays[target].gameObject);
             }
             activeOverlays.Remove(target);
         }
