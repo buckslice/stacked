@@ -31,6 +31,9 @@ public class Player : AbstractDamageTracker, IPlayerID {
     static Dictionary<int, HashSet<int>> playersOnElevation = new Dictionary<int, HashSet<int>>();
     public static HashSet<int> PlayersOnElevation(int elevation) { ensureElevation(elevation); return playersOnElevation[elevation]; }
 
+    public delegate void PlayerElevationChanged();
+    public static event PlayerElevationChanged playerElevationChanged = delegate { };
+
     Stackable stackable;
     int stackElevation = 0;
 
@@ -89,6 +92,7 @@ public class Player : AbstractDamageTracker, IPlayerID {
             playersOnElevation[newElevation].Add(playerID);
 
             stackElevation = newElevation;
+            playerElevationChanged();
         }
     }
 
