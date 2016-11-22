@@ -70,7 +70,6 @@ public class ElevationPulseTelegraphing : DurationAbilityAction {
                     } else {
                         resultColor2 = resultColor1;
                     }
-                    Debug.Log(resultColor1);
                 }
             }
 

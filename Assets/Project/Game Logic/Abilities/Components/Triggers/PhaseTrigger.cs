@@ -15,6 +15,7 @@ public class PhaseTrigger : MonoBehaviour, IUntargetedAbilityTrigger {
     public void Trigger(int currentPhase) {
         this.currentPhase = currentPhase;
         if (isActiveAndEnabled) {
+            Debug.Log("phaseActivating");
             abilityTriggerEvent();
         }
     }
