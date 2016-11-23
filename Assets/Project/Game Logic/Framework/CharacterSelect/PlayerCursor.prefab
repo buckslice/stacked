@@ -297,8 +297,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchorType: 0
-  worldOffset: {x: 0, y: 0, z: 0}
-  pixelOffset: {x: 0, y: 0}
+  offsetType: 0
+  offset: {x: 0, y: 0, z: 0}
   entityGroupUIPrefab: {fileID: 1000012812799628, guid: b34630007d724c443a5456c66aa5be64,
     type: 2}
 --- !u!114 &114000011372161194
@@ -368,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9e11b0cd66b9f248aa145dc40f1570d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 150
+  speed: 400
   controlEnabled: 1
 --- !u!114 &114000012440367496
 MonoBehaviour:
