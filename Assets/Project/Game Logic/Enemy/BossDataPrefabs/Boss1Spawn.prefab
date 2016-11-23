@@ -331,10 +331,10 @@ MonoBehaviour:
     abilities: 05
   - bossID: 3
     sceneName: RockonRockonRockonRock
-    abilities: 
+    abilities: 05
   - bossID: 4
     sceneName: RockonRockonRockonRock
-    abilities: 
+    abilities: 05
   - bossID: 5
     sceneName: RockonRockonRockonRock
-    abilities: 
+    abilities: 05
