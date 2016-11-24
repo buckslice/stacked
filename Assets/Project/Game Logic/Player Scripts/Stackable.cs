@@ -117,6 +117,25 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
         return true;
     }
 
+    public bool DestackAll() {
+        Stackable current = bottommost;
+        Stackable next = current.above;
+
+        if(next != null) {
+            return false;
+        }
+
+        while(next != null) {
+            current.DisconnectGrabbed();
+            current.changeEvent();
+
+            current = next;
+            next = current.above;
+        }
+
+        return true;
+    }
+
     public Stackable topmost {
         get {
             Stackable result = this;
