@@ -159,6 +159,7 @@ GameObject:
   - 114: {fileID: 114000010753662698}
   - 114: {fileID: 114000011669396666}
   - 114: {fileID: 114000011506998042}
+  - 114: {fileID: 114000010285760642}
   m_Layer: 17
   m_Name: PhaseChange
   m_TagString: Untagged
@@ -500,6 +501,7 @@ MonoBehaviour:
   abilityActions:
   - {fileID: 114000011669396666}
   - {fileID: 114000011506998042}
+  - {fileID: 114000010285760642}
 --- !u!114 &114000010127726912
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -529,6 +531,18 @@ MonoBehaviour:
   abilityActions:
   - {fileID: 114000010722343638}
   - {fileID: 114000010604664610}
+--- !u!114 &114000010285760642
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012642554412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2eda64cb8b261c4abf2f27f2a10b8c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 114000011095283624}
 --- !u!114 &114000010469362696
 MonoBehaviour:
   m_ObjectHideFlags: 1

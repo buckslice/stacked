@@ -35,8 +35,7 @@ public class AbilityScripting : MonoBehaviour {
     Queue<TimestampedData<int>> cycleEvents;
 
     void Start() {
-        cycleStartTime = Time.time;
-        initializeCycle();
+        ResetCycle();
     }
 
     void Update() {
@@ -62,5 +61,10 @@ public class AbilityScripting : MonoBehaviour {
 
         unsortedCycleEvents.Sort();
         cycleEvents = new Queue<TimestampedData<int>>(unsortedCycleEvents);
+    }
+
+    public void ResetCycle() {
+        cycleStartTime = Time.time;
+        initializeCycle();
     }
 }
