@@ -65,7 +65,7 @@ Transform:
   m_GameObject: {fileID: 1000010041725978}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0057142857, y: 0.0057142857, z: 0.0057142857}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012105018948}
@@ -118,4 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72234a044d7106241a51d8f486052449, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overlayEffect: {fileID: 2100000, guid: b1a298dd2e156b243b6f3552973fb8da, type: 2}
+  overlayEffect: {fileID: 2100000, guid: e0e3cbe407e6952458f9e30759859505, type: 2}
