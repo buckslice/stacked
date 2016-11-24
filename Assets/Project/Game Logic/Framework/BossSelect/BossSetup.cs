@@ -42,11 +42,10 @@ public abstract class AbstractBossSetup : MonoBehaviour, IBossSetup {
 
     protected virtual void Awake() {
         SceneManager.sceneLoaded += SceneManager_sceneLoaded;
-        if (main != null) {
-            Destroy((Main as Object as MonoBehaviour).transform.root.gameObject);
+        if (main == null) {
+            main = this;
+            DontDestroyOnLoad(this.transform.root.gameObject);
         }
-        main = this;
-        DontDestroyOnLoad(this.transform.root.gameObject);
     }
 
     void OnDestroy() {
@@ -56,7 +55,18 @@ public abstract class AbstractBossSetup : MonoBehaviour, IBossSetup {
         }
     }
 
-    protected abstract void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1);
+    protected void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1) {
+        if (!PhotonNetwork.isMasterClient) {
+            return;
+        }
+        if (arg0.name != BossData.sceneName) {
+            return;
+        }
+
+        InstantiateBoss();
+    }
+
+    public abstract void InstantiateBoss();
 
     public static void DestroyAllBossSetups() {
         if (main != null) {
@@ -74,17 +84,8 @@ public class BossSetup : AbstractBossSetup, IBossSetup {
     protected BossSetupData bossData;
     public override BossSetupData BossData { get { return bossData; } }
 
-    protected override void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1)
+    public override void InstantiateBoss()
     {
-        if (!PhotonNetwork.isMasterClient)
-        {
-            return;
-        }
-        if (arg0.name != bossData.sceneName)
-        {
-            return;
-        }
-
         BossSetupNetworkedData.Main.CreateBoss(bossData, spawnPoint);
         //Destruction now handled in game-end screens
     }

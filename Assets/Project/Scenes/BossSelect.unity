@@ -1177,7 +1177,7 @@ GameObject:
   - 114: {fileID: 1731694144}
   - 114: {fileID: 1731694143}
   m_Layer: 5
-  m_Name: Derek (1)
+  m_Name: RockOnRockOnRockOnRock
   m_TagString: AbilityIcon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1214,7 +1214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   titleText: {fileID: 309232652}
-  bossID: 2
+  bossID: 6
 --- !u!114 &1731694144
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,25 +11,6 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1000013602476998}
   m_IsPrefabParent: 1
---- !u!1 &1000011021407224
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000011943866466}
-  - 114: {fileID: 114000011878868068}
-  - 114: {fileID: 114000013320686494}
-  - 114: {fileID: 114000011284994768}
-  - 114: {fileID: 114000011191738248}
-  m_Layer: 17
-  m_Name: SetupAbility
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000011143659160
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,29 +80,10 @@ GameObject:
   - 114: {fileID: 114000013015908252}
   - 114: {fileID: 114000011431352822}
   - 114: {fileID: 114000013483632432}
-  - 114: {fileID: 114000011706549594}
   - 114: {fileID: 114000010495327924}
   m_Layer: 17
-  m_Name: Boss1_Base
+  m_Name: Boss1Summoner
   m_TagString: Boss
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1000013696544342
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 4000013589275148}
-  - 114: {fileID: 114000011933140232}
-  - 114: {fileID: 114000011877212844}
-  - 114: {fileID: 114000012589142032}
-  m_Layer: 17
-  m_Name: PhaseChange
-  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,6 +100,7 @@ GameObject:
   - 114: {fileID: 114000012256625488}
   - 114: {fileID: 114000013793621690}
   - 114: {fileID: 114000012074896036}
+  - 114: {fileID: 114000012085734048}
   m_Layer: 13
   m_Name: DeathAbility
   m_TagString: Untagged
@@ -173,8 +136,6 @@ Transform:
   - {fileID: 4000011058225842}
   - {fileID: 4000014164471384}
   - {fileID: 4000011202327114}
-  - {fileID: 4000011943866466}
-  - {fileID: 4000013589275148}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000011202327114
@@ -190,19 +151,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000011153727132}
   m_RootOrder: 3
---- !u!4 &4000011943866466
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011021407224}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 4000011153727132}
-  m_RootOrder: 4
 --- !u!4 &4000013582123720
 Transform:
   m_ObjectHideFlags: 1
@@ -216,19 +164,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000011153727132}
   m_RootOrder: 0
---- !u!4 &4000013589275148
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013696544342}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 4000011153727132}
-  m_RootOrder: 5
 --- !u!4 &4000014164471384
 Transform:
   m_ObjectHideFlags: 1
@@ -355,6 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityActions:
+  - {fileID: 114000012085734048}
   - {fileID: 114000013793621690}
   - {fileID: 114000012074896036}
 --- !u!114 &114000011190122766
@@ -373,17 +309,6 @@ MonoBehaviour:
     baseValue: 1
   magicalVulnerabilityMultiplier:
     baseValue: 1
---- !u!114 &114000011191738248
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011021407224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b162cde6867d5446a3d50a41dc852b8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011265898350
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -396,17 +321,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wobbleDelay: 0.1
---- !u!114 &114000011284994768
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011021407224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0397d5653820e7047a187e4dabbbc7f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011431352822
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -423,19 +337,6 @@ MonoBehaviour:
   offset: {x: 0, y: 2.5, z: 0}
   entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
     type: 2}
---- !u!114 &114000011706549594
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013602476998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 324817c2d284a3d40adafc62fcb643bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  vibrationStrength: 0.5
-  vibrationDuration: 0.5
 --- !u!114 &114000011790775424
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -447,44 +348,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 757a496c6f5d89845b23b113b6b90bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000011877212844
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013696544342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c3e7246582caf74ea82c527e7ca8ecf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000011878868068
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011021407224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e6cbc1fd32de5b14a873399bb58fa41f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityActions:
-  - {fileID: 114000011284994768}
-  - {fileID: 114000011191738248}
---- !u!114 &114000011933140232
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013696544342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0021636dd9b5c341ba19d11a8f6cb76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  abilityActions:
-  - {fileID: 114000012589142032}
 --- !u!114 &114000012074896036
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -496,6 +359,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb95b9e14bcb449418c578001093c6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114000012085734048
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014011839878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60911cf47017c80498533b2cb9494799, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossDataPrefab: {fileID: 1000011893214760, guid: 2822b91d05fced04999938c1d0c5bda4,
+    type: 2}
 --- !u!114 &114000012256625488
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -519,17 +395,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barType: 1
---- !u!114 &114000012589142032
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013696544342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d2c75f78292d684ba107570f5085b7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000013015908252
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -543,8 +408,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilities:
   - {fileID: 1000014011839878}
-  - {fileID: 1000011021407224}
-  - {fileID: 1000013696544342}
 --- !u!114 &114000013195317648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -557,20 +420,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldChase:
-    baseValue: 1
+    baseValue: 0
   shouldMove:
     baseValue: 0
---- !u!114 &114000013320686494
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011021407224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11947bc9006a067449189a1fa60cc4ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000013483632432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -604,7 +456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4cacba6e1e0c91429710e6fbc10c853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 1000
+  _health: 1
 --- !u!136 &136000011379093752
 CapsuleCollider:
   m_ObjectHideFlags: 1

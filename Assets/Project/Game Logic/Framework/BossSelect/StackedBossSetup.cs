@@ -10,13 +10,7 @@ public class StackedBossSetup : AbstractBossSetup {
     protected BossSetupData[] bossData;
     public override BossSetupData BossData { get { return bossData[0]; } }
 
-    protected override void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1) {
-        if (!PhotonNetwork.isMasterClient) {
-            return;
-        }
-        if (arg0.name != BossData.sceneName) {
-            return;
-        }
+    public override void InstantiateBoss() {
 
         GameObject[] instantiatedBosses = new GameObject[bossData.Length];
 
