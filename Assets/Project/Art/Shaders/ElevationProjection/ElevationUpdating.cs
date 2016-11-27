@@ -18,8 +18,6 @@ public class ElevationUpdating : ProjectileLifetimeAction, IBalanceStat {
     Material rayMat;
     Material bottomRingMat;
 
-    Color color;
-
     protected override void Awake() {
         base.Awake();
         Player.playerElevationChanged += Player_playerElevationChanged;
@@ -38,16 +36,33 @@ public class ElevationUpdating : ProjectileLifetimeAction, IBalanceStat {
     private void Player_playerElevationChanged() {
         int elevation = Stackable.heightToStackElevation(transform.position.y);
 
-        HashSet<int> targetPlayers = Player.PlayersOnElevation(elevation);
-        if (targetPlayers.Count == 0) {
-            color = Color.clear;
+        Color resultColor1;
+        Color resultColor2;
+        
+        if (elevation == 0) {
+            resultColor1 = resultColor2 = Color.white;
         } else {
-            color = Player.playerColoring[targetPlayers.First()];
+
+            HashSet<int> targetPlayers = Player.PlayersOnElevation(elevation);
+            if (targetPlayers.Count == 0) {
+                resultColor1 = resultColor2 = Color.clear;
+            } else {
+                resultColor1 = Player.playerColoring[targetPlayers.First()];
+                if (targetPlayers.Count > 1) {
+                    resultColor2 = Player.playerColoring[targetPlayers.Last()];
+                } else {
+                    resultColor2 = resultColor1;
+                }
+            }
         }
 
-        topRingMat.SetColor(Tags.ShaderParams.color, color);
-        rayMat.SetColor(Tags.ShaderParams.color, color);
-        bottomRingMat.SetColor(Tags.ShaderParams.color, color);
+        topRingMat.SetColor("_Color1", resultColor1);
+        rayMat.SetColor("_Color1", resultColor1);
+        bottomRingMat.SetColor("_Color1", resultColor1);
+
+        topRingMat.SetColor("_Color2", resultColor2);
+        rayMat.SetColor("_Color2", resultColor2);
+        bottomRingMat.SetColor("_Color2", resultColor2);
     }
 
     void IBalanceStat.setValue(float value, BalanceStat.StatType type) {

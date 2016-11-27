@@ -12,7 +12,7 @@ public class AxisBillboarding : MonoBehaviour {
     /// For billboarding
     /// </summary>
     void OnWillRenderObject() {
-        Vector3 viewDir = Camera.current.transform.position - transform.position;
+        Vector3 viewDir = transform.position - Camera.current.transform.position;
         Vector3 direction = transform.TransformDirection(localAxis);
         viewDir -= Vector3.Project(viewDir, direction);
         transform.rotation = Quaternion.LookRotation(viewDir, direction);
