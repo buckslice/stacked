@@ -77,6 +77,7 @@ public class SpawnAbility : AbstractAbilityAction, IAbilityActivation, IAbilityR
         Assert.IsTrue(spawnedObjectID == activeObjects.Count || activeObjects[spawnedObjectID] == null);
         GameObject spawnedObject = SimplePool.Spawn(prefab, transform.position, transform.rotation);
         IActivationNetworking spawnedNetworking = spawnedObject.GetComponent<IActivationNetworking>();
+        Assert.IsNotNull(spawnedNetworking);
         spawnedNetworking.Initialize(this, view);
 
         SpawnedObjectTracker objectTracker = spawnedObject.GetComponent<SpawnedObjectTracker>();

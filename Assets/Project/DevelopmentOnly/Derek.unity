@@ -492,6 +492,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 1257912979}
   - 114: {fileID: 1257912978}
+  - 114: {fileID: 1257912981}
+  - 114: {fileID: 1257912980}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -532,6 +534,46 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 11
+--- !u!114 &1257912980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257912977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 0
+  playerData:
+    basicAttacks: 
+    firstAbilities: 
+    secondAbilities: 
+    abilities: 
+  AIPlayer: 0
+  bindings: 0
+  controllerIndex: 0
+--- !u!114 &1257912981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1257912977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 1
+  playerData:
+    basicAttacks: 
+    firstAbilities: 
+    secondAbilities: 
+    abilities: 
+  AIPlayer: 0
+  bindings: 0
+  controllerIndex: 0
 --- !u!1001 &1520447447
 Prefab:
   m_ObjectHideFlags: 0
@@ -794,12 +836,18 @@ MonoBehaviour:
   spawnPoint: {fileID: 282661869}
   playerSpawnPoints: []
   bossData:
-  - bossID: 2
+  - bossID: 5
     sceneName: Derek
     abilities: 
   - bossID: 5
     sceneName: Derek
-    abilities: 
+    abilities: 09
+  - bossID: 5
+    sceneName: Derek
+    abilities: 09
+  - bossID: 5
+    sceneName: Derek
+    abilities: 09
 --- !u!1001 &1826589521
 Prefab:
   m_ObjectHideFlags: 0

@@ -31,6 +31,8 @@ public abstract class DurationAbilityAction : AbstractAbilityAction, IBalanceSta
             yield return null;
         }
 
+        OnDurationTick(1);
+
         durationCoroutine = null;
         OnDurationEnd();
     }

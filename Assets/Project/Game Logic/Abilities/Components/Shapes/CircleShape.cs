@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class CircleShape : MonoBehaviour, IShape, IBalanceStat {
 
     [SerializeField]
-    protected float radius;
+    protected float radius = 1;
 
     [SerializeField]
     protected bool allowSelf = false;

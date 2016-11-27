@@ -8,7 +8,7 @@ using System.Collections.Generic;
 /// </summary>
 
 [RequireComponent(typeof(IActivationNetworking))]
-public class SpawnedObjectTracker : ProjectileLifetimeAction, IDamageHolder {
+public class SpawnedObjectTracker : ProjectileLifetimeAction, IDamageHolder, IProjectileDeactivation {
 
     public delegate void ProjectileDestroyed(SpawnedObjectTracker self);
     public event ProjectileDestroyed onProjectileDestroyed = (self) => { };
@@ -28,8 +28,6 @@ public class SpawnedObjectTracker : ProjectileLifetimeAction, IDamageHolder {
         this.trackerReference = tracker;
     }
 
-
-
     protected override void Start() {
         Assert.IsNotNull(trackerReference);
     }
@@ -40,5 +38,9 @@ public class SpawnedObjectTracker : ProjectileLifetimeAction, IDamageHolder {
     protected override void OnProjectileDestroyed() {
         base.OnProjectileDestroyed();
         onProjectileDestroyed(this);
+    }
+
+    float IProjectileDeactivation.getDeactivationTime() {
+        return 0;
     }
 }

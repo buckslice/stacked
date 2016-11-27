@@ -7,6 +7,24 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Rigidbody))]
 public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
 
+    public const float height = 2f;
+    public static int heightToStackElevation(float inputHeight) {
+
+        if (inputHeight < 2 * Stackable.height) {
+            if (inputHeight < Stackable.height) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            if (inputHeight >= 3 * Stackable.height) {
+                return 3;
+            } else {
+                return 2;
+            }
+        }
+    }
+
     public delegate void StackableChangedEvent();
 
     public event StackableChangedEvent changeEvent = delegate { };
@@ -26,6 +44,8 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
     protected void Start() {
         selfMovement = GetComponent<IMovement>();
         selfRigidbody = GetComponent<Rigidbody>();
+
+        Assert.AreApproximatelyEqual((connectingJoint.transform.position - this.transform.position).y, height);
     }
 
     void changeEventAll() {
