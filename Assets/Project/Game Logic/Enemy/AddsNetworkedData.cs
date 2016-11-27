@@ -14,7 +14,8 @@ public class AddsNetworkedData : MonoBehaviour {
     /// </summary>
     public enum AddID : byte {
         EXPLOSIVE,
-        RANGED
+        RANGED,
+        CHARGING,
     }
 
     static AddsNetworkedData main;

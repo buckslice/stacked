@@ -132,7 +132,7 @@ MonoBehaviour:
   duration:
     baseValue: 3
   spawnAreaRadius: 50
-  spawnElementRadius: 4
+  spawnElementRadius: 6.75
 --- !u!114 &114000010995727286
 MonoBehaviour:
   m_ObjectHideFlags: 1

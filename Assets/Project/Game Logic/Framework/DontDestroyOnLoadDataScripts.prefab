@@ -380,6 +380,7 @@ MonoBehaviour:
   - {fileID: 1000010416102016, guid: 664a54f834d2b7543a95bec743b92767, type: 2}
   - {fileID: 1000013194012704, guid: e5ccdd5f0a002f14c81f0b845bb1236b, type: 2}
   - {fileID: 1000013380017890, guid: e97dda3b86a77eb4890cb3d9446ebd65, type: 2}
+  - {fileID: 1000011603372720, guid: c8584f4cc52d58c44bf7caabde8752bb, type: 2}
   bossDataPrefabs:
   - {fileID: 1000011969965616, guid: b14c7e3f7438aa4498bcdff4311988fe, type: 2}
   - {fileID: 1000012265965068, guid: 8f4fc3196c0bc184193615c3635de759, type: 2}
@@ -424,3 +425,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   addPrefabs:
   - {fileID: 1000012301487708, guid: 3b276311c66b11341a60a3cbec12544d, type: 2}
+  - {fileID: 1000012301487708, guid: 3b276311c66b11341a60a3cbec12544d, type: 2}
+  - {fileID: 1000010254895416, guid: 03bf4e62303a2924a842ca6963ef2722, type: 2}
