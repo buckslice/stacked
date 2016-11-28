@@ -130,7 +130,7 @@ GameObject:
   - 114: {fileID: 114000014178314588}
   - 114: {fileID: 114000010480929208}
   m_Layer: 0
-  m_Name: SpawnExplosiveAddAbility
+  m_Name: SpawnChargingAddAbility
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -898,7 +898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4e386cc1e268fe4094c51db14a1a690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addType: 0
+  addType: 2
   spawnPointNumber: 0
   addName: 
 --- !u!114 &114000014188339396
