@@ -19,7 +19,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014009091348}
-  - 136: {fileID: 136000011771433208}
   - 114: {fileID: 114000012525877432}
   - 114: {fileID: 114000010388060556}
   - 114: {fileID: 114000014135220668}
@@ -395,16 +394,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 3
   allowSelf: 0
---- !u!136 &136000011771433208
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011761407026}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.7, z: 0}
