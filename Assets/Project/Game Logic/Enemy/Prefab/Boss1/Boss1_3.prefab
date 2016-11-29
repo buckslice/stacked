@@ -170,7 +170,7 @@ GameObject:
   - 114: {fileID: 114000014188339396}
   - 114: {fileID: 114000012492151596}
   - 114: {fileID: 114000013575442340}
-  - 114: {fileID: 114000014042697960}
+  - 114: {fileID: 114000014140452432}
   - 114: {fileID: 114000010918565540}
   - 114: {fileID: 114000013577420150}
   - 114: {fileID: 114000010380741952}
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2c75f78292d684ba107570f5085b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000014042697960
+--- !u!114 &114000014140452432
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -879,12 +879,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013987970282}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2c391354431d034d807b44860098975, type: 3}
+  m_Script: {fileID: 11500000, guid: bf2ac85fd1e3d3e48a468106956e823d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchorType: 1
-  offsetType: 2
-  offset: {x: 0, y: 2.5, z: 0}
+  leftAnchor: 0.5
+  rightAnchor: 0.75
   entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
     type: 2}
 --- !u!114 &114000014178314588
@@ -912,7 +911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2495d9e5c95e546a815b22270a9bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barType: 1
+  barType: 0
 --- !u!136 &136000011115418792
 CapsuleCollider:
   m_ObjectHideFlags: 1

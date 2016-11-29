@@ -28,7 +28,7 @@ GameObject:
   - 114: {fileID: 114000013237057724}
   - 114: {fileID: 114000012959983334}
   - 114: {fileID: 114000013635681030}
-  - 114: {fileID: 114000010536257848}
+  - 114: {fileID: 114000012431988050}
   - 114: {fileID: 114000010469362696}
   - 114: {fileID: 114000011782342384}
   - 114: {fileID: 114000012978402612}
@@ -567,22 +567,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPercentageInvulnerabilities:
   - 0.6
---- !u!114 &114000010536257848
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010035444456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2c391354431d034d807b44860098975, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anchorType: 1
-  offsetType: 2
-  offset: {x: 0, y: 2.5, z: 0}
-  entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
-    type: 2}
 --- !u!114 &114000010557927174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -811,6 +795,21 @@ MonoBehaviour:
   abilityActions:
   - {fileID: 114000013257284194}
   - {fileID: 114000011560121098}
+--- !u!114 &114000012431988050
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010035444456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2ac85fd1e3d3e48a468106956e823d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftAnchor: 0
+  rightAnchor: 0.25
+  entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
+    type: 2}
 --- !u!114 &114000012516642950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -898,7 +897,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2495d9e5c95e546a815b22270a9bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barType: 1
+  barType: 0
 --- !u!114 &114000013240974402
 MonoBehaviour:
   m_ObjectHideFlags: 1
