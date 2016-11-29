@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Health))]
-[RequireComponent(typeof(EntityUIGroupHolder))]
+[RequireComponent(typeof(IEntityUIGroupHolder))]
 public class HealthUI : MonoBehaviour {
 
     Health health;
@@ -20,7 +20,7 @@ public class HealthUI : MonoBehaviour {
         CanvasHelper ch = canvasRoot.GetComponent<CanvasHelper>();
 
         Object barPrefab = barType == HealthBarType.MINIMAL ? ch.playerHealthBarPrefab : ch.bossHealthBarPrefab;
-        GameObject healthBar = (GameObject)Instantiate(barPrefab, GetComponent<EntityUIGroupHolder>().EntityGroup.HealthBarHolder);
+        GameObject healthBar = (GameObject)Instantiate(barPrefab, GetComponent<IEntityUIGroupHolder>().EntityGroup.HealthBarHolder);
 
         (healthBar.transform as RectTransform).Reset();
         bar = healthBar.GetComponent<HealthBar>();

@@ -3,12 +3,16 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
+public interface IEntityUIGroupHolder {
+    EntityUIGroup EntityGroup { get; }
+}
+
 /// <summary>
 /// Creates and acts as a reference group to all of a particular entity's UI.
 /// 
 /// My naming choices here are definitely suboptimal, and could be improved.
 /// </summary>
-public class EntityUIGroupHolder : MonoBehaviour {
+public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
 
     [SerializeField]
     public AnchorType anchorType = AnchorType.FLOATING;

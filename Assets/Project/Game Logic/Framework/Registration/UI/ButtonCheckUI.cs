@@ -18,7 +18,7 @@ public class ButtonCheckUI : MonoBehaviour {
         Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
         Debug.Assert(canvasRoot, "Scene requires a UI canvas for healthbars!");
 
-        GameObject buttonCheckMenu = (GameObject)Instantiate(buttonCheckPrefab, GetComponent<EntityUIGroupHolder>().EntityGroup.transform);
+        GameObject buttonCheckMenu = (GameObject)Instantiate(buttonCheckPrefab, GetComponent<IEntityUIGroupHolder>().EntityGroup.transform);
         (buttonCheckMenu.transform as RectTransform).Reset();
         RectTransform t = ((RectTransform)buttonCheckMenu.transform);
 

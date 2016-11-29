@@ -25,7 +25,7 @@ public class AbilityUI : MonoBehaviour, IAbilityDisplayHolder {
 
 	void Start () {
         ability = GetComponent<IAbilityStatus>();
-        RectTransform parent = GetComponentInParent<EntityUIGroupHolder>().EntityGroup.StatusHolder;
+        RectTransform parent = GetComponentInParent<IEntityUIGroupHolder>().EntityGroup.StatusHolder;
         spawnedUIPrefab = Instantiate(uiPrefab, parent) as GameObject;
         spawnedUIPrefab.GetComponent<RectTransform>().Reset();
         displays = spawnedUIPrefab.GetComponentsInChildren<IAbilityDisplay>();
