@@ -24,7 +24,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
     PlayerInputHolder input;
     public IPlayerInputHolder Input { get { return input; } }
 
-    EntityUIGroupHolder holder;
+    IEntityUIGroupHolder holder;
 
     PlayerSetupNetworkedData.AbilityId selection1;
     PlayerSetupNetworkedData.AbilityId selection2;
@@ -41,7 +41,7 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
         input = GetComponent<PlayerInputHolder>();
         readyChecker = GameObject.Find("ReadyChecker").GetComponent<ReadyChecker>();
         readyChecker.AddPlayer(this);
-        holder = GetComponentInParent<EntityUIGroupHolder>();
+        holder = GetComponentInParent<IEntityUIGroupHolder>();
 
         Assert.IsNotNull(BossSetup.Main);
         readyChecker.LevelToLoad = BossSetup.Main.BossData.sceneName;
