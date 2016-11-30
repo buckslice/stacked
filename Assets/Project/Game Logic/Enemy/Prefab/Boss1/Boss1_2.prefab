@@ -270,8 +270,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010718955706}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 175, y: 175, z: 175}
+  m_LocalPosition: {x: 0, y: -100.51, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012416083502}
@@ -388,7 +388,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011765390594}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -5.776043, y: 102.880104, z: 0.8624029}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -502,7 +502,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010718955706}
-  m_Mesh: {fileID: 4300000, guid: 686efe7f080d86f46a633e474cb9310b, type: 3}
+  m_Mesh: {fileID: 4300002, guid: 1c1ef22f3588a6a4d8658cb65628b8e4, type: 3}
 --- !u!54 &54000010368753438
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -902,7 +902,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4cacba6e1e0c91429710e6fbc10c853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 1000
+  _health: 2500
 --- !u!114 &114000013866439694
 MonoBehaviour:
   m_ObjectHideFlags: 1

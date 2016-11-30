@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius:
-    baseValue: 30
+    baseValue: 20
 --- !u!114 &114000011605554028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -516,7 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930f0bfd6c8bdf4baca909efd2d0a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 30
+  value: 20
   targets:
   - target: {fileID: 114000011378247852}
     function: x
