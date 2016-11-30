@@ -27,23 +27,23 @@ Material:
       second: 2
     - first:
         name: _Inside
-      second: 0
+      second: 0.454
     - first:
         name: _Rim
-      second: 0.222
+      second: 0.627
     - first:
         name: _Speed
       second: 4.5
     - first:
         name: _Strength
-      second: 1.5
+      second: 1.25
     - first:
         name: _Tile
       second: 5
     m_Colors:
     - first:
         name: _Color
-      second: {r: 1, g: 0.8896551, b: 0, a: 1}
+      second: {r: 1, g: 0.3103448, b: 0, a: 0.341}
     - first:
         name: _HighlightColor
-      second: {r: 1, g: 0.55862063, b: 0, a: 0.5}
+      second: {r: 1, g: 0.6413793, b: 0, a: 1}
