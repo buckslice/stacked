@@ -115,6 +115,8 @@ public static class SimplePool {
 
         // Return an object to the inactive pool.
         public void Despawn(GameObject obj) {
+            Assert.IsFalse(inactive.Contains(obj));
+
             obj.SetActive(false);
 
             // Since Stack doesn't have a Capacity member, we can't control
