@@ -10,9 +10,9 @@ public class PressurePlateTrigger : MonoBehaviour, IUntargetedAbilityTrigger {
     protected int requiredHeight = 4;
 
     void OnTriggerStay(Collider col) {
-        Stackable stackable = GetComponentInParent<Stackable>();
+        Stackable stackable = col.GetComponentInParent<Stackable>();
         if (stackable == null) { return; }
-        
+
         if(stackable.topmost.elevationInStack() >= requiredHeight - 1) {
             abilityTriggerEvent();
         }
