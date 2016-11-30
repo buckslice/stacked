@@ -41,7 +41,6 @@ public class ElevationPulseTelegraphing : DurationAbilityAction {
     protected override void OnDurationEnd() {
         StopCoroutine(elevationPulseCoroutine);
         attachment.Destroy();
-        SimplePool.Despawn(attachment.gameObject);
         elevationPulseCoroutine = null;
         Player.playerElevationChanged -= UpdateResultColors;
     }

@@ -5,6 +5,8 @@ public class ForwardSpinModelRotation : MonoBehaviour {
 
     public float degreesPerSecond = 200.0f;
 
+    public Vector3 axis = Vector3.right;
+
     Rigidbody rigid;
 
 	// Use this for initialization
@@ -15,6 +17,6 @@ public class ForwardSpinModelRotation : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        transform.Rotate(rigid.transform.right, degreesPerSecond * Time.deltaTime, Space.World);
+        transform.Rotate(rigid.transform.TransformDirection(axis), degreesPerSecond * Time.deltaTime, Space.World);
 	}
 }
