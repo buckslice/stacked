@@ -797,13 +797,7 @@ MonoBehaviour:
   - bossID: 5
     sceneName: Derek
     abilities: 0a
-  - bossID: 5
-    sceneName: Derek
-    abilities: 09
-  - bossID: 5
-    sceneName: Derek
-    abilities: 09
-  - bossID: 5
+  - bossID: 3
     sceneName: Derek
     abilities: 09
 --- !u!1001 &1826589521
