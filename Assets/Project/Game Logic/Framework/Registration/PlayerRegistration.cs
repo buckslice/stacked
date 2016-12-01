@@ -337,7 +337,7 @@ public class PlayerRegistration : MonoBehaviour {
                 }
             }
         }
-        if (ready != 0 && ready == currentPlayers && hasMasterPlayer) {
+        if (PhotonNetwork.isMasterClient && ready != 0 && ready == currentPlayers && hasMasterPlayer) {
             SceneManager.LoadScene(nextScene);
         }
     }
