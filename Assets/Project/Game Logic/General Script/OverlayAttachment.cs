@@ -26,7 +26,8 @@ public abstract class AbstractAttachableEffect : MonoBehaviour, IDespawnable {
     }
 
     public void Destroy() {
-        SimplePool.Despawn(this.gameObject);
+        Assert.IsNotNull(targetCollider);
+        Despawn();
     }
 }
 

@@ -33,6 +33,11 @@ public class ElevationUpdating : ProjectileLifetimeAction, IBalanceStat {
         Player_playerElevationChanged();
     }
 
+    protected override void OnProjectileDestroyed() {
+        base.OnProjectileDestroyed();
+        Player.playerElevationChanged -= Player_playerElevationChanged;
+    }
+
     private void Player_playerElevationChanged() {
         int elevation = Stackable.heightToStackElevation(transform.position.y);
 

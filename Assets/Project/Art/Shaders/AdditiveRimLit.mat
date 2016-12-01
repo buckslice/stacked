@@ -6,8 +6,8 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BossBarrierVFX
-  m_Shader: {fileID: 4800000, guid: 23ad8bb89ec071546b0f95e213b8ea45, type: 3}
+  m_Name: AdditiveRimLit
+  m_Shader: {fileID: 4800000, guid: 7f8aafd66b62eab4e86504817293fc34, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_CustomRenderQueue: -1
@@ -18,32 +18,29 @@ Material:
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: 3391f7dfeb6dfe34fb26d34954815034, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - first:
-        name: _HighlightThresholdMax
-      second: 2
-    - first:
         name: _Inside
-      second: 0.454
+      second: 0
     - first:
         name: _Rim
-      second: 0.627
+      second: 1
     - first:
         name: _Speed
-      second: 4.5
+      second: 0.5
     - first:
         name: _Strength
-      second: 1.25
+      second: 1.09
     - first:
         name: _Tile
       second: 5
     m_Colors:
     - first:
         name: _Color
-      second: {r: 1, g: 0.3103448, b: 0, a: 0.341}
+      second: {r: 0.3495891, g: 0.89705884, b: 0.7158275, a: 0}
     - first:
         name: _HighlightColor
-      second: {r: 1, g: 0.6413793, b: 0, a: 1}
+      second: {r: 0, g: 0.5808823, b: 0.07611569, a: 1}
