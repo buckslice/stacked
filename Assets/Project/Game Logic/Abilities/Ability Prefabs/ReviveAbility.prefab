@@ -242,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dfcbd19b2a80f14dac5fa9fdb24f938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distance: 30
+  distance: 3
 --- !u!114 &114000010771582866
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius:
-    baseValue: 20
+    baseValue: 3
 --- !u!114 &114000011605554028
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -516,7 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6930f0bfd6c8bdf4baca909efd2d0a52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 20
+  value: 3
   targets:
   - target: {fileID: 114000011378247852}
     function: x
