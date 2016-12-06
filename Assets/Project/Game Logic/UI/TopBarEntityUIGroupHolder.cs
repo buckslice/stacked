@@ -34,7 +34,7 @@ public class TopBarEntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
     void Start() {
 
         groupTransform.Reset();
-        groupTransform.sizeDelta = new Vector2(0, 100);
+        groupTransform.sizeDelta = new Vector2(0, 50);
 
         groupTransform.anchorMin = new Vector2(leftAnchor, 1);
         groupTransform.anchorMax = new Vector2(rightAnchor, 1);

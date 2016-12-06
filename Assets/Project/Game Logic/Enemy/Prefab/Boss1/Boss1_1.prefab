@@ -992,7 +992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration:
-    baseValue: 5
+    baseValue: 3
   zonePrefab: {fileID: 1000013036402934, guid: eb439765020340a4486f6477c5198693, type: 2}
   zonesToSpawn: 5
 --- !u!114 &114000010933291364
@@ -1686,7 +1686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldownSecs:
-    baseValue: 10
+    baseValue: 20
 --- !u!136 &136000011547110416
 CapsuleCollider:
   m_ObjectHideFlags: 1
