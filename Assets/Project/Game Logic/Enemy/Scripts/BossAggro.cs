@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 [RequireComponent(typeof(Rigidbody))]
 public class BossAggro : MonoBehaviour, IMovement, IRotation {
     [SerializeField]
@@ -17,7 +17,7 @@ public class BossAggro : MonoBehaviour, IMovement, IRotation {
     public AllBoolStat MovementInputEnabled { get { return shouldMove; } }
     public AllBoolStat RotationInputEnabled { get { return shouldChase; } }
 
-    NavMeshAgent agent;
+    UnityEngine.AI.NavMeshAgent agent;
     Rigidbody rigid;
     Animator animator;
 
@@ -46,7 +46,7 @@ public class BossAggro : MonoBehaviour, IMovement, IRotation {
 
     // Use this for initialization
     void Start() {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         rigid = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
 

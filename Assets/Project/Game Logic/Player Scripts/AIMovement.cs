@@ -2,7 +2,7 @@
 using System.Collections;
 
 // beginning of player AI (mainly to be use for camera testing but could be developed further)
-[RequireComponent(typeof(NavMeshAgent))]
+[RequireComponent(typeof(UnityEngine.AI.NavMeshAgent))]
 public class AIMovement : MonoBehaviour, IMovement {
 
     /// <summary>
@@ -22,14 +22,14 @@ public class AIMovement : MonoBehaviour, IMovement {
 
     public float speed = 5.0f;
 
-    NavMeshAgent agent;
+    UnityEngine.AI.NavMeshAgent agent;
     float timer = 100.0f;
 
     IMovementOverride currentOverride = null;
 
     // Use this for initialization
     void Awake() {
-        agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         agent.speed = speed;
     }
 
