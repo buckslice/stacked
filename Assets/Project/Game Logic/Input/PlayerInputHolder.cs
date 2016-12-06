@@ -23,13 +23,8 @@ public interface IPlayerInput : IPlayerInputHolder
 /// </summary>
 public static class PlayerInputExtension
 {
-    public static bool AnyKey(this IPlayerInputHolder self)
-    {
-        return self.getBasicAttack ||
-            self.getAbility1 ||
-            self.getAbility2 ||
-            self.getSubmit ||
-            self.getStart;
+    public static bool AnyKey(this IPlayerInputHolder self) {
+        return self.getAnyKey;
     }
 
     public static bool AnyAxis(this IPlayerInputHolder self)
@@ -643,6 +638,11 @@ public interface IPlayerInputHolder {
     /// </summary>
     bool getJumpUp { get; }
 
+    /// <summary>
+    /// Get any Key
+    /// </summary>
+    bool getAnyKey { get; }
+
     string submitName { get; }
     string cancelName { get; }
     string startName { get; }
@@ -686,6 +686,8 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getAbility1Up { get { return HeldInput.getAbility1Up; } }
     public bool getAbility2Up { get { return HeldInput.getAbility2Up; } }
     public bool getJumpUp { get { return HeldInput.getJumpUp; } }
+
+    public bool getAnyKey { get { return HeldInput.getAnyKey; } }
 
     public string submitName { get { return HeldInput.submitName; } }
     public string cancelName { get { return HeldInput.cancelName; } }
@@ -743,6 +745,8 @@ public class NullInput : IPlayerInput
     public bool getAbility1Up { get { return false; } }
     public bool getAbility2Up { get { return false; } }
     public bool getJumpUp { get { return false; } }
+
+    public bool getAnyKey { get { return false; } }
 
     public string submitName { get{ return ""; } }
     public string cancelName { get{ return ""; } }
