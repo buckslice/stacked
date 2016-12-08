@@ -58,7 +58,10 @@ public abstract class BalanceStat : MonoBehaviour, IBalanceStat {
         switch (type) {
             case BalanceStat.StatType.ANY:
             default:
-                this.value = value; Update();
+                this.value = value;
+#if UNITY_EDITOR
+                Update(); //applies balance changes. Should only be done in editor, with changes being serialized in prefab or scene.
+#endif
                 break;
         }
     }
