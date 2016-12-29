@@ -67,7 +67,7 @@ public class OverlayAttachment : AbstractAttachableEffect {
 }
 
 /// <summary>
-/// A class representing all the overlays on a single gameobject. Created via AddComponent in overlyaAttachment
+/// A class representing all the overlays on a single gameobject. Created via AddComponent in overlayAttachment. Newest version stores them as child gameObjects with the same mesh, instead of as multi-materials on the base renderer.
 /// </summary>
 [RequireComponent(typeof(Renderer))]
 public class Overlay : MonoBehaviour {
@@ -75,13 +75,21 @@ public class Overlay : MonoBehaviour {
     protected Renderer targetRenderer;
     public Renderer TargetRenderer { get { return targetRenderer; } }
 
+    protected MeshFilter targetMesh;
+
     void Awake() {
         targetRenderer = GetComponent<Renderer>();
+        targetMesh = GetComponent<MeshFilter>();
     }
 
-    Dictionary<Material, int> currentOverlays = new Dictionary<Material,int>();
+    /// <summary>
+    /// Mapping between effect and the gameobject rendering it.
+    /// </summary>
+    Dictionary<Material, MeshRenderer> currentOverlayRenderer = new Dictionary<Material, MeshRenderer>();
+    /// <summary>
+    /// Mapping between effect and the number of requests to display it.
+    /// </summary>
     Dictionary<Material, int> overlayCounts = new Dictionary<Material, int>();
-    HashSet<int> openIndices = new HashSet<int>();
 
     /// <summary>
     /// 
@@ -91,61 +99,120 @@ public class Overlay : MonoBehaviour {
     public Material Add(Material mat) {
         if (overlayCounts.ContainsKey(mat)) {
             overlayCounts[mat]++;
-            return targetRenderer.materials[currentOverlays[mat]];
+            if(overlayCounts[mat] > 0) {
+                currentOverlayRenderer[mat].gameObject.SetActive(true);
+            }
+
         } else {
+            //perform set up
             overlayCounts[mat] = 1;
-            int index = AddMaterial(mat);
-            return targetRenderer.materials[index];
-        }
-    }
+            GameObject newChildRendererObject = new GameObject();
 
-    /// <summary>
-    /// Adds a material to the renderer.
-    /// </summary>
-    /// <param name="mat"></param>
-    /// <returns>The index of the material.</returns>
-    int AddMaterial(Material mat) {
-        //Get the first open index in the materials array
-        Material[] existingMaterials = targetRenderer.materials; //create a single duplicate; targetRenderer.materials will create a duplicate every time it is called
+            newChildRendererObject.transform.SetParent(targetRenderer.transform);
+            newChildRendererObject.transform.Reset();
 
-        if (openIndices.Count > 0) {
-            int index = openIndices.First();
-            existingMaterials[index] = mat;
-            currentOverlays[mat] = index;
-            targetRenderer.materials = existingMaterials;
-            openIndices.Remove(index);
-            return index;
+            newChildRendererObject.AddComponent<MeshFilter>().mesh = targetMesh.mesh;
+
+            currentOverlayRenderer[mat] = newChildRendererObject.AddComponent<MeshRenderer>();
+            currentOverlayRenderer[mat].material = mat; //Instantiation of the mat is implicitly done by the meshRenderer
         }
 
-        //else
-
-        //no open slots, increase the array size
-        Material[] newMaterials = new Material[existingMaterials.Length + 1];
-        existingMaterials.CopyTo(newMaterials, 0);
-        newMaterials[existingMaterials.Length] = mat;
-        currentOverlays[mat] = existingMaterials.Length;
-        targetRenderer.materials = newMaterials;
-        return existingMaterials.Length;
+        return currentOverlayRenderer[mat].material;
     }
 
     public void Remove(Material mat) {
         Assert.IsTrue(overlayCounts.ContainsKey(mat));
         overlayCounts[mat]--;
-        if (overlayCounts[mat] == 0) {
-            overlayCounts.Remove(mat);
-            RemoveMaterial(mat);
+        if (overlayCounts[mat] <= 0) {
+            currentOverlayRenderer[mat].gameObject.SetActive(false);
         }
     }
-
-    /// <summary>
-    /// Remove a material from the renderer.
-    /// </summary>
-    /// <param name="mat"></param>
-    void RemoveMaterial(Material mat) {
-        Material[] newMaterials = targetRenderer.materials;
-        newMaterials[currentOverlays[mat]] = null;
-        openIndices.Add(currentOverlays[mat]);
-        targetRenderer.materials = newMaterials;
-        currentOverlays.Remove(mat);
-    }
 }
+
+/*
+ * Old version, which put multiple materials on one renderer.
+ */
+
+///// <summary>
+///// A class representing all the overlays on a single gameobject. Created via AddComponent in overlayAttachment
+///// </summary>
+//[RequireComponent(typeof(Renderer))]
+//public class Overlay : MonoBehaviour {
+
+//    protected Renderer targetRenderer;
+//    public Renderer TargetRenderer { get { return targetRenderer; } }
+
+//    void Awake() {
+//        targetRenderer = GetComponent<Renderer>();
+//    }
+
+//    Dictionary<Material, int> currentOverlays = new Dictionary<Material,int>();
+//    Dictionary<Material, int> overlayCounts = new Dictionary<Material, int>();
+//    HashSet<int> openIndices = new HashSet<int>();
+
+//    /// <summary>
+//    /// 
+//    /// </summary>
+//    /// <param name="mat"></param>
+//    /// <returns>The instantiated material, in order to set shader properties</returns>
+//    public Material Add(Material mat) {
+//        if (overlayCounts.ContainsKey(mat)) {
+//            overlayCounts[mat]++;
+//            return targetRenderer.materials[currentOverlays[mat]];
+//        } else {
+//            overlayCounts[mat] = 1;
+//            int index = AddMaterial(mat);
+//            return targetRenderer.materials[index];
+//        }
+//    }
+
+//    /// <summary>
+//    /// Adds a material to the renderer.
+//    /// </summary>
+//    /// <param name="mat"></param>
+//    /// <returns>The index of the material.</returns>
+//    int AddMaterial(Material mat) {
+//        //Get the first open index in the materials array
+//        Material[] existingMaterials = targetRenderer.materials; //create a single duplicate; targetRenderer.materials will create a duplicate every time it is called
+
+//        if (openIndices.Count > 0) {
+//            int index = openIndices.First();
+//            existingMaterials[index] = mat;
+//            currentOverlays[mat] = index;
+//            targetRenderer.materials = existingMaterials;
+//            openIndices.Remove(index);
+//            return index;
+//        }
+
+//        //else
+
+//        //no open slots, increase the array size
+//        Material[] newMaterials = new Material[existingMaterials.Length + 1];
+//        existingMaterials.CopyTo(newMaterials, 0);
+//        newMaterials[existingMaterials.Length] = mat;
+//        currentOverlays[mat] = existingMaterials.Length;
+//        targetRenderer.materials = newMaterials;
+//        return existingMaterials.Length;
+//    }
+
+//    public void Remove(Material mat) {
+//        Assert.IsTrue(overlayCounts.ContainsKey(mat));
+//        overlayCounts[mat]--;
+//        if (overlayCounts[mat] == 0) {
+//            overlayCounts.Remove(mat);
+//            RemoveMaterial(mat);
+//        }
+//    }
+
+//    /// <summary>
+//    /// Remove a material from the renderer.
+//    /// </summary>
+//    /// <param name="mat"></param>
+//    void RemoveMaterial(Material mat) {
+//        Material[] newMaterials = targetRenderer.materials;
+//        newMaterials[currentOverlays[mat]] = null;
+//        openIndices.Add(currentOverlays[mat]);
+//        targetRenderer.materials = newMaterials;
+//        currentOverlays.Remove(mat);
+//    }
+//}
