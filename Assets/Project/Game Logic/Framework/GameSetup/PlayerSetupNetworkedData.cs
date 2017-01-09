@@ -33,6 +33,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         JUMP,
         GRAB,
         REVIVE,
+        HASTE,
     }
 
     static PlayerSetupNetworkedData main;

@@ -22,9 +22,17 @@ public interface IMovement {
 }
 
 /// <summary>
-/// Denotes a script which overrides an IMovement. New IMovementOverrides will disable previous ones.
+/// Child interface to avoid having to modify speed on bossAggro for now
 /// </summary>
-public interface IMovementOverride {
+public interface IMovementSpeed : IMovement {
+    MultiplierFloatStat Speed { get; }
+}
+
+    /// <summary>
+    /// Denotes a script which overrides an IMovement. New IMovementOverrides will disable previous ones.
+    /// TODO: maybe move MovementOverride to inherit from AbstractStatus
+    /// </summary>
+    public interface IMovementOverride {
     bool Disable();
 }
 
@@ -49,10 +57,11 @@ public interface IRotationOverride {
 
 [RequireComponent(typeof(PhotonView))]
 [RequireComponent(typeof(IPlayerInputHolder))]
-public class PlayerMovement : MonoBehaviour, IMovement, IRotation {
+public class PlayerMovement : MonoBehaviour, IMovement, IMovementSpeed, IRotation {
 
     [SerializeField]
     protected MultiplierFloatStat speed = new MultiplierFloatStat(6);
+    public MultiplierFloatStat Speed { get { return speed; } }
 
     [SerializeField]
     protected MultiplierFloatStat rotationSpeedDegrees = new MultiplierFloatStat(360);

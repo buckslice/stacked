@@ -17,6 +17,9 @@ public abstract class AbstractAttachableEffect : MonoBehaviour, IDespawnable {
         this.transform.localPosition = Vector3.zero;
     }
 
+    /// <summary>
+    /// IDespawnable required function.
+    /// </summary>
     public abstract void Despawn();
 
     protected virtual void OnDestroy() {

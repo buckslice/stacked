@@ -31,6 +31,9 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDes
         root = getRoot(this.transform);
     }
 
+    /// <summary>
+    /// ISpawnable required function.
+    /// </summary>
     public void Spawn() {
         OnProjectileCreated();
     }
@@ -50,7 +53,7 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDes
     }
 
     /// <summary>
-    /// Called when the projectile is created.
+    /// Called when the projectile is created, before any other modifications have been made.
     /// </summary>
     protected abstract void OnProjectileCreated();
 
@@ -64,6 +67,9 @@ public abstract class ProjectileLifetimeAction : MonoBehaviour, ISpawnable, IDes
     /// </summary>
     public virtual void OnProjectileDeactivated() { }
 
+    /// <summary>
+    /// Call to remove the projectile.
+    /// </summary>
     public void DeactivateProjectile() {
         root.StartDestroySequence();
     }

@@ -336,6 +336,58 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 557879856}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &687824588
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000012731521504, guid: 03bf4e62303a2924a842ca6963ef2722, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012731521504, guid: 03bf4e62303a2924a842ca6963ef2722, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012731521504, guid: 03bf4e62303a2924a842ca6963ef2722, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012731521504, guid: 03bf4e62303a2924a842ca6963ef2722, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012731521504, guid: 03bf4e62303a2924a842ca6963ef2722, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012731521504, guid: 03bf4e62303a2924a842ca6963ef2722, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012731521504, guid: 03bf4e62303a2924a842ca6963ef2722, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000012731521504, guid: 03bf4e62303a2924a842ca6963ef2722, type: 2}
+      propertyPath: m_RootOrder
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012836650580, guid: 03bf4e62303a2924a842ca6963ef2722,
+        type: 2}
+      propertyPath: viewIdField
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012836650580, guid: 03bf4e62303a2924a842ca6963ef2722,
+        type: 2}
+      propertyPath: instantiationId
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 03bf4e62303a2924a842ca6963ef2722, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &1021428633
 Prefab:
   m_ObjectHideFlags: 0
@@ -1139,7 +1191,7 @@ MonoBehaviour:
   playerID: 3
   playerData:
     basicAttacks: 
-    firstAbilities: 0b
+    firstAbilities: 13
     secondAbilities: 01
     abilities: 10111206060606
   AIPlayer: 0
