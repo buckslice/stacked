@@ -12,7 +12,7 @@ public class MoveSpeedStatus : AbstractStatus {
     IMovementSpeed affectedTarget = null;
 
     protected override bool handleDuplicates(Transform target) {
-        return AbstractStatus.refreshDuplicates<MoveSpeedStatus>(target);
+        return AbstractStatus.refreshDuplicates<MoveSpeedStatus>(this, target);
     }
 
     protected override void OnProjectileCreated() { }
@@ -25,12 +25,15 @@ public class MoveSpeedStatus : AbstractStatus {
             DeactivateProjectile();
             return;
         }
+        Debug.Log(this.gameObject, this.gameObject);
         affectedTarget.Speed.AddModifier(moveSpeedMultiplier);
     }
 
     public override void OnProjectileDeactivated() {
         base.OnProjectileDeactivated();
-        affectedTarget.Speed.RemoveModifier(moveSpeedMultiplier);
-        affectedTarget = null;
+        if (affectedTarget != null) {
+            affectedTarget.Speed.RemoveModifier(moveSpeedMultiplier);
+            affectedTarget = null;
+        }
     }
 }

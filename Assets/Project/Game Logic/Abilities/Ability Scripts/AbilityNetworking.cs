@@ -59,18 +59,16 @@ public class AbilityNetworking : AbstractActivationNetworking {
     /// </summary>
     Dictionary<IAbilityActivation, int> abilityActivationIndices = new Dictionary<IAbilityActivation, int>();
 
-    void Start()
-    {
-        foreach (GameObject ability in abilities)
-        {
+    protected void Awake() {
+        foreach (GameObject ability in abilities) {
             AddNetworkedAbility(ability);
         }
+    }
 
-        if (!view.isMine)
-        {
+    protected void Start() {
+        if (!view.isMine) {
             //we need to disable all input-related ability activation scripts
-            foreach (IUntargetedAbilityTrigger inputActivation in GetComponentsInChildren<IUntargetedAbilityTrigger>())
-            {
+            foreach (IUntargetedAbilityTrigger inputActivation in GetComponentsInChildren<IUntargetedAbilityTrigger>()) {
                 ((MonoBehaviour)inputActivation).enabled = false;
             }
         }

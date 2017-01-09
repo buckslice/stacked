@@ -51,9 +51,11 @@ public abstract class AbstractStatus : ProjectileLifetimeAction {
     /// <typeparam name="T"></typeparam>
     /// <param name="target"></param>
     /// <returns></returns>
-    protected static bool refreshDuplicates<T>(Transform target) where T : AbstractStatus {
+    protected static bool refreshDuplicates<T>(T self, Transform target) where T : AbstractStatus {
         foreach(T duplicate in target.root.GetComponentsInChildren<T>()) {
-            duplicate.DeactivateProjectile();
+            if (duplicate != self && duplicate.isActiveAndEnabled) {
+                duplicate.DeactivateProjectile();
+            }
         }
         return true;
     }
