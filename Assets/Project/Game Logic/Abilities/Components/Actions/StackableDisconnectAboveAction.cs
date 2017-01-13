@@ -1,0 +1,20 @@
+﻿using UnityEngine;
+using UnityEngine.Assertions;
+using System.Collections;
+using System.Collections.Generic;
+
+public class StackableDisconnectAboveAction : AbstractAbilityAction {
+
+    Stackable stackable;
+
+    protected override void Start() {
+        base.Start();
+        stackable = GetComponentInParent<Stackable>();
+        Assert.IsNotNull(stackable);
+    }
+
+    public override bool Activate(PhotonStream stream) {
+        Debug.Log("Disconnect");
+        return stackable.DisconnectAbove();
+    }
+}

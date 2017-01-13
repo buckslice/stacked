@@ -137,6 +137,40 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
         return true;
     }
 
+    /// <summary>
+    /// Disconnect from the stack below us.
+    /// </summary>
+    /// <returns></returns>
+    public bool DisconnectBelow() {
+        if (below == null) { return false; }
+
+        Stackable targetBelow = below;
+        
+        targetBelow.DisconnectGrabbed();
+
+        changeEventAll();
+        targetBelow.changeEventAll();
+
+        return true;
+    }
+
+    /// <summary>
+    /// Disconnect from the stack above us.
+    /// </summary>
+    /// <returns></returns>
+    public bool DisconnectAbove() {
+        if (above == null) { return false; }
+
+        Stackable targetAbove = above;
+
+        DisconnectGrabbed();
+
+        changeEventAll();
+        targetAbove.changeEventAll();
+
+        return true;
+    }
+
     public bool DestackAll() {
         Stackable current = bottommost;
         Stackable next = current.above;
