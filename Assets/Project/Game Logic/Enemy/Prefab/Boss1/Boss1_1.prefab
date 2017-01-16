@@ -992,7 +992,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration:
-    baseValue: 3
+    baseValue: 10
   zonePrefab: {fileID: 1000013036402934, guid: eb439765020340a4486f6477c5198693, type: 2}
   zonesToSpawn: 5
 --- !u!114 &114000010933291364

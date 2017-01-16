@@ -29,12 +29,16 @@ public class EmanationZoneAbility : DurationAbilityAction {
         float p = (float)spawnedZones / zonesToSpawn;
         if (lerpProgress > p) {
             Vector3 targetPos;
-            float x = Random.Range(-40.0f, 40.0f);
-            float z = Random.Range(-40.0f, 40.0f);
+            //float x = Random.Range(-40.0f, 40.0f);
+            //float z = Random.Range(-40.0f, 40.0f);
+            float x = transform.position.x;
+            float z = transform.position.z;
             targetPos = new Vector3(x, 0.0f, z);
-
             GameObject go = (GameObject)Instantiate(zonePrefab);
-            go.GetComponent<Zone>().Setup(targetPos, Vector3.one);
+            Zone zone = go.GetComponent<Zone>();
+            zone.discWidth = Random.Range(2.0f, 8.0f);
+            zone.emanationSpeed = Random.Range(3.0f, 10.0f);
+            zone.Setup(targetPos);
 
             spawnedZones++;
         }
