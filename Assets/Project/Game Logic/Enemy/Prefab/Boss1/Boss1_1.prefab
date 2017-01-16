@@ -300,6 +300,7 @@ GameObject:
   - component: {fileID: 114000012609029122}
   - component: {fileID: 114000012691380170}
   - component: {fileID: 114000011076594330}
+  - component: {fileID: 114559880531718624}
   m_Layer: 20
   m_Name: FlameSweep
   m_TagString: Untagged
@@ -1619,6 +1620,7 @@ MonoBehaviour:
   - {fileID: 114000012609029122}
   - {fileID: 114000012691380170}
   - {fileID: 114000011076594330}
+  - {fileID: 114559880531718624}
 --- !u!114 &114000014058916816
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1661,6 +1663,17 @@ MonoBehaviour:
   targets:
   - target: {fileID: 114000011222711674}
     function: x
+--- !u!114 &114559880531718624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013303522328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46be39db389f56746ac5ca10f13a9511, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114576213634063690
 MonoBehaviour:
   m_ObjectHideFlags: 1

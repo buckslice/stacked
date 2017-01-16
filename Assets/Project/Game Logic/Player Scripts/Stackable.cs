@@ -175,7 +175,7 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
         Stackable current = bottommost;
         Stackable next = current.above;
 
-        if(next != null) {
+        if(next == null) {
             return false;
         }
 
