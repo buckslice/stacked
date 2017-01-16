@@ -16,7 +16,7 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
 
     [SerializeField]
     public AnchorType anchorType = AnchorType.FLOATING;
-    public CameraOffsetType offsetType = CameraOffsetType.WORLD;
+    public OffsetType offsetType = OffsetType.WORLD;
     public Vector3 offset = Vector3.zero;
 
     [SerializeField]
@@ -27,7 +27,9 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
     EntityUIGroup entityGroup;
     public EntityUIGroup EntityGroup { get { return entityGroup; } }
 
-	void Awake () {
+    UIFollower follower;
+
+    void Awake () {
         Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
         Debug.Assert(canvasRoot, "Scene requires a UI canvas for healthbars!");
 
@@ -41,9 +43,8 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
             groupTransform.localScale = Vector3.one;
             groupTransform.SetAsFirstSibling(); // so boss bars are drawn on top
 
-            UIFollower follower = groupTransform.GetComponent<UIFollower>();
+            follower = groupTransform.GetComponent<UIFollower>();
             if (follower != null) {
-
                 Debug.Assert(canvasHelper.scaler, "Need canvas scaler on canvas!");
                 follower.Initialize(canvasHelper, transform, offset, offsetType);
             }
@@ -66,4 +67,12 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
             Destroy(groupTransform.gameObject);
         }
     }
+
+    public void SetFollowerOffset(Vector3 offset, OffsetType type = OffsetType.CAMERA_LOCAL) {
+        follower.SetOffset(offset, type);
+    }
+    public Vector3 GetFollowerOffset() {
+        return follower.GetOffset();
+    }
+
 }

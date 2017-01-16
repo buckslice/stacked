@@ -5,7 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public enum CameraOffsetType {
+public enum OffsetType {
     WORLD,
     PIXEL,
     CAMERA_LOCAL,
@@ -21,7 +21,7 @@ public class UIFollower : MonoBehaviour {
 
     Transform followTransform;
     Vector3 offset;
-    CameraOffsetType offsetType;
+    OffsetType offsetType;
     Camera cam;
 
     /// <summary>
@@ -29,7 +29,7 @@ public class UIFollower : MonoBehaviour {
     /// </summary>
     /// <param name="followTransform"></param>
     /// <param name="offset"></param>
-    public void Initialize(CanvasHelper canvasHelper, Transform followTransform, Vector3 offset, CameraOffsetType offsetType) {
+    public void Initialize(CanvasHelper canvasHelper, Transform followTransform, Vector3 offset, OffsetType offsetType) {
         this.followTransform = followTransform;
         this.offset = offset;
         this.offsetType = offsetType;
@@ -38,11 +38,10 @@ public class UIFollower : MonoBehaviour {
         cam = Camera.main;
     }
 
-    public void Initialize(CanvasHelper canvasHelper, Transform followTransform) { Initialize(canvasHelper, followTransform, Vector3.zero, CameraOffsetType.WORLD); }
-	
-	void Update () {
-        if(followTransform == null)
-        {
+    public void Initialize(CanvasHelper canvasHelper, Transform followTransform) { Initialize(canvasHelper, followTransform, Vector3.zero, OffsetType.WORLD); }
+
+    void Update() {
+        if (followTransform == null) {
             //Debug.LogWarning("UIFollower not initialized. Removing component.", this.gameObject);
             //Destroy(this);
             return;
@@ -50,13 +49,13 @@ public class UIFollower : MonoBehaviour {
         Vector3 worldOffset = Vector3.zero;
         Vector2 pixelOffset = Vector2.zero;
         switch (offsetType) {
-            case CameraOffsetType.WORLD:
+            case OffsetType.WORLD:
                 worldOffset = offset;
                 break;
-            case CameraOffsetType.PIXEL:
+            case OffsetType.PIXEL:
                 pixelOffset = new Vector2(offset.x, offset.y);
                 break;
-            case CameraOffsetType.CAMERA_LOCAL:
+            case OffsetType.CAMERA_LOCAL:
                 Transform t = cam.transform.parent;
                 worldOffset = t.right * offset.x + t.up * offset.y + t.forward * offset.z;
                 break;
@@ -71,5 +70,14 @@ public class UIFollower : MonoBehaviour {
                                  canvasScaler.matchWidthOrHeight);
         Vector2 scaledScreenPoint = new Vector2(screenPoint.x * scale, screenPoint.y * scale);
         rectTransform.anchoredPosition = scaledScreenPoint + pixelOffset;
-	}
+    }
+
+    public void SetOffset(Vector3 offset, OffsetType offsetType = OffsetType.CAMERA_LOCAL) {
+        this.offset = offset;
+        this.offsetType = offsetType;
+    }
+
+    public Vector3 GetOffset() {
+        return offset;
+    }
 }
