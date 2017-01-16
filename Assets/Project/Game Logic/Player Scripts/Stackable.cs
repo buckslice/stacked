@@ -186,6 +186,7 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
             current = next;
             next = current.above;
         }
+        current.changeEvent();
 
         return true;
     }
