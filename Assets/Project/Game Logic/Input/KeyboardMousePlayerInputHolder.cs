@@ -90,7 +90,7 @@ public class KeyboardMousePlayerInput : IPlayerInput
     public bool getAbility2Up { get { return Input.GetKeyUp(ability2Key); } }
     public bool getJumpUp { get { return Input.GetKeyUp(jumpKey) || Input.GetMouseButtonUp(1); } }
 
-    public bool getAnyKey { get { return (Input.inputString.Length>0)||(Input.GetMouseButton(0))||(Input.GetMouseButton(1))||(Input.GetMouseButton(1)); } }
+    public bool getAnyKey { get { return (Input.inputString.Length>0)||(Input.GetMouseButton(0))||(Input.GetMouseButton(1))||(Input.GetMouseButton(2)); } }
 
     public string submitName { get { return PlayerInputExtension.getBindingName(submitKey); } }
     public string cancelName { get { return PlayerInputExtension.getBindingName(cancelKey1); } }
