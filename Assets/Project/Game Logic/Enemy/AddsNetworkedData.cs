@@ -16,6 +16,7 @@ public class AddsNetworkedData : MonoBehaviour {
         EXPLOSIVE,
         RANGED,
         CHARGING,
+        COMEONANDSLAM,
     }
 
     static AddsNetworkedData main;

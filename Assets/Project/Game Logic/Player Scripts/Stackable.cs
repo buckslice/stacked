@@ -77,8 +77,11 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
         Rigidbody targetRigid = target.selfRigidbody;
 
         IMovement targetMovement = target.selfMovement;
-        targetMovement.MovementInputEnabled.AddModifier(false);
-        targetMovement.HaltMovement();
+
+        if (targetMovement != null) {
+            targetMovement.MovementInputEnabled.AddModifier(false);
+            targetMovement.HaltMovement();
+        }
 
         connectingJoint.Target = targetRigid;
         target.below = this;
@@ -93,8 +96,9 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
         IMovement targetMovement = above.selfMovement;
 
         connectingJoint.Target = null;
-
-        targetMovement.MovementInputEnabled.RemoveModifier(false);
+        if (targetMovement != null) {
+            targetMovement.MovementInputEnabled.RemoveModifier(false);
+        }
 
         connectingJoint.enabled = false;
         above.below = null;

@@ -14,7 +14,6 @@ public class StackableDisconnectAboveAction : AbstractAbilityAction {
     }
 
     public override bool Activate(PhotonStream stream) {
-        Debug.Log("Disconnect");
         return stackable.DisconnectAbove();
     }
 }

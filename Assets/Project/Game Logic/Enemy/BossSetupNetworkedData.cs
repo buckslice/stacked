@@ -24,6 +24,7 @@ public class BossSetupNetworkedData : MonoBehaviour {
         PHASEINVULNERABILITY,
         FLAMESWEEPMK2,
         CHARGINGADD,
+        COMEONANDSLAM_ADD,
     }
 
     public enum BossID : byte {

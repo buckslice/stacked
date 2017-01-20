@@ -799,12 +799,9 @@ MonoBehaviour:
   spawnPoint: {fileID: 282661869}
   playerSpawnPoints: []
   bossData:
-  - bossID: 5
+  - bossID: 1
     sceneName: Derek
-    abilities: 0a
-  - bossID: 3
-    sceneName: Derek
-    abilities: 09
+    abilities: 0b
 --- !u!1001 &1826589521
 Prefab:
   m_ObjectHideFlags: 0
@@ -1141,7 +1138,7 @@ MonoBehaviour:
     basicAttacks: 
     firstAbilities: 13
     secondAbilities: 01
-    abilities: 10111206060606
+    abilities: 101112
   AIPlayer: 0
 --- !u!4 &2137640759
 Transform:
