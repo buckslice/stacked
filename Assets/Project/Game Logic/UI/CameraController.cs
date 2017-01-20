@@ -93,7 +93,15 @@ public class CameraController : MonoBehaviour {
     }
 
     void UpdateCamTypeFixed() {
-        if(trackingList.Count <= 1) {
+        if (trackingList.Count <= 1) {
+            return;
+        }
+        // return early if all targets are really close to eachother
+        float totalDist = 0.0f;
+        for (int i = 0; i < trackingList.Count - 1; ++i) {
+            totalDist += (trackingList[i] - trackingList[i + 1]).sqrMagnitude;
+        }
+        if (totalDist < 1.0f) {
             return;
         }
 
@@ -103,7 +111,7 @@ public class CameraController : MonoBehaviour {
 
         // make sure camera is never looking up
         Vector3 rot = transform.eulerAngles;
-        if(rot.x < 5.0f || rot.x > 90.0f) {
+        if (rot.x < 5.0f || rot.x > 90.0f) {
             transform.rotation = Quaternion.Euler(5.0f, rot.y, 0.0f);
         }
 
@@ -219,7 +227,7 @@ public class CameraController : MonoBehaviour {
 
         // if target position is in front of us reduce smooth speed to slowly zoom in
         float dot = Vector3.Dot(transform.forward, (targetPos - startPos).normalized);
-        if(dot < 0.0f) {
+        if (dot < 0.0f) {
             dot = 0.0f;
         }
 
