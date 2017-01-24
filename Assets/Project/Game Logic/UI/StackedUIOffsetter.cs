@@ -15,7 +15,7 @@ public class StackedUIOffsetter : MonoBehaviour {
         stack = GetComponent<Stackable>();
         holder = GetComponent<EntityUIGroupHolder>();
         startOffset = holder.offset;
-        stackedOffset = startOffset + new Vector3(5.0f, 0.0f, 0.0f);
+        stackedOffset = new Vector3(6.0f, 0.0f, 0.0f);
 
         // subscribe to stack events
         stack.changeEvent += OnStackChange;
