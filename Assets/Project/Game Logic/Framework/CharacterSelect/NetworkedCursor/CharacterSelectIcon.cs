@@ -10,9 +10,8 @@ public class CharacterSelectIcon : MonoBehaviour, ISelectable {
     //    return playerSetup;
     //}
 
-    public PlayerSetupNetworkedData.AbilityId ability;
-
-    public Sprite abilityIcon { get { return GetComponent<Image>().sprite; } }
+    public PlayerSetupNetworkedData.AbilityId ability1;
+    public PlayerSetupNetworkedData.AbilityId ability2;
 
     public GameObject visualsIcon;
     public GameObject tooltip;
@@ -26,6 +25,12 @@ public class CharacterSelectIcon : MonoBehaviour, ISelectable {
     public void SetHover() {
         hover = true;
     }
+
+    /// <summary>
+    /// lock to ensure each character can only be selected by at most one player.
+    /// </summary>
+    bool claimed = false;
+    public bool Claimed { get { return claimed; } set { claimed = value; } }
 
     ReadyChecker checker;
     void Start() {

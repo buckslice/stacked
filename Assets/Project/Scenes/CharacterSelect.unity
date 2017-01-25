@@ -472,7 +472,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: 13
+  ability1: 13
+  ability2: 6
   visualsIcon: {fileID: 157280164}
   tooltip: {fileID: 896941321}
   tooltipLine: {fileID: 592519660}
@@ -1667,7 +1668,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: 11
+  ability1: 11
+  ability2: 6
   visualsIcon: {fileID: 14463738}
   tooltip: {fileID: 2131855461}
   tooltipLine: {fileID: 2052596673}
@@ -1810,7 +1812,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: 1
+  ability1: 1
+  ability2: 15
   visualsIcon: {fileID: 1294562044}
   tooltip: {fileID: 857948452}
   tooltipLine: {fileID: 1203061104}
@@ -1913,7 +1916,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: 6
+  ability1: 0
+  ability2: 0
   visualsIcon: {fileID: 167327168}
   tooltip: {fileID: 0}
   tooltipLine: {fileID: 0}
@@ -2851,7 +2855,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: 15
+  ability1: 0
+  ability2: 15
   visualsIcon: {fileID: 1277960959}
   tooltip: {fileID: 2096691093}
   tooltipLine: {fileID: 852805986}
@@ -3363,7 +3368,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ability: 2
+  ability1: 0
+  ability2: 0
   visualsIcon: {fileID: 1645516055}
   tooltip: {fileID: 1530605116}
   tooltipLine: {fileID: 499465602}

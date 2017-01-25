@@ -25,11 +25,9 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
     public IPlayerInputHolder Input { get { return input; } }
 
     IEntityUIGroupHolder holder;
-
-    PlayerSetupNetworkedData.AbilityId selection1;
-    PlayerSetupNetworkedData.AbilityId selection2;
-    GameObject selection1Display;
-    GameObject selection2Display;
+    
+    CharacterSelectIcon selectedCharacter;
+    GameObject characterSelectedDisplay;
 
     GameObject playerSetupGO = null;
     ReadyChecker readyChecker;
@@ -62,40 +60,28 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
             return false;
         }
 
-        if (selection1Display == null) {
+        if(selectIcon.Claimed) {
+            return false;
+            //error/warning message?
+        }
 
-            PlayerSetupNetworkedData.AbilityId newSelection = selectIcon.ability;
+        if (selectedCharacter != null) {
+            return false;
+        } else {
+            selectedCharacter = selectIcon;
+            selectedCharacter.Claimed = true;
 
-            selection1 = newSelection;
-            leftHalf.color = selectIcon.color;
-
-            RectTransform parent = holder.EntityGroup.StatusHolder;
-            selection1Display = Instantiate(abilityDisplayPrefab, parent) as GameObject;
-            selection1Display.GetComponent<RectTransform>().Reset();
-            selection1Display.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability1Name, selectIcon.visualsIcon);
-
-        } else if (selection2Display == null) {
-
-            PlayerSetupNetworkedData.AbilityId newSelection = selectIcon.ability;
-
-            if (selection1 == newSelection) {  // cant select two of same ability
-                return false;
-            }
-            selection2 = newSelection;
-
-            rightHalf.color = selectIcon.color;
+            leftHalf.color = rightHalf.color = selectIcon.color;
 
             RectTransform parent = holder.EntityGroup.StatusHolder;
-            selection2Display = Instantiate(abilityDisplayPrefab, parent) as GameObject;
-            selection2Display.GetComponent<RectTransform>().Reset();
-            selection2Display.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability2Name, selectIcon.visualsIcon);
+            characterSelectedDisplay = Instantiate(abilityDisplayPrefab, parent) as GameObject;
+            characterSelectedDisplay.GetComponent<RectTransform>().Reset();
+            characterSelectedDisplay.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability1Name, selectIcon.visualsIcon);
 
             //create/recreate setupGO
             if (playerSetupGO != null) {
                 Destroy(playerSetupGO);
             }
-
-            Assert.IsTrue(selection1Display != null && selection2Display != null);
 
             if (view.isMine) {
                 //only the owning player needs to set up their player info for the next scene
@@ -103,37 +89,34 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
                 PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
                 playerSetup.Initalize(input.HeldInput, playerNumber);
                 PlayerSetup.PlayerSetupData pd = new PlayerSetup.PlayerSetupData();
-                pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection1 };
-                pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selection2 };
+                pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selectedCharacter.ability1 };
+                pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selectedCharacter.ability2 };
                 playerSetup.playerData = pd;
             }
 
             SetReady(true);
+            return true;
         }
-        return true;
     }
 
-    public bool CanDeselect() { return selection1Display != null; }
+    public bool CanDeselect() { return selectedCharacter != null; }
     public bool Deselect() {
         if (playerSetupGO != null) {
             Destroy(playerSetupGO);
         }
 
-        if (selection2Display != null) {
-            Destroy(selection2Display);
-            selection2Display = null;
-            rightHalf.color = Color.white;
-        } else if (selection1Display != null) {
-            Destroy(selection1Display);
-            selection1Display = null;
-            leftHalf.color = Color.white;
+        if (selectedCharacter == null) {
+            return false;
         } else {
-            return false; //no action taken
+            selectedCharacter.Claimed = false;
+            selectedCharacter = null;
+            Destroy(characterSelectedDisplay);
+            characterSelectedDisplay = null;
+            rightHalf.color = leftHalf.color = Color.white;
+
+            SetReady(false);
+            return true;
         }
-
-        SetReady(false);
-
-        return true;
     }
 
     void SetReady(bool isReady) {
