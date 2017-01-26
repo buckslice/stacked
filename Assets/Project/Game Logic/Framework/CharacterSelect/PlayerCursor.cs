@@ -60,43 +60,44 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
             return false;
         }
 
-        if(selectIcon.Claimed) {
+        if (selectIcon.Claimed) {
             return false;
             //error/warning message?
         }
 
         if (selectedCharacter != null) {
-            return false;
-        } else {
-            selectedCharacter = selectIcon;
-            selectedCharacter.Claimed = true;
-
-            leftHalf.color = rightHalf.color = selectIcon.color;
-
-            RectTransform parent = holder.EntityGroup.StatusHolder;
-            characterSelectedDisplay = Instantiate(abilityDisplayPrefab, parent) as GameObject;
-            characterSelectedDisplay.GetComponent<RectTransform>().Reset();
-            characterSelectedDisplay.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability1Name, selectIcon.visualsIcon);
-
-            //create/recreate setupGO
-            if (playerSetupGO != null) {
-                Destroy(playerSetupGO);
-            }
-
-            if (view.isMine) {
-                //only the owning player needs to set up their player info for the next scene
-                playerSetupGO = new GameObject();
-                PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
-                playerSetup.Initalize(input.HeldInput, playerNumber);
-                PlayerSetup.PlayerSetupData pd = new PlayerSetup.PlayerSetupData();
-                pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selectedCharacter.ability1 };
-                pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selectedCharacter.ability2 };
-                playerSetup.playerData = pd;
-            }
-
-            SetReady(true);
-            return true;
+            Deselect();
         }
+
+        selectedCharacter = selectIcon;
+        selectedCharacter.Claimed = true;
+
+        leftHalf.color = rightHalf.color = selectIcon.color;
+
+        RectTransform parent = holder.EntityGroup.StatusHolder;
+        characterSelectedDisplay = Instantiate(abilityDisplayPrefab, parent) as GameObject;
+        characterSelectedDisplay.GetComponent<RectTransform>().Reset();
+        characterSelectedDisplay.GetComponent<SelectedAbilityDisplay>().Initialize(input.ability1Name, selectIcon.visualsIcon);
+
+        //create/recreate setupGO
+        if (playerSetupGO != null) {
+            Destroy(playerSetupGO);
+        }
+
+        if (view.isMine) {
+            //only the owning player needs to set up their player info for the next scene
+            playerSetupGO = new GameObject();
+            PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
+            playerSetup.Initalize(input.HeldInput, playerNumber);
+            PlayerSetup.PlayerSetupData pd = new PlayerSetup.PlayerSetupData();
+            pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selectedCharacter.ability1 };
+            pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selectedCharacter.ability2 };
+            playerSetup.playerData = pd;
+        }
+
+        SetReady(true);
+        return true;
+
     }
 
     public bool CanDeselect() { return selectedCharacter != null; }
