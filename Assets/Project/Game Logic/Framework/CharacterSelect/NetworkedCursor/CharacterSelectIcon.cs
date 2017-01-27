@@ -18,6 +18,8 @@ public class CharacterSelectIcon : MonoBehaviour, ISelectable {
     public UIMeshLine tooltipLine;
     public AnimationCurve tooltipAnimation; // should probably store this somewhere else
 
+    public Image darkener;
+
     public Color color = Color.white;
 
     bool hover = false;
@@ -30,7 +32,7 @@ public class CharacterSelectIcon : MonoBehaviour, ISelectable {
     /// lock to ensure each character can only be selected by at most one player.
     /// </summary>
     bool claimed = false;
-    public bool Claimed { get { return claimed; } set { claimed = value; } }
+    public bool Claimed { get { return claimed; } set { claimed = value; darkener.enabled = value; } }
 
     ReadyChecker checker;
     void Start() {
