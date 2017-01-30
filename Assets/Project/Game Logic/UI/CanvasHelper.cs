@@ -13,8 +13,9 @@ public class CanvasHelper : MonoBehaviour {
     public CanvasScaler scaler;
 
     public static void PositionPlayerEntityGroup(RectTransform entityGroup, int playerIndex) {
+        Vector2 sd = entityGroup.sizeDelta;  // just save this but reset everything else
         entityGroup.Reset();
-        entityGroup.sizeDelta = new Vector2(200, 50);
+        entityGroup.sizeDelta = sd; 
 
         switch (playerIndex) {
             case 0:

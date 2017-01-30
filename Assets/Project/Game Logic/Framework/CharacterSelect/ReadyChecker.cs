@@ -19,8 +19,8 @@ public class ReadyChecker : MonoBehaviour {
 
     List<ISelection> players = new List<ISelection>();
     State state = State.NOTREADY;
-    const float startTime = 2.99f;
-    float countDownTime = startTime;
+    public float countDownTime = 3.0f;
+    float timer;
 
     Text text;
 
@@ -28,15 +28,16 @@ public class ReadyChecker : MonoBehaviour {
         players.Add(player);
     }
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
+        timer = countDownTime;
         text = GetComponent<Text>();
         if (!PhotonNetwork.isMasterClient) {
             //only master client can change scenes.
             //TODO: add some way to show the countdown on all clients
             this.enabled = false;
         }
-	}
+    }
 
     public bool ArePlayersReady() {
         return state != State.NOTREADY;
@@ -45,13 +46,13 @@ public class ReadyChecker : MonoBehaviour {
     void checkNotReady() {
         if (!AllPlayersReady()) {
             state = State.NOTREADY;
-            countDownTime = startTime;
+            timer = countDownTime;
             text.text = "";
         }
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update() {
         switch (state) {
             case State.NOTREADY:
                 if (AllPlayersReady()) {
@@ -74,17 +75,16 @@ public class ReadyChecker : MonoBehaviour {
                 break;
 
             case State.COUNTINGDOWN:
-                countDownTime -= Time.deltaTime;
-                int intTime = (int)countDownTime;
-                transform.localScale = Vector3.one * (1.0f + (countDownTime - intTime) * 2.5f);
-                text.text = "" + (intTime + 1);
-                text.fontSize = 200;
-
+                timer -= Time.deltaTime;
                 //countdown complete
-                if (countDownTime <= 0.0f) {
+                if (timer <= 0.0f) {
                     SceneManager.LoadScene(levelToLoad);
                     return;
                 }
+
+                transform.localScale = Vector3.one * (1.0f + (timer - (int)timer) * 2.5f);
+                text.text = "" + (int)(timer + 1.0f);
+                text.fontSize = 180;
 
                 //skip countdown
                 foreach (ISelection player in players) {
@@ -97,38 +97,10 @@ public class ReadyChecker : MonoBehaviour {
                 checkNotReady();
                 break;
         }
-        /*
-        if (!countingDown && AllPlayersReady()) {
-            countingDown = true;
-        }else if(countingDown && !AllPlayersReady()) {
-            countingDown = false;
-            countDownTime = startTime;
-            text.text = "";
-        }else if (countingDown) {
-            countDownTime -= Time.deltaTime;
-            int intTime = (int)countDownTime;
-            transform.localScale = Vector3.one * (1.0f + (countDownTime - intTime)*2.5f);
-            text.text = "" + (intTime + 1);
-
-            //countdown complete
-            if(countDownTime <= 0.0f) {
-                SceneManager.LoadScene(levelToLoad);
-                return;
-            }
-
-            //skip countdown
-            foreach (ISelection player in players) {
-                if (player.Input.getAbility1Down || player.Input.getAbility2Down || player.Input.getBasicAttackDown) {
-                    SceneManager.LoadScene(levelToLoad);
-                    return;
-                }
-            }
-        }
-         * */
-	}
+    }
 
     bool AllPlayersReady() {
-        if(players.Count == 0) {
+        if (players.Count == 0) {
             return false;
         }
         for (int i = 0; i < players.Count; ++i) {
