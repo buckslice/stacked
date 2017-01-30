@@ -314,6 +314,14 @@ public class ControllerPlayerInput : IPlayerInput {
         }
     }
 
+    // true sets to xbox, false sets to ps4
+    public void setControllerType(bool toXbox) {
+        if (toXbox) {
+            setXboxBindings();
+        } else {
+            setPS4Bindings();
+        }
+    }
 
     public void swapControllerType() {
         if (currentAxisType == AxisType.XBOX) {

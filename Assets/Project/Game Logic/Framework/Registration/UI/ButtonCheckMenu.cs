@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ButtonCheckMenu : MonoBehaviour {
     private IPlayerInput bindings;
     private int playerID = -1;
-    public bool ready { 
+    public bool ready {
         get { return PlayerRegistration.Main.RegisteredPlayers[playerID].ready; }
         private set {
             PlayerRegistration.Main.setPlayerReady((byte)playerID, value);
@@ -13,202 +13,68 @@ public class ButtonCheckMenu : MonoBehaviour {
     }
 
     private const float REPEAT_DELAY = 0.2f;
-    private const int readyButton = 1;
-    private const int leaveButton = 2;
-    private const int axisButton = 0;
     private float currentDelay;
-    private bool menuEnabled;
+    private bool startMenu;
 
-    private struct MenuOption
-    {
-        public string name;
-        public string currentBinding;
-
-        public MenuOption(string name, string currentBinding) {
-            this.name = name;
-            this.currentBinding = currentBinding;
-        }
-    }
-    private MenuOption[] options;
-    private int currentButton = readyButton;
-
-    private Text previousButtonText;
-    private Text currentButtonText;
-    private Text nextButtonText;
+    public GameObject xboxImage;
+    public GameObject ps4Image;
+    public GameObject keyboardImage;
+    bool isXboxBindings = true;
 
     void Start() {
-        previousButtonText = transform.GetChild(0).GetComponentInChildren<Text>();
-        currentButtonText = transform.GetChild(1).GetComponentInChildren<Text>();
-        nextButtonText = transform.GetChild(2).GetComponentInChildren<Text>();
         currentDelay = 0;
-        menuEnabled = true;
+        startMenu = true;
         ready = false;
     }
 
     public void Initialize(IPlayerInput bindings, int playerID) {
+        // make sure all are set to false at beginning
+        xboxImage.SetActive(false);
+        ps4Image.SetActive(false);
+        keyboardImage.SetActive(false);
+
         this.bindings = bindings;
+        if (bindings.GetType() == typeof(ControllerPlayerInput)) {
+            xboxImage.SetActive(true);
+            ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
+            controllerInput.setControllerType(true);
+        } else {
+            keyboardImage.SetActive(true);
+        }
+
         this.playerID = playerID;
-        refreshOptions();
     }
 
-    void refreshOptions () {
-        options = new MenuOption[3];
-
-        options[readyButton] = new MenuOption("Ready (Press ", bindings.startName + ")");
-        options[leaveButton] = new MenuOption("Leave (Press ", bindings.cancelName + ")");
-
-        string bindingModeName = "";
-        if (bindings.GetType() == typeof(ControllerPlayerInput)) {
-            ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-            if (controllerInput.currentAxisType == ControllerPlayerInput.AxisType.XBOX) {
-                bindingModeName = "XBOX";
-            }
-            else if (controllerInput.currentAxisType == ControllerPlayerInput.AxisType.PS4) {
-                bindingModeName = "PS4";
-            }
-        }
-        options[axisButton] = new MenuOption("Current aiming axes - ", bindingModeName);
-
-        //options[3] = new MenuOption("Submit - ", bindings.submitName);
-        //options[4] = new MenuOption("Cancel - ", bindings.cancelName);
-        //options[5] = new MenuOption("Start - ", bindings.startName);
-        //options[6] = new MenuOption("Ability 1 - ", bindings.ability1Name);
-        //options[7] = new MenuOption("Ability 2 - ", bindings.ability2Name);
-        //options[8] = new MenuOption("Basic Attack - ", bindings.basicAttackName);
-        //options[9] = new MenuOption("Jump - ", bindings.jumpName);
-	}
-	
-    private void getMovement() {
-        if (currentDelay <= 0) {
-            if (bindings.movementDirection.y > 0) {
-                if (currentButton == 0) {
-                    currentButton = options.Length - 1;
-                }
-                else {
-                    currentButton -= 1;
-                }
-                currentDelay = REPEAT_DELAY;
-            }
-            else if (bindings.movementDirection.y < 0) {
-                currentButton = (currentButton + 1) % options.Length;
-                currentDelay = REPEAT_DELAY;
-            }
-        }
-        else {
+    // Update is called once per frame
+    void Update() {
+        if (!ready) {
             currentDelay -= Time.deltaTime;
-        }
-    }
+            if (currentDelay <= 0
+                && bindings.movementDirection.sqrMagnitude > 0.25f
+                && bindings.GetType() == typeof(ControllerPlayerInput)) {
 
-    private void getInput() {
-        //If controller
-        if (bindings.GetType() == typeof(ControllerPlayerInput)) {
-            ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-            KeyCode[] allButtons;
-            string[] allAxes;
-            switch (controllerInput.controllerIndex) {
-                case XInputDotNetPure.PlayerIndex.One:
-                    allButtons = Tags.Input.Joystick1.allButtons;
-                    allAxes = Tags.Input.Joystick1.allAxes;
-                    break;
-                case XInputDotNetPure.PlayerIndex.Two:
-                    allButtons = Tags.Input.Joystick2.allButtons;
-                    allAxes = Tags.Input.Joystick2.allAxes;
-                    break;
-                case XInputDotNetPure.PlayerIndex.Three:
-                    allButtons = Tags.Input.Joystick3.allButtons;
-                    allAxes = Tags.Input.Joystick3.allAxes;
-                    break;
-                case XInputDotNetPure.PlayerIndex.Four:
-                    allButtons = Tags.Input.Joystick4.allButtons;
-                    allAxes = Tags.Input.Joystick4.allAxes;
-                    break;
-                default:
-                    throw new UnityException("PlayerIndex out of range");
-            }
-            foreach (KeyCode button in allButtons) {
-                if (Input.GetKeyDown(button)) {
-                    onInput(button);
-                }
-            }
-            foreach(string axis in allAxes) {
-                for (int i = 0; i < controllerInput.bindableAxes.Length; i++) {
-                    if (axis == controllerInput.bindableAxes[i]) {
-                        if (Input.GetAxisRaw(axis) > .5) {
-                            onInput(axis);
-                        }
-                    }
-                }
-            }
-        }
-        //If Keyboard
-        else if (currentButton == readyButton || currentButton == leaveButton) {
-            onInput(KeyCode.None);
-        }
-    }
+                isXboxBindings = !isXboxBindings;
 
-    private void onInput(KeyCode key) {
-        if (currentButton == readyButton) {
-            if (bindings.getStart) {
-                menuEnabled = false;
+                ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
+                controllerInput.setControllerType(isXboxBindings);
+
+                xboxImage.SetActive(isXboxBindings);
+                ps4Image.SetActive(!isXboxBindings);
+                keyboardImage.SetActive(false);
+
+                currentDelay = REPEAT_DELAY;
+            }
+
+            if (bindings.getStartDown) {
                 ready = true;
             }
-            return;
-        } 
-        else if (currentButton == leaveButton) {
-            if (bindings.getCancel) {
+            if (bindings.getCancelDown) {
                 PlayerRegistration.Main.removePlayer((byte)playerID);
             }
-            return;
-        } 
-        else if (currentButton == axisButton) {
-            if (bindings.GetType() == typeof(ControllerPlayerInput)) {
-                ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-                controllerInput.swapControllerType();
-                refreshOptions();
+        } else {
+            if (bindings.getCancelDown) {
+                ready = false;
             }
-
-        } 
-        //else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
-        //    ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-        //    controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 3), PlayerInputExtension.buttonNumbers[key], ControllerPlayerInput.InputType.KEY);
-        //    refreshOptions();
-
-        //}
-    }
-
-    private void onInput(string axis) {
-        if (currentButton == readyButton || currentButton == leaveButton || currentButton == axisButton) {
-            return;
-        } 
-        //else if (bindings.GetType() == typeof(ControllerPlayerInput)) {
-
-        //    ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-        //    controllerInput.remap((ControllerPlayerInput.Inputs)(currentButton - 3), PlayerInputExtension.axisNumbers[axis], ControllerPlayerInput.InputType.AXIS);
-        //    refreshOptions();
-        //}
-    }
-
-    private void drawMenu() {
-        int previousButton = currentButton - 1;
-        if (previousButton < 0){
-            previousButton = options.Length - 1;
         }
-        previousButtonText.text = options[previousButton].name + options[previousButton].currentBinding;
-        currentButtonText.text = options[currentButton].name + options[currentButton].currentBinding;
-        int nextButton = (currentButton + 1) % options.Length;
-        nextButtonText.text = options[nextButton].name + options[nextButton].currentBinding;
     }
-
-	// Update is called once per frame
-	void Update () {
-        if (menuEnabled) {
-            getMovement();
-            getInput();
-        } else if (bindings.getCancelDown) {
-            menuEnabled = true;
-            ready = false;
-
-        }
-        drawMenu();
-	}
 }

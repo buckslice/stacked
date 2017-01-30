@@ -16,15 +16,15 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010123889878}
-  - 114: {fileID: 114000011249166826}
-  - 114: {fileID: 114000011048380482}
-  - 114: {fileID: 114000011737676832}
-  - 114: {fileID: 114000012135036892}
-  - 114: {fileID: 114000012219358892}
-  - 114: {fileID: 114000012855562620}
+  - component: {fileID: 4000010123889878}
+  - component: {fileID: 114000011249166826}
+  - component: {fileID: 114000011048380482}
+  - component: {fileID: 114000011737676832}
+  - component: {fileID: 114000012135036892}
+  - component: {fileID: 114000012219358892}
+  - component: {fileID: 114000012855562620}
   m_Layer: 0
   m_Name: PlayerRegistration
   m_TagString: Untagged
@@ -41,10 +41,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114000011048380482
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -69,7 +69,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   registeredPlayerPrefab: {fileID: 1000013470432026, guid: b06cb6c7b52354c4ca8d947421baa44c,
     type: 2}
-  playerRegistrationUIPrefabName: RegistrationUI
   nextScene: BossSelect
   possibleBindings:
   - {fileID: 114000011048380482}
@@ -98,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bindings:
     controllerIndex: 0
+    axisStates: 
     deadZone: 0.2
 --- !u!114 &114000012135036892
 MonoBehaviour:
@@ -112,6 +112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bindings:
     controllerIndex: 1
+    axisStates: 
     deadZone: 0.2
 --- !u!114 &114000012219358892
 MonoBehaviour:
@@ -126,6 +127,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bindings:
     controllerIndex: 2
+    axisStates: 
     deadZone: 0.2
 --- !u!114 &114000012855562620
 MonoBehaviour:
@@ -140,4 +142,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bindings:
     controllerIndex: 3
+    axisStates: 
     deadZone: 0.2

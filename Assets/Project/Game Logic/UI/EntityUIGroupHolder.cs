@@ -37,9 +37,9 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
         Assert.IsNotNull(canvasHelper);
 
         if (anchorType == AnchorType.CORNERS) {
-            groupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, canvasHelper.transform)).GetComponent<RectTransform>();
+            groupTransform = (Instantiate(entityGroupUIPrefab, canvasHelper.transform)).GetComponent<RectTransform>();
         } else {
-            groupTransform = ((GameObject)Instantiate(entityGroupUIPrefab, canvasHelper.floatingHealthBarGroup)).GetComponent<RectTransform>();
+            groupTransform = (Instantiate(entityGroupUIPrefab, canvasHelper.floatingHealthBarGroup)).GetComponent<RectTransform>();
             groupTransform.localScale = Vector3.one;
             groupTransform.SetAsFirstSibling(); // so boss bars are drawn on top
 

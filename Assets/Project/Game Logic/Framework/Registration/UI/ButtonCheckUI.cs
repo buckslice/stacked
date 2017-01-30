@@ -10,7 +10,7 @@ public class ButtonCheckUI : MonoBehaviour {
     public ButtonCheckMenu menu { get; private set; }
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         RegisteredPlayer player = GetComponent<RegisteredPlayer>();
 
         if (!player.locallyControlled) { return; }
@@ -22,15 +22,13 @@ public class ButtonCheckUI : MonoBehaviour {
         (buttonCheckMenu.transform as RectTransform).Reset();
         RectTransform t = ((RectTransform)buttonCheckMenu.transform);
 
-        
 
         if (player.PlayerID == 0 || player.PlayerID == 1) {
             t.offsetMax = new Vector2(0, -50);
             t.offsetMin = new Vector2(0, -100);
-        }
-        else {
-            t.offsetMax = new Vector2(0, 150);
-            t.offsetMin = new Vector2(0, 100);
+        } else {
+            t.offsetMax = new Vector2(0, 100);
+            t.offsetMin = new Vector2(0, 50);
         }
         menu = buttonCheckMenu.GetComponent<ButtonCheckMenu>();
         IPlayerInput bindings = player.inputBindings;

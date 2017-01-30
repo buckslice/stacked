@@ -16,13 +16,13 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010789102658}
-  - 114: {fileID: 114000013001914366}
-  - 114: {fileID: 114000011806856506}
-  - 114: {fileID: 114000013326006942}
-  - 114: {fileID: 114000010697937554}
+  - component: {fileID: 4000010789102658}
+  - component: {fileID: 114000013001914366}
+  - component: {fileID: 114000011806856506}
+  - component: {fileID: 114000013326006942}
+  - component: {fileID: 114000010697937554}
   m_Layer: 0
   m_Name: RegisteredPlayerPrefab
   m_TagString: Untagged
@@ -39,10 +39,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114000010697937554
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54,7 +54,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c77d9e9b55795419bdd327713577f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buttonCheckPrefab: {fileID: 1000013898195722, guid: 662776b6bfdc0474badea01ffebf5905,
+  buttonCheckPrefab: {fileID: 1282014724147502, guid: 26f62a1407d211649950b4195be189cc,
     type: 2}
 --- !u!114 &114000011806856506
 MonoBehaviour:
@@ -68,9 +68,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anchorType: 0
-  worldOffset: {x: 0, y: 0, z: 0}
-  pixelOffset: {x: 0, y: 0}
-  entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
+  offsetType: 0
+  offset: {x: 0, y: 0, z: 0}
+  entityGroupUIPrefab: {fileID: 1393737078909292, guid: 6925bc17b466ca94bb9aa9c5ff385fa2,
     type: 2}
 --- !u!114 &114000013001914366
 MonoBehaviour:

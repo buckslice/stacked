@@ -38,9 +38,6 @@ public class PlayerRegistration : MonoBehaviour {
     protected GameObject registeredPlayerPrefab;
 
     [SerializeField]
-    protected string playerRegistrationUIPrefabName = Tags.Resources.RegistrationUI;
-
-    [SerializeField]
     protected string nextScene = Tags.Scenes.BossSelect;
 
     /// <summary>
