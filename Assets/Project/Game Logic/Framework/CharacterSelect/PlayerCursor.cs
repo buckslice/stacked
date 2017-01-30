@@ -55,6 +55,10 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
     public bool CanSelect() { return true; }
     public bool Select(ISelectable selectable) {
 
+        if (Ready) {    // should have to deselect before you can select again?
+            return false;
+        }
+
         CharacterSelectIcon selectIcon = selectable as CharacterSelectIcon;
         if (selectIcon == null) {
             return false;
