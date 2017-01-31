@@ -65,7 +65,7 @@ public class ButtonCheckMenu : MonoBehaviour {
                 currentDelay = REPEAT_DELAY;
             }
 
-            if (bindings.getStartDown) {
+            if (bindings.getStartDown || bindings.getSubmitDown) {
                 ready = true;
             }
             if (bindings.getCancelDown) {

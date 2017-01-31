@@ -41,7 +41,6 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
         } else {
             groupTransform = (Instantiate(entityGroupUIPrefab, canvasHelper.floatingHealthBarGroup)).GetComponent<RectTransform>();
             groupTransform.localScale = Vector3.one;
-            groupTransform.SetAsFirstSibling(); // so boss bars are drawn on top
 
             follower = groupTransform.GetComponent<UIFollower>();
             if (follower != null) {
@@ -49,6 +48,7 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
                 follower.Initialize(canvasHelper, transform, offset, offsetType);
             }
         }
+        groupTransform.SetAsFirstSibling(); 
         entityGroup = groupTransform.GetComponent<EntityUIGroup>();
 	}
 
@@ -58,8 +58,43 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
             if (player == null) {
                 player = (Player)GetComponent<IDamageHolder>().DamageTracker;
             }
-            CanvasHelper.PositionPlayerEntityGroup(groupTransform, player.PlayerID);
+            PositionPlayerEntityGroup(groupTransform, player.PlayerID);
         }
+    }
+
+    public void PositionPlayerEntityGroup(RectTransform entityGroup, int playerIndex) {
+        Vector2 sd = entityGroup.sizeDelta;  // just save this but reset everything else
+        entityGroup.Reset();
+        entityGroup.sizeDelta = sd;
+
+        switch (playerIndex) {
+            case 0:
+                entityGroup.anchorMin = entityGroup.anchorMax = entityGroup.pivot = Vector2.up;
+                break;
+            case 1:
+                entityGroup.anchorMin = entityGroup.anchorMax = entityGroup.pivot = Vector2.one;
+                break;
+            case 2:
+                entityGroup.anchorMin = entityGroup.anchorMax = entityGroup.pivot = Vector2.zero;
+                StartCoroutine(InvertRoutine(entityGroup));
+                break;
+            case 3:
+                entityGroup.anchorMin = entityGroup.anchorMax = entityGroup.pivot = Vector2.right;
+                StartCoroutine(InvertRoutine(entityGroup));
+                break;
+        }
+
+    }
+
+    // coroutine that is basically like a 3rd start (to make sure UI object is fully costructed by the time it tries to reorder children)
+    IEnumerator InvertRoutine(Transform tform) {
+        entityGroup.gameObject.SetActive(false);
+        yield return null;
+        int childNum = tform.childCount;
+        for (int i = 0; i < childNum; ++i) {
+            tform.GetChild(0).SetSiblingIndex(childNum - i - 1);
+        }
+        tform.gameObject.SetActive(true);
     }
 
     void OnDestroy() {
