@@ -324,7 +324,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &193824896 stripped
 Transform:
@@ -770,7 +770,7 @@ Transform:
   - {fileID: 984177385}
   - {fileID: 89714723}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &406275459
 Prefab:
@@ -810,52 +810,6 @@ Prefab:
     - target: {fileID: 4000010771508414, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
       propertyPath: m_RootOrder
       value: 9
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
-  m_IsPrefabParent: 0
---- !u!1001 &460477632
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4000010771508414, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010771508414, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010771508414, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010771508414, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010771508414, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010771508414, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010771508414, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000010771508414, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000011126167832, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
-      propertyPath: m_Name
-      value: EncounterStateScripting (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e4d47c8b56584d34a871fc7036311bec, type: 2}
@@ -978,19 +932,29 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010670690832, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
+    - target: {fileID: 114135174450111284, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
         type: 2}
-      propertyPath: bossData.abilities.Array.data[0]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000011232789038, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114000012931405808, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
+      propertyPath: playerSpawnPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 2088419211}
+    - target: {fileID: 114135174450111284, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
+        type: 2}
+      propertyPath: playerSpawnPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 2088419211}
+    - target: {fileID: 114135174450111284, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
+        type: 2}
+      propertyPath: playerSpawnPoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 2088419211}
+    - target: {fileID: 114135174450111284, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
+        type: 2}
+      propertyPath: playerSpawnPoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 2088419211}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &672663441
@@ -1040,7 +1004,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &720987466
 GameObject:
@@ -1115,11 +1079,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5bf269969c303ec4f8f9fc85a07c1f8a, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &978345118 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000011232789038, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
-    type: 2}
-  m_PrefabInternal: {fileID: 533536492}
 --- !u!1 &984177384
 GameObject:
   m_ObjectHideFlags: 0
@@ -1221,7 +1180,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1300061057
 Prefab:
@@ -1289,38 +1248,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2d661d7d4872d9743a32a7577e38fe4d, type: 3}
   m_IsPrefabParent: 0
---- !u!1 &1302139324 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000011236129322, guid: 8fcca9ce51a9c9a418b109bc95cc2b9d,
-    type: 2}
-  m_PrefabInternal: {fileID: 533536492}
---- !u!114 &1302139325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1302139324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d00ac7122f966bc498c52aa40547200a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPoint: {fileID: 978345118}
-  playerSpawnPoints:
-  - {fileID: 2088419211}
-  - {fileID: 2088419211}
-  - {fileID: 2088419211}
-  - {fileID: 2088419211}
-  bossData:
-  - bossID: 2
-    sceneName: RockonRockonRockonRock
-    abilities: 
-  - bossID: 3
-    sceneName: RockonRockonRockonRock
-    abilities: 
-  - bossID: 4
-    sceneName: RockonRockonRockonRock
-    abilities: 
 --- !u!1001 &1463099655
 Prefab:
   m_ObjectHideFlags: 0
@@ -1675,7 +1602,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2043713331
 GameObject:
@@ -1807,5 +1734,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -476,7 +476,7 @@ MonoBehaviour:
   playerSpawnPoints: []
   bossData:
     bossID: 0
-    sceneName: Derek
+    sceneName: RockonRockonRockonRock
     abilities: 00010205
 --- !u!4 &190429763
 Transform:
