@@ -16,18 +16,18 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000014009091348}
-  - 114: {fileID: 114000012525877432}
-  - 114: {fileID: 114000010388060556}
-  - 114: {fileID: 114000014135220668}
-  - 114: {fileID: 114000010504641656}
-  - 114: {fileID: 114000014153498590}
-  - 114: {fileID: 114000014100759128}
-  - 114: {fileID: 114000013560656820}
-  - 82: {fileID: 82000011524335894}
-  - 114: {fileID: 114000012990650104}
+  - component: {fileID: 4000014009091348}
+  - component: {fileID: 114000012525877432}
+  - component: {fileID: 114000010388060556}
+  - component: {fileID: 114000014135220668}
+  - component: {fileID: 114000010504641656}
+  - component: {fileID: 114000014153498590}
+  - component: {fileID: 114000014100759128}
+  - component: {fileID: 114000013560656820}
+  - component: {fileID: 82000011524335894}
+  - component: {fileID: 114000012990650104}
   m_Layer: 17
   m_Name: UnstackedJump
   m_TagString: Untagged
@@ -40,16 +40,16 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000011948994604}
-  - 114: {fileID: 114000014054865788}
-  - 114: {fileID: 114000012115860872}
-  - 114: {fileID: 114000010276191500}
-  - 114: {fileID: 114000012267639464}
-  - 114: {fileID: 114000010690280966}
-  - 82: {fileID: 82000013763252616}
-  - 114: {fileID: 114000010875817300}
+  - component: {fileID: 4000011948994604}
+  - component: {fileID: 114000014054865788}
+  - component: {fileID: 114000012115860872}
+  - component: {fileID: 114000010276191500}
+  - component: {fileID: 114000012267639464}
+  - component: {fileID: 114000010690280966}
+  - component: {fileID: 82000013763252616}
+  - component: {fileID: 114000010875817300}
   m_Layer: 0
   m_Name: StackedJump
   m_TagString: Untagged
@@ -62,11 +62,11 @@ GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000013210816032}
-  - 114: {fileID: 114000011323248888}
-  - 114: {fileID: 114000014149286288}
+  - component: {fileID: 4000013210816032}
+  - component: {fileID: 114000011323248888}
+  - component: {fileID: 114000014149286288}
   m_Layer: 17
   m_Name: JumpOntoStack
   m_TagString: Untagged
@@ -79,10 +79,10 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000010667845592}
-  - 114: {fileID: 114000010824901914}
+  - component: {fileID: 4000010667845592}
+  - component: {fileID: 114000010824901914}
   m_Layer: 17
   m_Name: SharedJump
   m_TagString: Untagged
@@ -95,11 +95,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000012557962738}
-  - 114: {fileID: 114000010358241730}
-  - 114: {fileID: 114000012060344988}
+  - component: {fileID: 4000012557962738}
+  - component: {fileID: 114000010358241730}
+  - component: {fileID: 114000012060344988}
   m_Layer: 17
   m_Name: JumpAbility
   m_TagString: Untagged
@@ -116,10 +116,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012557962738}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000011948994604
 Transform:
   m_ObjectHideFlags: 1
@@ -129,10 +129,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000012557962738}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000012557962738
 Transform:
   m_ObjectHideFlags: 1
@@ -142,13 +142,13 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000011948994604}
   - {fileID: 4000010667845592}
   - {fileID: 4000014009091348}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000013210816032
 Transform:
   m_ObjectHideFlags: 1
@@ -158,10 +158,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014009091348}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4000014009091348
 Transform:
   m_ObjectHideFlags: 1
@@ -171,11 +171,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013210816032}
   m_Father: {fileID: 4000012557962738}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &82000011524335894
 AudioSource:
   m_ObjectHideFlags: 1
@@ -192,6 +192,7 @@ AudioSource:
   Loop: 0
   Mute: 0
   Spatialize: 0
+  SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -204,12 +205,14 @@ AudioSource:
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 1
+    - serializedVersion: 2
+      time: 1
       value: 0
       inSlope: 0
       outSlope: 0
@@ -220,7 +223,8 @@ AudioSource:
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
@@ -231,7 +235,8 @@ AudioSource:
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
@@ -242,7 +247,8 @@ AudioSource:
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 1
       inSlope: 0
       outSlope: 0
@@ -266,6 +272,7 @@ AudioSource:
   Loop: 0
   Mute: 0
   Spatialize: 0
+  SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
@@ -278,12 +285,14 @@ AudioSource:
   rolloffCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
-    - time: 1
+    - serializedVersion: 2
+      time: 1
       value: 0
       inSlope: 0
       outSlope: 0
@@ -294,7 +303,8 @@ AudioSource:
   panLevelCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
@@ -305,7 +315,8 @@ AudioSource:
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 0
       inSlope: 0
       outSlope: 0
@@ -316,7 +327,8 @@ AudioSource:
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
-    - time: 0
+    - serializedVersion: 2
+      time: 0
       value: 1
       inSlope: 0
       outSlope: 0

@@ -14,18 +14,24 @@ public class WalkBobbing : MonoBehaviour {
     Transform target;
     float animationProgress = 0;
     Vector3 previousPosition;
-    
 
-	void Start () {
+    GroundedChecker gc;
+
+    void Start() {
         target = transform.GetChild(0);
         previousPosition = transform.position;
-	}
-	
-	void Update () {
+        gc = transform.root.GetComponent<GroundedChecker>();
+    }
+
+    void Update() {
+        if (!gc.isGrounded) {
+            return;
+        }
+
         animationProgress += (transform.position - previousPosition).magnitude / distancePerCycle;
         animationProgress %= 1;
         previousPosition = transform.position;
 
         target.localPosition = new Vector3(0, height.Evaluate(animationProgress));
-	}
+    }
 }
