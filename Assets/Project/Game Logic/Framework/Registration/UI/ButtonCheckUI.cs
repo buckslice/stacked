@@ -19,7 +19,7 @@ public class ButtonCheckUI : MonoBehaviour {
         Debug.Assert(canvasRoot, "Scene requires a UI canvas for healthbars!");
 
         GameObject buttonCheckMenu = Instantiate(buttonCheckPrefab, GetComponent<IEntityUIGroupHolder>().EntityGroup.transform);
-
+        buttonCheckMenu.transform.localScale = Vector3.one;
         menu = buttonCheckMenu.GetComponent<ButtonCheckMenu>();
         IPlayerInput bindings = player.inputBindings;
         menu.Initialize(bindings, player.PlayerID);
