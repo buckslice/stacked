@@ -32,7 +32,5 @@ public class ClassModelSwapper : MonoBehaviour {
                 break;
 
         }
-
-        GetComponent<TintedModel>().TintModels();
     }
 }

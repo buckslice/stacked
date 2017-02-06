@@ -220,6 +220,9 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
 
         //assign playerID
         damageHolder.Initialize(new Player(playerID, damageHolder));
+        //assign playerColoring
+        player.GetComponent<TintedModel>().TintModels();
+
 
         return player;
     }
@@ -235,7 +238,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         player.GetComponent<PlayerInputHolder>().HeldInput = input;
 
         // swap model based on class
-        //player.GetComponent<ClassModelSwapper>().SwapModel(playerData.playerClass);
+        player.GetComponent<ClassModelSwapper>().SwapModel(playerData.playerClass);
 
         AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
 
