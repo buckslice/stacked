@@ -541,6 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerClass: 3
   ability1: 13
   ability2: 6
   visualsIcon: {fileID: 157280164}
@@ -1269,12 +1270,12 @@ RectTransform:
   m_Children:
   - {fileID: 998812416}
   - {fileID: 1677106688}
+  - {fileID: 1003855333}
   - {fileID: 698326436}
-  - {fileID: 698384023}
   - {fileID: 210183314}
   - {fileID: 688403157}
+  - {fileID: 698384023}
   - {fileID: 1086366517}
-  - {fileID: 1003855333}
   - {fileID: 689753538}
   - {fileID: 321804744}
   m_Father: {fileID: 0}
@@ -1734,6 +1735,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerClass: 1
   ability1: 11
   ability2: 6
   visualsIcon: {fileID: 14463738}
@@ -1862,7 +1864,7 @@ RectTransform:
   - {fileID: 884858025}
   - {fileID: 1069739709}
   m_Father: {fileID: 566795495}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1880,6 +1882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerClass: 2
   ability1: 1
   ability2: 15
   visualsIcon: {fileID: 1294562044}
@@ -1967,7 +1970,7 @@ RectTransform:
   - {fileID: 167327169}
   - {fileID: 374068987}
   m_Father: {fileID: 566795495}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1985,6 +1988,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerClass: 0
   ability1: 0
   ability2: 0
   visualsIcon: {fileID: 167327168}
@@ -2976,7 +2980,7 @@ RectTransform:
   - {fileID: 855763610}
   - {fileID: 7467924}
   m_Father: {fileID: 566795495}
-  m_RootOrder: 7
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2994,6 +2998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerClass: 0
   ability1: 0
   ability2: 15
   visualsIcon: {fileID: 1277960959}
@@ -3558,7 +3563,7 @@ RectTransform:
   - {fileID: 1645516056}
   - {fileID: 1968612004}
   m_Father: {fileID: 566795495}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3576,6 +3581,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fcd2e19a6731974ea3c32abab661b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerClass: 0
   ability1: 0
   ability2: 0
   visualsIcon: {fileID: 1645516055}

@@ -14,6 +14,10 @@ public class TintedModel : MonoBehaviour {
     protected Image[] tintedImages; //both renderers and images have a .color property, but they don't share anything in the inheritance tree for it
 
     void Start () {
+        TintModels();
+	}
+
+    public void TintModels() {
         int playerID = GetComponent<IPlayerID>().PlayerID;
 
         if (playerID < Player.playerColoring.Length && playerID >= 0) {
@@ -26,5 +30,5 @@ public class TintedModel : MonoBehaviour {
                 tintedImage.color = Player.playerColoring[playerID];
             }
         }
-	}
+    }
 }

@@ -25,5 +25,7 @@ EditorBuildSettings:
     path: Assets/Project/Scenes/BossSelect.unity
   - enabled: 1
     path: Assets/Project/Scenes/PlayerRegistration.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/DevelopmentOnly/RockonRockonRockonRock.unity
+  - enabled: 1
+    path: Assets/Project/Scenes/RockonRockonRockonRock.unity

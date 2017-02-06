@@ -6,9 +6,18 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+
+public enum PlayerClass {
+    BEAR,
+    BIRD,
+    FOX,
+    TURTLE
+}
+
 /// <summary>
 /// Class to hold player data, and to spawn said player after the next scene change.
 /// </summary>
+/// 
 public class PlayerSetup : MonoBehaviour {
 
     [System.Serializable]
@@ -28,6 +37,8 @@ public class PlayerSetup : MonoBehaviour {
         [SerializeField]
         [Tooltip("These abilities will retain their default bindings")]
         public PlayerSetupNetworkedData.AbilityId[] abilities = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.JUMP, PlayerSetupNetworkedData.AbilityId.FIREBALL, PlayerSetupNetworkedData.AbilityId.REVIVE };
+
+        public PlayerClass playerClass;
 
         public byte[] toByteArray() {
             BinaryFormatter bf = new BinaryFormatter();

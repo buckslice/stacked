@@ -215,7 +215,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
             player.transform.position = BossSetup.Main.PlayerSpawnPoints[playerID].position;
             player.transform.rotation = BossSetup.Main.PlayerSpawnPoints[playerID].rotation;
         }
-        
+
         DamageHolder damageHolder = player.GetComponent<DamageHolder>();
 
         //assign playerID
@@ -233,6 +233,9 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
 
         //assign input bindings
         player.GetComponent<PlayerInputHolder>().HeldInput = input;
+
+        // swap model based on class
+        //player.GetComponent<ClassModelSwapper>().SwapModel(playerData.playerClass);
 
         AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
 

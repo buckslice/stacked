@@ -10,6 +10,7 @@ public class CharacterSelectIcon : MonoBehaviour, ISelectable {
     //    return playerSetup;
     //}
 
+    public PlayerClass playerClass;
     public PlayerSetupNetworkedData.AbilityId ability1;
     public PlayerSetupNetworkedData.AbilityId ability2;
 

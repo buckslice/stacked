@@ -90,12 +90,13 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
 
         if (view.isMine) {
             //only the owning player needs to set up their player info for the next scene
-            playerSetupGO = new GameObject();
+            playerSetupGO = new GameObject("PlayerSetupHolder");
             PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
             playerSetup.Initalize(input.HeldInput, playerNumber);
             PlayerSetup.PlayerSetupData pd = new PlayerSetup.PlayerSetupData();
             pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selectedCharacter.ability1 };
             pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selectedCharacter.ability2 };
+            pd.playerClass = selectedCharacter.playerClass; // so we can switch models and stuff
             playerSetup.playerData = pd;
         }
 

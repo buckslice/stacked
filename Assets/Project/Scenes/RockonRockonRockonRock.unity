@@ -310,6 +310,7 @@ MonoBehaviour:
     firstAbilities: 
     secondAbilities: 
     abilities: 
+    playerClass: 0
   AIPlayer: 0
   bindings: 0
   controllerIndex: 0
@@ -990,6 +991,7 @@ MonoBehaviour:
     firstAbilities: 
     secondAbilities: 
     abilities: 
+    playerClass: 0
   AIPlayer: 0
   bindings: 0
   controllerIndex: 0
@@ -1168,6 +1170,7 @@ MonoBehaviour:
     firstAbilities: 0b
     secondAbilities: 0d
     abilities: 10111206060606
+    playerClass: 0
   AIPlayer: 0
 --- !u!4 &1185180350
 Transform:
@@ -1588,6 +1591,7 @@ MonoBehaviour:
     firstAbilities: 
     secondAbilities: 
     abilities: 
+    playerClass: 0
   AIPlayer: 0
   bindings: 0
   controllerIndex: 0
