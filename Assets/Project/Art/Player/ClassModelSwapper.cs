@@ -11,26 +11,38 @@ public class ClassModelSwapper : MonoBehaviour {
 
     public Transform bodyParent;
 
-    public void SwapModel(PlayerClass playerClass) {
+    private PlayerClass playerClass;
 
+    public void SwapModel(PlayerClass playerClass) {
+        this.playerClass = playerClass;
+    }
+
+    void Start() {
         bodyParent.GetChild(0).gameObject.SetActive(false);
 
+        GameObject go = null;
         switch (playerClass) {
             case PlayerClass.BEAR:
-                Instantiate(bearPrefab, bodyParent, false);
+                go = (GameObject)Instantiate(bearPrefab, bodyParent, false);
                 break;
             case PlayerClass.BIRD:
-                Instantiate(birdPrefab, bodyParent, false);
+                go = (GameObject)Instantiate(birdPrefab, bodyParent, false);
                 break;
             case PlayerClass.FOX:
-                Instantiate(foxPrefab, bodyParent, false);
+                go = (GameObject)Instantiate(foxPrefab, bodyParent, false);
                 break;
             case PlayerClass.TURTLE:
-                Instantiate(turtlePrefab, bodyParent, false);
+                go = (GameObject)Instantiate(turtlePrefab, bodyParent, false);
                 break;
             default:
                 break;
 
+        }
+
+        int playerID = GetComponent<IPlayerID>().PlayerID;
+
+        if (go && playerID < Player.playerColoring.Length && playerID >= 0) {
+            go.GetComponent<Renderer>().material.color = Player.playerColoring[playerID];
         }
     }
 }
