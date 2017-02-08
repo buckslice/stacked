@@ -64,7 +64,7 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
         this.changeEvent();
     }
 
-    public void Grab(Stackable target) {
+    public virtual void Grab(Stackable target) {
         Assert.IsTrue(target.below == null);
         
         if(above != null) {

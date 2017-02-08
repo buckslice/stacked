@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4217577927717514}
   - component: {fileID: 33361735366911286}
-  - component: {fileID: 65075718047404196}
   - component: {fileID: 23759261901147204}
   m_Layer: 20
   m_Name: Left
@@ -78,7 +77,8 @@ GameObject:
   - component: {fileID: 114469392814644726}
   - component: {fileID: 114614619836592088}
   - component: {fileID: 114754309667594778}
-  - component: {fileID: 114671843457125830}
+  - component: {fileID: 114249976305214188}
+  - component: {fileID: 114623171868084550}
   m_Layer: 17
   m_Name: ComeOnAndSlam_Add
   m_TagString: Boss
@@ -147,7 +147,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4733157734792872}
   - component: {fileID: 33500155503292856}
-  - component: {fileID: 65814847954379548}
   - component: {fileID: 23666610938504634}
   m_Layer: 20
   m_Name: Right
@@ -486,18 +485,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!65 &65075718047404196
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1019959115233152}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65138121746580868
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -522,18 +509,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 4, z: 2}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!65 &65814847954379548
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1894730385432046}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114046680862689938
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -598,6 +573,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 757a496c6f5d89845b23b113b6b90bdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114249976305214188
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1562454187332748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02af5663cf730764ba40c19ee57792c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  horizontalThrowVelocity: 20
+  verticalThrowVelocity: 5
+  stackableCollider: {fileID: 65392880655195706}
 --- !u!114 &114339733713280516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -651,7 +640,7 @@ MonoBehaviour:
   offset: {x: 0, y: 0, z: 0}
   entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
     type: 2}
---- !u!114 &114671843457125830
+--- !u!114 &114623171868084550
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -659,7 +648,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1562454187332748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d0edd72e30ce9643b3e279595f35696, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b6c2cfed3a65b747b7c998a018189ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   connectingJoint: {fileID: 114686599657345672}
@@ -3391,7 +3380,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1120061267
+  randomSeed: 1824542946
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6037,7 +6026,7 @@ ParticleSystemRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
+  m_SelectedEditorRenderState: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
