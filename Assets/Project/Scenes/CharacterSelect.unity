@@ -543,7 +543,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerClass: 3
   ability1: 13
-  ability2: 6
+  ability2: 20
   visualsIcon: {fileID: 157280164}
   tooltip: {fileID: 896941321}
   tooltipLine: {fileID: 592519660}

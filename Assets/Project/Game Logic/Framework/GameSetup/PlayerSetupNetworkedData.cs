@@ -34,6 +34,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         GRAB,
         REVIVE,
         HASTE,
+        WATERGUN,
     }
 
     static PlayerSetupNetworkedData main;
