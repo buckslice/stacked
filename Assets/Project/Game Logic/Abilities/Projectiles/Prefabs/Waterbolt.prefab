@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b2faabd50671646bdc3c2ec33e0799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 15
 --- !u!114 &114138332202989562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
-    amount: 50
+    amount: 60
     type: 0
 --- !u!114 &114167493477559304
 MonoBehaviour:
@@ -461,12 +461,12 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 904855767
+  randomSeed: 1508242505
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 1.5
+      scalar: 1.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -484,7 +484,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.6666667
+          value: 0.6
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -493,7 +493,7 @@ ParticleSystem:
         m_RotationOrder: 0
       minMaxState: 3
     startSpeed:
-      scalar: 0.5
+      scalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -511,7 +511,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: -1
+          value: 0.5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -613,7 +613,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       minMaxState: 2
     startSize:
-      scalar: 0.5
+      scalar: 1.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -631,7 +631,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.5
+          value: 0.8
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -839,7 +839,7 @@ ParticleSystem:
     m_UseMeshColors: 1
     alignToDirection: 0
     randomDirectionAmount: 1
-    sphericalDirectionAmount: 0
+    sphericalDirectionAmount: 1
   EmissionModule:
     enabled: 1
     serializedVersion: 3
@@ -883,7 +883,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     rateOverDistance:
-      scalar: 8
+      scalar: 5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -948,10 +948,10 @@ ParticleSystem:
           outSlope: 6.863426
           tangentMode: 0
         - serializedVersion: 2
-          time: 0.48989356
-          value: 0.52380943
-          inSlope: 3.0377452
-          outSlope: 3.0377452
+          time: 0.437617
+          value: 0.22619039
+          inSlope: 1.2721448
+          outSlope: 1.2721448
           tangentMode: 0
         - serializedVersion: 2
           time: 1

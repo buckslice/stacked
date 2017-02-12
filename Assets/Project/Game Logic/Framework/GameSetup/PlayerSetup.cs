@@ -36,7 +36,7 @@ public class PlayerSetup : MonoBehaviour {
 
         [SerializeField]
         [Tooltip("These abilities will retain their default bindings")]
-        public PlayerSetupNetworkedData.AbilityId[] abilities = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.JUMP, PlayerSetupNetworkedData.AbilityId.FIREBALL, PlayerSetupNetworkedData.AbilityId.REVIVE };
+        public PlayerSetupNetworkedData.AbilityId[] abilities = new PlayerSetupNetworkedData.AbilityId[] { PlayerSetupNetworkedData.AbilityId.JUMP, PlayerSetupNetworkedData.AbilityId.REVIVE };
 
         public PlayerClass playerClass;
 
