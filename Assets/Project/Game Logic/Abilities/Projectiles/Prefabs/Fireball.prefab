@@ -83,6 +83,7 @@ GameObject:
   - component: {fileID: 23000011572476510}
   - component: {fileID: 114000011277304146}
   - component: {fileID: 114000010332250030}
+  - component: {fileID: 108007651919689412}
   m_Layer: 0
   m_Name: Icosphere
   m_TagString: Untagged
@@ -103,7 +104,6 @@ GameObject:
   - component: {fileID: 114000011129702358}
   - component: {fileID: 114000012355544928}
   - component: {fileID: 114000011371509312}
-  - component: {fileID: 108000011390214502}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -187,7 +187,7 @@ MeshRenderer:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014001054590}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -233,12 +233,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 1
---- !u!108 &108000011390214502
+--- !u!108 &108007651919689412
 Light:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014041105046}
+  m_GameObject: {fileID: 1000014001054590}
   m_Enabled: 1
   serializedVersion: 7
   m_Type: 2
@@ -556,7 +556,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -637466623
+  randomSeed: -952319690
   InitialModule:
     serializedVersion: 3
     enabled: 1
