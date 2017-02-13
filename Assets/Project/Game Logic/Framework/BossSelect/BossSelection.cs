@@ -44,7 +44,7 @@ public class BossSelection : MonoBehaviour, ISelection {
             return false;
         }
 
-        instantiatedBossSetup = Instantiate(BossSetupNetworkedData.Main.bossDataPrefabs[(byte)bossSelectable.BossID]) as GameObject;
+        //instantiatedBossSetup = Instantiate(BossSetupNetworkedData.Main.bossDataPrefabs[(byte)bossSelectable.BossID]) as GameObject;
         readyIndicator.enabled = true;
         UpdatePrompt();
         return true;

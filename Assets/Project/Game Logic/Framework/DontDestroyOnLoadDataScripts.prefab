@@ -224,7 +224,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010001954262}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -371,6 +371,7 @@ MonoBehaviour:
   - {fileID: 1000013987970282, guid: 831e4f76a1edcd5409aac6c1ce5b4555, type: 2}
   - {fileID: 1000011468965786, guid: b5b216e944541934bba66e63bea43611, type: 2}
   - {fileID: 1000013602476998, guid: bf1e17b37d38f384ea5a07b2c8f525c3, type: 2}
+  - {fileID: 1942664508272830, guid: 08def475b02bdff4eae3e8738efe13ee, type: 2}
   abilityPrefabs:
   - {fileID: 1000010525559686, guid: 510621ad74052db48ae7655f8cc63af4, type: 2}
   - {fileID: 1000010506637404, guid: 8fd245ec13ee79b4581a3d7b8bdd95f1, type: 2}
@@ -392,6 +393,7 @@ MonoBehaviour:
   - {fileID: 1000011893214760, guid: 2822b91d05fced04999938c1d0c5bda4, type: 2}
   - {fileID: 1000011893214760, guid: 2822b91d05fced04999938c1d0c5bda4, type: 2}
   - {fileID: 1000014064348458, guid: c77e236f119bc9e4a8352b961265131e, type: 2}
+  - {fileID: 1191653707819534, guid: 3224fb3d9dfe3df4a8f212e1533c524f, type: 2}
 --- !u!114 &114000013222957148
 MonoBehaviour:
   m_ObjectHideFlags: 1

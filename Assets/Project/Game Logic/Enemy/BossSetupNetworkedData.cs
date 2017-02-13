@@ -35,6 +35,7 @@ public class BossSetupNetworkedData : MonoBehaviour {
         BOSS1_3,
         BOSS1_4,
         BOSS1_SUMMONER,
+        ICE_BOSS,
     }
 
     static BossSetupNetworkedData main;
@@ -50,11 +51,6 @@ public class BossSetupNetworkedData : MonoBehaviour {
     /// When an ability prefab is created, its prefab needs to be added here. Do not remove legacy abilities. Order matters.
     /// </summary>
     public GameObject[] abilityPrefabs;
-
-    /// <summary>
-    /// When a bossID is created, its data needs to be added here. Do not remove legacy data. Order matters.
-    /// </summary>
-    public GameObject[] bossDataPrefabs;
 
 
     void Awake() {
