@@ -41,9 +41,6 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
         readyChecker.AddPlayer(this);
         holder = GetComponentInParent<IEntityUIGroupHolder>();
 
-        Assert.IsNotNull(BossSetup.Main);
-        readyChecker.LevelToLoad = BossSetup.Main.BossData.sceneName;
-
         SetReady(false);
     }
 

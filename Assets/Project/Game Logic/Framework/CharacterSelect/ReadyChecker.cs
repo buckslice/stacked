@@ -75,7 +75,7 @@ public class ReadyChecker : MonoBehaviour {
                 break;
 
             case State.COUNTINGDOWN:
-                timer -= Time.deltaTime;
+                timer -= Time.deltaTime*2.0f;   // now goes twice as fast yolo
                 //countdown complete
                 if (timer <= 0.0f) {
                     SceneManager.LoadScene(levelToLoad);

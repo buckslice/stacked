@@ -2,6 +2,7 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Intended to be used for development only, in order to mock a player isntead of going through character select.
@@ -13,6 +14,7 @@ public class AutomaticBossSetup : BossSetup {
             DestroyImmediate(this.transform.root.gameObject);
             return;
         }
+
         AbstractBossSetup[] otherBossSetups = GameObject.FindObjectsOfType<AbstractBossSetup>();
         foreach (AbstractBossSetup otherBossSetup in otherBossSetups) {
             if (this != otherBossSetup) {
@@ -20,7 +22,9 @@ public class AutomaticBossSetup : BossSetup {
                 return;
             }
         }
+
         base.Awake();
+
     }
 
     void Start() {

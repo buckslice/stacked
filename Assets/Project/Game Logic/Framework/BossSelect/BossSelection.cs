@@ -14,11 +14,11 @@ public class BossSelection : MonoBehaviour, ISelection {
     [SerializeField]
     protected Text textPrompt;
 
-    GameObject instantiatedBossSetup = null;
-    public bool Ready { get { return instantiatedBossSetup != null; } }
+    public bool Ready { get { return readyIndicator.enabled; } }
 
     IPlayerInputHolder input;
     public IPlayerInputHolder Input { get { return input; } }
+    ReadyChecker readyChecker;
 
     void Awake() {
         input = GetComponent<IPlayerInputHolder>();
@@ -26,7 +26,8 @@ public class BossSelection : MonoBehaviour, ISelection {
     }
 
     void Start() {
-        transform.root.GetComponentInChildren<ReadyChecker>().AddPlayer(this);
+        readyChecker = transform.root.GetComponentInChildren<ReadyChecker>();
+        readyChecker.AddPlayer(this);
         Callback.FireForUpdate(UpdatePrompt, this);
     }
 
@@ -43,8 +44,8 @@ public class BossSelection : MonoBehaviour, ISelection {
         if (bossSelectable == null) {
             return false;
         }
+        readyChecker.LevelToLoad = bossSelectable.gameObject.name;  // make sure game object is named the level (this is kinda bad sry)
 
-        //instantiatedBossSetup = Instantiate(BossSetupNetworkedData.Main.bossDataPrefabs[(byte)bossSelectable.BossID]) as GameObject;
         readyIndicator.enabled = true;
         UpdatePrompt();
         return true;
@@ -55,11 +56,9 @@ public class BossSelection : MonoBehaviour, ISelection {
     }
 
     public bool Deselect() {
-        if (instantiatedBossSetup == null) {
+        if (!readyIndicator.enabled) {
             return false;
         } else {
-            Destroy(instantiatedBossSetup);
-            instantiatedBossSetup = null; 
             readyIndicator.enabled = false;
             UpdatePrompt();
             return true;
