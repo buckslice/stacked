@@ -370,7 +370,7 @@ MonoBehaviour:
   - {fileID: 1000011765390594, guid: 6f2db7dddb49c6044bd27fcadeddb737, type: 2}
   - {fileID: 1000013987970282, guid: 831e4f76a1edcd5409aac6c1ce5b4555, type: 2}
   - {fileID: 1000011468965786, guid: b5b216e944541934bba66e63bea43611, type: 2}
-  - {fileID: 1000013602476998, guid: bf1e17b37d38f384ea5a07b2c8f525c3, type: 2}
+  - {fileID: 1682241810521684, guid: 0cfe2b4f0ca67d746b166b6a9a9ed880, type: 2}
   - {fileID: 1942664508272830, guid: 08def475b02bdff4eae3e8738efe13ee, type: 2}
   abilityPrefabs:
   - {fileID: 1000010525559686, guid: 510621ad74052db48ae7655f8cc63af4, type: 2}
@@ -385,15 +385,6 @@ MonoBehaviour:
   - {fileID: 1000013380017890, guid: e97dda3b86a77eb4890cb3d9446ebd65, type: 2}
   - {fileID: 1000011603372720, guid: c8584f4cc52d58c44bf7caabde8752bb, type: 2}
   - {fileID: 1266142275409258, guid: 16046bb8439120e4cb757612b661c308, type: 2}
-  bossDataPrefabs:
-  - {fileID: 1000011969965616, guid: b14c7e3f7438aa4498bcdff4311988fe, type: 2}
-  - {fileID: 1000012265965068, guid: 8f4fc3196c0bc184193615c3635de759, type: 2}
-  - {fileID: 1000011893214760, guid: 2822b91d05fced04999938c1d0c5bda4, type: 2}
-  - {fileID: 1000011893214760, guid: 2822b91d05fced04999938c1d0c5bda4, type: 2}
-  - {fileID: 1000011893214760, guid: 2822b91d05fced04999938c1d0c5bda4, type: 2}
-  - {fileID: 1000011893214760, guid: 2822b91d05fced04999938c1d0c5bda4, type: 2}
-  - {fileID: 1000014064348458, guid: c77e236f119bc9e4a8352b961265131e, type: 2}
-  - {fileID: 1191653707819534, guid: 3224fb3d9dfe3df4a8f212e1533c524f, type: 2}
 --- !u!114 &114000013222957148
 MonoBehaviour:
   m_ObjectHideFlags: 1
