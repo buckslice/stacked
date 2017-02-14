@@ -12,11 +12,23 @@ public class CheckGameEnd : MonoBehaviour {
     [SerializeField]
     protected string gameVictoryPopupSceneName = Tags.Scenes.VictoryPopup;
 
+    [SerializeField]
+    protected GameObject[] trackedObjects;
+
     public void Update() {
         if (Player.AllPlayersDead()) {
             SceneManager.LoadScene(gameDefeatPopupSceneName, LoadSceneMode.Additive);
             Destroy(this);
-        } else if (Boss.Bosses.Count == 0) {
+        } else if ((trackedObjects==null || trackedObjects.Length==0) && Boss.Bosses.Count == 0) {
+            SceneManager.LoadScene(gameVictoryPopupSceneName, LoadSceneMode.Additive);
+            Destroy(this);
+        }
+        else if (trackedObjects != null && trackedObjects.Length>0) {
+            foreach (GameObject trackedObject in trackedObjects){
+                if (trackedObject!=null && trackedObject.activeSelf) {
+                    return;
+                }
+            }
             SceneManager.LoadScene(gameVictoryPopupSceneName, LoadSceneMode.Additive);
             Destroy(this);
         }
