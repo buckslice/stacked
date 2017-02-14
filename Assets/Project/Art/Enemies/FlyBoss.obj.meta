@@ -1,17 +1,17 @@
 fileFormatVersion: 2
-guid: caf4a1ef6c0825447bd66a7276c8a930
-timeCreated: 1487032734
+guid: 9cb1bcddeffa1aa4aa7ef810cae8f5d3
+timeCreated: 1487048428
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Body1
+    100000: Body
     100002: //RootNode
-    400000: Body1
+    400000: Body
     400002: //RootNode
-    2300000: Body1
-    3300000: Body1
-    4300000: Body1
+    2300000: Body
+    3300000: Body
+    4300000: Body
   materials:
     importMaterials: 1
     materialName: 0
