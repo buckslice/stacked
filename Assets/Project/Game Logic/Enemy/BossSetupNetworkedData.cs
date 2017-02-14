@@ -36,6 +36,7 @@ public class BossSetupNetworkedData : MonoBehaviour {
         BOSS1_4,
         BOSS1_SUMMONER,
         ICE_BOSS,
+        TUTORIAL,
     }
 
     static BossSetupNetworkedData main;
