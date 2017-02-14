@@ -19,6 +19,7 @@ public class BossSelection : MonoBehaviour, ISelection {
     IPlayerInputHolder input;
     public IPlayerInputHolder Input { get { return input; } }
     ReadyChecker readyChecker;
+    private BossSceneHolder bossSceneHolder;
 
     void Awake() {
         input = GetComponent<IPlayerInputHolder>();
@@ -28,6 +29,9 @@ public class BossSelection : MonoBehaviour, ISelection {
     void Start() {
         readyChecker = transform.root.GetComponentInChildren<ReadyChecker>();
         readyChecker.AddPlayer(this);
+
+        bossSceneHolder = GameObject.FindObjectOfType<BossSceneHolder>();
+
         Callback.FireForUpdate(UpdatePrompt, this);
     }
 
@@ -44,8 +48,8 @@ public class BossSelection : MonoBehaviour, ISelection {
         if (bossSelectable == null) {
             return false;
         }
-        readyChecker.LevelToLoad = bossSelectable.gameObject.name;  // make sure game object is named the level (this is kinda bad sry)
-
+        //readyChecker.LevelToLoad = bossSelectable.gameObject.name;  // make sure game object is named the level (this is kinda bad sry)
+        bossSceneHolder.bossToLoad = (bossSelectable.gameObject.name);
         readyIndicator.enabled = true;
         UpdatePrompt();
         return true;

@@ -92,6 +92,47 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 23800000, guid: a18a12354ce786548878137b223e3457, type: 2}
+--- !u!1 &31493567
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 31493569}
+  - component: {fileID: 31493568}
+  m_Layer: 0
+  m_Name: BossSceneHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &31493568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 31493567}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e76004fdb516544bb6bf74377ba6257, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossToLoad: RockonRockonRockonRock
+--- !u!4 &31493569
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 31493567}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &41749226
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,11 +933,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114000013090542758, guid: 1d3ecae7dd160534a9493004a7b022d6,
-        type: 2}
-      propertyPath: baseBossPrefabs.Array.size
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 4000012340469498, guid: 1d3ecae7dd160534a9493004a7b022d6, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -929,12 +965,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114000013090542758, guid: 1d3ecae7dd160534a9493004a7b022d6,
-        type: 2}
-      propertyPath: baseBossPrefabs.Array.data[8]
-      value: 
-      objectReference: {fileID: 1624689184515446, guid: ad22f77cc00b85c48b76dd2d1a3f54ae,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d3ecae7dd160534a9493004a7b022d6, type: 2}
   m_IsPrefabParent: 0
@@ -1849,7 +1879,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -685630761
+  randomSeed: 1581801136
   InitialModule:
     serializedVersion: 3
     enabled: 1

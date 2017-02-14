@@ -23,13 +23,14 @@ public class CheckGameEnd : MonoBehaviour {
             SceneManager.LoadScene(gameVictoryPopupSceneName, LoadSceneMode.Additive);
             Destroy(this);
         }
-        else if (trackedObjects != null) {
+        else if (trackedObjects != null && trackedObjects.Length>0) {
             foreach (GameObject trackedObject in trackedObjects){
                 if (trackedObject!=null && trackedObject.activeSelf) {
                     return;
                 }
             }
             SceneManager.LoadScene(gameVictoryPopupSceneName, LoadSceneMode.Additive);
+            Destroy(this);
         }
     }
 }
