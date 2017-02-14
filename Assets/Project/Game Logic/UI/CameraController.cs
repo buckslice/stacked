@@ -12,6 +12,7 @@ public class CameraController : MonoBehaviour {
 
     public Transform boss { get; set; }
     public CameraType camType;
+    public Vector3 centerOffset = Vector3.zero;
     public float camSmoothTime = 2.0f;
     private bool trackDeadPlayers = false;
 
@@ -233,6 +234,8 @@ public class CameraController : MonoBehaviour {
 
         transform.position = Vector3.SmoothDamp(startPos, targetPos, ref camVel, camSmoothTime + dot);
         //transform.position = targetPos;   // for debugging
+
+        transform.position = transform.position + centerOffset;
 
     }
 

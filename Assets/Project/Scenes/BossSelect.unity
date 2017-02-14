@@ -431,7 +431,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: IceBoss
+  m_Text: 'IceBoss
+
+    (WIP)'
 --- !u!222 &306845822
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1324,7 +1326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 1, b: 0.75172424, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.048275948, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

@@ -31,3 +31,5 @@ EditorBuildSettings:
     path: Assets/Project/Scenes/RockonRockonRockonRock.unity
   - enabled: 1
     path: Assets/Project/Scenes/IceBoss.unity
+  - enabled: 1
+    path: Assets/Project/DevelopmentOnly/Tutorial.unity
