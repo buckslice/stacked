@@ -8,6 +8,7 @@ public class BossSceneHolder : MonoBehaviour {
     public string bossToLoad;
 
     private static BossSceneHolder main;
+    public static BossSceneHolder Main { get { return main; } }
     void Awake() {
         if (main == null) {
             main = this;

@@ -36,7 +36,6 @@ public class MusicSingleton : MonoBehaviour {
         Assert.IsNotNull(newMain);
         if (Main != null) {
             Destroy(main.transform.root.gameObject);
-            Assert.IsNull(Main); //ensure that the OnDestroy call worked as intended.
         }
         main = newMain;
         DontDestroyOnLoad(newMain.gameObject.transform.root.gameObject);

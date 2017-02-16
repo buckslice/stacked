@@ -18,16 +18,15 @@ public class LoadLevelButton : MonoBehaviour {
             return;
         }
 #endif
-        Button button = GetComponent<Button>();
-        button.onClick.AddListener(activate);
 	}
 	
-	public void activate()
-    {
+	public void activate() {
+        Debug.Log("activate");
         R41DNetworking.Main.LoadLevel(levelName);
     }
 
     public void loadSameLevel() {
-        SceneManager.LoadScene(BossSetup.Main.BossData.sceneName);
+        Debug.Log("Load Same Level");
+        SceneManager.LoadScene(BossSceneHolder.Main.bossToLoad);
     }
 }

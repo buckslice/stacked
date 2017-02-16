@@ -56,12 +56,15 @@ public abstract class AbstractBossSetup : MonoBehaviour, IBossSetup {
     }
 
     protected void SceneManager_sceneLoaded(Scene arg0, LoadSceneMode arg1) {
+
         if (!PhotonNetwork.isMasterClient) {
             return;
         }
         if (arg0.name != BossData.sceneName) {
             return;
         }
+
+        Debug.Log("Loading Boss");
 
         InstantiateBoss();
     }
