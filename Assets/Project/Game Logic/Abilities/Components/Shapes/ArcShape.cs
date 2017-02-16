@@ -11,6 +11,9 @@ public class ArcShape : MonoBehaviour, IShape, IBalanceStat {
     [SerializeField]
     protected MultiplierFloatStat radius = new MultiplierFloatStat(5f);
 
+    [SerializeField]
+    protected float verticalOffset = 1f;
+
     /// <summary>
     /// The angle from the forward direction to an edge of the wedge, in degrees.
     /// </summary>
@@ -20,7 +23,7 @@ public class ArcShape : MonoBehaviour, IShape, IBalanceStat {
     public Collider[] Cast(LayerMask layermask) {
 
         List<Collider> results = new List<Collider>();
-        Collider[] hits = Physics.OverlapBox(transform.position, new Vector3(radius, 0.1f, radius), Quaternion.identity, layermask);
+        Collider[] hits = Physics.OverlapBox(transform.position + Vector3.up * verticalOffset, new Vector3(radius, 0.1f, radius), Quaternion.identity, layermask);
 
         Vector3 wedgeFoward = Vector3.ProjectOnPlane(transform.forward, Vector3.up);
 
