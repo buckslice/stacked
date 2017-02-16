@@ -303,7 +303,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
-    amount: 50
+    amount: 25
     type: 0
 --- !u!114 &114000011129702358
 MonoBehaviour:
@@ -316,7 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b2faabd50671646bdc3c2ec33e0799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 75
 --- !u!114 &114000011277304146
 MonoBehaviour:
   m_ObjectHideFlags: 1
