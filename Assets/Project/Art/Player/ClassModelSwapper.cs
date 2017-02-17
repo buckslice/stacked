@@ -36,13 +36,6 @@ public class ClassModelSwapper : MonoBehaviour {
                 break;
             default:
                 break;
-
-        }
-
-        int playerID = GetComponent<IPlayerID>().PlayerID;
-
-        if (go && playerID < Player.playerColoring.Length && playerID >= 0) {
-            go.GetComponent<Renderer>().material.color = Player.playerColoring[playerID];
         }
     }
 }

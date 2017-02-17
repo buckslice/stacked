@@ -224,8 +224,6 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
 
         //assign playerID
         damageHolder.Initialize(new Player(playerID, damageHolder));
-        //assign playerColoring
-        player.GetComponent<TintedModel>().TintModels();
 
 
         return player;
