@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 4000010334959138}
   - component: {fileID: 114000013298888398}
   - component: {fileID: 114000013424947922}
-  - component: {fileID: 114000012930629858}
+  - component: {fileID: 114566091677184340}
   m_Layer: 0
   m_Name: ConditionalPopStack
   m_TagString: Untagged
@@ -225,17 +225,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf4d30f7381646c41a13ea10de20a219, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000012930629858
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010974008804}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a73f1a63dea6ce94481f02408f2180ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000013298888398
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -248,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   successAbilityActions:
-  - {fileID: 114000012930629858}
+  - {fileID: 114566091677184340}
   failAbilityActions: []
 --- !u!114 &114000013424947922
 MonoBehaviour:
@@ -274,3 +263,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPrefab: {fileID: 1000013956335704, guid: dded763210ee0024b81693c6a6249144, type: 2}
+--- !u!114 &114566091677184340
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010974008804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc6fecd7da72e844c9fc144033f7aaa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
