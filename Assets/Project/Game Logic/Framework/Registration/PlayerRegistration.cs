@@ -35,6 +35,9 @@ public class PlayerRegistration : MonoBehaviour {
     }
 
     [SerializeField]
+    protected bool requireMaxPlayerCount = true;
+
+    [SerializeField]
     protected GameObject registeredPlayerPrefab;
 
     [SerializeField]
@@ -320,6 +323,7 @@ public class PlayerRegistration : MonoBehaviour {
             }
         }
 
+        //check for moving to the next scene
         int ready = 0;
         int currentPlayers = 0;
         bool hasMasterPlayer = false;
@@ -334,8 +338,10 @@ public class PlayerRegistration : MonoBehaviour {
                 }
             }
         }
-        if (PhotonNetwork.isMasterClient && ready != 0 && ready == currentPlayers && hasMasterPlayer) {
-            SceneManager.LoadScene(nextScene);
+        if (PhotonNetwork.isMasterClient && ready != 0 && ready == currentPlayers&& hasMasterPlayer) {
+            if (!requireMaxPlayerCount || ready == numPlayers) {
+                SceneManager.LoadScene(nextScene);
+            }
         }
     }
 
