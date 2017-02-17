@@ -254,7 +254,7 @@ public class CameraController : MonoBehaviour {
 
         float width = max.x - min.x;
         float height = max.y - min.y;
-        if (width / height > mainCam.aspect) { // if current aspect ration is > cam aspect, scale up height
+        if (width / height > mainCam.aspect) { // if current aspect ratio is > cam aspect, scale up height
             float halfDiff = (width / mainCam.aspect - height) / 2.0f;
             min.y -= halfDiff;
             max.y += halfDiff;

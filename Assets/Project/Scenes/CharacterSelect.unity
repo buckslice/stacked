@@ -527,8 +527,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 35, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: 50, y: 0}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &210183315
 MonoBehaviour:
@@ -994,131 +994,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
---- !u!1 &499465600
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 499465601}
-  - component: {fileID: 499465603}
-  - component: {fileID: 499465602}
-  m_Layer: 5
-  m_Name: TauntTooltipLine
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &499465601
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 499465600}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
-  m_Children: []
-  m_Father: {fileID: 998812416}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 182.30011, y: 39.799988}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &499465602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 499465600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 893a3d7a44cb67b458afb0c9592e2a15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  points:
-  - point: {x: -290.36978, y: -9.100011}
-    isNextCurve: 1
-    nextCurveOffset: {x: -77.10266, y: 1.4571381}
-    isPrvCurve: 0
-    prvCurveOffset: {x: 0, y: 0}
-    isFold: 0
-  - point: {x: -366.79886, y: -97.59999}
-    isNextCurve: 0
-    nextCurveOffset: {x: 0, y: 0}
-    isPrvCurve: 0
-    prvCurveOffset: {x: 0, y: 0}
-    isFold: 0
-  width: 5
-  divideCount: 20
-  useGradient: 0
-  gradient:
-    key0:
-      serializedVersion: 2
-      rgba: 4294967295
-    key1:
-      serializedVersion: 2
-      rgba: 4294967295
-    key2:
-      serializedVersion: 2
-      rgba: 0
-    key3:
-      serializedVersion: 2
-      rgba: 0
-    key4:
-      serializedVersion: 2
-      rgba: 0
-    key5:
-      serializedVersion: 2
-      rgba: 0
-    key6:
-      serializedVersion: 2
-      rgba: 0
-    key7:
-      serializedVersion: 2
-      rgba: 0
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
-  fillLineJoint: 0
-  fillDivideAngle: 25
-  roundEdge: 0
-  roundEdgePolygonCount: 5
-  m_lengthRatio: 1
---- !u!222 &499465603
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 499465600}
 --- !u!1 &526864397
 GameObject:
   m_ObjectHideFlags: 0
@@ -1393,7 +1268,7 @@ GameObject:
   - component: {fileID: 592519661}
   - component: {fileID: 592519660}
   m_Layer: 5
-  m_Name: BlockTooltipLine
+  m_Name: TurtleTooltipLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1437,17 +1312,17 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   points:
-  - point: {x: 32.778793, y: 31.626915}
+  - point: {x: 49.759026, y: 42.080723}
     isNextCurve: 1
-    nextCurveOffset: {x: -13.118004, y: 51.158913}
+    nextCurveOffset: {x: -1.0487862, y: 59.020756}
     isPrvCurve: 0
     prvCurveOffset: {x: 0, y: 0}
     isFold: 0
-  - point: {x: 176.54257, y: 71.425644}
+  - point: {x: 137.91338, y: 91.65337}
     isNextCurve: 0
     nextCurveOffset: {x: 0, y: 0}
     isPrvCurve: 1
-    prvCurveOffset: {x: 14.001602, y: -47.5019}
+    prvCurveOffset: {x: 8.550339, y: -57.11302}
     isFold: 0
   width: 5
   divideCount: 20
@@ -1540,8 +1415,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.9, y: 14.6}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 6.9, y: 17.3}
+  m_SizeDelta: {x: 0, y: 5.3999996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &629712576
 MonoBehaviour:
@@ -1578,11 +1453,11 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_MinSize: 0
+    m_MaxSize: 42
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -1721,8 +1596,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 105, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: 150, y: 0}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &688403158
 MonoBehaviour:
@@ -1867,8 +1742,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -35, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -50, y: 0}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &698326437
 MonoBehaviour:
@@ -2220,7 +2095,7 @@ GameObject:
   - component: {fileID: 852805987}
   - component: {fileID: 852805986}
   m_Layer: 5
-  m_Name: ShotgunTooltipLine
+  m_Name: BearTooltipLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2237,7 +2112,7 @@ RectTransform:
   m_LocalScale: {x: 0.9999999, y: 0.9999999, z: 1}
   m_Children: []
   m_Father: {fileID: 998812416}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2264,17 +2139,17 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   points:
-  - point: {x: -317.4249, y: -40.879475}
+  - point: {x: -335.14517, y: 3.1196332}
     isNextCurve: 1
-    nextCurveOffset: {x: -69.57687, y: -3.8468475}
+    nextCurveOffset: {x: -2.5100098, y: 50.567287}
     isPrvCurve: 0
     prvCurveOffset: {x: 0, y: 0}
     isFold: 0
-  - point: {x: -355.06793, y: 81.05904}
+  - point: {x: -275.30048, y: 52.126373}
     isNextCurve: 0
     nextCurveOffset: {x: 0, y: 0}
     isPrvCurve: 1
-    prvCurveOffset: {x: -45.77719, y: 11.087776}
+    prvCurveOffset: {x: -1.6366577, y: -59.34156}
     isFold: 0
   width: 5
   divideCount: 20
@@ -2459,8 +2334,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -61, y: -116}
-  m_SizeDelta: {x: 185.66, y: 50}
+  m_AnchoredPosition: {x: -91.3, y: -145.4}
+  m_SizeDelta: {x: 185.66, y: 97.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &857948454
 MonoBehaviour:
@@ -2690,8 +2565,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 157, y: 112}
-  m_SizeDelta: {x: 185.66, y: 81.9}
+  m_AnchoredPosition: {x: 103.4, y: 146.85}
+  m_SizeDelta: {x: 195.2, y: 111.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &896941323
 MonoBehaviour:
@@ -2902,7 +2777,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Short range frontal blast that causes heavy magic damage to all enemies
+  m_Text: '<color=#ff0000>Attack</color>
+
+    Short ranged frontal cone
+
+    <color=#ffaa00>Quake</color>
+
+    Shakes the ground, stunning nearby enemies? (WIP)'
 --- !u!222 &982295908
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2937,7 +2818,6 @@ RectTransform:
   - {fileID: 1203061103}
   - {fileID: 592519659}
   - {fileID: 2052596672}
-  - {fileID: 499465601}
   - {fileID: 852805985}
   m_Father: {fileID: 566795495}
   m_RootOrder: 0
@@ -2983,8 +2863,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -105, y: 0}
-  m_SizeDelta: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -150, y: 0}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1003855334
 MonoBehaviour:
@@ -3157,8 +3037,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.9, y: 14.6}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 6.9, y: 17.3}
+  m_SizeDelta: {x: 0, y: 5.3999996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1017682667
 MonoBehaviour:
@@ -3195,10 +3075,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -3496,7 +3376,7 @@ MonoBehaviour:
   ability2: 0
   visualsIcon: {fileID: 1645516055}
   tooltip: {fileID: 0}
-  tooltipLine: {fileID: 499465602}
+  tooltipLine: {fileID: 0}
   tooltipAnimation:
     serializedVersion: 2
     m_Curve:
@@ -3602,7 +3482,7 @@ GameObject:
   - component: {fileID: 1203061105}
   - component: {fileID: 1203061104}
   m_Layer: 5
-  m_Name: DashTooltipLine
+  m_Name: FoxTooltipLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3646,17 +3526,17 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   points:
-  - point: {x: -217.07816, y: -67.6446}
+  - point: {x: -230.34846, y: -80.49106}
     isNextCurve: 1
-    nextCurveOffset: {x: 4.1671143, y: -47.616432}
+    nextCurveOffset: {x: 3.743637, y: -85.27388}
     isPrvCurve: 0
     prvCurveOffset: {x: 0, y: 0}
     isFold: 0
-  - point: {x: -310.99142, y: -114.53017}
+  - point: {x: -308.33813, y: -140.29343}
     isNextCurve: 0
     nextCurveOffset: {x: 0, y: 0}
     isPrvCurve: 1
-    prvCurveOffset: {x: -0.69174194, y: 45.841797}
+    prvCurveOffset: {x: -1.9321594, y: 86.15111}
     isFold: 0
   width: 5
   divideCount: 20
@@ -4173,7 +4053,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Project and aim a beam of healing for a short time that will heal your allies
+  m_Text: '<color=#ff0000>Attack</color>
+
+    Fast moving projectile
+
+    <color=#00ff00>Healing Beam</color>
+
+    Aim and fire a beam of healing for a short time that will heal your allies'
 --- !u!222 &1615081108
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7182,7 +7068,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Quickly moves player forward a short distance
+  m_Text: "<color=#ff0000>Attack</color>\nShort ranged frontal cone \n<color=#ffff00>Dash</color>\nQuickly
+    dash in direction of movement"
 --- !u!222 &1882110068
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7222,8 +7109,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.9, y: 14.6}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 6.9, y: 17.3}
+  m_SizeDelta: {x: 0, y: 5.3999996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1928292100
 MonoBehaviour:
@@ -7260,10 +7147,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -7450,7 +7337,7 @@ GameObject:
   - component: {fileID: 2052596674}
   - component: {fileID: 2052596673}
   m_Layer: 5
-  m_Name: HealTooltipLine
+  m_Name: PhoenixTooltipLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7494,17 +7381,17 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   points:
-  - point: {x: -46.72745, y: -40.138927}
+  - point: {x: -16.96274, y: -80.398964}
     isNextCurve: 1
-    nextCurveOffset: {x: 122.08479, y: 6.830776}
+    nextCurveOffset: {x: 8.514512, y: -52.311043}
     isPrvCurve: 0
     prvCurveOffset: {x: 0, y: 0}
     isFold: 0
-  - point: {x: 10.713136, y: -118.58639}
+  - point: {x: -63.196564, y: -136.62904}
     isNextCurve: 0
     nextCurveOffset: {x: 0, y: 0}
     isPrvCurve: 1
-    prvCurveOffset: {x: -5.1667943, y: 46.891197}
+    prvCurveOffset: {x: -0.23680878, y: 43.636894}
     isFold: 0
   width: 5
   divideCount: 20
@@ -7597,8 +7484,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 6.9, y: 14.6}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 6.9, y: 10.000002}
+  m_SizeDelta: {x: 0, y: 19.999996}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2074975769
 MonoBehaviour:
@@ -7621,10 +7508,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 20
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 2
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -7759,8 +7646,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -79, y: 120}
-  m_SizeDelta: {x: 185.66, y: 67}
+  m_AnchoredPosition: {x: -105.8, y: 141}
+  m_SizeDelta: {x: 185.66, y: 98.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2096691095
 MonoBehaviour:
@@ -7862,8 +7749,13 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Project a barrier around yourself that reduces damage taken by you and your
-    team
+  m_Text: '<color=#ff0000>Attack</color>
+
+    Slow but powerful projectile
+
+    <color=#00ffff>Barrier</color>
+
+    Project a barrier around yourself that reduces damage taken by you and your team'
 --- !u!222 &2102989688
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7904,8 +7796,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 161, y: -115}
-  m_SizeDelta: {x: 185.66, y: 67}
+  m_AnchoredPosition: {x: 104.4, y: -152.4}
+  m_SizeDelta: {x: 185.66, y: 114.47}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2131855463
 MonoBehaviour:

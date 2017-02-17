@@ -313,7 +313,7 @@ MonoBehaviour:
     secondAbilities: 
     abilities: 
     playerClass: 2
-  AIPlayer: 1
+  AIPlayer: 0
   bindings: 0
   controllerIndex: 0
 --- !u!4 &134840272
@@ -1020,7 +1020,7 @@ MonoBehaviour:
     secondAbilities: 
     abilities: 
     playerClass: 1
-  AIPlayer: 1
+  AIPlayer: 0
   bindings: 0
   controllerIndex: 0
 --- !u!4 &672663443
@@ -1727,7 +1727,7 @@ MonoBehaviour:
     secondAbilities: 
     abilities: 
     playerClass: 3
-  AIPlayer: 1
+  AIPlayer: 0
   bindings: 0
   controllerIndex: 0
 --- !u!4 &2013131290
