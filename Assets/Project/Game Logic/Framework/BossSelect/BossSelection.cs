@@ -9,12 +9,10 @@ using System.Collections.Generic;
 public class BossSelection : MonoBehaviour, ISelection {
 
     [SerializeField]
-    protected Image readyIndicator;
-
-    [SerializeField]
     protected Text textPrompt;
 
-    public bool Ready { get { return readyIndicator.enabled; } }
+    private bool ready = false;
+    public bool Ready { get { return ready; } }
 
     IPlayerInputHolder input;
     public IPlayerInputHolder Input { get { return input; } }
@@ -35,8 +33,8 @@ public class BossSelection : MonoBehaviour, ISelection {
         Callback.FireForUpdate(UpdatePrompt, this);
     }
 
-    public bool CanSelect() { 
-        return !Ready; 
+    public bool CanSelect() {
+        return !Ready;
     }
 
     public bool Select(ISelectable selectable) {
@@ -48,22 +46,27 @@ public class BossSelection : MonoBehaviour, ISelection {
         if (bossSelectable == null) {
             return false;
         }
-        //readyChecker.LevelToLoad = bossSelectable.gameObject.name;  // make sure game object is named the level (this is kinda bad sry)
-        bossSceneHolder.bossToLoad = (bossSelectable.gameObject.name);
-        readyIndicator.enabled = true;
+
+        if(bossSelectable.gameObject.name == "BackButton") {
+            readyChecker.LevelToLoad = "PlayerRegistration";
+        } else {
+            bossSceneHolder.bossToLoad = bossSelectable.gameObject.name;
+        }
+
+        ready = true;
         UpdatePrompt();
         return true;
     }
 
-    public bool CanDeselect() { 
-        return Ready; 
+    public bool CanDeselect() {
+        return Ready;
     }
 
     public bool Deselect() {
-        if (!readyIndicator.enabled) {
+        if (!ready) {
             return false;
         } else {
-            readyIndicator.enabled = false;
+            ready = false;
             UpdatePrompt();
             return true;
         }
@@ -77,8 +80,8 @@ public class BossSelection : MonoBehaviour, ISelection {
         }
 
         if (Ready) {
-            textPrompt.text = string.Format("Press {0} to proceed", input.startName);
-        } else {
+            textPrompt.text = "";
+        }else{
             textPrompt.text = string.Format("Press {0} to select", input.submitName);
         }
     }

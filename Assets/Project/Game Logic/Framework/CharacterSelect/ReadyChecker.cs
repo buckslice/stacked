@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-[RequireComponent(typeof(Text))]
 public class ReadyChecker : MonoBehaviour {
 
     private enum State {
@@ -22,7 +21,9 @@ public class ReadyChecker : MonoBehaviour {
     public float countDownTime = 3.0f;
     float timer;
 
-    Text text;
+    public Text text;
+    public Image panel;
+    float startingPanelAlpha;
 
     public void AddPlayer(ISelection player) {
         players.Add(player);
@@ -30,8 +31,8 @@ public class ReadyChecker : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        startingPanelAlpha = panel.color.a;
         timer = countDownTime;
-        text = GetComponent<Text>();
         if (!PhotonNetwork.isMasterClient) {
             //only master client can change scenes.
             //TODO: add some way to show the countdown on all clients
@@ -48,6 +49,7 @@ public class ReadyChecker : MonoBehaviour {
             state = State.NOTREADY;
             timer = countDownTime;
             text.text = "";
+            panel.enabled = false;
         }
     }
 
@@ -61,7 +63,12 @@ public class ReadyChecker : MonoBehaviour {
                 break;
 
             case State.READY:
-                text.text = "Press Start to Begin!";
+                panel.enabled = true;
+                if (levelToLoad == "PlayerRegistration") {
+                    text.text = "Press Start to Confirm";
+                } else {
+                    text.text = "Press Start to Begin!";
+                }
                 text.fontSize = 50;
                 transform.localScale = Vector3.one;
                 foreach (ISelection player in players) {
@@ -75,13 +82,21 @@ public class ReadyChecker : MonoBehaviour {
                 break;
 
             case State.COUNTINGDOWN:
-                timer -= Time.deltaTime*2.0f;   // now goes twice as fast yolo
+                timer -= Time.deltaTime * 1.5f; // speed up time a little bit
+
+                Color c = panel.color;
+                c.a = Mathf.Lerp(startingPanelAlpha, 1.0f, (countDownTime - timer) / countDownTime);
+                panel.color = c;
+
                 //countdown complete
                 if (timer <= 0.0f) {
+                    text.text = "";
+
                     SceneManager.LoadScene(levelToLoad);
                     return;
                 }
 
+                // timer text sizing
                 transform.localScale = Vector3.one * (1.0f + (timer - (int)timer) * 2.5f);
                 text.text = "" + (int)(timer + 1.0f);
                 text.fontSize = 180;
