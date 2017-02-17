@@ -1346,7 +1346,7 @@ MonoBehaviour:
     basicAttacks: 
     firstAbilities: 0b
     secondAbilities: 0d
-    abilities: 10111206060606
+    abilities: 10111214
     playerClass: 0
   AIPlayer: 0
 --- !u!4 &1185180350

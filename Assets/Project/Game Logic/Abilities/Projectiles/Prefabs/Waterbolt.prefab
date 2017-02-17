@@ -250,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b2faabd50671646bdc3c2ec33e0799, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 60
+  speed: 30
 --- !u!114 &114138332202989562
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
-    amount: 100
+    amount: 50
     type: 0
 --- !u!114 &114167493477559304
 MonoBehaviour:
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   duration:
-    baseValue: 10
+    baseValue: 8
 --- !u!114 &114426463361482222
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -466,7 +466,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 1.25
+      scalar: 0.75
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -484,7 +484,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 2
           time: 0
-          value: 0.6
+          value: 0.6666667
           inSlope: 0
           outSlope: 0
           tangentMode: 0
