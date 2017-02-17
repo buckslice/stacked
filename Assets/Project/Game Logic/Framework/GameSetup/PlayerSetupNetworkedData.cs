@@ -126,7 +126,7 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         PhotonView toInitialize = player.GetComponent<PhotonView>();
         toInitialize.viewID = allocatedViewId;
 
-        // destroy unnecessary scripts
+        // destroy unnecessary 
         player.AddComponent<AIMovement>();
         player.GetComponent<Rigidbody>().isKinematic = true;
 
@@ -137,6 +137,9 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
         Damageable dmg = player.GetComponentInChildren<Damageable>();
         dmg.PhysicalVulnerabilityMultiplier.AddModifier(0);
         dmg.MagicalVulnerabilityMultiplier.AddModifier(0);
+
+        // swap model based on class
+        player.GetComponent<ClassModelSwapper>().SwapModel(playerData.playerClass);
 
         AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
 

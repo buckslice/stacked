@@ -30,6 +30,9 @@ public class AIMovement : MonoBehaviour, IMovement {
     // Use this for initialization
     void Awake() {
         agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        if (!agent) {
+            agent = gameObject.AddComponent<UnityEngine.AI.NavMeshAgent>();
+        }
         agent.speed = speed;
     }
 
