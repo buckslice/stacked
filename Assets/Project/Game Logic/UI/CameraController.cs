@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public enum CameraType {
     ROTATE,
-    FIXED
+    FIXED,
+    TEST
 }
 
 // attach to the camera
@@ -30,11 +31,11 @@ public class CameraController : MonoBehaviour {
     // list of positions being tracked by camera this frame
     List<Vector3> trackingList = new List<Vector3>();
 
-    Camera mainCam;
+    Camera cam;
 
     // Use this for initialization
     void Start() {
-        mainCam = Camera.main;
+        cam = Camera.main;
         PopulateTrackingList();
         boundsCenter = new BoundingSphere(trackingList).center;
         targetPos = transform.position;
@@ -44,11 +45,51 @@ public class CameraController : MonoBehaviour {
     void Update() {
         PopulateTrackingList();
 
-        if (camType == CameraType.ROTATE) {
-            UpdateCamTypeRotate();
-        } else if (camType == CameraType.FIXED) {
-            UpdateCamTypeFixed();
+        if (targetPosOverride) {
+            LerpTowardsTarget();
+        } else {
+            if (camType == CameraType.ROTATE) {
+                UpdateCamTypeRotate();
+            } else if (camType == CameraType.FIXED) {
+                UpdateCamTypeFixed();
+            } else if (camType == CameraType.TEST) {
+                UpdateCamTypeTesting();
+            }
         }
+    }
+
+    bool targetPosOverride = false;
+    public void SetTargetOverride(Vector3 targ) {
+        targetPos = targ;
+        targetPosOverride = true;
+    }
+    public void RemoveTargetOverride() {
+        targetPosOverride = false;
+    }
+
+    void UpdateCamTypeTesting() {
+
+        Vector2 min, max;
+        GetMinMax(out min, out max);
+
+        Vector2 center = new Vector2(min.x + (max.x - min.x) / 2.0f, min.y + (max.y - min.y) / 2.0f);
+        Vector2 dir = center - new Vector2(cam.pixelWidth / 2.0f, cam.pixelHeight / 2.0f);
+
+        Vector3 move = Vector3.zero;
+
+        if (max.x - min.x < cam.pixelWidth) {
+            move += transform.forward;
+        } else {
+            move -= transform.forward;
+        }
+
+        if (dir.sqrMagnitude > 1.0f) {
+            dir.Normalize();
+            move += transform.right * dir.x + transform.up * dir.y;
+        }
+
+        transform.position = transform.position + move * Time.deltaTime * 10.0f;
+
     }
 
     void UpdateCamTypeRotate() {
@@ -94,6 +135,7 @@ public class CameraController : MonoBehaviour {
     }
 
     void UpdateCamTypeFixed() {
+        // return early if 1 or less tracked target
         if (trackingList.Count <= 1) {
             return;
         }
@@ -105,50 +147,56 @@ public class CameraController : MonoBehaviour {
         if (totalDist < 1.0f) {
             return;
         }
-
-        Vector2 min, max;
-        Vector3 startPos = transform.position;  // backup to restore to at the end
-        transform.position = targetPos; // start at target since it is usually close to solution
-
         // make sure camera is never looking up
         Vector3 rot = transform.eulerAngles;
         if (rot.x < 5.0f || rot.x > 90.0f) {
             transform.rotation = Quaternion.Euler(5.0f, rot.y, 0.0f);
         }
 
-        float startStep = 2.0f;
-        const float stepThresh = 1.0f;  // larger steps cause gridlike movement
-        float step = startStep;
-        bool dir = true;
-        int count = 0;
-        // move forward and backward in camera look direction
+        Vector2 min, max;
+        Vector3 startPos = transform.position;  // backup to restore to at the end
+        transform.position = targetPos;        // start at target since it is usually close to solution
+        // cache local directions since they wont change at all in this function
         Vector3 forward = transform.forward;
-        while (step > stepThresh) {
-            Vector3 posi = transform.position + forward * step;
-            Vector3 poso = transform.position - forward * step;
+        Vector3 right = transform.right;
+        Vector3 up = transform.up;
 
-            transform.position = posi;
-            GetMinMax(out min, out max);
-            float scoref = Mathf.Abs(1.0f - (max.x - min.x) / mainCam.pixelWidth);
-            transform.position = poso;
-            GetMinMax(out min, out max);
-            float scoreb = Mathf.Abs(1.0f - (max.x - min.x) / mainCam.pixelWidth);
+        bool dir = true;
+        int count = 0;  // to ensure accidental infinite loops wont freeze the game
+        const float step = 1.0f;
 
-            if (scoref < scoreb) {
-                if (!dir) {
-                    dir = !dir;
-                    step *= 0.5f;
-                }
-                transform.position = posi;
-            } else {
-                if (dir) {
-                    dir = !dir;
-                    step *= 0.5f;
-                }
-                transform.position = poso;
+        // move forward and backward in camera look direction
+        while (count++ < 1000) {
+            GetMinMax(out min, out max);
+            bool shouldZoom = max.x - min.x < cam.pixelWidth;
+
+            transform.position = transform.position + forward * (shouldZoom ? 1 : -1) * step;
+
+            if ((shouldZoom && !dir) || (!shouldZoom && dir)) {
+                break;
             }
-            count++;
         }
+
+        // move towards direction of min max center (based on screen center)
+        float lastSqrMag = float.PositiveInfinity;
+        while (count++ < 1000) {
+            GetMinMax(out min, out max);
+            Vector2 center = new Vector2(min.x + (max.x - min.x) / 2.0f, min.y + (max.y - min.y) / 2.0f);
+            Vector2 moveDir = center - new Vector2(cam.pixelWidth / 2.0f, cam.pixelHeight / 2.0f);
+            float sqrMag = moveDir.sqrMagnitude;
+            if (lastSqrMag <= sqrMag) {
+                break;
+            }
+            lastSqrMag = sqrMag;
+
+            moveDir.Normalize();
+            transform.position = transform.position + (right * moveDir.x + up * moveDir.y).normalized * step;
+        }
+
+        if (count >= 1000) {
+            Debug.LogWarning("Camera probably bugged");
+        }
+        //Debug.Log(count);
 
         // if y position is below height then move back along forward vector
         // place is it minimum height
@@ -158,94 +206,41 @@ public class CameraController : MonoBehaviour {
             transform.position += forward * (minHeight - ty) / forward.y;
         }
 
-        // move left right on xz plane
-        step = startStep;
-        Vector3 right = transform.right;
-        while (step > stepThresh) {
-            Vector3 posl = transform.position + right * step;
-            Vector3 posr = transform.position - right * step;
-
-            transform.position = posl;
-            GetMinMax(out min, out max);
-            float scorel = Mathf.Abs((min.x + (max.x - min.x) / 2.0f) - mainCam.pixelWidth / 2.0f);
-            transform.position = posr;
-            GetMinMax(out min, out max);
-            float scorer = Mathf.Abs((min.x + (max.x - min.x) / 2.0f) - mainCam.pixelWidth / 2.0f);
-
-            if (scorel < scorer) {
-                if (!dir) {
-                    dir = !dir;
-                    step *= 0.5f;
-                }
-                transform.position = posl;
-            } else {
-                if (dir) {
-                    dir = !dir;
-                    step *= 0.5f;
-                }
-                transform.position = posr;
-            }
-            count++;
-        }
-
-        step = startStep;
-        // move forward and backward on xz plane (check for when looking straight down)
-        if (Mathf.Abs(forward.x) < 0.01f && Mathf.Abs(forward.z) < 0.01f) {
-            forward = transform.up;
-        }
-        forward.y = 0.0f;
-        forward.Normalize();
-        while (step > stepThresh) {
-            Vector3 posf = transform.position + forward * step;
-            Vector3 posb = transform.position - forward * step;
-
-            transform.position = posf;
-            GetMinMax(out min, out max);
-            float scoref = Mathf.Abs((min.y + (max.y - min.y) / 2.0f) - mainCam.pixelHeight / 2.0f);
-            transform.position = posb;
-            GetMinMax(out min, out max);
-            float scoreb = Mathf.Abs((min.y + (max.y - min.y) / 2.0f) - mainCam.pixelHeight / 2.0f);
-
-            if (scoref < scoreb) {
-                if (!dir) {
-                    dir = !dir;
-                    step *= 0.5f;
-                }
-                transform.position = posf;
-            } else {
-                if (dir) {
-                    dir = !dir;
-                    step *= 0.5f;
-                }
-                transform.position = posb;
-            }
-            count++;
-        }
-        //Debug.Log(count);
-
         // set final calculated position as the target and lerp towards it
         targetPos = transform.position;
+        // reset transform.position back to start position
+        transform.position = startPos;
 
+        LerpTowardsTarget();
+    }
+
+    void LerpTowardsTarget() {
         // if target position is in front of us reduce smooth speed to slowly zoom in
-        float dot = Vector3.Dot(transform.forward, (targetPos - startPos).normalized);
+        float dot = Vector3.Dot(transform.forward, (targetPos - transform.position).normalized);
         if (dot < 0.0f) {
             dot = 0.0f;
         }
 
-        transform.position = Vector3.SmoothDamp(startPos, targetPos, ref camVel, camSmoothTime + dot);
+        transform.position = Vector3.SmoothDamp(transform.position, targetPos, ref camVel, camSmoothTime + dot);
         //transform.position = targetPos;   // for debugging
 
         transform.position = transform.position + centerOffset;
-
     }
 
     // returns min and max bounds of tracked things in viewport pixels
+    // min and max will have same aspect ratio as camera
     void GetMinMax(out Vector2 min, out Vector2 max) {
-        Vector3 s = mainCam.WorldToScreenPoint(trackingList[0]);
+        Vector3 s = cam.WorldToScreenPoint(trackingList[0]);
+        if (s.z < 0) {  // if tracked position is behind camera then screen coordinates will be inverted
+            s *= -1.0f;
+        }
         min.x = max.x = s.x;
         min.y = max.y = s.y;
         for (int i = 1; i < trackingList.Count; ++i) {
-            s = mainCam.WorldToScreenPoint(trackingList[i]);
+            s = cam.WorldToScreenPoint(trackingList[i]);
+            if (s.z < 0) {
+                s *= -1.0f;
+            }
             min.x = Mathf.Min(min.x, s.x);
             min.y = Mathf.Min(min.y, s.y);
             max.x = Mathf.Max(max.x, s.x);
@@ -254,23 +249,23 @@ public class CameraController : MonoBehaviour {
 
         float width = max.x - min.x;
         float height = max.y - min.y;
-        if (width / height > mainCam.aspect) { // if current aspect ratio is > cam aspect, scale up height
-            float halfDiff = (width / mainCam.aspect - height) / 2.0f;
+        if (width / height > cam.aspect) { // if current aspect ratio is > cam aspect, scale up height
+            float halfDiff = (width / cam.aspect - height) / 2.0f;
             min.y -= halfDiff;
             max.y += halfDiff;
         } else {    // if less than scale up width
-            float halfDiff = (height * mainCam.aspect - width) / 2.0f;
+            float halfDiff = (height * cam.aspect - width) / 2.0f;
             min.x -= halfDiff;
             max.x += halfDiff;
         }
 
-        min.x -= mainCam.pixelWidth * padding;
-        max.x += mainCam.pixelWidth * padding;
+        min.x -= cam.pixelWidth * padding;
+        max.x += cam.pixelWidth * padding;
 
         //min.y -= cmain.pixelHeight * padding;
         //max.y += cmain.pixelHeight * padding;
-        min.y -= mainCam.pixelHeight * padding * 1.2f;   // favor players running down so they have more of warning
-        max.y += mainCam.pixelHeight * padding * 0.8f;   // since players going towards top of screen can see more
+        min.y -= cam.pixelHeight * padding * 1.2f;   // favor players running down so they have more of warning
+        max.y += cam.pixelHeight * padding * 0.8f;   // since players going towards top of screen can see more
     }
 
     Vector3 RotatePoint(Vector3 point, Vector3 pivot, Vector3 axis, float angle) {
