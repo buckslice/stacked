@@ -133,7 +133,7 @@ public class BossSetupNetworkedData : MonoBehaviour {
     /// <param name="allocatedViewId"></param>
     public GameObject InstantiateBoss(int allocatedViewId, BossSetup.BossSetupData BossData, Vector3 spawnPoint, Quaternion spawnOrientation) {
         GameObject bossGO = (GameObject)Instantiate(baseBossPrefabs[(byte)BossData.bossID], spawnPoint, spawnOrientation); //TODO: double check this works
-        bossGO.name = "Boss";
+        bossGO.name = BossData.bossName;
 
         //assign view ID
         PhotonView toInitialize = bossGO.GetComponent<PhotonView>();

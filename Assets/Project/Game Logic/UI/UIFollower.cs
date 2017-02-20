@@ -41,6 +41,10 @@ public class UIFollower : MonoBehaviour {
     public void Initialize(CanvasHelper canvasHelper, Transform followTransform) { Initialize(canvasHelper, followTransform, Vector3.zero, OffsetType.WORLD); }
 
     void Update() {
+        Follow();
+    }
+
+    public void Follow() {
         if (followTransform == null) {
             //Debug.LogWarning("UIFollower not initialized. Removing component.", this.gameObject);
             //Destroy(this);

@@ -25,6 +25,9 @@ public abstract class AbstractBossSetup : MonoBehaviour, IBossSetup {
         public string sceneName;
 
         [SerializeField]
+        public string bossName = "Boss";
+
+        [SerializeField]
         public BossSetupNetworkedData.AbilityId[] abilities;
     }
 

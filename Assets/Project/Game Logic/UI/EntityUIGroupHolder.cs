@@ -86,6 +86,11 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
 
     }
 
+    public void SetGroupActive(bool active) {
+        groupTransform.gameObject.SetActive(active);
+        follower.Follow();
+    }
+
     // coroutine that is basically like a 3rd start (to make sure UI object is fully costructed by the time it tries to reorder children)
     IEnumerator InvertRoutine(Transform tform) {
         entityGroup.gameObject.SetActive(false);
