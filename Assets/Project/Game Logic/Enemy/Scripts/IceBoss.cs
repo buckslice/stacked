@@ -16,6 +16,7 @@ public class IceBoss : MonoBehaviour {
 
     NavMeshAgent agent;
     AudioSource source;
+    AudioSource music;
 
     // Use this for initialization
     void Start() {
@@ -25,6 +26,11 @@ public class IceBoss : MonoBehaviour {
         //agent.SetDestination(Vector3.zero);
 
         agent.enabled = false;
+
+        GameObject musicGO = GameObject.Find("Music");
+        if (musicGO) {
+            music = musicGO.GetComponent<AudioSource>();
+        }
 
         source = GetComponent<AudioSource>();
 
@@ -76,6 +82,10 @@ public class IceBoss : MonoBehaviour {
         source.Stop();
 
         yield return new WaitForSeconds(2.0f);
+
+        if (music) {
+            music.Play();
+        }
 
         SetImmune(false);
 
