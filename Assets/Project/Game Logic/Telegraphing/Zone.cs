@@ -277,7 +277,7 @@ public class Zone : MonoBehaviour {
 
         if (isTelegraphed) {
             telegraphParticles.Play();
-            yield return new WaitForSeconds(telegraphDuration);
+            yield return Yielders.Get(telegraphDuration);
             telegraphParticles.Stop();
             isTelegraphed = false;
         }
@@ -286,7 +286,7 @@ public class Zone : MonoBehaviour {
         if (type == ZoneType.EMANATING) {
             yield return StartCoroutine(EmanationRoutine());
         } else {
-            yield return new WaitForSeconds(mainDuration);
+            yield return Yielders.Get(mainDuration);
         }
         if (action == ZoneAction.EXPLODE_AFTER_TIMER) {
             DamageAllPlayersInContact();

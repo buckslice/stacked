@@ -8,6 +8,7 @@ public class MandibleControl : MonoBehaviour {
     public Transform right;
 
     public bool autoTwitch = true;
+    public bool autoSound = true;
 
     float mandibleChange = 1.0f;
     float soundTimer = 8.0f;
@@ -21,18 +22,27 @@ public class MandibleControl : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        mandibleChange -= Time.deltaTime;
-        if (autoTwitch && mandibleChange < 0.0f) {
-            Twitch(Random.Range(0.0f, 30.0f), Random.value * 0.2f + 0.1f);
-            mandibleChange = Random.value * 0.5f;
+
+        if (autoTwitch) {
+            mandibleChange -= Time.deltaTime;
+            if (mandibleChange < 0.0f) {
+                Twitch(Random.Range(20.0f, 40.0f), Random.value * 0.1f + 0.01f);
+                mandibleChange = Random.value * 0.5f;
+            }
         }
 
-        soundTimer -= Time.deltaTime;
-        if (soundTimer < 0.0f) {
-            source.pitch = 1.0f + Random.value * 0.2f - 0.1f;
-            source.Play();
-            soundTimer += Random.value * 4.0f + 2.0f;
+        if (autoSound) {
+            soundTimer -= Time.deltaTime;
+            if (soundTimer < 0.0f) {
+                PlaySound();
+                soundTimer += Random.value * 4.0f + 2.0f;
+            }
         }
+    }
+
+    public void PlaySound() {
+        source.pitch = 1.0f + Random.value * 0.2f - 0.1f;
+        source.Play();
     }
 
     public void Twitch(float angle, float time) {
