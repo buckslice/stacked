@@ -46,8 +46,9 @@ public class HealthBar : MonoBehaviour {
         lerpBar.rectTransform.anchorMax = new Vector2(lerpPos, 1.0f);
     }
 
+    // set health percent (as value from 0 to 1)
     public void SetPercent(float percent) {
-        healthPercent = percent;
+        healthPercent = Mathf.Clamp01(percent);
     }
 
     public void SetText(string t) {
