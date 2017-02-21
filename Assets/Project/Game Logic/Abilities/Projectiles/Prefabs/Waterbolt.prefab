@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 199494596788053670}
   - component: {fileID: 114963338100853496}
   - component: {fileID: 108225683837711102}
+  - component: {fileID: 114592365138011726}
   m_Layer: 0
   m_Name: WaterboltParticles
   m_TagString: Untagged
@@ -334,6 +335,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0fe063024bd6dc43b65c34561420bfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114592365138011726
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1513721562018892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c09da524be08c9b48b306f5e44866cf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114861623773387906
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -461,7 +473,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -229411574
+  randomSeed: 1262416115
   InitialModule:
     serializedVersion: 3
     enabled: 1

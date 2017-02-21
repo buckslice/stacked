@@ -17,18 +17,16 @@ public class DisableRendererWhenInactive : ProjectileLifetimeAction {
     protected override void OnProjectileCreated() { }
 
     public override void OnProjectileDeactivated() {
-        rend.enabled = false;
-        if (myLight) {
-            myLight.enabled = false;
-        }
+        if (rend) { rend.enabled = false; }
+        if (myLight) { myLight.enabled = false; }
+        
         base.OnProjectileDeactivated();
     }
 
     protected override void OnProjectileDestroyed() {
-        rend.enabled = true;
-        if (myLight) {
-            myLight.enabled = true;
-        }
+        if (rend) { rend.enabled = true; }
+        if (myLight) { myLight.enabled = true; }
+
         base.OnProjectileDestroyed();
     }
 }
