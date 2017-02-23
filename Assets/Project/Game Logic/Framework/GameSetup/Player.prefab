@@ -1501,7 +1501,7 @@ MonoBehaviour:
   isGrounded: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8912896
+    m_Bits: 524288
 --- !u!114 &114900697442567548
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -51,9 +51,11 @@ public class IceBoss : MonoBehaviour {
         if (immune) {
             damageable.PhysicalVulnerabilityMultiplier.AddModifier(0);
             damageable.MagicalVulnerabilityMultiplier.AddModifier(0);
+            healthBar.SetGroupActive(false);
         } else {
             damageable.PhysicalVulnerabilityMultiplier.RemoveModifier(0);
             damageable.MagicalVulnerabilityMultiplier.RemoveModifier(0);
+            healthBar.SetGroupActive(true);
         }
     }
 
@@ -117,7 +119,6 @@ public class IceBoss : MonoBehaviour {
     IEnumerator BurrowRoutine(bool up, float burrowTime) {
         if (!up) {
             agent.enabled = false;
-            healthBar.SetGroupActive(false);
         }
         source.Play();
         burrowingParticles.Play();
@@ -135,7 +136,6 @@ public class IceBoss : MonoBehaviour {
         source.Stop();
         if (up) {
             agent.enabled = true;
-            healthBar.SetGroupActive(true);
         }
     }
 
@@ -174,7 +174,15 @@ public class IceBoss : MonoBehaviour {
         iceShards.Clear();
     }
 
+    IEnumerator StackLerpRoutine(Stackable stackable, Vector3 lerpTo) {
+        while (stackable && !stackable.Stacked) {
+            stackable.transform.position = Vector3.Lerp(stackable.transform.position, lerpTo, Time.deltaTime * 10.0f);
+            yield return null;
+        }
+    }
+
     IEnumerator IceCircleSequence() {
+        agent.ResetPath();
         SetImmune(true);
 
         yield return StartCoroutine(BurrowRoutine(false, 3.0f));
@@ -189,14 +197,18 @@ public class IceBoss : MonoBehaviour {
         pm.MovementInputEnabled.AddModifier(false);
         Rigidbody rb = pm.GetComponent<Rigidbody>();
         rb.isKinematic = true;
-        pm.GetComponent<Stackable>().RemoveSelf();
+        Stackable stackable = pm.GetComponent<Stackable>();
+        stackable.RemoveSelf();
 
         Vector2 randCirc = Random.insideUnitCircle.normalized * 15.0f;
-        pm.transform.position = new Vector3(randCirc.x, 0.0f, randCirc.y);
+        Vector3 centerSpawn = new Vector3(randCirc.x, 0.0f, randCirc.y);
+        Coroutine stackLerp = StartCoroutine(StackLerpRoutine(stackable,centerSpawn));
+
+        //pm.transform.position = new Vector3(randCirc.x, 0.0f, randCirc.y);
 
         Vector3 prevBossPosition = transform.position;
         Quaternion prevBossRotation = transform.rotation;   // maybe have boss point down to burrow?
-        GameObject centerGO = (GameObject)Instantiate(iceCircleCenterPrefab, pm.transform.position, Quaternion.identity);
+        GameObject centerGO = (GameObject)Instantiate(iceCircleCenterPrefab, centerSpawn, Quaternion.identity);
 
         yield return Yielders.Get(1.0f);
 
@@ -275,12 +287,12 @@ public class IceBoss : MonoBehaviour {
 
         burrowingParticles.Stop();
 
+        StopCoroutine(stackLerp);
+
         // move somewhere random
-        //yield return StartCoroutine(BurrowRoutine(true, 3.0f));
         rb.isKinematic = false;
         pm.MovementInputEnabled.RemoveModifier(false);
         SetImmune(false);
-        healthBar.enabled = true;
         agent.enabled = true;
         mandibles.autoSound = true;
         timeSinceLastIceCircle = 0.0f;
@@ -365,7 +377,9 @@ public class IceBoss : MonoBehaviour {
         Vector3 pos = p.Holder.transform.position;
         Vector3 runThrough = (pos - transform.position).normalized * 10.0f;
 
-        agent.SetDestination(p.Holder.transform.position + runThrough);
+        if (agent.enabled) {
+            agent.SetDestination(p.Holder.transform.position + runThrough);
+        }
 
         nextTargetTimer = 1.0f;
     }
