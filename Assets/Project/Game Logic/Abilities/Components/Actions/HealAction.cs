@@ -12,7 +12,7 @@ public class HealAction : TypedTargetedAbilityAction {
     public IDamageHolder TrackerReference { get { return trackerReference; } set { trackerReference = value; } }
 
     [SerializeField]
-    protected float healing = 100;
+    protected float healthpersecond = 100;
 
     protected override void Start() {
         base.Start();
@@ -42,7 +42,7 @@ public class HealAction : TypedTargetedAbilityAction {
             Damageable damageable = target.GetComponent<Damageable>();
             if (damageable == null) { return false; }
 
-            float trueHealing = damageable.Heal(healing, trackerReference);
+            float trueHealing = damageable.Heal(healthpersecond * Time.deltaTime, trackerReference);
             stream.SendNext(trueHealing);
 
         } else {
