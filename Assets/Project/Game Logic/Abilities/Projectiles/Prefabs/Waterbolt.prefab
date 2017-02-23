@@ -264,8 +264,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage:
-    amount: 50
-    type: 0
+    amount: 45
+    type: 1
 --- !u!114 &114167493477559304
 MonoBehaviour:
   m_ObjectHideFlags: 1
