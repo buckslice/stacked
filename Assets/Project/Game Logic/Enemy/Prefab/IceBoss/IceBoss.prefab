@@ -1196,6 +1196,10 @@ MonoBehaviour:
   burrowingParticles: {fileID: 198781821696466386}
   mouthParticles: {fileID: 198938521756928130}
   damageable: {fileID: 114587912473631702}
+  iceCircleCenterPrefab: {fileID: 1937432664916456, guid: 0f6cceb31d9afa44eaccfc8cf6ea6bc5,
+    type: 2}
+  iceShardPrefab: {fileID: 1815583028500644, guid: 58894ad62a0042944a6647a25ed83d2e,
+    type: 2}
 --- !u!135 &135386026978841602
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -10,8 +10,8 @@ public class MandibleControl : MonoBehaviour {
     public bool autoTwitch = true;
     public bool autoSound = true;
 
-    float mandibleChange = 1.0f;
-    float soundTimer = 8.0f;
+    public float nextChange = 1.0f;
+    float soundTimer = 7.0f;
 
     AudioSource source;
 
@@ -24,10 +24,10 @@ public class MandibleControl : MonoBehaviour {
     void Update() {
 
         if (autoTwitch) {
-            mandibleChange -= Time.deltaTime;
-            if (mandibleChange < 0.0f) {
+            nextChange -= Time.deltaTime;
+            if (nextChange < 0.0f) {
                 Twitch(Random.Range(20.0f, 40.0f), Random.value * 0.1f + 0.01f);
-                mandibleChange = Random.value * 0.5f;
+                nextChange = Random.value * 0.5f;
             }
         }
 
