@@ -37,6 +37,8 @@ public class BossSetupNetworkedData : MonoBehaviour {
         BOSS1_SUMMONER,
         ICE_BOSS,
         TUTORIAL,
+        SPACE_JAM,
+        SPACE_JAM_SUMMONER,
     }
 
     static BossSetupNetworkedData main;
