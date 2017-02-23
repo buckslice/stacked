@@ -42,7 +42,7 @@ public class HealAction : TypedTargetedAbilityAction {
             Damageable damageable = target.GetComponent<Damageable>();
             if (damageable == null) { return false; }
 
-            float trueHealing = damageable.Heal(healing, trackerReference);
+            float trueHealing = damageable.Heal(healing * Time.deltaTime, trackerReference);
             stream.SendNext(trueHealing);
 
         } else {
