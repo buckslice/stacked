@@ -32,5 +32,14 @@ public class RegistrationUIBar : MonoBehaviour {
         }
     }
 
+    void Update() {
+        if (readyText.enabled) {
+            // triangle wave
+            float pos = Mathf.Repeat(Time.time - 0.5f, 0.5f) / 0.5f;
+            float t = pos < 0.5f ? Mathf.Lerp(0, 1, pos * 2f) : Mathf.Lerp(1, 0, (pos - .5f) * 2f);
+            readyText.color = Color.Lerp(Color.white, Color.magenta, t);
+        }
+    }
+
     public bool ready { set { readyText.enabled = value; } }
 }
