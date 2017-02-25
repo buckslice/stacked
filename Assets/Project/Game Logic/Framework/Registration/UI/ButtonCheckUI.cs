@@ -7,6 +7,8 @@ public class ButtonCheckUI : MonoBehaviour {
     [SerializeField]
     protected GameObject buttonCheckPrefab;
 
+    public GameObject arrowUIPrefab;
+
     public ButtonCheckMenu menu { get; private set; }
 
     // Use this for initialization
@@ -23,5 +25,12 @@ public class ButtonCheckUI : MonoBehaviour {
         menu = buttonCheckMenu.GetComponent<ButtonCheckMenu>();
         IPlayerInput bindings = player.inputBindings;
         menu.Initialize(bindings, player.PlayerID);
+
+        // if not in keyboard mode then spawn some arrows to show you can switch between xbox and ps4
+        if (!menu.keyboardImage.GetActive()) {
+            GameObject arrowUI = Instantiate(arrowUIPrefab, GetComponent<IEntityUIGroupHolder>().EntityGroup.transform);
+            arrowUI.transform.localScale = Vector3.one;
+        }
+
     }
 }

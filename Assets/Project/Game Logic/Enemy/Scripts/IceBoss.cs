@@ -14,8 +14,8 @@ public class IceBoss : MonoBehaviour {
     public float iceCircleTime = 20.0f;     // time between phases
     public float iceCircleDuration = 10.0f; // how long phase lasts
 
-    public Object iceCircleCenterPrefab;
-    public Object iceShardPrefab;
+    public GameObject iceCircleCenterPrefab;
+    public GameObject iceShardPrefab;
 
     public LayerMask playerLayer;
 
@@ -208,7 +208,7 @@ public class IceBoss : MonoBehaviour {
 
         Vector3 prevBossPosition = transform.position;
         Quaternion prevBossRotation = transform.rotation;   // maybe have boss point down to burrow?
-        GameObject centerGO = (GameObject)Instantiate(iceCircleCenterPrefab, centerSpawn, Quaternion.identity);
+        GameObject centerGO = Instantiate(iceCircleCenterPrefab, centerSpawn, Quaternion.identity);
 
         yield return Yielders.Get(1.0f);
 
@@ -230,7 +230,7 @@ public class IceBoss : MonoBehaviour {
                 Vector3 spawn = transform.position;
                 spawn.y = -10.0f;
                 Quaternion rot = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y + 90.0f, 0.0f);
-                GameObject iceShard = (GameObject)Instantiate(iceShardPrefab, spawn, rot);
+                GameObject iceShard = Instantiate(iceShardPrefab, spawn, rot);
                 iceShards.Add(iceShard.transform);
 
                 mandibles.PlaySound();
