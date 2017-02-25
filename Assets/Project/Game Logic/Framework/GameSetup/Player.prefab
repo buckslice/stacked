@@ -1516,8 +1516,8 @@ MonoBehaviour:
   pm: {fileID: 114000012287730970}
   rb: {fileID: 54000011540002138}
   col: {fileID: 136000010153934136}
-  dmgeable: {fileID: 114000013047688542}
-  stackable: {fileID: 114000012755470936}
+  dmg: {fileID: 114000013047688542}
+  stck: {fileID: 114000012755470936}
   gc: {fileID: 114490013616476006}
 --- !u!114 &114900697442567548
 MonoBehaviour:

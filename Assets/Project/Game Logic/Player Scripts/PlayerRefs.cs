@@ -9,8 +9,8 @@ public class PlayerRefs : MonoBehaviour {
     public PlayerMovement pm;
     public Rigidbody rb;
     public Collider col;
-    public Damageable dmgeable;
-    public Stackable stackable;
+    public Damageable dmg;
+    public Stackable stck;
     public GroundedChecker gc;
 
 }

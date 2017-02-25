@@ -11,8 +11,8 @@ public class IceBoss : MonoBehaviour {
 
     public Damageable damageable;
 
-    public float iceCircleTime = 20.0f;     // time between phases
-    public float iceCircleDuration = 10.0f; // how long phase lasts
+    float iceCircleTime = 20.0f;     // time between phases
+    float iceCircleDuration = 10.0f; // how long phase lasts
 
     public GameObject iceCircleCenterPrefab;
     public GameObject iceShardPrefab;
@@ -32,6 +32,8 @@ public class IceBoss : MonoBehaviour {
     State state = State.INTRO;
 
     Collider[] overLaps = new Collider[16];  // for overlaps sphere checks
+    List<Player> players = new List<Player>();  // filled and cleared by various functions
+    List<PlayerRefs> playerRefs = new List<PlayerRefs>();   // another helper list
 
     enum State {
         INTRO,
@@ -48,7 +50,6 @@ public class IceBoss : MonoBehaviour {
         camShaker = Camera.main.GetComponent<CameraShakeScript>();
         camController = Camera.main.transform.parent.GetComponent<CameraController>();
         healthBar = GetComponent<EntityUIGroupHolder>(); ;
-        //agent.SetDestination(Vector3.zero);
 
         agent.enabled = false;
         healthBar.SetGroupActive(false);
@@ -61,6 +62,7 @@ public class IceBoss : MonoBehaviour {
         source = GetComponent<AudioSource>();
 
         StartCoroutine(IntroSequence());
+        //StartCoroutine(ShortIntro());
     }
 
     void SetImmune(bool immune) {
@@ -83,7 +85,7 @@ public class IceBoss : MonoBehaviour {
 
         camController.SetTargetOverride(new Vector3(-10, 18, -6));
 
-        yield return StartCoroutine(BurrowRoutine(true, 4.0f));
+        yield return StartCoroutine(BurrowRoutine(true, 4.0f)); // 4
 
         camController.RemoveTargetOverride();
 
@@ -92,6 +94,16 @@ public class IceBoss : MonoBehaviour {
 
         SetImmune(false);
 
+        if (music) {
+            music.Play();
+        }
+    }
+
+    IEnumerator ShortIntro() {
+        SetImmune(true);
+        yield return StartCoroutine(BurrowRoutine(true, 1.0f));
+        state = State.IDLE;
+        SetImmune(false);
         if (music) {
             music.Play();
         }
@@ -203,26 +215,25 @@ public class IceBoss : MonoBehaviour {
         mandibles.autoSound = false;
 
         FindAlivePlayers();
-        Player p = alivePlayers[Random.Range(0, alivePlayers.Count)];
-
+        Player p = players[Random.Range(0, players.Count)];
         PlayerRefs prefs = p.Holder.GetComponent<PlayerRefs>();
 
-        prefs.stackable.RemoveSelf();
+        prefs.stck.RemoveSelf();
         prefs.pm.MovementInputEnabled.AddModifier(false);
         prefs.pm.HaltMovement();
         prefs.rb.isKinematic = true;
 
         Vector2 randCirc = Random.insideUnitCircle.normalized * 15.0f;
         Vector3 centerSpawn = new Vector3(randCirc.x, 0.0f, randCirc.y);
-        Coroutine trapPlayerRoutine = StartCoroutine(TrapPlayerRoutine(prefs.stackable, centerSpawn));
+        Coroutine trapPlayerRoutine = StartCoroutine(TrapPlayer(prefs.stck, centerSpawn));
 
         Vector3 prevBossPosition = transform.position;
         Quaternion prevBossRotation = transform.rotation;   // maybe have boss point down to burrow?
-        GameObject centerGO = Instantiate(iceCircleCenterPrefab, centerSpawn, Quaternion.identity);
+        Transform ccenter = Instantiate(iceCircleCenterPrefab, centerSpawn, Quaternion.identity).transform;
 
         yield return Yielders.Get(1.0f);
 
-        transform.SetParent(centerGO.transform);
+        transform.SetParent(ccenter);
         const float circleRadius = 10.0f;
         transform.localPosition = Vector3.right * circleRadius + Vector3.up * -4.0f;
         transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
@@ -232,6 +243,8 @@ public class IceBoss : MonoBehaviour {
         float nextSpawnTime = 0.0f;
         float t = 0.0f;
         Coroutine moveUpShardsRoutine = StartCoroutine(MoveUpShardsRoutine());
+
+        bool brokeOut = false;
         while (t < 1.0f) {
             t += Time.deltaTime / iceCircleDuration;
             if (t > nextSpawnTime) {
@@ -248,64 +261,71 @@ public class IceBoss : MonoBehaviour {
                 mandibles.nextChange = 0.5f;
             }
 
-            centerGO.transform.rotation = Quaternion.Euler(0.0f, t * (360.0f - 360.0f / numShards), 0.0f);
+            // check to see if there is at least one player still in range to be eaten
+            // if not then quit this sequence early
+            FindAlivePlayersNear(ccenter.position, circleRadius + 1.0f);
+            if (players.Count == 0) {
+                brokeOut = true;
+                StopCoroutine(moveUpShardsRoutine);
+                StartCoroutine(DestroyShardsRoutine());
+                break;
+            }
+            // rotate cicrle center (and thereby the boss)
+            ccenter.rotation = Quaternion.Euler(0.0f, t * (360.0f - 360.0f / numShards), 0.0f);
             yield return null;
         }
 
-        // lerp towards center of ice shard circle
+        // lerp towards circle center
         t = 0.0f;
         Vector3 start = transform.position;
         Quaternion startRot = transform.localRotation;
         while (t < 1.0f) {
-            transform.position = Vector3.Lerp(start, centerGO.transform.position - centerGO.transform.forward * 4.0f, t);
+            transform.position = Vector3.Lerp(start, ccenter.position - ccenter.forward * 4.0f, t);
             transform.localRotation = Quaternion.Slerp(startRot, Quaternion.identity, t);
             t += Time.deltaTime / 2.0f;
 
             yield return null;
         }
 
-        // find all players inside circle and eat them
-        FindAlivePlayers();
-        Coroutine chompRoutine = null;
-        List<Rigidbody> chomps = new List<Rigidbody>();
-        for (int i = 0; i < alivePlayers.Count; ++i) {
-            Transform pt = alivePlayers[i].Holder.transform;
-            Vector3 ap = pt.position;
-            if (ap.y > 8.0f) { continue; }  // if they are standing up on wall
-            ap.y = 0.0f;
-            if (Vector3.Distance(transform.position, ap) < circleRadius + 1.0f) {
-                PlayerRefs pr = pt.GetComponent<PlayerRefs>();
-                pr.dmgeable.Damage(1000.0f);    // kill player
-                if (chompRoutine == null) {
-                    chompRoutine = StartCoroutine(ChompRoutine(pr.dmgeable));
+        if (!brokeOut) {    // only check if you didnt break out early
+            // find all players inside circle and eat them
+            FindAlivePlayersNear(ccenter.position, circleRadius + 1.0f);
+            if (players.Count > 0) {
+                playerRefs.Clear();
+                for(int i = 0; i < players.Count; ++i) {
+                    PlayerRefs pr = players[i].Holder.GetComponent<PlayerRefs>();
+                    pr.dmg.Damage(1000.0f);
+                    playerRefs.Add(pr);
                 }
-                chomps.Add(pr.rb);
-            }
-        }
-        // wait for chomping to finish
-        if (chompRoutine != null) {
-            yield return chompRoutine;
-        }
-        // throw all players who were chomped outwards from boss
-        for (int i = 0; i < chomps.Count; ++i) {
-            Vector3 throwDir = (chomps[i].transform.position - transform.position).normalized;
-            chomps[i].velocity = (throwDir + Vector3.up * 1.0f).normalized * 12.0f;
-        }
+                // start and wait for chomping
+                yield return StartCoroutine(ChompRoutine());
 
-        StopCoroutine(moveUpShardsRoutine);
-        StartCoroutine(DestroyShardsRoutine());
+                // throw all players who were chomped away randomly
+                for (int i = 0; i < playerRefs.Count; ++i) {
+                    Vector3 dir = Vector3.zero;
+                    Vector3 ppos = playerRefs[i].transform.position;
+                    // throw players close to center forward from boss
+                    if ((ppos - ccenter.position).sqrMagnitude < 1.0f) {
+                        dir = transform.forward + Vector3.up;
+                    } else { // throw them away from center
+                        dir = (ppos - ccenter.position).normalized + Vector3.up;
+                    }
+                    playerRefs[i].rb.velocity = dir.normalized * 12.0f;
+                }
+            }
+
+            StopCoroutine(moveUpShardsRoutine);
+            StartCoroutine(DestroyShardsRoutine());
+        }
 
         transform.parent = null;
-        Destroy(centerGO);
-        //transform.position = prevBossPosition;
-        //transform.rotation = prevBossRotation;
+        Destroy(ccenter.gameObject);
 
         burrowingParticles.Stop();
-
         StopCoroutine(trapPlayerRoutine);
 
         // move somewhere random
-        if (!prefs.stackable.Stacked) {   // only reenable movement input if not stacked
+        if (!prefs.stck.Stacked) {   // only reenable movement input if not stacked
             prefs.rb.isKinematic = false;
             prefs.pm.MovementInputEnabled.RemoveModifier(false);
         }
@@ -316,10 +336,8 @@ public class IceBoss : MonoBehaviour {
         state = State.IDLE;
     }
 
+    // routine that throws away a player and restores movement once they hit ground
     IEnumerator KnockAway(PlayerRefs pr, bool random, float power = 12.0f) {
-        if (pr.stackable) {
-            pr.stackable.RemoveSelf();
-        }
         pr.pm.MovementInputEnabled.AddModifier(false);
         pr.pm.HaltMovement();
 
@@ -333,14 +351,12 @@ public class IceBoss : MonoBehaviour {
         }
 
         pr.rb.velocity = (knockDir + Vector3.up).normalized * power;
-
-        // wait for about 2 seconds to land 
-        // should probably instead set PlayerMovement to reenable when grounded or something
-        yield return Yielders.Get(2.0f);
-
-        if (pr.stackable && !pr.stackable.Stacked) {    // dont reenable movement if they are stacked again somehow
-            pr.pm.MovementInputEnabled.RemoveModifier(false);
+        yield return Yielders.Get(0.1f);
+        while (!pr.gc.isGrounded) {
+            yield return null;
         }
+
+        pr.pm.MovementInputEnabled.RemoveModifier(false);
 
     }
 
@@ -351,8 +367,10 @@ public class IceBoss : MonoBehaviour {
         int count = Physics.OverlapSphereNonAlloc(transform.position, 10.0f, overLaps, playerLayer.value);
         for (int i = 0; i < count; ++i) {
             if (overLaps[i] != eatenPlayerCol) { // skip player being eaten
-                Debug.Log("knocking away");
-                StartCoroutine(KnockAway(overLaps[i].GetComponentInParent<PlayerRefs>(), true));
+                PlayerRefs pr = overLaps[i].GetComponentInParent<PlayerRefs>();
+                if (pr.stck.elevationInStack() == 0) { // only need to knock away bottom of stack
+                    StartCoroutine(KnockAway(pr, false));
+                }
             }
         }
 
@@ -362,16 +380,16 @@ public class IceBoss : MonoBehaviour {
         prefs.pm.MovementInputEnabled.AddModifier(false);
         prefs.pm.HaltMovement();
 
-        prefs.transform.SetParent(mouthParticles.transform.parent);
+        prefs.transform.SetParent(mouthParticles.transform.parent, true);
         prefs.transform.localPosition = Vector3.up * -0.5f;
+        prefs.stck.RemoveSelf();
         prefs.rb.isKinematic = true;
-        prefs.stackable.RemoveSelf();
 
-        //Coroutine lockPlayerRoutine = StartCoroutine(LockPlayerRoutine(prefs.transform, prefs.transform.position));
-        // try to do local position locking instead!!!
+        Coroutine lockPlayerRoutine = StartCoroutine(LockPlayerLocal(prefs.transform, Vector3.up * -0.5f));
+
         yield return StartCoroutine(ChompRoutine(eatenPlayerCol.GetComponent<Damageable>()));
 
-        //StopCoroutine(lockPlayerRoutine);
+        StopCoroutine(lockPlayerRoutine);
 
         // look at random position before throwing away eaten person
         Vector3 v = Random.insideUnitCircle.normalized;
@@ -379,6 +397,7 @@ public class IceBoss : MonoBehaviour {
         yield return StartCoroutine(LookAtRoutine(v));
 
         prefs.transform.parent = null;
+
         // launch player away
         prefs.rb.isKinematic = false;
         prefs.rb.velocity = (transform.forward + Vector3.up).normalized * 12.0f;
@@ -392,7 +411,7 @@ public class IceBoss : MonoBehaviour {
 
     }
 
-    IEnumerator ChompRoutine(Damageable dmgable) {
+    IEnumerator ChompRoutine(Damageable dmg = null) {
         mandibles.autoTwitch = false;
         mandibles.autoSound = false;
         mouthParticles.Play();
@@ -403,37 +422,55 @@ public class IceBoss : MonoBehaviour {
             mandibles.PlaySound();
             mandibles.Twitch(30.0f, 0.2f);      // open slow
             yield return Yielders.Get(0.2f);
-            dmgable.Damage(7.0f);
+            if (dmg) {  // ok to pass in null just for chomping effect
+                dmg.Damage(7.0f);
+            }
         }
         mandibles.autoSound = true;
         mouthParticles.Stop();
     }
 
     // find all living players (thought theres helper function for this but couldnt find)
-    List<Player> alivePlayers = new List<Player>();
     void FindAlivePlayers() {
-        alivePlayers.Clear();
+        players.Clear();
         for (int i = 0; i < Player.Players.Count; ++i) {
             if (!Player.Players[i].dead) {
-                alivePlayers.Add(Player.Players[i]);
+                players.Add(Player.Players[i]);
+            }
+        }
+    }
+
+    // fills player list with people close enough to point
+    // used in ice circle function
+    void FindAlivePlayersNear(Vector3 point, float rad) {
+        FindAlivePlayers();
+        for (int i = 0; i < players.Count; ++i) {
+            Vector3 playerPos = players[i].Holder.transform.position;
+            if (playerPos.y > 8.0f) {
+                players.RemoveAt(i--);
+                continue;
+            }
+            playerPos.y = 0.0f;
+            if ((point - playerPos).sqrMagnitude > rad * rad) {
+                players.RemoveAt(i--);
             }
         }
     }
 
     IEnumerator FindNextTarget() {
         FindAlivePlayers();
-        if (alivePlayers.Count == 0) {
+        if (players.Count == 0) {
             yield break;
         }
 
         // find and look at random player
-        Player p = alivePlayers[Random.Range(0, alivePlayers.Count)];
+        Player p = players[Random.Range(0, players.Count)];
         yield return StartCoroutine(FocusRoutine(p.Holder.transform, Random.value + 1.0f));
 
         // high chance to go after another random player instead (TRICKY)
-        if (alivePlayers.Count > 1 && Random.value < 0.7f) {
-            alivePlayers.Remove(p);
-            p = alivePlayers[Random.Range(0, alivePlayers.Count)];
+        if (players.Count > 1 && Random.value < 0.7f) {
+            players.Remove(p);
+            p = players[Random.Range(0, players.Count)];
         }
 
         // get direction to player (run through them a little)
@@ -488,19 +525,17 @@ public class IceBoss : MonoBehaviour {
 
     // routine meant to force a player to stay at target position
     // until they are either picked up or coroutine is killed
-    IEnumerator TrapPlayerRoutine(Stackable stackable, Vector3 target) {
-        while (stackable && !stackable.Stacked) {
+    IEnumerator TrapPlayer(Stackable stackable, Vector3 target) {
+        while (!stackable.Stacked) {
             stackable.transform.position = Vector3.Lerp(stackable.transform.position, target, Time.deltaTime * 10.0f);
             yield return null;
         }
     }
 
-    // constantly lerps a transform to a position until coroutine breaks
-    // ends when coroutine is killed
-    IEnumerator LockPlayerRoutine(Transform player, Vector3 target) {
+    // locks player local position to certain offset
+    IEnumerator LockPlayerLocal(Transform player, Vector3 offset) {
         while (true) {
-            player.position = Vector3.Lerp(player.position, target, Time.deltaTime * 10.0f);
-            //player.localPosition = Vector3.Lerp(player.localPosition, Vector3.zero, Time.deltaTime * 10.0f);
+            player.localPosition = Vector3.Lerp(player.localPosition, offset, Time.deltaTime * 10.0f);
             yield return null;
         }
     }
