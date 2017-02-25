@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerRegistration : MonoBehaviour {
 
@@ -49,7 +50,7 @@ public class PlayerRegistration : MonoBehaviour {
     protected RectTransform[] pressStartPrompts;
 
     [SerializeField]
-    protected GameObject continuePrompt;
+    protected Text continuePrompt;
 
     [SerializeField]
     protected float vibrationDuration = 0.15f;
@@ -73,6 +74,12 @@ public class PlayerRegistration : MonoBehaviour {
         Assert.IsNull(main);
         main = this;
         Assert.IsTrue(pressStartPrompts.Length == numPlayers);
+
+        // clear out all registered players on scene start (incase moved back to here with back button)
+        RegisteredPlayer[] playerObjects = FindObjectsOfType<RegisteredPlayer>();
+        for(int i = 0; i < playerObjects.Length; ++i) {
+            Destroy(playerObjects[i].gameObject);
+        }
     }
 
     void OnDestroy() {
@@ -306,9 +313,14 @@ public class PlayerRegistration : MonoBehaviour {
             }
         }
 
-        continuePrompt.SetActive(ready == currentPlayers);
+        continuePrompt.enabled = ready != 0 && ready == currentPlayers;
+        if (requireMaxPlayerCount && ready != numPlayers) {
+            continuePrompt.text = "Waiting for " + numPlayers + " players";
+        } else {
+            continuePrompt.text = "Press start to continue";
+        }
 
-        if (PhotonNetwork.isMasterClient && ready != 0 && ready == currentPlayers && hasMasterPlayer) {
+        if (PhotonNetwork.isMasterClient && hasMasterPlayer && ready != 0 && ready == currentPlayers) {
             if (!requireMaxPlayerCount || ready == numPlayers) {
                 // check if any player hit submit this frame
                 for (int i = 0; i < possibleBindings.Length; ++i) {

@@ -4126,7 +4126,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1794758969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4147,7 +4147,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1794758968}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
@@ -4261,7 +4261,7 @@ Prefab:
         type: 2}
       propertyPath: continuePrompt
       value: 
-      objectReference: {fileID: 1794758968}
+      objectReference: {fileID: 1794758970}
     - target: {fileID: 114000011249166826, guid: 165651d3cf48f954c8be33449e450713,
         type: 2}
       propertyPath: requireMaxPlayerCount
