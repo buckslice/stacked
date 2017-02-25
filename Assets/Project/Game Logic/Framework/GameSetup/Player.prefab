@@ -1519,6 +1519,7 @@ MonoBehaviour:
   dmg: {fileID: 114000013047688542}
   stck: {fileID: 114000012755470936}
   gc: {fileID: 114490013616476006}
+  holder: {fileID: 114000010911628036}
 --- !u!114 &114900697442567548
 MonoBehaviour:
   m_ObjectHideFlags: 1

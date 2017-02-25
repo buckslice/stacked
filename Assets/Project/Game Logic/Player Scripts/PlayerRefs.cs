@@ -12,5 +12,5 @@ public class PlayerRefs : MonoBehaviour {
     public Damageable dmg;
     public Stackable stck;
     public GroundedChecker gc;
-
+    public DamageHolder holder;
 }

@@ -178,8 +178,8 @@ public class IceBoss : MonoBehaviour {
             for (int i = 0; i < iceShards.Count; ++i) {
                 Vector3 shardPos = iceShards[i].position;
                 shardPos.y += Time.deltaTime * 2.5f;
-                if (shardPos.y > 0.0f) {
-                    shardPos.y = 0.0f;
+                if (shardPos.y > -1.0f) {
+                    shardPos.y = -1.0f;
                 }
                 iceShards[i].position = shardPos;
             }
@@ -188,12 +188,17 @@ public class IceBoss : MonoBehaviour {
     }
 
     // moves down and destroys ice shards
+    float[] randomShardSpeeds = new float[32];
     IEnumerator DestroyShardsRoutine() {
+        for (int i = 0; i < iceShards.Count; ++i) {
+            randomShardSpeeds[i] = Random.Range(4.0f, 10.0f);
+        }
+
         float t = 0.0f;
-        while (t < 1.0f) {
+        while (t < 3.0f) {
             for (int i = 0; i < iceShards.Count; ++i) {
                 Vector3 shardPos = iceShards[i].position;
-                shardPos.y -= Time.deltaTime * 10.0f;
+                shardPos.y -= Time.deltaTime * randomShardSpeeds[i];
                 iceShards[i].position = shardPos;
             }
             t += Time.deltaTime;
@@ -244,7 +249,7 @@ public class IceBoss : MonoBehaviour {
         float t = 0.0f;
         Coroutine moveUpShardsRoutine = StartCoroutine(MoveUpShardsRoutine());
 
-        bool brokeOut = false;
+        bool everyoneEscaped = false;
         while (t < 1.0f) {
             t += Time.deltaTime / iceCircleDuration;
             if (t > nextSpawnTime) {
@@ -252,8 +257,18 @@ public class IceBoss : MonoBehaviour {
 
                 Vector3 spawn = transform.position;
                 spawn.y = -10.0f;
-                Quaternion rot = Quaternion.Euler(0.0f, transform.rotation.eulerAngles.y + 90.0f, 0.0f);
+                // set ice shard to be 90 degrees from bosses current angle
+                Vector3 eulers = new Vector3(0.0f, transform.rotation.eulerAngles.y + 90.0f, 0.0f);
+                // add some randomness to each shard
+                eulers += new Vector3(Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f), Random.Range(-5.0f, 5.0f));
+                Quaternion rot = Quaternion.Euler(eulers);
+
                 GameObject iceShard = Instantiate(iceShardPrefab, spawn, rot);
+                // add some randomness to x and z scale as well
+                Vector3 scale = iceShard.transform.localScale;
+                scale.x += Random.value;
+                scale.z -= Random.value;
+                iceShard.transform.localScale = scale;
                 iceShards.Add(iceShard.transform);
 
                 mandibles.PlaySound();
@@ -265,7 +280,7 @@ public class IceBoss : MonoBehaviour {
             // if not then quit this sequence early
             FindAlivePlayersNear(ccenter.position, circleRadius + 1.0f);
             if (players.Count == 0) {
-                brokeOut = true;
+                everyoneEscaped = true;
                 StopCoroutine(moveUpShardsRoutine);
                 StartCoroutine(DestroyShardsRoutine());
                 break;
@@ -279,20 +294,25 @@ public class IceBoss : MonoBehaviour {
         t = 0.0f;
         Vector3 start = transform.position;
         Quaternion startRot = transform.localRotation;
+        float lerpTime = 1.0f;
+        if (!everyoneEscaped) {
+            lerpTime = 2.0f;
+            camShaker.screenShake(0.3f, lerpTime); // HERE COMES GRUBBY
+        }
         while (t < 1.0f) {
             transform.position = Vector3.Lerp(start, ccenter.position - ccenter.forward * 4.0f, t);
             transform.localRotation = Quaternion.Slerp(startRot, Quaternion.identity, t);
-            t += Time.deltaTime / 2.0f;
+            t += Time.deltaTime / lerpTime;
 
             yield return null;
         }
 
-        if (!brokeOut) {    // only check if you didnt break out early
+        if (!everyoneEscaped) {
             // find all players inside circle and eat them
             FindAlivePlayersNear(ccenter.position, circleRadius + 1.0f);
             if (players.Count > 0) {
                 playerRefs.Clear();
-                for(int i = 0; i < players.Count; ++i) {
+                for (int i = 0; i < players.Count; ++i) {
                     PlayerRefs pr = players[i].Holder.GetComponent<PlayerRefs>();
                     pr.dmg.Damage(1000.0f);
                     playerRefs.Add(pr);
@@ -324,11 +344,10 @@ public class IceBoss : MonoBehaviour {
         burrowingParticles.Stop();
         StopCoroutine(trapPlayerRoutine);
 
-        // move somewhere random
-        if (!prefs.stck.Stacked) {   // only reenable movement input if not stacked
+        if (prefs.stck.elevationInStack() == 0) {   // only set to not kinematic if not stacked
             prefs.rb.isKinematic = false;
-            prefs.pm.MovementInputEnabled.RemoveModifier(false);
         }
+        prefs.pm.MovementInputEnabled.RemoveModifier(false);
         SetImmune(false);
         agent.enabled = true;
         mandibles.autoSound = true;
@@ -363,17 +382,6 @@ public class IceBoss : MonoBehaviour {
     IEnumerator EatSequence(Collider eatenPlayerCol) { // given the players collider gameObject
         agent.ResetPath();   // stop traveling current path (CUZ ITS TIME TO FEAST EYEASSSS)
 
-        // find nearby players who arent player being eaten and knock them away
-        int count = Physics.OverlapSphereNonAlloc(transform.position, 10.0f, overLaps, playerLayer.value);
-        for (int i = 0; i < count; ++i) {
-            if (overLaps[i] != eatenPlayerCol) { // skip player being eaten
-                PlayerRefs pr = overLaps[i].GetComponentInParent<PlayerRefs>();
-                if (pr.stck.elevationInStack() == 0) { // only need to knock away bottom of stack
-                    StartCoroutine(KnockAway(pr, false));
-                }
-            }
-        }
-
         PlayerRefs prefs = eatenPlayerCol.GetComponentInParent<PlayerRefs>();
 
         // disable and freeze player
@@ -384,6 +392,17 @@ public class IceBoss : MonoBehaviour {
         prefs.transform.localPosition = Vector3.up * -0.5f;
         prefs.stck.RemoveSelf();
         prefs.rb.isKinematic = true;
+
+        // find other nearby players and knock them away
+        FindAlivePlayersNear(transform.position, 8.0f);
+        for (int i = 0; i < players.Count; ++i) {
+            if (prefs.holder != players[i].Holder) {    // skip player being eaten
+                PlayerRefs pr = players[i].Holder.GetComponent<PlayerRefs>();
+                if (pr.stck.elevationInStack() == 0) {  // only knock away bottom of stack
+                    StartCoroutine(KnockAway(pr, false));
+                }
+            }
+        }
 
         Coroutine lockPlayerRoutine = StartCoroutine(LockPlayerLocal(prefs.transform, Vector3.up * -0.5f));
 
@@ -442,15 +461,15 @@ public class IceBoss : MonoBehaviour {
 
     // fills player list with people close enough to point
     // used in ice circle function
-    void FindAlivePlayersNear(Vector3 point, float rad) {
+    void FindAlivePlayersNear(Vector3 point, float rad, float maxYDiff = 8.0f) {
         FindAlivePlayers();
         for (int i = 0; i < players.Count; ++i) {
             Vector3 playerPos = players[i].Holder.transform.position;
-            if (playerPos.y > 8.0f) {
+            if (Mathf.Abs(point.y - playerPos.y) > maxYDiff) {
                 players.RemoveAt(i--);
                 continue;
             }
-            playerPos.y = 0.0f;
+            point.y = playerPos.y = 0.0f;
             if ((point - playerPos).sqrMagnitude > rad * rad) {
                 players.RemoveAt(i--);
             }
@@ -526,7 +545,7 @@ public class IceBoss : MonoBehaviour {
     // routine meant to force a player to stay at target position
     // until they are either picked up or coroutine is killed
     IEnumerator TrapPlayer(Stackable stackable, Vector3 target) {
-        while (!stackable.Stacked) {
+        while (stackable.elevationInStack() == 0) { // as soon as they are picked up this disables
             stackable.transform.position = Vector3.Lerp(stackable.transform.position, target, Time.deltaTime * 10.0f);
             yield return null;
         }
