@@ -28,15 +28,18 @@ public class IceBoss : MonoBehaviour {
 
     float timeSinceLastIceCircle = 0.0f;
     float nextTargetTimer = 2.0f;
-    bool iceCircling = false;
-    bool eatingSomeOne = false;
 
-    Collider[] overLapCols = new Collider[16];  // for overlaps sphere checks
+    State state = State.INTRO;
+
+    Collider[] overLaps = new Collider[16];  // for overlaps sphere checks
 
     enum State {
+        INTRO,
+        IDLE,
         EATING,
         CIRCLING,
         SEARCHING,
+        CHARGING,
     }
 
     // Use this for initialization
@@ -84,43 +87,49 @@ public class IceBoss : MonoBehaviour {
 
         camController.RemoveTargetOverride();
 
-        yield return Yielders.Get(2.0f);
+        state = State.IDLE;
+        yield return Yielders.Get(1.0f);
 
         SetImmune(false);
 
         if (music) {
             music.Play();
         }
-
     }
 
     // Update is called once per frame
     void Update() {
+        if (state == State.INTRO) {
+            return;
+        }
+
         if (timeSinceLastIceCircle < iceCircleTime) {
             timeSinceLastIceCircle += Time.deltaTime;
         }
-        if (timeSinceLastIceCircle >= iceCircleTime && !iceCircling && !eatingSomeOne) {
-            iceCircling = true;
+
+        if (state == State.IDLE && timeSinceLastIceCircle >= iceCircleTime) {
+            state = State.CIRCLING;
             StartCoroutine(IceCircleSequence());
         }
 
-        if (!iceCircling && !eatingSomeOne && agent.isOnNavMesh) {
-            if (agent.remainingDistance <= agent.stoppingDistance) {
-                nextTargetTimer -= Time.deltaTime;
-                if (nextTargetTimer < 0.0f) {
-                    StartCoroutine(FindNextTarget());
-                    nextTargetTimer = 1000.0f;
-                }
-            } else {
+        if (state == State.CHARGING && agent.isOnNavMesh && agent.remainingDistance <= agent.stoppingDistance) {
+            state = State.IDLE;
+        }
 
+        if (state == State.IDLE) {
+            nextTargetTimer -= Time.deltaTime;
+            if (nextTargetTimer < 0.0f) {
+                state = State.SEARCHING;
+                StartCoroutine(FindNextTarget());
+                nextTargetTimer = 1000.0f;
             }
         }
 
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (!eatingSomeOne && !iceCircling && other.CompareTag(Tags.Player)) {
-            eatingSomeOne = true;   // todo: make it let you eat multiple ppl at once
+        if ((state == State.IDLE || state == State.CHARGING) && other.CompareTag(Tags.Player)) {
+            state = State.EATING;
             StartCoroutine(EatSequence(other));
         }
     }
@@ -172,10 +181,10 @@ public class IceBoss : MonoBehaviour {
         while (t < 1.0f) {
             for (int i = 0; i < iceShards.Count; ++i) {
                 Vector3 shardPos = iceShards[i].position;
-                shardPos.y -= Time.deltaTime * 4.0f;
+                shardPos.y -= Time.deltaTime * 10.0f;
                 iceShards[i].position = shardPos;
             }
-            t += Time.deltaTime / 3.0f;
+            t += Time.deltaTime;
             yield return null;
         }
         for (int i = 0; i < iceShards.Count; ++i) {
@@ -198,9 +207,10 @@ public class IceBoss : MonoBehaviour {
 
         PlayerRefs prefs = p.Holder.GetComponent<PlayerRefs>();
 
-        prefs.pm.MovementInputEnabled.AddModifier(false);
-        prefs.rb.isKinematic = true;
         prefs.stackable.RemoveSelf();
+        prefs.pm.MovementInputEnabled.AddModifier(false);
+        prefs.pm.HaltMovement();
+        prefs.rb.isKinematic = true;
 
         Vector2 randCirc = Random.insideUnitCircle.normalized * 15.0f;
         Vector3 centerSpawn = new Vector3(randCirc.x, 0.0f, randCirc.y);
@@ -295,34 +305,41 @@ public class IceBoss : MonoBehaviour {
         StopCoroutine(trapPlayerRoutine);
 
         // move somewhere random
-        prefs.rb.isKinematic = false;
         if (!prefs.stackable.Stacked) {   // only reenable movement input if not stacked
+            prefs.rb.isKinematic = false;
             prefs.pm.MovementInputEnabled.RemoveModifier(false);
         }
         SetImmune(false);
         agent.enabled = true;
         mandibles.autoSound = true;
         timeSinceLastIceCircle = 0.0f;
-        iceCircling = false;
+        state = State.IDLE;
     }
 
-    IEnumerator KnockAwayFromPosition(PlayerMovement player, Vector3 position, float power = 12.0f) {
-        Stackable stackable = player.GetComponent<Stackable>();
-        if (stackable) {
-            stackable.RemoveSelf();
+    IEnumerator KnockAway(PlayerRefs pr, bool random, float power = 12.0f) {
+        if (pr.stackable) {
+            pr.stackable.RemoveSelf();
         }
-        player.MovementInputEnabled.RemoveModifier(true);
+        pr.pm.MovementInputEnabled.AddModifier(false);
+        pr.pm.HaltMovement();
 
         // calculate vector knocking away from boss
-        Vector3 knockDir = (player.transform.position - position).normalized;
-        //stackable.selfRigidbody.velocity = (knockDir + Vector3.up).normalized * power;
+        Vector3 knockDir = Vector3.zero;
+        if (random) {
+            Vector2 rand = Random.insideUnitCircle.normalized;
+            knockDir = new Vector3(rand.x, 0.0f, rand.y);
+        } else {
+            knockDir = (pr.transform.position - transform.position).normalized;
+        }
+
+        pr.rb.velocity = (knockDir + Vector3.up).normalized * power;
 
         // wait for about 2 seconds to land 
         // should probably instead set PlayerMovement to reenable when grounded or something
         yield return Yielders.Get(2.0f);
 
-        if (!stackable.Stacked) {
-            player.MovementInputEnabled.RemoveModifier(false);
+        if (pr.stackable && !pr.stackable.Stacked) {    // dont reenable movement if they are stacked again somehow
+            pr.pm.MovementInputEnabled.RemoveModifier(false);
         }
 
     }
@@ -331,23 +348,27 @@ public class IceBoss : MonoBehaviour {
         agent.ResetPath();   // stop traveling current path (CUZ ITS TIME TO FEAST EYEASSSS)
 
         // find nearby players who arent player being eaten and knock them away
-        //int count = Physics.OverlapSphereNonAlloc(transform.position, 5.0f, overLapCols, playerLayer.value);
-        //for (int i = 0; i < count; ++i) {
-        //    if (overLapCols[i] != eatenPlayerCol) { // skip player being eaten
-        //        PlayerMovement opm = overLapCols[i].GetComponentInParent<PlayerMovement>();
-        //    }
-        //}
+        int count = Physics.OverlapSphereNonAlloc(transform.position, 10.0f, overLaps, playerLayer.value);
+        for (int i = 0; i < count; ++i) {
+            if (overLaps[i] != eatenPlayerCol) { // skip player being eaten
+                Debug.Log("knocking away");
+                StartCoroutine(KnockAway(overLaps[i].GetComponentInParent<PlayerRefs>(), true));
+            }
+        }
 
         PlayerRefs prefs = eatenPlayerCol.GetComponentInParent<PlayerRefs>();
 
         // disable and freeze player
         prefs.pm.MovementInputEnabled.AddModifier(false);
+        prefs.pm.HaltMovement();
+
         prefs.transform.SetParent(mouthParticles.transform.parent);
         prefs.transform.localPosition = Vector3.up * -0.5f;
         prefs.rb.isKinematic = true;
+        prefs.stackable.RemoveSelf();
 
-        //Coroutine lockPlayerRoutine = StartCoroutine(LerpLockPlayer(pm.transform, pm.transform.position));
-
+        //Coroutine lockPlayerRoutine = StartCoroutine(LockPlayerRoutine(prefs.transform, prefs.transform.position));
+        // try to do local position locking instead!!!
         yield return StartCoroutine(ChompRoutine(eatenPlayerCol.GetComponent<Damageable>()));
 
         //StopCoroutine(lockPlayerRoutine);
@@ -361,12 +382,12 @@ public class IceBoss : MonoBehaviour {
         // launch player away
         prefs.rb.isKinematic = false;
         prefs.rb.velocity = (transform.forward + Vector3.up).normalized * 12.0f;
-        eatingSomeOne = false;
+        state = State.IDLE;
 
         yield return Yielders.Get(1.0f);
         mandibles.autoTwitch = true;
-
         yield return Yielders.Get(1.0f);
+
         prefs.pm.MovementInputEnabled.RemoveModifier(false);
 
     }
@@ -424,6 +445,8 @@ public class IceBoss : MonoBehaviour {
         }
 
         nextTargetTimer = 1.0f;
+
+        state = State.CHARGING;
     }
 
     // focus on a transforms position for an amount of time
@@ -477,6 +500,7 @@ public class IceBoss : MonoBehaviour {
     IEnumerator LockPlayerRoutine(Transform player, Vector3 target) {
         while (true) {
             player.position = Vector3.Lerp(player.position, target, Time.deltaTime * 10.0f);
+            //player.localPosition = Vector3.Lerp(player.localPosition, Vector3.zero, Time.deltaTime * 10.0f);
             yield return null;
         }
     }
