@@ -84,7 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010292025714}
   - component: {fileID: 114000011978918956}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: GrabbedObjectHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 222000010096494878}
   - component: {fileID: 114000013854347498}
   - component: {fileID: 114000012599601824}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Revive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -150,7 +150,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000010817643248}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: tombstone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 4000010878201838}
   - component: {fileID: 33000012872316480}
   - component: {fileID: 23000012138254198}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: pCylinder2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4000012660829890}
   - component: {fileID: 65000013992707762}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: DeathMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224000011974408402}
   - component: {fileID: 223000012408697872}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -277,7 +277,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4000011678190840}
-  - component: {fileID: 136000013610558848}
   - component: {fileID: 54000011540002138}
   - component: {fileID: 114000012442423696}
   - component: {fileID: 114000010911628036}
@@ -293,7 +292,8 @@ GameObject:
   - component: {fileID: 114317044193883194}
   - component: {fileID: 114490013616476006}
   - component: {fileID: 114900697442567548}
-  m_Layer: 17
+  - component: {fileID: 114652493298078592}
+  m_Layer: 13
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 224713793520605990}
   - component: {fileID: 222107998705600154}
   - component: {fileID: 114485696785014052}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 224662795255653594}
   - component: {fileID: 222360875237467342}
   - component: {fileID: 114052060046737660}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1501,7 +1501,25 @@ MonoBehaviour:
   isGrounded: 0
   groundLayer:
     serializedVersion: 2
-    m_Bits: 8912896
+    m_Bits: 524288
+--- !u!114 &114652493298078592
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013947083138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ed48baf722ba642bd07bd8b8d1117f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pm: {fileID: 114000012287730970}
+  rb: {fileID: 54000011540002138}
+  col: {fileID: 136000010153934136}
+  dmg: {fileID: 114000013047688542}
+  stck: {fileID: 114000012755470936}
+  gc: {fileID: 114490013616476006}
+  holder: {fileID: 114000010911628036}
 --- !u!114 &114900697442567548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1532,19 +1550,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &136000013610558848
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013947083138}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!212 &212000010048160716
 SpriteRenderer:
   m_ObjectHideFlags: 1

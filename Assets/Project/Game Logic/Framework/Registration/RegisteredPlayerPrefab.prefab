@@ -56,6 +56,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonCheckPrefab: {fileID: 1282014724147502, guid: 26f62a1407d211649950b4195be189cc,
     type: 2}
+  arrowUIPrefab: {fileID: 1403381093211470, guid: d70b8f5fe4695e24db0866ea733c0b27,
+    type: 2}
 --- !u!114 &114000011806856506
 MonoBehaviour:
   m_ObjectHideFlags: 1

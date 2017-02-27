@@ -114,7 +114,9 @@ public class ControllerPlayerInput : IPlayerInput {
     bool initialized = false;
 
     void Initialize() {
-        Assert.IsNull(allControllers[(int)controllerIndex]);
+        // commenting this because it is causing debugger to crash
+        //Assert.IsNull(allControllers[(int)controllerIndex]);
+
         allControllers[(int)controllerIndex] = this;
 
         InputBindings = new Key[7];
@@ -418,6 +420,10 @@ public class ControllerPlayerInput : IPlayerInput {
 
     //Called on update to determine axisUp and axisDown
     void setAxisFlags() {
+        if (axisStates == null) {
+            return;
+        }
+
         string[] allAxes;
         switch (controllerIndex) {
             case PlayerIndex.One:

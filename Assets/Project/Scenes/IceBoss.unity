@@ -240,7 +240,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 100795713}
   m_LocalRotation: {x: -0.9633645, y: 0.18310283, z: 0.17253035, w: 0.09292734}
-  m_LocalPosition: {x: 18.9, y: 0.88001144, z: 45.10003}
+  m_LocalPosition: {x: 17.49, y: -2.47, z: 44.68}
   m_LocalScale: {x: 21.332848, y: 18.719852, z: 7.121568}
   m_Children: []
   m_Father: {fileID: 193824896}
@@ -373,12 +373,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 1
+  playerID: 2
   playerData:
     basicAttacks: 
-    firstAbilities: 
-    secondAbilities: 
-    abilities: 
+    firstAbilities: 01
+    secondAbilities: 04
+    abilities: 101112
     playerClass: 2
   AIPlayer: 0
   bindings: 0
@@ -1147,12 +1147,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
+  playerID: 1
   playerData:
     basicAttacks: 
-    firstAbilities: 
-    secondAbilities: 
-    abilities: 
+    firstAbilities: 01
+    secondAbilities: 04
+    abilities: 101112
     playerClass: 1
   AIPlayer: 0
   bindings: 0
@@ -1775,10 +1775,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b204da4638091e4093759d22b4d220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 3
+  playerID: 0
   playerData:
     basicAttacks: 
-    firstAbilities: 06
+    firstAbilities: 01
     secondAbilities: 0f
     abilities: 10111206
     playerClass: 0
@@ -2075,7 +2075,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1255188157}
   m_LocalRotation: {x: -0.9118124, y: -0.073959, z: -0.33101562, w: 0.23142353}
-  m_LocalPosition: {x: -31.95, y: 2.7000115, z: 41.72003}
+  m_LocalPosition: {x: -29.99, y: -3.47, z: 39.08}
   m_LocalScale: {x: 21.332851, y: 18.719852, z: 7.1215663}
   m_Children: []
   m_Father: {fileID: 193824896}
@@ -2694,13 +2694,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1581967034}
-  m_LocalRotation: {x: -0.98174775, y: 0.03281357, z: -0.0061644106, w: 0.18723418}
-  m_LocalPosition: {x: -6.78, y: 4.0000114, z: 46.46003}
+  m_LocalRotation: {x: -0.9822464, y: 0.00987365, z: -0.010536012, w: 0.1870391}
+  m_LocalPosition: {x: -7.29, y: -0.68, z: 44.59}
   m_LocalScale: {x: 37.989594, y: 15.147496, z: 4.197485}
   m_Children: []
   m_Father: {fileID: 193824896}
   m_RootOrder: 12
-  m_LocalEulerAnglesHint: {x: -21.545, y: -901.503, z: -535.885}
+  m_LocalEulerAnglesHint: {x: -21.545, y: -901.503, z: -538.562}
 --- !u!1 &1620285833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3426,12 +3426,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 2
+  playerID: 3
   playerData:
     basicAttacks: 
-    firstAbilities: 
-    secondAbilities: 
-    abilities: 
+    firstAbilities: 01
+    secondAbilities: 04
+    abilities: 101112
     playerClass: 3
   AIPlayer: 0
   bindings: 0

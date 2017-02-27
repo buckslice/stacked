@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerRegistration : MonoBehaviour {
 
@@ -11,24 +12,20 @@ public class PlayerRegistration : MonoBehaviour {
     static PlayerRegistration main;
     public static PlayerRegistration Main { get { return main; } }
 
-    public class RegisteredPlayerGrouping
-    {
+    public class RegisteredPlayerGrouping {
         //TODO: add references to the containing RegisteredPlayerGrouping to its component objects
         public readonly int ownerActorID;
         public readonly int bindingID;
         public readonly RegisteredPlayer registeredPlayer;
         public bool ready = false;
-        public RegisteredPlayerGrouping(int ownerActorID, int bindingID, RegisteredPlayer registeredPlayer)
-        {
+        public RegisteredPlayerGrouping(int ownerActorID, int bindingID, RegisteredPlayer registeredPlayer) {
             this.ownerActorID = ownerActorID;
             this.bindingID = bindingID;
             this.registeredPlayer = registeredPlayer;
         }
 
-        public void Destroy()
-        {
-            if (registeredPlayer != null)
-            {
+        public void Destroy() {
+            if (registeredPlayer != null) {
                 MonoBehaviour.Destroy(registeredPlayer.transform.root.gameObject);
             }
         }
@@ -53,7 +50,7 @@ public class PlayerRegistration : MonoBehaviour {
     protected RectTransform[] pressStartPrompts;
 
     [SerializeField]
-    protected GameObject continuePrompt;
+    protected Text continuePrompt;
 
     [SerializeField]
     protected float vibrationDuration = 0.15f;
@@ -70,36 +67,36 @@ public class PlayerRegistration : MonoBehaviour {
     private RegisteredPlayerGrouping[] registeredPlayers;
     public RegisteredPlayerGrouping[] RegisteredPlayers { get { return registeredPlayers; } }
 
-    void Awake()
-    {
+    void Awake() {
         PhotonNetwork.OnEventCall += OnEvent;
         registeredPlayers = new RegisteredPlayerGrouping[numPlayers];
         registeredBindings = new bool[possibleBindings.Length];
         Assert.IsNull(main);
         main = this;
         Assert.IsTrue(pressStartPrompts.Length == numPlayers);
+
+        // clear out all registered players on scene start (incase moved back to here with back button)
+        RegisteredPlayer[] playerObjects = FindObjectsOfType<RegisteredPlayer>();
+        for(int i = 0; i < playerObjects.Length; ++i) {
+            Destroy(playerObjects[i].gameObject);
+        }
     }
 
-    void OnDestroy()
-    {
+    void OnDestroy() {
         PhotonNetwork.OnEventCall -= OnEvent;
         main = null;
     }
 
-    int getFirstAvailablePlayerID()
-    {
-        for (int i = 0; i < numPlayers; i++)
-        {
-            if (registeredPlayers[i] == null)
-            {
+    int getFirstAvailablePlayerID() {
+        for (int i = 0; i < numPlayers; i++) {
+            if (registeredPlayers[i] == null) {
                 return i;
             }
         }
         return -1;
     }
 
-    void sendRegistrationRequest(byte bindingID)
-    {
+    void sendRegistrationRequest(byte bindingID) {
         //Send request to master client
         RaiseEventOptions options = new RaiseEventOptions();
         options.Receivers = ReceiverGroup.MasterClient;
@@ -108,8 +105,7 @@ public class PlayerRegistration : MonoBehaviour {
         R41DNetworking.RaiseEvent((byte)Tags.EventCodes.REQUESTREGISTRATION, bindingID, true, options);
     }
 
-    void sendRegistrationResponse(byte bindingID, byte playerID, byte owningClientActorID)
-    {
+    void sendRegistrationResponse(byte bindingID, byte playerID, byte owningClientActorID) {
         byte[] payloadData = new byte[3];
         payloadData[0] = bindingID;
         payloadData[1] = playerID;
@@ -125,20 +121,15 @@ public class PlayerRegistration : MonoBehaviour {
         R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEREGISTRATION, payloadData, true, options);
     }
 
-    void receiveRegistrationRequest(byte bindingID, byte owningClientActorID)
-    {
-        if (!PhotonNetwork.isMasterClient)
-        {
+    void receiveRegistrationRequest(byte bindingID, byte owningClientActorID) {
+        if (!PhotonNetwork.isMasterClient) {
             Debug.LogError("Only the master client should receive requestRegistration events");
             return;
         }
 
-        for (int i = 0; i < numPlayers; i++)
-        {
-            if (registeredPlayers[i] != null)
-            {
-                if (registeredPlayers[i].bindingID == bindingID && registeredPlayers[i].ownerActorID == owningClientActorID)
-                {
+        for (int i = 0; i < numPlayers; i++) {
+            if (registeredPlayers[i] != null) {
+                if (registeredPlayers[i].bindingID == bindingID && registeredPlayers[i].ownerActorID == owningClientActorID) {
                     //already registered
                     return;
                 }
@@ -146,8 +137,7 @@ public class PlayerRegistration : MonoBehaviour {
         }
 
         int playerID = getFirstAvailablePlayerID();
-        if (playerID < 0)
-        {
+        if (playerID < 0) {
             //no valid ID
             return;
         }
@@ -190,15 +180,6 @@ public class PlayerRegistration : MonoBehaviour {
             registeredPlayers[playerID] = null;
             pressStartPrompts[playerID].gameObject.SetActive(true);
 
-            for (int i = 0; i < registeredPlayers.Length; i++) {
-                if (registeredPlayers[i] != null) { //if someone is still registered
-                    continuePrompt.SetActive(true);
-                    return;
-                }
-            }
-
-            //else nobody is still registered
-            continuePrompt.SetActive(false);
         }
     }
 
@@ -235,10 +216,8 @@ public class PlayerRegistration : MonoBehaviour {
         }
     }
 
-    public void OnEvent(byte eventcode, object content, int senderid)
-    {
-        switch (eventcode)
-        {
+    public void OnEvent(byte eventcode, object content, int senderid) {
+        switch (eventcode) {
             case (byte)Tags.EventCodes.REQUESTREGISTRATION:
                 receiveRegistrationRequest(bindingID: (byte)content, owningClientActorID: (byte)senderid);
                 break;
@@ -294,15 +273,10 @@ public class PlayerRegistration : MonoBehaviour {
 
         registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, registeredPlayer);
 
-
         pressStartPrompts[playerId].gameObject.SetActive(false);
-        if (PhotonNetwork.isMasterClient) {
-            continuePrompt.SetActive(true);
-        }
     }
 
-    public void OnPhotonPlayerDisconnected(PhotonPlayer player)
-    {
+    public void OnPhotonPlayerDisconnected(PhotonPlayer player) {
         if (PhotonNetwork.isMasterClient) {
             for (byte i = 0; i < registeredPlayers.Length; i++) {
                 if (registeredPlayers[i] != null && registeredPlayers[i].ownerActorID == player.ID) {
@@ -338,9 +312,23 @@ public class PlayerRegistration : MonoBehaviour {
                 }
             }
         }
-        if (PhotonNetwork.isMasterClient && ready != 0 && ready == currentPlayers&& hasMasterPlayer) {
+
+        continuePrompt.enabled = ready != 0 && ready == currentPlayers;
+        if (requireMaxPlayerCount && ready != numPlayers) {
+            continuePrompt.text = "Waiting for " + numPlayers + " players";
+        } else {
+            continuePrompt.text = "Press start to continue";
+        }
+
+        if (PhotonNetwork.isMasterClient && hasMasterPlayer && ready != 0 && ready == currentPlayers) {
             if (!requireMaxPlayerCount || ready == numPlayers) {
-                SceneManager.LoadScene(nextScene);
+                // check if any player hit submit this frame
+                for (int i = 0; i < possibleBindings.Length; ++i) {
+                    if (possibleBindings[i].getSubmitDown) {
+                        SceneManager.LoadScene(nextScene);
+                        break;
+                    }
+                }
             }
         }
     }

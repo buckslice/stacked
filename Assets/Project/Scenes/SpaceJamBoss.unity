@@ -801,10 +801,10 @@ MonoBehaviour:
   spawnPoint: {fileID: 282661869}
   playerSpawnPoints: []
   bossData:
-  - bossID: 1
-    sceneName: Derek
+  - bossID: 9
+    sceneName: SpaceJamBoss
     bossName: Boss
-    abilities: 0b0206
+    abilities: 0b06
 --- !u!1001 &1826589521
 Prefab:
   m_ObjectHideFlags: 0
