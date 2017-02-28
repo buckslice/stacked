@@ -27,6 +27,8 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
     EntityUIGroup entityGroup;
     public EntityUIGroup EntityGroup { get { return entityGroup; } }
 
+    public GameObject statusGroup { get; set; }
+
     UIFollower follower;
 
     void Awake () {
@@ -41,7 +43,7 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
         } else {
             groupTransform = (Instantiate(entityGroupUIPrefab, canvasHelper.floatingHealthBarGroup)).GetComponent<RectTransform>();
             groupTransform.localScale = Vector3.one;
-
+            statusGroup = groupTransform.Find("StatusHolder").gameObject;
             follower = groupTransform.GetComponent<UIFollower>();
             if (follower != null) {
                 Debug.Assert(canvasHelper.scaler, "Need canvas scaler on canvas!");
@@ -89,6 +91,10 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
     public void SetGroupActive(bool active) {
         groupTransform.gameObject.SetActive(active);
         follower.Follow();
+    }
+
+    public void SetStatusActive(bool active) {
+        statusGroup.SetActive(active);
     }
 
     // coroutine that is basically like a 3rd start (to make sure UI object is fully costructed by the time it tries to reorder children)

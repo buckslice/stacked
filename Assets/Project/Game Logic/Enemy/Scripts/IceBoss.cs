@@ -443,6 +443,7 @@ public class IceBoss : MonoBehaviour {
             yield return Yielders.Get(0.2f);
             if (dmg) {  // ok to pass in null just for chomping effect
                 dmg.Damage(7.0f);
+                //dmg.Damage(11.0f);
             }
         }
         mandibles.autoSound = true;
