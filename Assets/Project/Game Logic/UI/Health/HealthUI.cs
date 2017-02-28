@@ -19,8 +19,21 @@ public class HealthUI : MonoBehaviour {
 
         CanvasHelper ch = canvasRoot.GetComponent<CanvasHelper>();
 
-        Object barPrefab = barType == HealthBarType.MINIMAL ? ch.playerHealthBarPrefab : ch.bossHealthBarPrefab;
-        GameObject healthBar = (GameObject)Instantiate(barPrefab, GetComponent<IEntityUIGroupHolder>().EntityGroup.HealthBarHolder);
+        GameObject barPrefab = null;
+        switch (barType) {
+            case HealthBarType.MINIMAL:
+                barPrefab = ch.playerHealthBarPrefab;
+                break;
+            case HealthBarType.REGULAR:
+                barPrefab = ch.regularHealthBarPrefab;
+                break;
+            case HealthBarType.BOSS:
+                barPrefab = ch.bossHealthBarPrefab;
+                break;
+
+        }
+
+        GameObject healthBar = Instantiate(barPrefab, GetComponent<IEntityUIGroupHolder>().EntityGroup.HealthBarHolder);
 
         (healthBar.transform as RectTransform).Reset();
         bar = healthBar.GetComponent<HealthBar>();

@@ -39,7 +39,8 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
         Assert.IsNotNull(canvasHelper);
 
         if (anchorType == AnchorType.CORNERS) {
-            groupTransform = (Instantiate(entityGroupUIPrefab, canvasHelper.transform)).GetComponent<RectTransform>();
+            groupTransform = (Instantiate(entityGroupUIPrefab, canvasHelper.transform, false)).GetComponent<RectTransform>();
+            //groupTransform.offsetMax = Vector2.zero;
         } else {
             groupTransform = (Instantiate(entityGroupUIPrefab, canvasHelper.floatingHealthBarGroup)).GetComponent<RectTransform>();
             groupTransform.localScale = Vector3.one;
@@ -90,7 +91,9 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
 
     public void SetGroupActive(bool active) {
         groupTransform.gameObject.SetActive(active);
-        follower.Follow();
+        if (follower) {
+            follower.Follow();
+        }
     }
 
     public void SetStatusActive(bool active) {

@@ -11,6 +11,7 @@ public enum AnchorType {
 
 public enum HealthBarType {
     MINIMAL,
+    REGULAR,
     BOSS,
 };
 

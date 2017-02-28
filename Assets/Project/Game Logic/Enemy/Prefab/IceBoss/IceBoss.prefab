@@ -1073,10 +1073,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2c391354431d034d807b44860098975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  anchorType: 1
+  anchorType: 0
   offsetType: 2
-  offset: {x: 0, y: 2.5, z: 0}
-  entityGroupUIPrefab: {fileID: 1000012624939888, guid: a6941f697b2cabd489c924587530801e,
+  offset: {x: 0, y: 0, z: 0}
+  entityGroupUIPrefab: {fileID: 1190039903423240, guid: 1cf5931167304c9429478dcbdcb9ad70,
     type: 2}
 --- !u!114 &114265902419285130
 MonoBehaviour:
@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd2495d9e5c95e546a815b22270a9bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barType: 1
+  barType: 2
 --- !u!114 &114395910988116586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1197,8 +1197,6 @@ MonoBehaviour:
   burrowingParticles: {fileID: 198781821696466386}
   mouthParticles: {fileID: 198938521756928130}
   damageable: {fileID: 114587912473631702}
-  iceCircleTime: 20
-  iceCircleDuration: 10
   iceCircleCenterPrefab: {fileID: 1937432664916456, guid: 0f6cceb31d9afa44eaccfc8cf6ea6bc5,
     type: 2}
   iceShardPrefab: {fileID: 1815583028500644, guid: 58894ad62a0042944a6647a25ed83d2e,
