@@ -6,14 +6,13 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Collider))]
 public class PressurePlateTrigger : MonoBehaviour, IUntargetedAbilityTrigger {
 
-    [SerializeField]
-    protected int requiredHeight = 4;
+    public bool requiresAllPlayers = true; // by default require every player to stack, else just one
 
     void OnTriggerStay(Collider col) {
         Stackable stackable = col.GetComponentInParent<Stackable>();
         if (stackable == null) { return; }
 
-        if(stackable.topmost.elevationInStack() >= requiredHeight - 1) {
+        if(!requiresAllPlayers || stackable.topmost.elevationInStack() >= Player.Players.Count - 1) {
             abilityTriggerEvent();
         }
     }

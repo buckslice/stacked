@@ -2080,7 +2080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bba40be536af04c9127e1fff401646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredHeight: 1
+  requiresAllPlayers: 0
 --- !u!114 &620136788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2901,7 +2901,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91bba40be536af04c9127e1fff401646, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredHeight: 4
+  requiresAllPlayers: 1
 --- !u!114 &1021097270
 MonoBehaviour:
   m_ObjectHideFlags: 0
