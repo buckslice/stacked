@@ -67,10 +67,9 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
 
     public virtual void Grab(Stackable target) {
         Assert.IsTrue(target.below == null);
-        // if two players try to grab eachother during same frame
-        // one will grab the other successfully, but the other will still try to grab the first
-        // causes infinite loops with changeEvent propagation (so double check that you have no below)
 
+        // double check to make sure the person you are trying to grab is not
+        // already in your stack (to avoid infinite loop changeEvent propagation)
         Stackable iteration = bottommost;
         while (iteration.above != null) {
             if(iteration == target) {
