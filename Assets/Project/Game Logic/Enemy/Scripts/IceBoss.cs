@@ -90,7 +90,6 @@ public class IceBoss : MonoBehaviour {
         camController.RemoveTargetOverride();
 
         state = State.IDLE;
-        yield return Yielders.Get(1.0f);
 
         SetImmune(false);
 

@@ -61,7 +61,9 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
             if (player == null) {
                 player = (Player)GetComponent<IDamageHolder>().DamageTracker;
             }
-            PositionPlayerEntityGroup(groupTransform, player.PlayerID);
+            if (player == null) {
+                PositionPlayerEntityGroup(groupTransform, player.PlayerID);
+            }
         }
     }
 
