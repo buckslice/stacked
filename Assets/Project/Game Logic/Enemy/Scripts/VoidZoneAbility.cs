@@ -11,37 +11,22 @@ public class VoidZoneAbility : DurationAbilityAction {
 
     BossAggro boss;
 
-    Transform bossArms;
-    ParticleSystem[] armParticles = null;
-    Coroutine armsAnimRoutine = null;
-
     protected override void Start() {
         base.Start();
         boss = GetComponentInParent<BossAggro>();
-        Assert.IsNotNull(boss);
-        bossArms = boss.transform.Find("Arms");
-        if (bossArms) {
-            armParticles = bossArms.GetComponentsInChildren<ParticleSystem>();
-        }
     }
 
     protected override void OnDurationBegin() {
-        boss.ShouldChase.AddModifier(false);
-        spawnedZones = 0;
-
-        if (armsAnimRoutine != null) {
-            StopCoroutine(armsAnimRoutine);
+        if (boss) {
+            boss.ShouldChase.AddModifier(false);
         }
-        //armsAnimRoutine = StartCoroutine(armAnim(true));
+        spawnedZones = 0;
     }
 
     protected override void OnDurationEnd() {
-        boss.ShouldChase.RemoveModifier(false);
-
-        if (armsAnimRoutine != null) {
-            StopCoroutine(armsAnimRoutine);
+        if (boss) {
+            boss.ShouldChase.RemoveModifier(false);
         }
-        //armsAnimRoutine = StartCoroutine(armAnim(false));
     }
 
     protected override void OnDurationTick(float lerpProgress) {
@@ -78,33 +63,4 @@ public class VoidZoneAbility : DurationAbilityAction {
         OnDurationEnd();
     }
 
-    IEnumerator armAnim(bool raise) {
-        if (bossArms == null || armParticles == null) {
-            yield break;
-        }
-
-        // if hands going down then stop particles before arms move
-        if (!raise) {
-            for (int i = 0; i < armParticles.Length; ++i) {
-                armParticles[i].Stop();
-            }
-        }
-
-        float t = 0.0f;
-        while (t < 1.0f) {
-            t += Time.deltaTime;
-            Vector3 rot = bossArms.rotation.eulerAngles;
-            rot.x = Mathf.Lerp(raise ? 0.0f : -90.0f, raise ? -90.0f : 0.0f, t);
-            bossArms.rotation = Quaternion.Euler(rot);
-            yield return null;
-        }
-
-        // if hands going up then start particles after arms move
-        if (raise) {
-            for (int i = 0; i < armParticles.Length; ++i) {
-                armParticles[i].Play();
-            }
-        }
-
-    }
 }

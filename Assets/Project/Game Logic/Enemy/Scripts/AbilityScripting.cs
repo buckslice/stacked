@@ -39,11 +39,16 @@ public class AbilityScripting : MonoBehaviour {
     }
 
     void Update() {
-        while(cycleEvents.Count > 0 && Time.time >= cycleEvents.Peek().outputTime) {
-            events[cycleEvents.Dequeue().data].Trigger.Trigger();
+        while (cycleEvents.Count > 0 && Time.time >= cycleEvents.Peek().outputTime) {
+            TriggerEvent te = events[cycleEvents.Dequeue().data];
+            if (te.Trigger == null) {
+                Debug.LogWarning("TriggerEvent with null Trigger - Derek help");
+            } else {
+                te.Trigger.Trigger();
+            }
         }
 
-        if(Time.time >= cycleStartTime + cycleLength) {
+        if (Time.time >= cycleStartTime + cycleLength) {
             Assert.IsTrue(cycleEvents.Count == 0);
             cycleStartTime += cycleLength;
             initializeCycle();

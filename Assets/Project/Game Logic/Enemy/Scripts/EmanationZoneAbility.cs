@@ -13,16 +13,19 @@ public class EmanationZoneAbility : DurationAbilityAction {
     protected override void Start() {
         base.Start();
         boss = GetComponentInParent<BossAggro>();
-        Assert.IsNotNull(boss);
     }
 
     protected override void OnDurationBegin() {
-        boss.ShouldChase.AddModifier(false);
+        if (boss) {
+            boss.ShouldChase.AddModifier(false);
+        }
         spawnedZones = 0;
     }
 
     protected override void OnDurationEnd() {
-        boss.ShouldChase.RemoveModifier(false);
+        if (boss) {
+            boss.ShouldChase.RemoveModifier(false);
+        }
     }
 
     protected override void OnDurationTick(float lerpProgress) {

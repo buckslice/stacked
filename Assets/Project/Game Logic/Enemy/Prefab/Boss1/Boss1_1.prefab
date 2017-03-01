@@ -21,9 +21,7 @@ GameObject:
   - component: {fileID: 4000013346805066}
   - component: {fileID: 136000013413118170}
   - component: {fileID: 54000010205723784}
-  - component: {fileID: 195000013230515066}
   - component: {fileID: 114000011946199656}
-  - component: {fileID: 114000010127726912}
   - component: {fileID: 114000012840221916}
   - component: {fileID: 114000013237057724}
   - component: {fileID: 114000012959983334}
@@ -505,7 +503,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010035444456}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.0177, y: -0.9499998, z: -10.544689}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4000014080152210}
@@ -814,21 +812,6 @@ MonoBehaviour:
     baseValue: 10
   angleToTraverse: -360
   rotationUp: {x: 0, y: 1, z: 0}
---- !u!114 &114000010127726912
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010035444456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54e5844a67182d44c83ff7b9c078ce05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shouldChase:
-    baseValue: 0
-  shouldMove:
-    baseValue: 0
 --- !u!114 &114000010277982498
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1726,26 +1709,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!195 &195000013230515066
-NavMeshAgent:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010035444456}
-  m_Enabled: 1
-  m_Radius: 1.5
-  m_Speed: 0.5
-  m_Acceleration: 16
-  avoidancePriority: 50
-  m_AngularSpeed: 360
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!198 &198000010267874146
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -1754,7 +1717,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1000013015155648}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 0
   playOnAwake: 1

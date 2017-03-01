@@ -306,12 +306,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 1
+  playerID: 2
   playerData:
     basicAttacks: 
     firstAbilities: 
     secondAbilities: 
-    abilities: 
+    abilities: 101112
     playerClass: 2
   AIPlayer: 0
   bindings: 0
@@ -1013,12 +1013,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 0
+  playerID: 1
   playerData:
     basicAttacks: 
     firstAbilities: 
     secondAbilities: 
-    abilities: 
+    abilities: 101112
     playerClass: 1
   AIPlayer: 0
   bindings: 0
@@ -1341,7 +1341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b204da4638091e4093759d22b4d220d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 3
+  playerID: 0
   playerData:
     basicAttacks: 
     firstAbilities: 0f
@@ -1720,12 +1720,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4cbd1a6e45dc2d4eb98fa5b8287b2cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerID: 2
+  playerID: 3
   playerData:
     basicAttacks: 
     firstAbilities: 
     secondAbilities: 
-    abilities: 
+    abilities: 101112
     playerClass: 3
   AIPlayer: 0
   bindings: 0

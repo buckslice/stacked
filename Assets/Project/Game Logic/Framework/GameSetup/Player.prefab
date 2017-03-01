@@ -887,7 +887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc96c91648300444893e98b908ff6648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distancePerCycle: 2
+  distancePerCycle: 3
   height:
     serializedVersion: 2
     m_Curve:
@@ -1133,7 +1133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed:
-    baseValue: 6
+    baseValue: 8
   rotationSpeedDegrees:
     baseValue: 360
   acceleration:

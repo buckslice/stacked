@@ -3,7 +3,8 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(IMovement))] //not strictly required, but exists in all use cases I can think of
+// rock boss doesnt need to move (removing boss aggro and other stuff)
+//[RequireComponent(typeof(IMovement))] //not strictly required, but exists in all use cases I can think of
 [RequireComponent(typeof(Rigidbody))]
 public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
 
@@ -69,10 +70,17 @@ public class Stackable : MonoBehaviour, IEnumerable<Stackable> {
         // if two players try to grab eachother during same frame
         // one will grab the other successfully, but the other will still try to grab the first
         // causes infinite loops with changeEvent propagation (so double check that you have no below)
-        if (below != null) {
-            return;
+
+        Stackable iteration = bottommost;
+        while (iteration.above != null) {
+            if(iteration == target) {
+                Debug.LogWarning("Trying to grab someone already in your stack!");
+                return;
+            }
+            iteration = iteration.above;
+            iteration.changeEvent();
         }
-        
+
         if(above != null) {
             Stackable detached = above;
             DisconnectGrabbed();
