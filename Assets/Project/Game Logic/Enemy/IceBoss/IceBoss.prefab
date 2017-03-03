@@ -1201,6 +1201,8 @@ MonoBehaviour:
     type: 2}
   iceShardPrefab: {fileID: 1815583028500644, guid: 58894ad62a0042944a6647a25ed83d2e,
     type: 2}
+  iciclePrefab: {fileID: 1245739834809832, guid: 95b0a647caa521d458a4a990e3c4462f,
+    type: 2}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8192
@@ -1237,7 +1239,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1942664508272830}
   m_Enabled: 1
   m_Radius: 2
-  m_Speed: 16
+  m_Speed: 18
   m_Acceleration: 100
   avoidancePriority: 50
   m_AngularSpeed: 720

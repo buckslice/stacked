@@ -11,11 +11,12 @@ public class IceBoss : MonoBehaviour {
 
     public Damageable damageable;
 
-    float iceCircleTime = 20.0f;     // time between phases
-    float iceCircleDuration = 10.0f; // how long phase lasts
+    const float iceCircleTime = 20.0f;     // time between phases
+    const float iceCircleDuration = 10.0f; // how long phase lasts
 
     public GameObject iceCircleCenterPrefab;
     public GameObject iceShardPrefab;
+    public GameObject iciclePrefab;
 
     public LayerMask playerLayer;
 
@@ -25,6 +26,8 @@ public class IceBoss : MonoBehaviour {
     NavMeshAgent agent;
     AudioSource source;
     AudioSource music;
+
+    bool shouldIcicles = true; // every other time after ice circle. spawn some icicles
 
     float timeSinceLastIceCircle = 0.0f;
     float nextTargetTimer = 2.0f;
@@ -85,7 +88,7 @@ public class IceBoss : MonoBehaviour {
 
         camController.SetTargetOverride(new Vector3(-10, 18, -6));
 
-        yield return StartCoroutine(BurrowRoutine(true, 4.0f)); // 4
+        yield return StartCoroutine(BurrowRoutine(true, 3.0f)); // 4
 
         camController.RemoveTargetOverride();
 
@@ -350,6 +353,21 @@ public class IceBoss : MonoBehaviour {
         SetImmune(false);
         agent.enabled = true;
         mandibles.autoSound = true;
+
+        // every other time spawn some icicles afterwards
+        if (shouldIcicles) {
+            for (int i = 0; i < 2; ++i) {
+                Vector3 pos = Random.onUnitSphere * 30.0f;
+                pos.y = 20.0f;
+                Quaternion rot = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
+                GameObject go = Instantiate(iciclePrefab, pos, rot);
+                yield return Yielders.Get(1.0f);
+            }
+            shouldIcicles = false;
+        } else {
+            shouldIcicles = true;
+        }
+
         timeSinceLastIceCircle = 0.0f;
         state = State.IDLE;
     }
