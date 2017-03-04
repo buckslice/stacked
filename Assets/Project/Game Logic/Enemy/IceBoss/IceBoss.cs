@@ -363,10 +363,8 @@ public class IceBoss : MonoBehaviour {
                 GameObject go = Instantiate(iciclePrefab, pos, rot);
                 yield return Yielders.Get(1.0f);
             }
-            shouldIcicles = false;
-        } else {
-            shouldIcicles = true;
         }
+        shouldIcicles = !shouldIcicles;
 
         timeSinceLastIceCircle = 0.0f;
         state = State.IDLE;
