@@ -568,6 +568,7 @@ public class IceBoss : MonoBehaviour {
     }
 
     // locks player local position to certain offset
+    // minor bug but for some reason players cant rotate while this is happening?
     IEnumerator LockPlayerLocal(Transform player, Vector3 offset) {
         while (true) {
             player.localPosition = Vector3.Lerp(player.localPosition, offset, Time.deltaTime * 10.0f);

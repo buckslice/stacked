@@ -17,6 +17,7 @@ public class DashAbility : AbstractAbilityAction
     CapsuleCollider coll;
     Rigidbody rigid;
     AbilityNetworking networking;
+    Stackable stackable;
 
     int layermask;
     Coroutine activeRoutine;
@@ -28,11 +29,23 @@ public class DashAbility : AbstractAbilityAction
         rigid = GetComponentInParent<Rigidbody>();
         movement = GetComponentInParent<IMovement>();
         networking = rigid.GetComponent<AbilityNetworking>();
+        stackable = transform.root.GetComponent<Stackable>();
 
         layermask = LayerMask.GetMask(Tags.Layers.StaticGeometry);
     }
 
     public override bool Activate(PhotonStream stream) {
+        if (stackable.Below) {
+            stackable.DisconnectBelow();
+
+            // if we want to exit the stack same way as jumping out works (code untested)
+            //if (stackable.Above) {
+            //    Stackable above = stackable.Above;
+            //    stackable.DisconnectAbove();
+            //    stackable.Below.Grab(above);
+            //}
+        }
+
         Vector3 endPosition;
 
         if (stream.isWriting) {
