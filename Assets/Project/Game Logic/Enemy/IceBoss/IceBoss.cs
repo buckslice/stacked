@@ -242,7 +242,7 @@ public class IceBoss : MonoBehaviour {
 
         transform.SetParent(ccenter);
         const float circleRadius = 10.0f;
-        transform.localPosition = Vector3.right * circleRadius + Vector3.up * -4.0f;
+        transform.localPosition = Vector3.right * circleRadius + Vector3.up * -2.5f;    // -4.0 for old model
         transform.localRotation = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
 
         // raise up shards, surrounding the trapped player
@@ -274,13 +274,13 @@ public class IceBoss : MonoBehaviour {
                 iceShards.Add(iceShard.transform);
 
                 mandibles.PlaySound();
-                mandibles.Twitch(8.0f, 0.1f);
+                mandibles.Twitch(5.0f, 0.1f);
                 mandibles.nextChange = 0.5f;
             }
 
             // check to see if there is at least one player still in range to be eaten
             // if not then quit this sequence early
-            FindAlivePlayersNear(ccenter.position, circleRadius + 1.0f);
+            FindAlivePlayersNear(ccenter.position, circleRadius + 1.0f, 6.0f);
             if (players.Count == 0) {
                 everyoneEscaped = true;
                 StopCoroutine(moveUpShardsRoutine);
@@ -451,10 +451,10 @@ public class IceBoss : MonoBehaviour {
         mouthParticles.Play();
         // BEGIN CHOMPING
         for (int i = 0; i < 10; ++i) {
-            mandibles.Twitch(5.0f, 0.05f);      // close fast
+            mandibles.Twitch(0.0f, 0.05f);      // close fast
             yield return Yielders.Get(0.05f);
             mandibles.PlaySound();
-            mandibles.Twitch(30.0f, 0.2f);      // open slow
+            mandibles.Twitch(40.0f, 0.2f);      // open slow
             yield return Yielders.Get(0.2f);
             if (dmg) {  // ok to pass in null just for chomping effect
                 dmg.Damage(7.0f);

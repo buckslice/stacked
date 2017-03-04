@@ -15,9 +15,15 @@ public class MandibleControl : MonoBehaviour {
 
     AudioSource source;
 
+    Vector3 leftEulers = new Vector3(0, 150, -3);
+    Vector3 rightEulers = new Vector3(-180, 30, -3);
+
     // Use this for initialization
     void Start() {
         source = GetComponent<AudioSource>();
+
+        //leftEulers = left.localRotation.eulerAngles;
+        //rightEulers = right.localRotation.eulerAngles;
     }
 
     // Update is called once per frame
@@ -26,7 +32,7 @@ public class MandibleControl : MonoBehaviour {
         if (autoTwitch) {
             nextChange -= Time.deltaTime;
             if (nextChange < 0.0f) {
-                Twitch(Random.Range(20.0f, 40.0f), Random.value * 0.1f + 0.01f);
+                Twitch(Random.Range(20.0f, 60.0f), Random.value * 0.1f + 0.01f);
                 nextChange = Random.value * 0.5f;
             }
         }
@@ -49,7 +55,7 @@ public class MandibleControl : MonoBehaviour {
         if (mandibleRoutine != null) {
             StopCoroutine(mandibleRoutine);
         }
-        mandibleRoutine = StartCoroutine(TwitchRoutine(angle, time));
+        mandibleRoutine = StartCoroutine(TwitchRoutine(angle+10.0f, time)); // added +10 for new model
     }
 
     Coroutine mandibleRoutine = null;
@@ -61,15 +67,20 @@ public class MandibleControl : MonoBehaviour {
         Quaternion ls = left.localRotation;
         Quaternion rs = right.localRotation;
 
+        Quaternion leftRot = Quaternion.Euler(leftEulers.x, 180.0f - angle, leftEulers.z);
+        Quaternion rightRot = Quaternion.Euler(rightEulers.x, angle, rightEulers.z);
+
         float t = 0.0f;
         while (t < time) {
-            left.localRotation = Quaternion.Lerp(ls, Quaternion.Euler(new Vector3(0, -angle, 0)), t / time);
-            right.localRotation = Quaternion.Lerp(rs, Quaternion.Euler(new Vector3(0, angle, 0)), t / time);
+
+            left.localRotation = Quaternion.Lerp(ls, leftRot, t / time);
+            right.localRotation = Quaternion.Lerp(rs, rightRot, t / time);
 
             t += Time.deltaTime;
             yield return null;
         }
-        left.localRotation = Quaternion.Euler(new Vector3(0, -angle, 0));
-        right.localRotation = Quaternion.Euler(new Vector3(0, angle, 0));
+
+        left.localRotation = leftRot;
+        right.localRotation = rightRot;
     }
 }
