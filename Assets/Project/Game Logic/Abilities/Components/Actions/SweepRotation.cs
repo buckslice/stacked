@@ -23,7 +23,11 @@ public class SweepRotation : DurationAbilityAction {
     }
 
     protected override void OnDurationBegin() {
-        startRotation = rigid.rotation;
+        //startRotation = rigid.rotation;
+        Vector3 eulers = rigid.rotation.eulerAngles;
+        eulers.x = 0.0f;
+        eulers.y = 0.0f;
+        startRotation = Quaternion.Euler(eulers);
         active = true;
     }
 

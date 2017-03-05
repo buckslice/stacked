@@ -21,7 +21,6 @@ public class LoadLevelButton : MonoBehaviour {
 	}
 	
 	public void activate() {
-        Debug.Log("activate");
         R41DNetworking.Main.LoadLevel(levelName);
     }
 
