@@ -40,7 +40,6 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
 
         if (anchorType == AnchorType.CORNERS) {
             groupTransform = (Instantiate(entityGroupUIPrefab, canvasHelper.transform, false)).GetComponent<RectTransform>();
-            //groupTransform.offsetMax = Vector2.zero;
         } else {
             groupTransform = (Instantiate(entityGroupUIPrefab, canvasHelper.floatingHealthBarGroup)).GetComponent<RectTransform>();
             groupTransform.localScale = Vector3.one;
@@ -61,9 +60,8 @@ public class EntityUIGroupHolder : MonoBehaviour, IEntityUIGroupHolder {
             if (player == null) {
                 player = (Player)GetComponent<IDamageHolder>().DamageTracker;
             }
-            if (player == null) {
-                PositionPlayerEntityGroup(groupTransform, player.PlayerID);
-            }
+            PositionPlayerEntityGroup(groupTransform, player.PlayerID);
+
         }
     }
 

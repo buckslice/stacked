@@ -35,7 +35,16 @@ public class HealthUI : MonoBehaviour {
 
         GameObject healthBar = Instantiate(barPrefab, GetComponent<IEntityUIGroupHolder>().EntityGroup.HealthBarHolder);
 
-        (healthBar.transform as RectTransform).Reset();
+        RectTransform rt = healthBar.transform as RectTransform;
+        // kinda weird but doing this so iceboss healthbar outline is visible
+        if (barType == HealthBarType.BOSS) { 
+            rt.localScale = Vector3.one;
+            rt.localRotation = Quaternion.identity;
+            rt.offsetMax = -Vector2.one * 2.0f;
+            rt.offsetMin = Vector2.one * 2.0f;
+        } else {
+            rt.Reset();
+        }
         bar = healthBar.GetComponent<HealthBar>();
 
         /*
