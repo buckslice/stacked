@@ -399,9 +399,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 'IceBoss
-
-    NOT DONE YET'
+  m_Text: Grubulus
 --- !u!222 &306845822
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -916,6 +914,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatingHealthBarGroup: {fileID: 0}
   playerHealthBarPrefab: {fileID: 0}
+  regularHealthBarPrefab: {fileID: 0}
   bossHealthBarPrefab: {fileID: 0}
   scaler: {fileID: 706101881}
 --- !u!114 &706101884
@@ -1250,7 +1249,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -333.10007, y: 132.18}
+  m_AnchoredPosition: {x: -322.2, y: 201.8}
   m_SizeDelta: {x: 150.72, y: 63.83}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1125540641
@@ -1333,8 +1332,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -333.1, y: -208.8}
-  m_SizeDelta: {x: 150.72, y: 63.83}
+  m_AnchoredPosition: {x: -218.7, y: -0.3}
+  m_SizeDelta: {x: 146.1, y: 43.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1128373656
 MonoBehaviour:
@@ -2122,7 +2121,7 @@ ParticleSystem:
   m_GameObject: {fileID: 2027366533}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1

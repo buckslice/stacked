@@ -41,8 +41,6 @@ GameObject:
   - component: {fileID: 114000012889462510}
   - component: {fileID: 114000010726105826}
   - component: {fileID: 114000010425683744}
-  - component: {fileID: 114000013960873718}
-  - component: {fileID: 114000013137783770}
   - component: {fileID: 114000013648335134}
   m_Layer: 0
   m_Name: FlameSweepActivationCounterClockwise
@@ -276,8 +274,6 @@ GameObject:
   - component: {fileID: 114000013013118280}
   - component: {fileID: 114000012799162296}
   - component: {fileID: 114000013797957402}
-  - component: {fileID: 114000012192032982}
-  - component: {fileID: 114000013719173442}
   - component: {fileID: 114000010481844562}
   m_Layer: 0
   m_Name: FlameSweepActivationClockwise
@@ -1127,9 +1123,9 @@ MonoBehaviour:
   targets:
   - target: {fileID: 114000013797957402}
     function: x-0.5
-  - target: {fileID: 114000012192032982}
+  - target: {fileID: 0}
     function: x
-  - target: {fileID: 114000013719173442}
+  - target: {fileID: 0}
     function: x
   - target: {fileID: 114000010481844562}
     function: x
@@ -1193,19 +1189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d2c75f78292d684ba107570f5085b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000012192032982
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013407807106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44a5417778fce6d4d8d73d05e5526759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration:
-    baseValue: 10
 --- !u!114 &114000012253774888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1219,8 +1202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000013797957402}
-  - {fileID: 114000012192032982}
-  - {fileID: 114000013719173442}
   - {fileID: 114000010481844562}
   - {fileID: 114000013013118280}
 --- !u!114 &114000012322177526
@@ -1441,19 +1422,6 @@ MonoBehaviour:
   targetedAbilityActivation:
   - {fileID: 114000013749671856}
   assortedOtherActivations: []
---- !u!114 &114000013137783770
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010629583984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c34201541afa5418b48b2e2cb921cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration:
-    baseValue: 10
 --- !u!114 &114000013177739950
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1508,19 +1476,6 @@ MonoBehaviour:
     baseValue: 10
   angleToTraverse: -360
   rotationUp: {x: 0, y: 1, z: 0}
---- !u!114 &114000013719173442
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013407807106}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c34201541afa5418b48b2e2cb921cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration:
-    baseValue: 10
 --- !u!114 &114000013749671856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1582,8 +1537,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000010425683744}
-  - {fileID: 114000013960873718}
-  - {fileID: 114000013137783770}
   - {fileID: 114000013648335134}
   - {fileID: 114000012889462510}
 --- !u!114 &114000013944563938
@@ -1598,19 +1551,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activePhases: 01000000
---- !u!114 &114000013960873718
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010629583984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44a5417778fce6d4d8d73d05e5526759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration:
-    baseValue: 10
 --- !u!114 &114000014012276778
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1638,9 +1578,9 @@ MonoBehaviour:
   targets:
   - target: {fileID: 114000010425683744}
     function: x-0.5
-  - target: {fileID: 114000013960873718}
+  - target: {fileID: 0}
     function: x
-  - target: {fileID: 114000013137783770}
+  - target: {fileID: 0}
     function: x
   - target: {fileID: 114000013648335134}
     function: x

@@ -95,8 +95,6 @@ GameObject:
   - component: {fileID: 114000011646684476}
   - component: {fileID: 114000010086330308}
   - component: {fileID: 114000013706310680}
-  - component: {fileID: 114000011535092842}
-  - component: {fileID: 114000011968052632}
   - component: {fileID: 114000010542569224}
   m_Layer: 0
   m_Name: FlameSweepActivationCounterClockwise
@@ -210,8 +208,6 @@ GameObject:
   - component: {fileID: 114000011026552350}
   - component: {fileID: 114000014000023902}
   - component: {fileID: 114000010756436488}
-  - component: {fileID: 114000013489932588}
-  - component: {fileID: 114000012683467920}
   - component: {fileID: 114000013174753532}
   m_Layer: 0
   m_Name: FlameSweepActivationClockwise
@@ -860,8 +856,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000013706310680}
-  - {fileID: 114000011535092842}
-  - {fileID: 114000011968052632}
   - {fileID: 114000010542569224}
   - {fileID: 114000011646684476}
 --- !u!114 &114000010756436488
@@ -964,19 +958,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1000014267661886}
   outcomeState: 1
---- !u!114 &114000011535092842
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011326807744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44a5417778fce6d4d8d73d05e5526759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration:
-    baseValue: 10
 --- !u!114 &114000011552717612
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1041,19 +1022,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b63df03a0b1383469eaf48538708582, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000011968052632
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011326807744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c34201541afa5418b48b2e2cb921cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration:
-    baseValue: 10
 --- !u!114 &114000012139087020
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1189,19 +1157,6 @@ MonoBehaviour:
     function: x
   - target: {fileID: 114000010256850024}
     function: x
---- !u!114 &114000012683467920
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013680680448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c34201541afa5418b48b2e2cb921cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration:
-    baseValue: 10
 --- !u!114 &114000012775738284
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1217,9 +1172,9 @@ MonoBehaviour:
   targets:
   - target: {fileID: 114000010756436488}
     function: x-0.5
-  - target: {fileID: 114000013489932588}
+  - target: {fileID: 0}
     function: x
-  - target: {fileID: 114000012683467920}
+  - target: {fileID: 0}
     function: x
   - target: {fileID: 114000013174753532}
     function: x
@@ -1358,23 +1313,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000010756436488}
-  - {fileID: 114000013489932588}
-  - {fileID: 114000012683467920}
   - {fileID: 114000013174753532}
   - {fileID: 114000011026552350}
---- !u!114 &114000013489932588
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013680680448}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44a5417778fce6d4d8d73d05e5526759, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration:
-    baseValue: 10
 --- !u!114 &114000013575442340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1457,9 +1397,9 @@ MonoBehaviour:
   targets:
   - target: {fileID: 114000013706310680}
     function: x-0.5
-  - target: {fileID: 114000011535092842}
+  - target: {fileID: 0}
     function: x
-  - target: {fileID: 114000011968052632}
+  - target: {fileID: 0}
     function: x
   - target: {fileID: 114000010542569224}
     function: x
