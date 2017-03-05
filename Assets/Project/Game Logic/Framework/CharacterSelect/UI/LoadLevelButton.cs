@@ -8,24 +8,20 @@ public class LoadLevelButton : MonoBehaviour {
     [SerializeField]
     protected string levelName = "Derek";
 
-	// Use this for initialization
-	void Start () {
-        string sceneName = SceneManager.GetActiveScene().name;
-#if UNITY_EDITOR
-        if(sceneName != Tags.Scenes.PlayerRegistration && sceneName != Tags.Scenes.CharacterSelect && sceneName != Tags.Scenes.BossSelect && Time.timeSinceLevelLoad < 10) {
-            Debug.LogError("the player shouldn't be able to change scenes right now");
-            //Destroy(this);
-            return;
-        }
-#endif
-	}
+    void FindAndStopAutoActivator() {
+        ActivateButtonAfterTime activator = FindObjectOfType<ActivateButtonAfterTime>();
+        activator.gameObject.SetActive(false);
+    }
 	
 	public void activate() {
+        FindAndStopAutoActivator();
+        Time.timeScale = 1.0f;
         R41DNetworking.Main.LoadLevel(levelName);
     }
 
-    public void loadSameLevel() {
-        Debug.Log("Load Same Level");
-        SceneManager.LoadScene(BossSceneHolder.Main.bossToLoad);
+    public void reloadLevel() {
+        FindAndStopAutoActivator();
+        Time.timeScale = 1.0f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

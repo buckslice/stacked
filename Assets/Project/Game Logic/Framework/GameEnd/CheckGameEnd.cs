@@ -16,6 +16,12 @@ public class CheckGameEnd : MonoBehaviour {
     protected GameObject[] trackedObjects;
 
     public void Update() {
+        if (Input.GetKeyDown(KeyCode.U)) {
+            SceneManager.LoadScene(gameVictoryPopupSceneName, LoadSceneMode.Additive);
+            Destroy(this);
+        }
+
+
         if (Player.AllPlayersDead()) {
             SceneManager.LoadScene(gameDefeatPopupSceneName, LoadSceneMode.Additive);
             Destroy(this);

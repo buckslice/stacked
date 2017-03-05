@@ -3,8 +3,12 @@ using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ActivateButtonAfterTime : MonoBehaviour {
+
+    public Image panel;
+    public Text timerText;
 
     [SerializeField]
     protected float time = 1;
@@ -12,11 +16,29 @@ public class ActivateButtonAfterTime : MonoBehaviour {
     protected float startTime = 0;
 
     void Awake() {
-        startTime = Time.time;
+        startTime = Time.realtimeSinceStartup;
     }
 
     protected virtual void Update() {
-        if (Time.time > startTime + time) {
+        float timeLeft = startTime + time - Time.realtimeSinceStartup;
+
+        // set countdown on text
+        if (timerText) {
+            timerText.text = ((int)(timeLeft + 1)).ToString();
+        }
+
+        // fade out a panel
+        if (panel) {
+            Color c = panel.color;
+            c.a = Mathf.Lerp(0.0f, 1.0f, 1.0f - timeLeft / time);
+            panel.color = c;
+        }
+
+        // slow timescale
+        Time.timeScale = Mathf.Max(0.01f, timeLeft / time);
+
+        if (Time.realtimeSinceStartup > startTime + time) {
+            Time.timeScale = 1.0f;
             SendEvent();
         }
     }
