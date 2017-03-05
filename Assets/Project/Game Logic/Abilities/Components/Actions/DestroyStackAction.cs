@@ -10,7 +10,6 @@ public class DestroyStackAction : TypedTargetedAbilityAction {
     }
 
     public override bool Activate(GameObject target, PhotonStream stream) {
-        Debug.Log(target);
         Stackable stackable = target.GetComponentInParent<Stackable>();
 
         if (stream.isWriting) {

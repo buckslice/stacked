@@ -1204,9 +1204,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityActions:
-  - {fileID: 114000013797957402}
   - {fileID: 114131284570456152}
   - {fileID: 114000010481844562}
+  - {fileID: 114000013797957402}
   - {fileID: 114000013013118280}
 --- !u!114 &114000012322177526
 MonoBehaviour:
@@ -1540,9 +1540,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityActions:
-  - {fileID: 114000010425683744}
   - {fileID: 114827686466984532}
   - {fileID: 114000013648335134}
+  - {fileID: 114000010425683744}
   - {fileID: 114000012889462510}
 --- !u!114 &114000013944563938
 MonoBehaviour:

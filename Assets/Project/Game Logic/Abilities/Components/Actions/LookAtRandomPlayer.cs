@@ -44,19 +44,21 @@ public class LookAtRandomPlayer : MonoBehaviour, IRotation {
                 }
             }
 
-            if (candidates.Count> 1) {
+            if (candidates.Count > 1) {
                 candidates.Remove(target);  // remove curr target so will always change
             }
 
-            target = candidates[UnityEngine.Random.Range(0, candidates.Count)];
-
-            timeTillSwitch = UnityEngine.Random.Range(2.0f, 10.0f);
+            if (candidates.Count > 0) {
+                target = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+                timeTillSwitch = UnityEngine.Random.Range(2.0f, 8.0f);
+            }
         }
 
+        if (target) {
+            Quaternion rot = rigid.rotation;
+            rot = Quaternion.Slerp(rot, Quaternion.LookRotation((target.position - transform.position).normalized), Time.deltaTime);
+            rigid.MoveRotation(rot);
+        }
 
-        Quaternion rot = rigid.rotation;
-        rot = Quaternion.Slerp(rot, Quaternion.LookRotation((target.position - transform.position).normalized), Time.deltaTime);
-        rigid.MoveRotation(rot);
-        
     }
 }

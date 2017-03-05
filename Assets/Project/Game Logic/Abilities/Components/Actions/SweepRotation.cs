@@ -2,7 +2,6 @@
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 
 public class SweepRotation : DurationAbilityAction {
 
@@ -23,11 +22,10 @@ public class SweepRotation : DurationAbilityAction {
     }
 
     protected override void OnDurationBegin() {
-        //startRotation = rigid.rotation;
-        Vector3 eulers = rigid.rotation.eulerAngles;
-        eulers.x = 0.0f;
-        eulers.y = 0.0f;
-        startRotation = Quaternion.Euler(eulers);
+        // give each rock same random y rotation at start
+        Random.InitState((int)Time.time); 
+        startRotation = Quaternion.Euler(0.0f, Random.Range(0.0f, 360.0f), 0.0f);
+        rigid.rotation = startRotation;
         active = true;
     }
 
@@ -47,7 +45,7 @@ public class SweepRotation : DurationAbilityAction {
     }
 
     public override void setValue(float value, BalanceStat.StatType type) {
-        switch(type) {
+        switch (type) {
             case BalanceStat.StatType.ANGLE:
                 angleToTraverse = value;
                 break;
