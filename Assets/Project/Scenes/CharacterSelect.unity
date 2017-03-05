@@ -477,6 +477,7 @@ MonoBehaviour:
   bossData:
     bossID: 0
     sceneName: RockonRockonRockonRock
+    bossName: Boss
     abilities: 00010205
 --- !u!4 &190429763
 Transform:
@@ -1197,6 +1198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floatingHealthBarGroup: {fileID: 0}
   playerHealthBarPrefab: {fileID: 0}
+  regularHealthBarPrefab: {fileID: 0}
   bossHealthBarPrefab: {fileID: 0}
   scaler: {fileID: 566795493}
 --- !u!114 &566795497
@@ -4266,7 +4268,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1643671308}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1

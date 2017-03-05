@@ -11,9 +11,9 @@ public class RegistrationUI : MonoBehaviour {
 
     protected RegistrationUIBar instantiatedRegistrationBar;
 
-    public bool ready { set { instantiatedRegistrationBar.ready = value; } }
+    public bool ready { set { instantiatedRegistrationBar.readyText.enabled = value; } }
 
-	protected virtual void Start () {
+    protected virtual void Start() {
         Transform canvasRoot = GameObject.FindGameObjectWithTag(Tags.CanvasRoot).transform;
         Debug.Assert(canvasRoot, "Scene requires a UI canvas for healthbars!");
 
@@ -22,7 +22,7 @@ public class RegistrationUI : MonoBehaviour {
         instantiatedRegistrationBar = registrationBar.GetComponent<RegistrationUIBar>();
         int playerID = GetComponent<IPlayerID>().PlayerID;
         instantiatedRegistrationBar.PlayerID = playerID;
-	}
+    }
 
     void OnDestroy() {
         if (instantiatedRegistrationBar != null) {

@@ -12,8 +12,7 @@ public class RegistrationUIBar : MonoBehaviour {
     [SerializeField]
     protected Text title;
 
-    [SerializeField]
-    protected Text readyText;
+    public Text readyText;
 
     public Color color {
         set {
@@ -33,7 +32,7 @@ public class RegistrationUIBar : MonoBehaviour {
     }
 
     void Update() {
-        if (readyText.enabled) {
+        if (readyText && readyText.enabled) {
             // triangle wave
             float pos = Mathf.Repeat(Time.time - 0.5f, 0.5f) / 0.5f;
             float t = pos < 0.5f ? Mathf.Lerp(0, 1, pos * 2f) : Mathf.Lerp(1, 0, (pos - .5f) * 2f);
@@ -41,5 +40,4 @@ public class RegistrationUIBar : MonoBehaviour {
         }
     }
 
-    public bool ready { set { readyText.enabled = value; } }
 }
