@@ -1,0 +1,172 @@
+fileFormatVersion: 2
+guid: e72c3660b7397a348b2d98f152a69ede
+timeCreated: 1488840184
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Body
+    100002: botLeftLeg
+    100004: botLeftLeg2
+    100006: botLeftLeg3
+    100008: botLeftLeg4
+    100010: botRightLeg
+    100012: botRightLeg2
+    100014: botRightLeg3
+    100016: botRightLeg4
+    100018: endBody
+    100020: //RootNode
+    100022: head
+    100024: leftFeeler
+    100026: leftFeeler2
+    100028: leftFeeler3
+    100030: LeftLegs
+    100032: leftWing
+    100034: leftWing2
+    100036: leftWing3
+    100038: Legs
+    100040: lowerMidBody
+    100042: midBody
+    100044: midLeftLeg
+    100046: midLeftLeg2
+    100048: midLeftLeg3
+    100050: midLeftLeg4
+    100052: midRightLeg
+    100054: midRightLeg2
+    100056: midRightLeg3
+    100058: midRightLeg4
+    100060: neck
+    100062: rightFeeler
+    100064: rightFeeler2
+    100066: rightFeeler3
+    100068: RightLegs
+    100070: rightWing
+    100072: rightWing2
+    100074: rightWing3
+    100076: topLeftLeg
+    100078: topLeftLeg2
+    100080: topLeftLeg3
+    100082: topLeftLeg4
+    100084: topRightLeg
+    100086: topRightLeg2
+    100088: topRightLeg3
+    100090: topRightLeg4
+    100092: Wings
+    400000: Body
+    400002: botLeftLeg
+    400004: botLeftLeg2
+    400006: botLeftLeg3
+    400008: botLeftLeg4
+    400010: botRightLeg
+    400012: botRightLeg2
+    400014: botRightLeg3
+    400016: botRightLeg4
+    400018: endBody
+    400020: //RootNode
+    400022: head
+    400024: leftFeeler
+    400026: leftFeeler2
+    400028: leftFeeler3
+    400030: LeftLegs
+    400032: leftWing
+    400034: leftWing2
+    400036: leftWing3
+    400038: Legs
+    400040: lowerMidBody
+    400042: midBody
+    400044: midLeftLeg
+    400046: midLeftLeg2
+    400048: midLeftLeg3
+    400050: midLeftLeg4
+    400052: midRightLeg
+    400054: midRightLeg2
+    400056: midRightLeg3
+    400058: midRightLeg4
+    400060: neck
+    400062: rightFeeler
+    400064: rightFeeler2
+    400066: rightFeeler3
+    400068: RightLegs
+    400070: rightWing
+    400072: rightWing2
+    400074: rightWing3
+    400076: topLeftLeg
+    400078: topLeftLeg2
+    400080: topLeftLeg3
+    400082: topLeftLeg4
+    400084: topRightLeg
+    400086: topRightLeg2
+    400088: topRightLeg3
+    400090: topRightLeg4
+    400092: Wings
+    4300000: Body
+    9500000: //RootNode
+    13700000: Body
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
