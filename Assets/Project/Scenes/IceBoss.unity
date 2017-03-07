@@ -1100,8 +1100,8 @@ MonoBehaviour:
   playerID: 1
   playerData:
     playerClass: 1
-    firstAbility: 0
-    secondAbility: 0
+    firstAbility: 11
+    secondAbility: 6
     defaultAbilities: 101112
   AIPlayer: 0
   bindings: 0
@@ -1441,8 +1441,8 @@ MonoBehaviour:
   playerID: 2
   playerData:
     playerClass: 2
-    firstAbility: 0
-    secondAbility: 0
+    firstAbility: 1
+    secondAbility: 15
     defaultAbilities: 101112
   AIPlayer: 0
   bindings: 0
@@ -2979,8 +2979,8 @@ MonoBehaviour:
   playerID: 3
   playerData:
     playerClass: 3
-    firstAbility: 0
-    secondAbility: 0
+    firstAbility: 11
+    secondAbility: 20
     defaultAbilities: 101112
   AIPlayer: 0
   bindings: 0

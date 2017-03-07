@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 114638193447357924}
   - component: {fileID: 114128495403560060}
   - component: {fileID: 82490250966594550}
+  - component: {fileID: 114000823648673684}
   m_Layer: 0
   m_Name: WaterProjectileAbility
   m_TagString: Untagged
@@ -126,6 +127,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000823648673684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1177796314769974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e266b120d8f3aa40915e8958c02953c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiPrefab: {fileID: 1593010588739152, guid: efffde35617069647a37239c2e430ae8, type: 2}
 --- !u!114 &114114902360696300
 MonoBehaviour:
   m_ObjectHideFlags: 1
