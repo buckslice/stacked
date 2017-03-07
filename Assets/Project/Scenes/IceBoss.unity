@@ -383,6 +383,7 @@ Transform:
   - {fileID: 1782962600}
   - {fileID: 1483108037}
   - {fileID: 1009254223}
+  - {fileID: 1780946801}
   - {fileID: 876458017}
   - {fileID: 1311173210}
   - {fileID: 541935379}
@@ -419,7 +420,7 @@ Transform:
   m_LocalScale: {x: 67.524, y: 64.151505, z: 17.875765}
   m_Children: []
   m_Father: {fileID: 193824896}
-  m_RootOrder: 30
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: -3.1580002, y: -1185.454, z: -628.406}
 --- !u!23 &201392037
 MeshRenderer:
@@ -1030,7 +1031,7 @@ Transform:
   m_LocalScale: {x: 67.52395, y: 64.15145, z: 17.87576}
   m_Children: []
   m_Father: {fileID: 193824896}
-  m_RootOrder: 29
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: -3.1580002, y: -1145.751, z: -628.406}
 --- !u!23 &541935380
 MeshRenderer:
@@ -1194,7 +1195,7 @@ Transform:
   m_LocalScale: {x: 67.52392, y: 64.151405, z: 17.87576}
   m_Children: []
   m_Father: {fileID: 193824896}
-  m_RootOrder: 27
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: -3.1580002, y: -1043.698, z: -628.406}
 --- !u!23 &876458018
 MeshRenderer:
@@ -2237,7 +2238,7 @@ Transform:
   m_LocalScale: {x: 67.52394, y: 64.15144, z: 17.87576}
   m_Children: []
   m_Father: {fileID: 193824896}
-  m_RootOrder: 28
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: -3.1580002, y: -1077.312, z: -628.406}
 --- !u!23 &1311173211
 MeshRenderer:
@@ -3147,6 +3148,87 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1780946800
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1780946801}
+  - component: {fileID: 1780946804}
+  - component: {fileID: 1780946803}
+  - component: {fileID: 1780946802}
+  m_Layer: 18
+  m_Name: ColliderCeiling
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1780946801
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1780946800}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 32.1, z: 0}
+  m_LocalScale: {x: 100, y: 10, z: 100}
+  m_Children: []
+  m_Father: {fileID: 193824896}
+  m_RootOrder: 27
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1780946802
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1780946800}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &1780946803
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1780946800}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &1780946804
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1780946800}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1782962599
 GameObject:
   m_ObjectHideFlags: 0
@@ -3337,7 +3419,7 @@ Transform:
   m_LocalScale: {x: 67.52394, y: 64.15144, z: 17.87576}
   m_Children: []
   m_Father: {fileID: 193824896}
-  m_RootOrder: 31
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: -20.345001, y: -1003.364, z: -637.631}
 --- !u!23 &1957808657
 MeshRenderer:
