@@ -308,11 +308,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 2
   playerData:
-    basicAttacks: 
-    firstAbilities: 
-    secondAbilities: 
-    abilities: 101112
     playerClass: 2
+    firstAbility: 0
+    secondAbility: 0
+    defaultAbilities: 101112
   AIPlayer: 0
   bindings: 0
   controllerIndex: 0
@@ -1015,11 +1014,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   playerData:
-    basicAttacks: 
-    firstAbilities: 
-    secondAbilities: 
-    abilities: 101112
     playerClass: 1
+    firstAbility: 0
+    secondAbility: 0
+    defaultAbilities: 101112
   AIPlayer: 0
   bindings: 0
   controllerIndex: 0
@@ -1343,11 +1341,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 0
   playerData:
-    basicAttacks: 
-    firstAbilities: 0f
-    secondAbilities: 0d
-    abilities: 101112
     playerClass: 0
+    firstAbility: 11
+    secondAbility: 1
+    defaultAbilities: 101112
   AIPlayer: 0
 --- !u!4 &1185180350
 Transform:
@@ -1722,11 +1719,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 3
   playerData:
-    basicAttacks: 
-    firstAbilities: 
-    secondAbilities: 
-    abilities: 101112
     playerClass: 3
+    firstAbility: 0
+    secondAbility: 0
+    defaultAbilities: 101112
   AIPlayer: 0
   bindings: 0
   controllerIndex: 0

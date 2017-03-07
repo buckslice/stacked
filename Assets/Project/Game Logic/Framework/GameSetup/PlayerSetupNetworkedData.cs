@@ -143,16 +143,9 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
 
         AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
 
-        foreach (AbilityId ability in playerData.basicAttacks) {
-            InstantiateAbility(ability, player.transform, abilityNetworking);
-        }
-        foreach (AbilityId ability in playerData.firstAbilities) {
-            InstantiateAbility(ability, player.transform, abilityNetworking);
-        }
-        foreach (AbilityId ability in playerData.secondAbilities) {
-            InstantiateAbility(ability, player.transform, abilityNetworking);
-        }
-        foreach (AbilityId ability in playerData.abilities) {
+        InstantiateAbility(playerData.firstAbility, player.transform, abilityNetworking);
+        InstantiateAbility(playerData.secondAbility, player.transform, abilityNetworking);
+        foreach (AbilityId ability in playerData.defaultAbilities) {
             InstantiateAbility(ability, player.transform, abilityNetworking);
         }
 
@@ -244,22 +237,11 @@ public class PlayerSetupNetworkedData : MonoBehaviour {
 
         AbilityNetworking abilityNetworking = player.GetComponent<AbilityNetworking>();
 
-        foreach (AbilityId ability in playerData.basicAttacks) {
-            GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
-            Rebind(instantiatedAbility, AbilityKeybinding.BASICATTACK);
-        }
-
-        foreach (AbilityId ability in playerData.firstAbilities) {
-            GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
-            Rebind(instantiatedAbility, AbilityKeybinding.ABILITY1);
-        }
-
-        foreach (AbilityId ability in playerData.secondAbilities) {
-            GameObject instantiatedAbility = InstantiateAbility(ability, player.transform, abilityNetworking);
-            Rebind(instantiatedAbility, AbilityKeybinding.ABILITY2);
-        }
-
-        foreach (AbilityId ability in playerData.abilities) {
+        GameObject ability1GO = InstantiateAbility(playerData.firstAbility, player.transform, abilityNetworking);
+        Rebind(ability1GO, AbilityKeybinding.ABILITY1);
+        GameObject ability2GO = InstantiateAbility(playerData.secondAbility, player.transform, abilityNetworking);
+        Rebind(ability2GO, AbilityKeybinding.ABILITY2);
+        foreach (AbilityId ability in playerData.defaultAbilities) {
             InstantiateAbility(ability, player.transform, abilityNetworking);
         }
 

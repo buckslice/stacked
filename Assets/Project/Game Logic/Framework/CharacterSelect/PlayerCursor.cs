@@ -91,8 +91,8 @@ public class PlayerCursor : MonoBehaviour, ISelection, IPlayerID, IAbilityDispla
             PlayerSetup playerSetup = playerSetupGO.AddComponent<PlayerSetup>();
             playerSetup.Initalize(input.HeldInput, playerNumber);
             PlayerSetup.PlayerSetupData pd = new PlayerSetup.PlayerSetupData();
-            pd.firstAbilities = new PlayerSetupNetworkedData.AbilityId[] { selectedCharacter.ability1 };
-            pd.secondAbilities = new PlayerSetupNetworkedData.AbilityId[] { selectedCharacter.ability2 };
+            pd.firstAbility = selectedCharacter.ability1;
+            pd.secondAbility = selectedCharacter.ability2;
             pd.playerClass = selectedCharacter.playerClass; // so we can switch models and stuff
             playerSetup.playerData = pd;
         }
