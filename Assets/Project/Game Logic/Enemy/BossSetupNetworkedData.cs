@@ -39,6 +39,7 @@ public class BossSetupNetworkedData : MonoBehaviour {
         TUTORIAL,
         SPACE_JAM,
         SPACE_JAM_SUMMONER,
+        SPIDER_BOSS,
     }
 
     static BossSetupNetworkedData main;

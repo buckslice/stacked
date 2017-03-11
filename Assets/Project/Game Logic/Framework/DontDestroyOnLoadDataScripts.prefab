@@ -379,6 +379,7 @@ MonoBehaviour:
   - {fileID: 1624689184515446, guid: ad22f77cc00b85c48b76dd2d1a3f54ae, type: 2}
   - {fileID: 1684352126644888, guid: 3828319d624aa394ab66e55420d101d4, type: 2}
   - {fileID: 1684352126644888, guid: 3828319d624aa394ab66e55420d101d4, type: 2}
+  - {fileID: 1259923328323672, guid: ccef6681fe02bea4fb97676095578711, type: 2}
   abilityPrefabs:
   - {fileID: 1000010525559686, guid: 510621ad74052db48ae7655f8cc63af4, type: 2}
   - {fileID: 1000010506637404, guid: 8fd245ec13ee79b4581a3d7b8bdd95f1, type: 2}
