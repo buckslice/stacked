@@ -4,7 +4,7 @@ using System.Collections;
 public class IKLimb : MonoBehaviour {
     public Transform upperArm, forearm, hand;
     public Transform elbowTarget;
-    public Vector3 target;
+    Vector3 target;  // current spot in worldspace IK is solving to reach
 
     public bool IsEnabled, debug;
 
@@ -22,8 +22,8 @@ public class IKLimb : MonoBehaviour {
     private Vector3 lastUpperArmPosition, lastTargetPosition, lastElbowTargetPosition;
 
     float targetLerpTime = 0.0f;
-    Vector3 targetTarget;
-    Vector3 targetStart;
+    Vector3 stepTarget;     // where step is planning on landing
+    Vector3 targetStart;    // where target is when step starts
     Transform parent;
     public bool stepping = false;
 
@@ -36,11 +36,12 @@ public class IKLimb : MonoBehaviour {
     public int legIndex;   // [0,3] 0 being frontmost, each side
     SpiderBoss spider;
     Vector3 lastElbowOffset;
+    Vector3 posAtLastStep;
 
     void Start() {
         parent = transform.root;
         spider = parent.GetComponent<SpiderBoss>();
-        targetTarget = target;
+        stepTarget = target;
 
         upperArmStartRotation = upperArm.rotation;
         forearmStartRotation = forearm.rotation;
@@ -85,26 +86,54 @@ public class IKLimb : MonoBehaviour {
         Ray r = GetStepRay();
         Debug.DrawRay(r.origin, r.direction * 10.0f, Color.magenta);
 
-        // for sure need to take step if leg is too far away
-        if (!stepping && Vector3.Distance(upperArm.position, targetTarget) > armLength - 0.1f) {
-            TakeStep();
+        // extrapolate where step should go based on how far you moved since step began
+        Vector3 extrapTarget = stepTarget + (transform.position - posAtLastStep);
+
+        // normally stepping is controlled by spider unless leg detects bad form
+        if (!stepping) {
+            // take step if y rotation of upper arm past certain threshold
+            Vector3 locals = upperArm.localEulerAngles;
+            if (locals.y < 20.0f || locals.y > 160.0f) {
+                TakeStep();
+            } else {
+                // take step if leg is further away from target than straight leg length
+                float sqrDist = (upperArm.position - target).sqrMagnitude;
+                float armLen = armLength - 0.1f;    //scale back a little
+                if (sqrDist > armLen * armLen) {
+                    TakeStep();
+                } else {
+                    // take step if target is close to underneath spider body
+                    Vector3 p = spider.transform.position;
+                    p.y = 0.0f;
+                    sqrDist = (p - target).sqrMagnitude;
+                    if (sqrDist < 3.0f * 3.0f) {
+                        TakeStep();
+                    }
+                }
+            }
+
+
         }
 
+
         // left leg to new target and lift it up
-        targetLerpTime += Time.deltaTime * 4.0f;
+        const float stepHeight = 3.0f;
+        const float stepTime = 0.25f;
+        targetLerpTime += Time.deltaTime * 1.0f / stepTime;
         if (targetLerpTime < 1.0f) {
-            target = Vector3.Lerp(targetStart, targetTarget, targetLerpTime);
-            target += Vector3.up * spider.legHeightCurve.Evaluate(targetLerpTime) * 4.0f;
-        } else {
-            target = targetTarget;
+            target = Vector3.Lerp(targetStart, extrapTarget, targetLerpTime);
+            target += Vector3.up * spider.legHeightCurve.Evaluate(targetLerpTime) * stepHeight;
+        } else if (stepping) {
+            target = extrapTarget;
             stepping = false;
         }
     }
 
     public bool TakeStep() {
         if (RaycastStep(out hit)) {
-            targetTarget = hit.point;
+            stepTarget = hit.point;
             lastElbowOffset = hit.point - elbowTarget.position;
+            posAtLastStep = transform.position;
             targetStart = target;
             targetLerpTime = 0.0f;
             stepping = true;
@@ -114,7 +143,7 @@ public class IKLimb : MonoBehaviour {
     }
 
     public float GetSqrDistFromResting() {
-        return Vector3.SqrMagnitude(elbowTarget.position + lastElbowOffset - targetTarget);
+        return Vector3.SqrMagnitude(elbowTarget.position + lastElbowOffset - stepTarget);
     }
 
     RaycastHit hit;

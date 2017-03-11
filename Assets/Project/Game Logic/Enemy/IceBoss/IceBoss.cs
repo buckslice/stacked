@@ -32,12 +32,12 @@ public class IceBoss : MonoBehaviour {
     float timeSinceLastIceCircle = 0.0f;
     float nextTargetTimer = 2.0f;
 
-    State state = State.INTRO;
 
     Collider[] overLaps = new Collider[16];  // for overlaps sphere checks
     List<Player> players = new List<Player>();  // filled and cleared by various functions
     List<PlayerRefs> playerRefs = new List<PlayerRefs>();   // another helper list
 
+    State state = State.INTRO;
     enum State {
         INTRO,
         IDLE,

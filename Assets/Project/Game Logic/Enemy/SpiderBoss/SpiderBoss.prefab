@@ -1392,7 +1392,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1259923328323672}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.61, z: -10.45}
+  m_LocalPosition: {x: 0, y: 4, z: -10.45}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4941172633167856}
@@ -4043,11 +4043,11 @@ MonoBehaviour:
   forearm: {fileID: 4203287114160452}
   hand: {fileID: 4053036199760354}
   elbowTarget: {fileID: 4245066592275400}
-  target: {x: 5, y: 0, z: -10}
   IsEnabled: 1
   debug: 1
   transition: 1
   idleOptimization: 0
+  stepping: 0
   legIndex: 3
 --- !u!114 &114348897197933792
 MonoBehaviour:
@@ -4080,11 +4080,11 @@ MonoBehaviour:
   forearm: {fileID: 4401385333293186}
   hand: {fileID: 4486631419420704}
   elbowTarget: {fileID: 4654661043986644}
-  target: {x: 5, y: 0, z: -10}
   IsEnabled: 1
   debug: 1
   transition: 1
   idleOptimization: 0
+  stepping: 0
   legIndex: 0
 --- !u!114 &114507136201949650
 MonoBehaviour:
@@ -4126,11 +4126,11 @@ MonoBehaviour:
   forearm: {fileID: 4585757513358026}
   hand: {fileID: 4923030473276028}
   elbowTarget: {fileID: 4121873179890510}
-  target: {x: 5, y: 0, z: -10}
   IsEnabled: 1
   debug: 1
   transition: 1
   idleOptimization: 0
+  stepping: 0
   legIndex: 2
 --- !u!114 &114628901552277134
 MonoBehaviour:
@@ -4147,11 +4147,11 @@ MonoBehaviour:
   forearm: {fileID: 4686350029543460}
   hand: {fileID: 4427184188065338}
   elbowTarget: {fileID: 4427118860136386}
-  target: {x: 5, y: 0, z: -10}
   IsEnabled: 1
   debug: 1
   transition: 1
   idleOptimization: 0
+  stepping: 0
   legIndex: 1
 --- !u!114 &114677223794818486
 MonoBehaviour:
@@ -4168,11 +4168,11 @@ MonoBehaviour:
   forearm: {fileID: 4555502847608512}
   hand: {fileID: 4429988493102808}
   elbowTarget: {fileID: 4366550458102754}
-  target: {x: 5, y: 0, z: -10}
   IsEnabled: 1
   debug: 1
   transition: 1
   idleOptimization: 0
+  stepping: 0
   legIndex: 0
 --- !u!114 &114735852339261154
 MonoBehaviour:
@@ -4189,11 +4189,11 @@ MonoBehaviour:
   forearm: {fileID: 4868369756547506}
   hand: {fileID: 4573287344278696}
   elbowTarget: {fileID: 4051564462641966}
-  target: {x: 5, y: 0, z: -10}
   IsEnabled: 1
   debug: 1
   transition: 1
   idleOptimization: 0
+  stepping: 0
   legIndex: 1
 --- !u!114 &114754045479514410
 MonoBehaviour:
@@ -4221,11 +4221,11 @@ MonoBehaviour:
   forearm: {fileID: 4668154747706690}
   hand: {fileID: 4655499471522854}
   elbowTarget: {fileID: 4653521538282756}
-  target: {x: 5, y: 0, z: -10}
   IsEnabled: 1
   debug: 1
   transition: 1
   idleOptimization: 0
+  stepping: 0
   legIndex: 2
 --- !u!114 &114813387833333652
 MonoBehaviour:
@@ -4308,11 +4308,11 @@ MonoBehaviour:
   forearm: {fileID: 4058256115759006}
   hand: {fileID: 4628864370798848}
   elbowTarget: {fileID: 4616456943668256}
-  target: {x: 5, y: 0, z: -10}
   IsEnabled: 1
   debug: 1
   transition: 1
   idleOptimization: 0
+  stepping: 0
   legIndex: 3
 --- !u!114 &114920325698468328
 MonoBehaviour:
@@ -4650,10 +4650,10 @@ NavMeshAgent:
   m_GameObject: {fileID: 1259923328323672}
   m_Enabled: 1
   m_Radius: 2
-  m_Speed: 10
+  m_Speed: 15
   m_Acceleration: 100
   avoidancePriority: 50
-  m_AngularSpeed: 180
+  m_AngularSpeed: 720
   m_StoppingDistance: 2
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1

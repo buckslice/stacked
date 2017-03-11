@@ -13,8 +13,17 @@ public class SpiderBoss : MonoBehaviour {
     NavMeshAgent agent;
 
     float newWalk = 0.0f;
+    float timeSinceLook = 0.0f;
 
     IKLimb[] legs;
+
+
+    State state = State.RANDOM_WALK;
+    enum State {
+        RANDOM_WALK,
+        LOOKING,
+    }
+
 
     // Use this for initialization
     void Start() {
@@ -26,11 +35,40 @@ public class SpiderBoss : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        CheckLegs();
+
+        timeSinceLook += Time.deltaTime;
+        if(state != State.LOOKING && timeSinceLook > 10.0f) {
+            state = State.LOOKING;
+            StartCoroutine(LookRoutine());
+        }
+
+        if(state == State.RANDOM_WALK) {
+            newWalk -= Time.deltaTime;
+            if (newWalk < 0.0f) {
+                Vector2 r = Random.insideUnitCircle * 40.0f;
+                agent.destination = new Vector3(r.x, 0.0f, r.y);
+                newWalk = Random.value * 8.0f + 2.0f;
+            }
+        }
+
+	}
+
+    IEnumerator LookRoutine() {
+        BossHelper.FindAlivePlayers();
+        Player p = BossHelper.GetRandomPlayer();
+        yield return StartCoroutine(BossHelper.FocusRoutine(transform, p.Holder.transform, 5.0f));
+        timeSinceLook = 0.0f;
+        newWalk = 0.0f;
+        state = State.RANDOM_WALK;
+    }
+
+    void CheckLegs() {
         stepCooldown -= Time.deltaTime;
-        if(stepCooldown < 0.0f) {
+        if (stepCooldown < 0.0f) {
             float maxDist = 1.0f;
             int maxIndex = -1;
-            for(int i = 0; i < legs.Length; ++i) {
+            for (int i = 0; i < legs.Length; ++i) {
                 if (legs[i].stepping) {
                     continue;
                 }
@@ -48,18 +86,6 @@ public class SpiderBoss : MonoBehaviour {
                 }
             }
         }
+    }
 
-        newWalk -= Time.deltaTime;
-
-        //if(Vector3.SqrMagnitude(agent.destination - transform.position) < 1.0f) {
-        //    newWalk = -1.0f;
-        //}
-
-        if(newWalk < 0.0f) {
-            Vector2 r = Random.insideUnitCircle * 40.0f;
-            agent.destination = new Vector3(r.x, 0.0f, r.y);
-
-            newWalk = Random.value * 8.0f + 2.0f;
-        }
-	}
 }
