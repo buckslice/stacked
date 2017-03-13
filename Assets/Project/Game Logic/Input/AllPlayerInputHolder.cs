@@ -235,6 +235,16 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
             return false;
         }
     }
+    public bool getAnyKeyDown {
+        get {
+            foreach (IPlayerInput input in heldInputs) {
+                if (input.getAnyKeyDown) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     public string submitName { get { return HeldInput.submitName; } }
     public string cancelName { get { return HeldInput.cancelName; } }

@@ -63,6 +63,7 @@ public class XinputPlayerInput : IPlayerInput {
 
     void Initialize() {
         setCurrentState(XInputDotNetPure.GamePad.GetState(controllerIndex));
+        setCurrentState(XInputDotNetPure.GamePad.GetState(controllerIndex));
     }
 
     private void setCurrentState(XInputDotNetPure.GamePadState state) {
@@ -163,6 +164,41 @@ public class XinputPlayerInput : IPlayerInput {
             };
             foreach (ButtonState state in states) {
                 if (state == ButtonState.Pressed) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    public bool getAnyKeyDown {
+        get {
+            ButtonState[] states = {
+                currentState.Buttons.A,
+                currentState.Buttons.B,
+                currentState.Buttons.X,
+                currentState.Buttons.Y,
+                currentState.Buttons.Start,
+                currentState.Buttons.Back,
+                currentState.Buttons.LeftShoulder,
+                currentState.Buttons.RightShoulder,
+                currentState.Buttons.RightStick,
+                currentState.Buttons.LeftStick
+            };
+            ButtonState[] previousStates = {
+                previousState.Buttons.A,
+                previousState.Buttons.B,
+                previousState.Buttons.X,
+                previousState.Buttons.Y,
+                previousState.Buttons.Start,
+                previousState.Buttons.Back,
+                previousState.Buttons.LeftShoulder,
+                previousState.Buttons.RightShoulder,
+                previousState.Buttons.RightStick,
+                previousState.Buttons.LeftStick
+            };
+            for (int i=0; i<states.Length; i++){
+                if (states[i] == ButtonState.Pressed && previousStates[i] == ButtonState.Released) {
                     return true;
                 }
             }

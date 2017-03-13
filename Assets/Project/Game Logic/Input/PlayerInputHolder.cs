@@ -635,6 +635,11 @@ public interface IPlayerInputHolder {
     /// </summary>
     bool getAnyKey { get; }
 
+    /// <summary>
+    /// Get any Key down
+    /// </summary>
+    bool getAnyKeyDown { get; }
+
     string submitName { get; }
     string cancelName { get; }
     string startName { get; }
@@ -680,6 +685,7 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public bool getJumpUp { get { return HeldInput.getJumpUp; } }
 
     public bool getAnyKey { get { return HeldInput.getAnyKey; } }
+    public bool getAnyKeyDown { get { return HeldInput.getAnyKeyDown; } }
 
     public string submitName { get { return HeldInput.submitName; } }
     public string cancelName { get { return HeldInput.cancelName; } }
@@ -743,6 +749,7 @@ public class NullInput : IPlayerInput
     public bool getJumpUp { get { return false; } }
 
     public bool getAnyKey { get { return false; } }
+    public bool getAnyKeyDown { get { return false; } }
 
     public string submitName { get{ return ""; } }
     public string cancelName { get{ return ""; } }

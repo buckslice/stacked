@@ -183,7 +183,7 @@ public class PlayerRegistration : MonoBehaviour {
         }
 
         for (int i = 0; i < possibleBindings.Length; i++) {
-            if (possibleBindings[i]!=null && possibleBindings[i].AnyKey() && !registeredBindings[i]) {
+            if (possibleBindings[i]!=null && possibleBindings[i].getAnyKeyDown && !registeredBindings[i]) {
                 int openPlayerID = getFirstAvailablePlayerID();
                 if (openPlayerID >= 0) {
                     //if there exists an open ID
@@ -192,12 +192,10 @@ public class PlayerRegistration : MonoBehaviour {
             }
         }
 
-        for (int j = 0; j < 4; j++) {
-            print("XInput " + j + ": " + XInputBindings[j].AnyKey());
-        }
 
         for (int i = 0; i < XInputBindings.Length; i++) {
-            if (XInputBindings[i] != null && XInputBindings[i].AnyKey() && !registeredBindings[i + possibleBindings.Length]) {
+            if (XInputBindings[i] != null && XInputBindings[i].getAnyKeyDown && !registeredBindings[i + possibleBindings.Length]) {
+                print(XInputBindings[i].getAnyKeyDown);
                 int openPlayerID = getFirstAvailablePlayerID();
                 if (openPlayerID >= 0) {
                     //if there exists an open ID

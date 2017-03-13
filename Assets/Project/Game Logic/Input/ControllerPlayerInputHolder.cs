@@ -243,6 +243,16 @@ public class ControllerPlayerInput : IPlayerInput {
         }
     }
 
+    public bool getAnyKeyDown {
+        get {
+            for (int i = 0; i < 20; i++) {
+                if (Input.GetKeyDown(getInputByJoystickNumber(i))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
 
     public string getBindingName(Inputs key) {
         if (InputBindings[(int)key].type == InputType.KEY) {
