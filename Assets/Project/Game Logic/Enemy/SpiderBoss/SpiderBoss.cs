@@ -10,6 +10,8 @@ public class SpiderBoss : MonoBehaviour {
     public LayerMask legCollisionLayer;
     public float stepCooldown = 0.0f;
 
+    public float stepsPerSecond = 10.0f;
+
     NavMeshAgent agent;
 
     float newWalk = 0.0f;
@@ -30,7 +32,21 @@ public class SpiderBoss : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
 
         legs = GetComponentsInChildren<IKLimb>();
+
+        //SetWalking(true);
     }	
+
+    public void SetWalking(bool walking) {
+        if (walking) {
+            stepsPerSecond = 5.0f;
+            agent.speed = 4.0f;
+            agent.angularSpeed = 90.0f;
+        } else {    // running
+            stepsPerSecond = 15.0f;
+            agent.speed = 15.0f;
+            agent.angularSpeed = 720.0f;
+        }
+    }
 
 
 	// Update is called once per frame
@@ -69,7 +85,7 @@ public class SpiderBoss : MonoBehaviour {
             float maxDist = 1.0f;
             int maxIndex = -1;
             for (int i = 0; i < legs.Length; ++i) {
-                if (legs[i].stepping) {
+                if (legs[i].stepping) { // skip legs that are currently stepping
                     continue;
                 }
                 // find leg with highest offset from its resting point
@@ -82,7 +98,7 @@ public class SpiderBoss : MonoBehaviour {
 
             if (maxIndex != -1) {
                 if (legs[maxIndex].TakeStep()) {
-                    stepCooldown = 0.1f;
+                    stepCooldown = 1.0f / stepsPerSecond;
                 }
             }
         }

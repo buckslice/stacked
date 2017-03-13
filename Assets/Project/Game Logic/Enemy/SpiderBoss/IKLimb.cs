@@ -116,7 +116,7 @@ public class IKLimb : MonoBehaviour {
         }
 
 
-        // left leg to new target and lift it up
+        // lerp leg to new target and lift it up
         const float stepHeight = 3.0f;
         const float stepTime = 0.25f;
         targetLerpTime += Time.deltaTime * 1.0f / stepTime;
