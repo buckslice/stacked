@@ -12,10 +12,10 @@ public class VibrateOnBossDeath : MonoBehaviour {
     protected float vibrationDuration = 0.5f;
     
     void OnDestroy() {
-        foreach (ControllerPlayerInput controller in ControllerPlayerInput.allControllers) {
-            if (controller != null) {
-                controller.Vibrate(vibrationStrength, vibrationDuration);
-            }
-        }
+        //foreach (ControllerPlayerInput controller in ControllerPlayerInput.allControllers) {
+        //    if (controller != null) {
+        //        controller.Vibrate(vibrationStrength, vibrationDuration);
+        //    }
+        //}
     }
 }

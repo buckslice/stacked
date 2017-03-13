@@ -85,7 +85,6 @@ public class ControllerPlayerInput : IPlayerInput {
     private Key[] InputBindings;
 
     const int maxControllers = 4;
-    public static readonly ControllerPlayerInput[] allControllers = new ControllerPlayerInput[maxControllers];
 
     MonoBehaviour holder;
 
@@ -101,9 +100,6 @@ public class ControllerPlayerInput : IPlayerInput {
     }
 
     public void Deactivate() {
-        vibrationAmount.Reset();
-        UpdateVibration();
-        allControllers[(int)controllerIndex] = null;
     }
 
     AdditiveFloatStat vibrationAmount = new AdditiveFloatStat(0);
@@ -120,7 +116,7 @@ public class ControllerPlayerInput : IPlayerInput {
 
     void Initialize() {
 
-        allControllers[(int)controllerIndex] = this;
+        //allControllers[(int)controllerIndex] = this;
 
         InputBindings = new Key[7];
         axisStates = new bool[Tags.Input.Joystick1.allAxes.Length];

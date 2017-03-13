@@ -178,6 +178,7 @@ public class PlayerRegistration : MonoBehaviour {
     }
 
     void Update() {
+        string[] derp = Input.GetJoystickNames();
         if (numJoySticks != Input.GetJoystickNames().Length) {
             RepopulateJoystickList();
         }
@@ -195,7 +196,6 @@ public class PlayerRegistration : MonoBehaviour {
 
         for (int i = 0; i < XInputBindings.Length; i++) {
             if (XInputBindings[i] != null && XInputBindings[i].getAnyKeyDown && !registeredBindings[i + possibleBindings.Length]) {
-                print(XInputBindings[i].getAnyKeyDown);
                 int openPlayerID = getFirstAvailablePlayerID();
                 if (openPlayerID >= 0) {
                     //if there exists an open ID
@@ -239,7 +239,7 @@ public class PlayerRegistration : MonoBehaviour {
                 possibleBindings[i].HeldInput.Player = possibleBindings[i].transform;
             }
             else {
-                if (names[i] != "Controller (XBOX 360 For Windows)") {
+                if (names[i] != "Controller (XBOX 360 For Windows)" && names[i] != "Controller (Xbox One For Windows)") {
                     possibleBindings[i] = GameObject.Instantiate<PlayerInputHolder>(inputHolder);
                     possibleBindings[i].HeldInput = new ControllerPlayerInput((XInputDotNetPure.PlayerIndex)i);
                     possibleBindings[i].HeldInput.Initialize(possibleBindings[i]);

@@ -15,11 +15,11 @@ public class VibrateControllerScript : AbstractAbilityAction {
     }
 
     public override bool Activate(PhotonStream stream) {
-        foreach (ControllerPlayerInput controller in ControllerPlayerInput.allControllers) {
-            if (controller != null) {
-                controller.Vibrate(vibrationStrength, vibrationDuration);
-            }
-        }
+        //foreach (ControllerPlayerInput controller in ControllerPlayerInput.allControllers) {
+        //    if (controller != null) {
+        //        controller.Vibrate(vibrationStrength, vibrationDuration);
+        //    }
+        //}
         return false;
     }
 }

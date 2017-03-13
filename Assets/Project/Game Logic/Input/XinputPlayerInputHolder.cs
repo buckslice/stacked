@@ -119,7 +119,7 @@ public class XinputPlayerInput : IPlayerInput {
     }
     public Vector3 rotationDirection {
         get {
-            return getSmoothedJoystickInput(currentState.ThumbSticks.Right.X, currentState.ThumbSticks.Right.X, deadZone).ConvertFromInputToWorld();
+            return getSmoothedJoystickInput(currentState.ThumbSticks.Right.X, currentState.ThumbSticks.Right.Y, deadZone).ConvertFromInputToWorld();
         }
     }
 
