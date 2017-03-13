@@ -92,6 +92,46 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 23800000, guid: a18a12354ce786548878137b223e3457, type: 2}
+--- !u!1 &52588716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 52588718}
+  - component: {fileID: 52588717}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &52588717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 52588716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce0691de8b87f134398cfb9b06eed4ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &52588718
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 52588716}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &183833215
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,7 +328,7 @@ ParticleSystem:
   m_GameObject: {fileID: 393596843}
   serializedVersion: 5
   lengthInSec: 5
-  speed: 1
+  simulationSpeed: 1
   looping: 1
   prewarm: 1
   playOnAwake: 1
@@ -4206,6 +4246,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114000011249166826, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: possibleBindings.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010123889878, guid: 165651d3cf48f954c8be33449e450713, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -4262,13 +4307,48 @@ Prefab:
         type: 2}
       propertyPath: continuePrompt
       value: 
-      objectReference: {fileID: 1794758970}
+      objectReference: {fileID: 1794758968}
     - target: {fileID: 114000011249166826, guid: 165651d3cf48f954c8be33449e450713,
         type: 2}
       propertyPath: requireMaxPlayerCount
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 114000011249166826, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: possibleBindings.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011249166826, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: possibleBindings.Array.data[1]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011249166826, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: possibleBindings.Array.data[2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011249166826, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: possibleBindings.Array.data[3]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011249166826, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: possibleBindings.Array.data[4]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011249166826, guid: 165651d3cf48f954c8be33449e450713,
+        type: 2}
+      propertyPath: inputHolder
+      value: 
+      objectReference: {fileID: 52588717}
+    m_RemovedComponents:
+    - {fileID: 114000012135036892, guid: 165651d3cf48f954c8be33449e450713, type: 2}
+    - {fileID: 114000011737676832, guid: 165651d3cf48f954c8be33449e450713, type: 2}
+    - {fileID: 114000012219358892, guid: 165651d3cf48f954c8be33449e450713, type: 2}
+    - {fileID: 114000012855562620, guid: 165651d3cf48f954c8be33449e450713, type: 2}
+    - {fileID: 114000011048380482, guid: 165651d3cf48f954c8be33449e450713, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 165651d3cf48f954c8be33449e450713, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &2016492106 stripped

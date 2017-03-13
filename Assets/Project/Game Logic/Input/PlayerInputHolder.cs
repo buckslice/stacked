@@ -33,14 +33,6 @@ public static class PlayerInputExtension
             self.rotationDirection != Vector3.zero;
     }
 
-    /*
-     * currently screwed up by mouse, which never has zero for rotation (cursor) input
-    public static bool AnyInput(this IPlayerInputHolder self)
-    {
-        return self.AnyKey() || self.AnyAxis();
-    }
-     * */
-
     public static string getBindingName(KeyCode keycode) {
         if (bindingNames.ContainsKey(keycode)) {
             return bindingNames[keycode];
@@ -698,8 +690,10 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     public string jumpName { get { return HeldInput.jumpName; } }
 
     protected void Start() {
-        HeldInput.Initialize(this);
-        HeldInput.Player = this.transform; 
+        if (HeldInput != null) {
+            HeldInput.Initialize(this);
+            HeldInput.Player = this.transform;
+        }
     }
 
     void OnDestroy() {
@@ -709,7 +703,9 @@ public class PlayerInputHolder : MonoBehaviour, IPlayerInputHolder
     }
 
     void Update() {
-        HeldInput.Update();
+        if (HeldInput != null) {
+            HeldInput.Update();
+        }
     }
 }
 

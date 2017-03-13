@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 public class PlayerRegistration : MonoBehaviour {
 
@@ -18,8 +17,7 @@ public class PlayerRegistration : MonoBehaviour {
         public readonly int bindingID;
         public readonly RegisteredPlayer registeredPlayer;
         public bool ready = false;
-        public RegisteredPlayerGrouping(int ownerActorID, int bindingID, RegisteredPlayer registeredPlayer) {
-            this.ownerActorID = ownerActorID;
+        public RegisteredPlayerGrouping(int bindingID, RegisteredPlayer registeredPlayer) {
             this.bindingID = bindingID;
             this.registeredPlayer = registeredPlayer;
         }
@@ -47,10 +45,18 @@ public class PlayerRegistration : MonoBehaviour {
     protected PlayerInputHolder[] possibleBindings;
 
     [SerializeField]
+    protected PlayerInputHolder inputHolder;
+
+    [SerializeField]
+    protected PlayerInputHolder[] XInputBindings;
+
+    private int numJoySticks;
+
+    [SerializeField]
     protected RectTransform[] pressStartPrompts;
 
     [SerializeField]
-    protected Text continuePrompt;
+    protected GameObject continuePrompt;
 
     [SerializeField]
     protected float vibrationDuration = 0.15f;
@@ -68,22 +74,26 @@ public class PlayerRegistration : MonoBehaviour {
     public RegisteredPlayerGrouping[] RegisteredPlayers { get { return registeredPlayers; } }
 
     void Awake() {
-        PhotonNetwork.OnEventCall += OnEvent;
         registeredPlayers = new RegisteredPlayerGrouping[numPlayers];
-        registeredBindings = new bool[possibleBindings.Length];
+        registeredBindings = new bool[possibleBindings.Length+4];
+        XInputBindings = new PlayerInputHolder[4];
+        for (int i = 0; i < 4; i++) {
+            XInputBindings[i] = GameObject.Instantiate<PlayerInputHolder>(inputHolder);
+            XInputBindings[i].HeldInput = new XinputPlayerInput((XInputDotNetPure.PlayerIndex)i);
+            XInputBindings[i].HeldInput.Initialize(XInputBindings[i]);
+            XInputBindings[i].HeldInput.Player = XInputBindings[i].transform;
+        }
+        numJoySticks = Input.GetJoystickNames().Length;
+        RepopulateJoystickList();
+        inputHolder.HeldInput = new KeyboardMousePlayerInput();
+        inputHolder.HeldInput.Initialize(inputHolder);
+        inputHolder.HeldInput.Player = inputHolder.transform;
         Assert.IsNull(main);
         main = this;
         Assert.IsTrue(pressStartPrompts.Length == numPlayers);
-
-        // clear out all registered players on scene start (incase moved back to here with back button)
-        RegisteredPlayer[] playerObjects = FindObjectsOfType<RegisteredPlayer>();
-        for(int i = 0; i < playerObjects.Length; ++i) {
-            Destroy(playerObjects[i].gameObject);
-        }
     }
 
     void OnDestroy() {
-        PhotonNetwork.OnEventCall -= OnEvent;
         main = null;
     }
 
@@ -96,40 +106,10 @@ public class PlayerRegistration : MonoBehaviour {
         return -1;
     }
 
-    void sendRegistrationRequest(byte bindingID) {
-        //Send request to master client
-        RaiseEventOptions options = new RaiseEventOptions();
-        options.Receivers = ReceiverGroup.MasterClient;
-
-        //Send the event to create the remote copies
-        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.REQUESTREGISTRATION, bindingID, true, options);
-    }
-
-    void sendRegistrationResponse(byte bindingID, byte playerID, byte owningClientActorID) {
-        byte[] payloadData = new byte[3];
-        payloadData[0] = bindingID;
-        payloadData[1] = playerID;
-        payloadData[2] = owningClientActorID;
-
-        //Send request to others
-        RaiseEventOptions options = new RaiseEventOptions();
-        options.Receivers = ReceiverGroup.Others;
-        //late-joins will need to see this, if we're still around
-        options.CachingOption = EventCaching.AddToRoomCacheGlobal;
-
-        //Send the event to create the remote copies
-        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.CREATEREGISTRATION, payloadData, true, options);
-    }
-
-    void receiveRegistrationRequest(byte bindingID, byte owningClientActorID) {
-        if (!PhotonNetwork.isMasterClient) {
-            Debug.LogError("Only the master client should receive requestRegistration events");
-            return;
-        }
-
+    void CreateRegisteredPlayer(byte bindingID, bool XInput) {
         for (int i = 0; i < numPlayers; i++) {
             if (registeredPlayers[i] != null) {
-                if (registeredPlayers[i].bindingID == bindingID && registeredPlayers[i].ownerActorID == owningClientActorID) {
+                if (registeredPlayers[i].bindingID == bindingID) {
                     //already registered
                     return;
                 }
@@ -141,158 +121,87 @@ public class PlayerRegistration : MonoBehaviour {
             //no valid ID
             return;
         }
-
-        //Theoretically, we could use an event sent to every client. However, I don't trust this to execute on the local client immediately, which could cause problems with duplicate requests.
-        CreateRegisteredPlayer(bindingID, (byte)playerID, owningClientActorID);
-        sendRegistrationResponse(bindingID, (byte)playerID, owningClientActorID);
-    }
-
-    void sendRemoval(byte playerID, int owningClientActorID) {
-
-        Packet payloadData = new Packet();
-
-        payloadData.Write(playerID);
-        payloadData.Write(owningClientActorID);
-
-        //Send request to all clients
-        RaiseEventOptions options = new RaiseEventOptions();
-        options.Receivers = ReceiverGroup.All;
-        //late-joins will need to see this, if we're still around
-        options.CachingOption = EventCaching.AddToRoomCacheGlobal;
-
-        //Send the event to create the remote copies
-        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.REMOVEREGISTRATION, payloadData.getData(), true, options);
-    }
-
-    public void removePlayer(byte playerID) {
-        Assert.IsTrue(registeredPlayers[playerID] != null && registeredPlayers[playerID].ownerActorID == PhotonNetwork.player.ID);
-        sendRemoval(playerID, PhotonNetwork.player.ID);
-    }
-
-    void receiveRemoval(byte playerID, int owningClientActorID) {
-        if (registeredPlayers[playerID] != null && registeredPlayers[playerID].ownerActorID == owningClientActorID) {
-            Destroy(registeredPlayers[playerID].registeredPlayer.gameObject);
-
-            if (owningClientActorID == PhotonNetwork.player.ID) {
-                registeredBindings[registeredPlayers[playerID].bindingID] = false;
-            }
-
-            registeredPlayers[playerID] = null;
-            pressStartPrompts[playerID].gameObject.SetActive(true);
-
-        }
-    }
-
-    void sendReadyState(byte playerID, int owningClientActorID, bool state) {
-        Packet payloadData = new Packet();
-
-        payloadData.Write(playerID);
-        payloadData.Write(owningClientActorID);
-        payloadData.Write(state);
-
-        //Send request to all clients
-        RaiseEventOptions options = new RaiseEventOptions();
-        options.Receivers = ReceiverGroup.All;
-        //late-joins will need to see this, if we're still around
-        options.CachingOption = EventCaching.AddToRoomCacheGlobal;
-
-        //Send the event to create the remote copies
-        R41DNetworking.RaiseEvent((byte)Tags.EventCodes.READYPLAYER, payloadData.getData(), true, options);
-    }
-
-    public void setPlayerReady(byte playerID, bool ready) {
-        Assert.IsTrue(registeredPlayers[playerID] != null && registeredPlayers[playerID].ownerActorID == PhotonNetwork.player.ID);
-        if (registeredPlayers[playerID].ready != ready) {
-            sendReadyState(playerID, PhotonNetwork.player.ID, ready);
-        }
-    }
-
-    void receiveReadyState(byte playerID, int owningClientActorID, bool state) {
-        if (registeredPlayers[playerID] != null && registeredPlayers[playerID].ownerActorID == owningClientActorID) {
-            registeredPlayers[playerID].ready = state;
-
-            RegistrationUI ui = registeredPlayers[playerID].registeredPlayer.GetComponent<RegistrationUI>();
-            ui.ready = state;
-        }
-    }
-
-    public void OnEvent(byte eventcode, object content, int senderid) {
-        switch (eventcode) {
-            case (byte)Tags.EventCodes.REQUESTREGISTRATION:
-                receiveRegistrationRequest(bindingID: (byte)content, owningClientActorID: (byte)senderid);
-                break;
-
-            case (byte)Tags.EventCodes.CREATEREGISTRATION:
-                byte[] payloadData = (byte[])content;
-                Assert.IsTrue(payloadData.Length == 3);
-                CreateRegisteredPlayer(bindingID: payloadData[0], playerId: payloadData[1], owningClientActorID: payloadData[2]);
-                break;
-
-            case (byte)Tags.EventCodes.REMOVEREGISTRATION: {
-                    Packet p = new Packet(content);
-                    byte playerID = p.ReadByte();
-                    int owningClientActorID = p.ReadInt();
-                    receiveRemoval(playerID, owningClientActorID);
-                    break;
-                }
-            case (byte)Tags.EventCodes.READYPLAYER: {
-                    Packet p = new Packet(content);
-                    byte playerID = p.ReadByte();
-                    int owningClientActorID = p.ReadInt();
-                    bool state = p.ReadBool();
-                    receiveReadyState(playerID, owningClientActorID, state);
-                    break;
-                }
-            default:
-                break;
-        }
-    }
-
-    void CreateRegisteredPlayer(byte bindingID, byte playerId, byte owningClientActorID) {
-        Assert.IsNull(registeredPlayers[playerId]);
-        Assert.IsTrue(PhotonPlayer.Find(owningClientActorID) != null); //if this becomes a problem, ignore events for players who no longer exist
         GameObject instantiatedRegisteredPlayer = (GameObject)Instantiate(registeredPlayerPrefab, Vector3.zero, Quaternion.identity);
         RegisteredPlayer registeredPlayer = instantiatedRegisteredPlayer.GetComponent<RegisteredPlayer>();
 
-
-        if (owningClientActorID == PhotonNetwork.player.ID) {
-            //locally controlled player
-            registeredPlayer.Initalize(possibleBindings[bindingID].HeldInput, playerId, locallyControlled: true);
-
-            ControllerPlayerInput controllerInput = possibleBindings[bindingID].HeldInput as ControllerPlayerInput;
-            if (controllerInput != null) {
-                controllerInput.Vibrate(vibrationStrength, vibrationDuration);
-            }
-
-            registeredBindings[bindingID] = true;
-
-        } else {
-            //remotely controlled player
-            registeredPlayer.Initalize(possibleBindings[bindingID].HeldInput, playerId, locallyControlled: false);
+        //locally controlled player
+        if (XInput) {
+            registeredPlayer.Initalize(XInputBindings[bindingID - possibleBindings.Length].HeldInput, playerID, locallyControlled: true);
+        }
+        else {
+            registeredPlayer.Initalize(possibleBindings[bindingID].HeldInput, playerID, locallyControlled: true);
         }
 
-        registeredPlayers[playerId] = new RegisteredPlayerGrouping(owningClientActorID, bindingID, registeredPlayer);
+        //ControllerPlayerInput controllerInput = possibleBindings[bindingID].HeldInput as ControllerPlayerInput;
 
-        pressStartPrompts[playerId].gameObject.SetActive(false);
+        //Commented out until controller stuff is finalized
+        //if (controllerInput != null) {
+        //    controllerInput.Vibrate(vibrationStrength, vibrationDuration);
+        //}
+
+        registeredBindings[bindingID] = true;
+
+        registeredPlayers[playerID] = new RegisteredPlayerGrouping(bindingID, registeredPlayer);
+
+
+        pressStartPrompts[playerID].gameObject.SetActive(false);
+        continuePrompt.SetActive(true);
     }
 
-    public void OnPhotonPlayerDisconnected(PhotonPlayer player) {
-        if (PhotonNetwork.isMasterClient) {
-            for (byte i = 0; i < registeredPlayers.Length; i++) {
-                if (registeredPlayers[i] != null && registeredPlayers[i].ownerActorID == player.ID) {
-                    sendRemoval(i, player.ID);
-                }
+
+
+    public void removePlayer(byte playerID) {
+        Destroy(registeredPlayers[playerID].registeredPlayer.gameObject);
+
+        registeredBindings[registeredPlayers[playerID].bindingID] = false;
+        registeredPlayers[playerID] = null;
+        pressStartPrompts[playerID].gameObject.SetActive(true);
+
+        for (int i = 0; i < registeredPlayers.Length; i++) {
+            if (registeredPlayers[i] != null) { //if someone is still registered
+                continuePrompt.SetActive(true);
+                return;
             }
+        }
+
+        //else nobody is still registered
+        continuePrompt.SetActive(false);
+    }
+
+    public void setPlayerReady(byte playerID, bool ready) {
+        if (registeredPlayers[playerID] != null) {
+            registeredPlayers[playerID].ready = ready;
+
+            RegistrationUI ui = registeredPlayers[playerID].registeredPlayer.GetComponent<RegistrationUI>();
+            ui.ready = ready;
         }
     }
 
     void Update() {
+        if (numJoySticks != Input.GetJoystickNames().Length) {
+            RepopulateJoystickList();
+        }
+
         for (int i = 0; i < possibleBindings.Length; i++) {
-            if (possibleBindings[i].AnyKey() && !possibleBindings[i].getCancel && !registeredBindings[i]) {
+            if (possibleBindings[i]!=null && possibleBindings[i].AnyKey() && !registeredBindings[i]) {
                 int openPlayerID = getFirstAvailablePlayerID();
                 if (openPlayerID >= 0) {
                     //if there exists an open ID
-                    sendRegistrationRequest((byte)i);
+                    CreateRegisteredPlayer((byte)i, false);
+                }
+            }
+        }
+
+        for (int j = 0; j < 4; j++) {
+            print("XInput " + j + ": " + XInputBindings[j].AnyKey());
+        }
+
+        for (int i = 0; i < XInputBindings.Length; i++) {
+            if (XInputBindings[i] != null && XInputBindings[i].AnyKey() && !registeredBindings[i + possibleBindings.Length]) {
+                int openPlayerID = getFirstAvailablePlayerID();
+                if (openPlayerID >= 0) {
+                    //if there exists an open ID
+                    CreateRegisteredPlayer((byte)(i + possibleBindings.Length), true);
                 }
             }
         }
@@ -300,34 +209,43 @@ public class PlayerRegistration : MonoBehaviour {
         //check for moving to the next scene
         int ready = 0;
         int currentPlayers = 0;
-        bool hasMasterPlayer = false;
         for (int i = 0; i < numPlayers; i++) {
             if (registeredPlayers[i] != null) {
                 currentPlayers++;
                 if (registeredPlayers[i].ready) {
                     ready++;
-                    if (registeredPlayers[i].ownerActorID == PhotonNetwork.player.ID) {
-                        hasMasterPlayer = true;
-                    }
                 }
             }
         }
+        if (!requireMaxPlayerCount || ready == numPlayers) {
+            SceneManager.LoadScene(nextScene);
+        }
+    }
 
-        continuePrompt.enabled = ready != 0 && ready == currentPlayers;
-        if (requireMaxPlayerCount && ready != numPlayers) {
-            continuePrompt.text = "Waiting for " + numPlayers + " players";
-        } else {
-            continuePrompt.text = "Press start to continue";
+    private void RepopulateJoystickList() {
+        string[] names = Input.GetJoystickNames();
+        possibleBindings = new PlayerInputHolder[names.Length + 1];
+        bool[] oldRegisteredBindings = registeredBindings;
+        registeredBindings = new bool[possibleBindings.Length + 4];
+        for (int i=0; i<oldRegisteredBindings.Length; i++) {
+            if (i < registeredBindings.Length) {
+                registeredBindings[i] = oldRegisteredBindings[i];
+            }
         }
 
-        if (PhotonNetwork.isMasterClient && hasMasterPlayer && ready != 0 && ready == currentPlayers) {
-            if (!requireMaxPlayerCount || ready == numPlayers) {
-                // check if any player hit submit this frame
-                for (int i = 0; i < possibleBindings.Length; ++i) {
-                    if (possibleBindings[i].getSubmitDown) {
-                        SceneManager.LoadScene(nextScene);
-                        break;
-                    }
+        for (int i = 0; i < possibleBindings.Length; i++) {
+            if (i >= names.Length) {
+                possibleBindings[i] = GameObject.Instantiate<PlayerInputHolder>(inputHolder);
+                possibleBindings[i].HeldInput = new KeyboardMousePlayerInput();
+                possibleBindings[i].HeldInput.Initialize(possibleBindings[i]);
+                possibleBindings[i].HeldInput.Player = possibleBindings[i].transform;
+            }
+            else {
+                if (names[i] != "Controller (XBOX 360 For Windows)") {
+                    possibleBindings[i] = GameObject.Instantiate<PlayerInputHolder>(inputHolder);
+                    possibleBindings[i].HeldInput = new ControllerPlayerInput((XInputDotNetPure.PlayerIndex)i);
+                    possibleBindings[i].HeldInput.Initialize(possibleBindings[i]);
+                    possibleBindings[i].HeldInput.Player = possibleBindings[i].transform;
                 }
             }
         }
@@ -339,8 +257,9 @@ public class PlayerRegistration : MonoBehaviour {
                 int openPlayerID = getFirstAvailablePlayerID();
                 if (openPlayerID >= 0) {
                     //if there exists an open ID
-                    sendRegistrationRequest((byte)i);
-                } else {
+                    CreateRegisteredPlayer((byte)i, false);
+                }
+                else {
                     Debug.LogError("There is no openPlayerID for a pre-registered player");
                 }
                 return;
@@ -351,3 +270,4 @@ public class PlayerRegistration : MonoBehaviour {
         //TODO: add support for a -1 bindingID, for custom bindings?
     }
 }
+

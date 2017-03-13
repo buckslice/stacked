@@ -19,7 +19,7 @@ public class ButtonCheckMenu : MonoBehaviour {
     public GameObject xboxImage;
     public GameObject ps4Image;
     public GameObject keyboardImage;
-    bool isXboxBindings = true;
+    bool isXboxBindings = false;
 
     void Start() {
         currentDelay = 0;
@@ -35,10 +35,14 @@ public class ButtonCheckMenu : MonoBehaviour {
 
         this.bindings = bindings;
         if (bindings.GetType() == typeof(ControllerPlayerInput)) {
-            xboxImage.SetActive(true);
+            ps4Image.SetActive(true);
             ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-            controllerInput.setControllerType(true);
-        } else {
+            controllerInput.setControllerType(false);
+        }
+        else if (bindings.GetType() == typeof(XinputPlayerInput)) {
+            xboxImage.SetActive(true);
+        }
+        else {
             keyboardImage.SetActive(true);
         }
 

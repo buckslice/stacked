@@ -91,9 +91,14 @@ public class ControllerPlayerInput : IPlayerInput {
 
     [SerializeField]
     private float deadZone = 0.2f;
-
-    //Transform player; //not needed yet
+    
     public Transform Player { set { ; } } //set { player = value; }
+
+    public ControllerPlayerInput() { }
+
+    public ControllerPlayerInput(XInputDotNetPure.PlayerIndex index) {
+        controllerIndex = index;
+    }
 
     public void Deactivate() {
         vibrationAmount.Reset();
@@ -114,8 +119,6 @@ public class ControllerPlayerInput : IPlayerInput {
     bool initialized = false;
 
     void Initialize() {
-        // commenting this because it is causing debugger to crash
-        //Assert.IsNull(allControllers[(int)controllerIndex]);
 
         allControllers[(int)controllerIndex] = this;
 
@@ -123,8 +126,8 @@ public class ControllerPlayerInput : IPlayerInput {
         axisStates = new bool[Tags.Input.Joystick1.allAxes.Length];
         axisUp = new bool[Tags.Input.Joystick1.allAxes.Length];
         axisDown = new bool[Tags.Input.Joystick1.allAxes.Length];
-        currentAxisType = AxisType.XBOX;
-        setXboxBindings();
+        currentAxisType = AxisType.PS4;
+        setPS4Bindings();
 
     }
 
@@ -240,6 +243,7 @@ public class ControllerPlayerInput : IPlayerInput {
         }
     }
 
+
     public string getBindingName(Inputs key) {
         if (InputBindings[(int)key].type == InputType.KEY) {
 
@@ -335,7 +339,7 @@ public class ControllerPlayerInput : IPlayerInput {
     }
 
     public void rebindToDefault() {
-        setXboxBindings();
+        setPS4Bindings();
     }
     
     private void setXboxBindings() {
