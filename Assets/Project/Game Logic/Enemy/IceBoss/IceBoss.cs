@@ -11,7 +11,7 @@ public class IceBoss : BossBase {
 
     public Damageable damageable;
 
-    const float iceCircleTime = 20.0f;     // time between phases
+    const float iceCircleTime = 15.0f;     // time between phases
     const float iceCircleDuration = 10.0f; // how long phase lasts
 
     public GameObject iceCircleCenterPrefab;

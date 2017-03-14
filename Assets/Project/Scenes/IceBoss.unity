@@ -1777,8 +1777,8 @@ MonoBehaviour:
   playerID: 0
   playerData:
     playerClass: 0
-    firstAbility: 1
-    secondAbility: 11
+    firstAbility: 6
+    secondAbility: 15
     defaultAbilities: 101112
   AIPlayer: 0
 --- !u!4 &1185180350
