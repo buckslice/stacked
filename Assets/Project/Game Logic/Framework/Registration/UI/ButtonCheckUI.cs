@@ -26,11 +26,11 @@ public class ButtonCheckUI : MonoBehaviour {
         IPlayerInput bindings = player.inputBindings;
         menu.Initialize(bindings, player.PlayerID);
 
-        // if not in keyboard mode then spawn some arrows to show you can switch between xbox and ps4
-        if (!menu.keyboardImage.GetActive()) {
-            GameObject arrowUI = Instantiate(arrowUIPrefab, GetComponent<IEntityUIGroupHolder>().EntityGroup.transform);
-            arrowUI.transform.localScale = Vector3.one;
-        }
+        //// if not in keyboard mode then spawn some arrows to show you can switch between xbox and ps4
+        //if (!menu.keyboardImage.GetActive()) {
+        //    GameObject arrowUI = Instantiate(arrowUIPrefab, GetComponent<IEntityUIGroupHolder>().EntityGroup.transform);
+        //    arrowUI.transform.localScale = Vector3.one;
+        //}
 
     }
 }

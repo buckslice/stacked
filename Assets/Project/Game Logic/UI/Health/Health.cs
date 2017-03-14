@@ -22,6 +22,7 @@ public class Health : MonoBehaviour {
     [SerializeField]
     protected float _health = 100f;     // current health
     public float health { get { return _health; } }
+    public float maxHealth { get { return _maxHealth; } }
     /// <summary>
     /// Returns the amount by which the health was actually changed.
     /// </summary>
@@ -30,8 +31,8 @@ public class Health : MonoBehaviour {
     private float SetHealth(float value) {
         float healthBefore = _health;
         _health = value;
-        if (_health > maxHealth) {
-            _health = maxHealth;
+        if (_health > _maxHealth) {
+            _health = _maxHealth;
         }
 
         onHealthChanged();
@@ -47,9 +48,9 @@ public class Health : MonoBehaviour {
     // explicitely set health and max health
     public void SetHealth(float health, float max) {
         _health = health;
-        maxHealth = max;
-        if(_health > maxHealth) {
-            health = maxHealth;
+        _maxHealth = max;
+        if(_health > _maxHealth) {
+            health = _maxHealth;
         }
         onHealthChanged();
         if (_health <= 0) {
@@ -57,13 +58,13 @@ public class Health : MonoBehaviour {
         }
     }
 
-    protected float maxHealth;
-    public float healthPercent { get { return health / maxHealth; } }
+    protected float _maxHealth;
+    public float healthPercent { get { return health / _maxHealth; } }
 
     //private HealthBar bar;
 
     void Awake() {
-        maxHealth = health;
+        _maxHealth = health;
     }
 
     public virtual float Damage(float amount) {
