@@ -73,8 +73,9 @@ public class BossBase : MonoBehaviour {
         transform.rotation = lookRot;
     }
 
-    // routine that throws away a player and restores movement once they hit ground
-    protected IEnumerator KnockAway(PlayerRefs pr, bool random, float power = 12.0f) {
+    // routine that knocks a player away from boss (or random dir) and restores movement once they hit ground
+    // assumes boss y is at 0 by default (could fix but whatever)
+    protected IEnumerator KnockAway(PlayerRefs pr, bool random = false, float power = 12.0f) {
         pr.pm.MovementInputEnabled.AddModifier(false);
         pr.pm.HaltMovement();
 

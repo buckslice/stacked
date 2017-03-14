@@ -383,7 +383,7 @@ public class IceBoss : BossBase {
             PlayerRefs pr = players[i];
             if (prefs != pr) {    // skip player being eaten
                 if (pr.stck.elevationInStack() == 0) {  // only knock away bottom of stack
-                    StartCoroutine(KnockAway(pr, false));
+                    StartCoroutine(KnockAway(pr));
                 }
             }
         }

@@ -70,7 +70,7 @@ GameObject:
   - component: {fileID: 135055300321646450}
   - component: {fileID: 23828740574000650}
   m_Layer: 20
-  m_Name: Sphere
+  m_Name: SpiderSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 135294892169564586}
   - component: {fileID: 23787244374288812}
   m_Layer: 20
-  m_Name: Sphere
+  m_Name: SpiderSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 136539421262432602}
   - component: {fileID: 23710642369449908}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 135542679759649654}
   - component: {fileID: 23387305050950602}
   m_Layer: 20
-  m_Name: Sphere
+  m_Name: SpiderSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -384,7 +384,7 @@ GameObject:
   - component: {fileID: 136162362963156746}
   - component: {fileID: 23311281591542978}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 136208810516983626}
   - component: {fileID: 23277426541503640}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 136359679735989808}
   - component: {fileID: 23753843969548314}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -573,7 +573,7 @@ GameObject:
   - component: {fileID: 136029541084104872}
   - component: {fileID: 23547655284399386}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 136088036691176166}
   - component: {fileID: 23634781163559344}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 135494341823799524}
   - component: {fileID: 23200600583017296}
   m_Layer: 20
-  m_Name: Sphere
+  m_Name: SpiderSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -707,7 +707,7 @@ GameObject:
   - component: {fileID: 135295784592304342}
   - component: {fileID: 23185250702923250}
   m_Layer: 20
-  m_Name: Sphere
+  m_Name: SpiderSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -740,7 +740,7 @@ GameObject:
   - component: {fileID: 136623820042596122}
   - component: {fileID: 23994368374740162}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 136548352178807680}
   - component: {fileID: 23206009295201704}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -806,7 +806,7 @@ GameObject:
   - component: {fileID: 136553311430966144}
   - component: {fileID: 23088319426143578}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -854,7 +854,7 @@ GameObject:
   - component: {fileID: 136638022870075018}
   - component: {fileID: 23817535854309510}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -872,7 +872,7 @@ GameObject:
   - component: {fileID: 136734086157879212}
   - component: {fileID: 23330640256021542}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -967,7 +967,7 @@ GameObject:
   - component: {fileID: 136391065572994932}
   - component: {fileID: 23939811943124034}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -985,7 +985,7 @@ GameObject:
   - component: {fileID: 136209930868840272}
   - component: {fileID: 23726772883098906}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1003,7 +1003,7 @@ GameObject:
   - component: {fileID: 135815758775087112}
   - component: {fileID: 23564831576689726}
   m_Layer: 20
-  m_Name: Sphere
+  m_Name: SpiderSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1036,7 +1036,7 @@ GameObject:
   - component: {fileID: 136520104176344244}
   - component: {fileID: 23041624825598674}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1105,7 +1105,7 @@ GameObject:
   - component: {fileID: 135504082732114888}
   - component: {fileID: 23309919628931832}
   m_Layer: 20
-  m_Name: Sphere
+  m_Name: SpiderSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1199,7 +1199,7 @@ GameObject:
   - component: {fileID: 135314173876490954}
   - component: {fileID: 23400898658112568}
   m_Layer: 20
-  m_Name: Sphere
+  m_Name: SpiderSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1234,7 +1234,7 @@ GameObject:
   - component: {fileID: 136017193975956704}
   - component: {fileID: 23550481842250502}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1283,7 +1283,7 @@ GameObject:
   - component: {fileID: 136888716787892086}
   - component: {fileID: 23477038778320110}
   m_Layer: 20
-  m_Name: Capsule
+  m_Name: SpiderLegCapsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1392,7 +1392,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1259923328323672}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: -10.45}
+  m_LocalPosition: {x: 0, y: 4.63, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4941172633167856}
@@ -1765,7 +1765,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1903290560346206}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4796475655335928}
@@ -4277,6 +4277,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 524288
   stepCooldown: 0
+  stepsPerSecond: 10
 --- !u!114 &114857203889435198
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4334,7 +4335,7 @@ SphereCollider:
   m_GameObject: {fileID: 1026685350791528}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -4346,7 +4347,7 @@ SphereCollider:
   m_GameObject: {fileID: 1071523280091786}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -4358,7 +4359,7 @@ SphereCollider:
   m_GameObject: {fileID: 1411121688353612}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -4370,7 +4371,7 @@ SphereCollider:
   m_GameObject: {fileID: 1837881913344246}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -4382,7 +4383,7 @@ SphereCollider:
   m_GameObject: {fileID: 1396105778381596}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -4394,7 +4395,7 @@ SphereCollider:
   m_GameObject: {fileID: 1751605100256534}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -4406,7 +4407,7 @@ SphereCollider:
   m_GameObject: {fileID: 1230929025336470}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -4430,7 +4431,7 @@ SphereCollider:
   m_GameObject: {fileID: 1689949770626958}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -4442,7 +4443,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1850377752591258}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4455,7 +4456,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1345735760913218}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4468,7 +4469,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1390636001605718}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4481,7 +4482,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1236129253446410}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4494,7 +4495,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1295986892624742}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4507,7 +4508,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1658245680423168}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4520,7 +4521,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1308380963170038}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4533,7 +4534,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1657780530597138}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4546,7 +4547,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1719507063856522}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4559,7 +4560,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1155840682459760}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4572,7 +4573,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1483292252677798}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4585,7 +4586,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1545311259784218}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4598,7 +4599,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1483000590513688}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4611,7 +4612,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1565565533092922}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4624,7 +4625,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1566952817648390}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4637,7 +4638,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 1884703204098454}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
@@ -4649,7 +4650,7 @@ NavMeshAgent:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1259923328323672}
   m_Enabled: 1
-  m_Radius: 2
+  m_Radius: 3
   m_Speed: 15
   m_Acceleration: 100
   avoidancePriority: 50
@@ -4659,7 +4660,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 4
-  m_BaseOffset: 4
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!198 &198084649067379726
@@ -4717,7 +4718,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1012583797
+  randomSeed: 566097611
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7354,7 +7355,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -835498291
+  randomSeed: 1770539556
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -9991,7 +9992,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -72617037
+  randomSeed: -1925412845
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12628,7 +12629,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -90283173
+  randomSeed: 1010765942
   InitialModule:
     serializedVersion: 3
     enabled: 1
