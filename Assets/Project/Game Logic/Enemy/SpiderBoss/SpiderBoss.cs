@@ -117,7 +117,6 @@ public class SpiderBoss : BossBase {
         PlayerRefs p = GetRandomPlayer();
 
         focusRoutine = StartCoroutine(FocusRoutine(p.transform, 30.0f, 60.0f));
-        //yield return StartCoroutine(FocusRoutine(p.transform, 5.0f, 60.0f));
 
         yield return Yielders.Get(1.0f);    // wait for a bit then either charge this player or another
 
