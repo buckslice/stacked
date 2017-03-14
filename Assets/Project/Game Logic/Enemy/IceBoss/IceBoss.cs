@@ -32,10 +32,6 @@ public class IceBoss : BossBase {
     float timeSinceLastIceCircle = 0.0f;
     float nextTargetTimer = 2.0f;
 
-
-    Collider[] overLaps = new Collider[16];  // for overlaps sphere checks
-    List<PlayerRefs> playerRefs = new List<PlayerRefs>();   // another helper list
-
     State state = State.INTRO;
     enum State {
         INTRO,
@@ -47,7 +43,9 @@ public class IceBoss : BossBase {
     }
 
     // Use this for initialization
-    void Start() {
+    protected override void Start() {
+        base.Start();
+
         agent = GetComponent<NavMeshAgent>();
         camShaker = Camera.main.GetComponent<CameraShakeScript>();
         camController = Camera.main.transform.parent.GetComponent<CameraController>();
@@ -221,8 +219,7 @@ public class IceBoss : BossBase {
         mandibles.autoSound = false;
 
         FindAlivePlayers();
-        Player p = players[Random.Range(0, players.Count)];
-        PlayerRefs prefs = p.Holder.GetComponent<PlayerRefs>();
+        PlayerRefs prefs = GetRandomPlayer();
 
         prefs.stck.RemoveSelf();
         prefs.pm.MovementInputEnabled.AddModifier(false);
@@ -312,26 +309,23 @@ public class IceBoss : BossBase {
             // find all players inside circle and eat them
             FindAlivePlayersNear(ccenter.position, circleRadius + 1.0f);
             if (players.Count > 0) {
-                playerRefs.Clear();
                 for (int i = 0; i < players.Count; ++i) {
-                    PlayerRefs pr = players[i].Holder.GetComponent<PlayerRefs>();
-                    pr.dmg.Damage(1000.0f);
-                    playerRefs.Add(pr);
+                    players[i].dmg.Damage(1000.0f);
                 }
                 // start and wait for chomping
                 yield return StartCoroutine(ChompRoutine());
 
                 // throw all players who were chomped away randomly
-                for (int i = 0; i < playerRefs.Count; ++i) {
+                for (int i = 0; i < players.Count; ++i) {
                     Vector3 dir = Vector3.zero;
-                    Vector3 ppos = playerRefs[i].transform.position;
+                    Vector3 ppos = players[i].transform.position;
                     // throw players close to center forward from boss
                     if ((ppos - ccenter.position).sqrMagnitude < 1.0f) {
                         dir = transform.forward + Vector3.up;
                     } else { // throw them away from center
                         dir = (ppos - ccenter.position).normalized + Vector3.up;
                     }
-                    playerRefs[i].rb.velocity = dir.normalized * 12.0f;
+                    players[i].rb.velocity = dir.normalized * 12.0f;
                 }
             }
 
@@ -386,8 +380,8 @@ public class IceBoss : BossBase {
         // find other nearby players and knock them away
         FindAlivePlayersNear(transform.position, 8.0f);
         for (int i = 0; i < players.Count; ++i) {
-            if (prefs.holder != players[i].Holder) {    // skip player being eaten
-                PlayerRefs pr = players[i].Holder.GetComponent<PlayerRefs>();
+            PlayerRefs pr = players[i];
+            if (prefs != pr) {    // skip player being eaten
                 if (pr.stck.elevationInStack() == 0) {  // only knock away bottom of stack
                     StartCoroutine(KnockAway(pr, false));
                 }
@@ -445,7 +439,7 @@ public class IceBoss : BossBase {
     void FindAlivePlayersNear(Vector3 point, float rad, float maxYDiff = 8.0f) {
         FindAlivePlayers();
         for (int i = 0; i < players.Count; ++i) {
-            Vector3 playerPos = players[i].Holder.transform.position;
+            Vector3 playerPos = players[i].transform.position;
             if (Mathf.Abs(point.y - playerPos.y) > maxYDiff) {
                 players.RemoveAt(i--);
                 continue;
@@ -464,21 +458,21 @@ public class IceBoss : BossBase {
         }
 
         // find and look at random player
-        Player p = players[Random.Range(0, players.Count)];
-        yield return StartCoroutine(FocusRoutine(p.Holder.transform, Random.value + 1.0f));
+        PlayerRefs p = GetRandomPlayer();
+        yield return StartCoroutine(FocusRoutine(p.transform, Random.value + 1.0f));
 
         // high chance to go after another random player instead (TRICKY)
         if (players.Count > 1 && Random.value < 0.7f) {
             players.Remove(p);
-            p = players[Random.Range(0, players.Count)];
+            p = GetRandomPlayer();
         }
 
         // get direction to player (run through them a little)
-        Vector3 pos = p.Holder.transform.position;
+        Vector3 pos = p.transform.position;
         Vector3 runThrough = (pos - transform.position).normalized * 10.0f;
 
         if (agent.enabled) {
-            agent.SetDestination(p.Holder.transform.position + runThrough);
+            agent.SetDestination(p.transform.position + runThrough);
         }
 
         nextTargetTimer = 1.0f;
