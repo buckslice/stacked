@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-public class SpiderBoss : MonoBehaviour {
+public class SpiderBoss : BossBase {
 
     public AnimationCurve legHeightCurve;
     public LayerMask legCollisionLayer;
@@ -71,14 +71,17 @@ public class SpiderBoss : MonoBehaviour {
 	}
 
     IEnumerator LookRoutine() {
-        BossHelper.FindAlivePlayers();
-        Player p = BossHelper.GetRandomPlayer();
-        yield return StartCoroutine(BossHelper.FocusRoutine(transform, p.Holder.transform, 5.0f));
+        FindAlivePlayers();
+        Player p = GetRandomPlayer();
+        yield return StartCoroutine(FocusRoutine(p.Holder.transform, 5.0f));
         timeSinceLook = 0.0f;
         newWalk = 0.0f;
         state = State.RANDOM_WALK;
     }
 
+    // updates legs and chooses which one to step next
+    // todo: force alternating between sides each step
+    // also could make sure you dont ever step legs of same index in a row
     void CheckLegs() {
         stepCooldown -= Time.deltaTime;
         if (stepCooldown < 0.0f) {
