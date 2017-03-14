@@ -13,7 +13,6 @@ public class IKLimb : MonoBehaviour {
     public bool idleOptimization = false;
 
     private Quaternion upperArmStartRotation, forearmStartRotation, handStartRotation;
-    private Vector3 elbowTargetRelativeStartPosition;
 
     //helper GOs that are reused every frame
     private GameObject upperArmAxisCorrection, forearmAxisCorrection;
@@ -33,7 +32,7 @@ public class IKLimb : MonoBehaviour {
     float armLength;
     float hypotenuse;
 
-    public int legIndex;   // [0,3] 0 being frontmost, each side
+    public int legIndex;   // [0,3] 0 being frontmost to 3 backmost, on each side
     SpiderBoss spider;
     Vector3 lastElbowOffset;
     Vector3 posAtLastStep;
@@ -46,8 +45,6 @@ public class IKLimb : MonoBehaviour {
         upperArmStartRotation = upperArm.rotation;
         forearmStartRotation = forearm.rotation;
         handStartRotation = hand.rotation;
-        //targetRelativeStartPosition = target.position - upperArm.position;
-        elbowTargetRelativeStartPosition = elbowTarget.position - upperArm.position;
 
         //Calculate ikAngle variable.
         upperArmLength = Vector3.Distance(upperArm.position, forearm.position);
@@ -87,6 +84,7 @@ public class IKLimb : MonoBehaviour {
         Debug.DrawRay(r.origin, r.direction * 10.0f, Color.magenta);
 
         // extrapolate where step should go based on how far you moved since step began
+        // if want to accurately be able to climb up and down obstacles will need to change this (but fine for flat surface)
         Vector3 extrapTarget = stepTarget + (transform.position - posAtLastStep);
 
         // normally stepping is controlled by spider unless leg detects bad form

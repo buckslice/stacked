@@ -62,9 +62,9 @@ public class SpiderBoss : MonoBehaviour {
         if(state == State.RANDOM_WALK) {
             newWalk -= Time.deltaTime;
             if (newWalk < 0.0f) {
-                Vector2 r = Random.insideUnitCircle * 40.0f;
+                Vector2 r = Random.insideUnitCircle * 30.0f;
                 agent.destination = new Vector3(r.x, 0.0f, r.y);
-                newWalk = Random.value * 8.0f + 2.0f;
+                newWalk = Random.value * 6.0f + 2.0f;
             }
         }
 
