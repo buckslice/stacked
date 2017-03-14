@@ -53,21 +53,22 @@ public class ButtonCheckMenu : MonoBehaviour {
     void Update() {
         if (!ready) {
             currentDelay -= Time.deltaTime;
-            if (currentDelay <= 0
-                && bindings.movementDirection.sqrMagnitude > 0.25f
-                && bindings.GetType() == typeof(ControllerPlayerInput)) {
+            // For changing between xbox and ps4. Now that XInput controllers register separately, this may not be needed anymore
+            //if (currentDelay <= 0
+            //    && bindings.movementDirection.sqrMagnitude > 0.25f
+            //    && bindings.GetType() == typeof(ControllerPlayerInput)) {
 
-                isXboxBindings = !isXboxBindings;
+            //    isXboxBindings = !isXboxBindings;
 
-                ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
-                controllerInput.setControllerType(isXboxBindings);
+            //    ControllerPlayerInput controllerInput = (ControllerPlayerInput)bindings;
+            //    controllerInput.setControllerType(isXboxBindings);
 
-                xboxImage.SetActive(isXboxBindings);
-                ps4Image.SetActive(!isXboxBindings);
-                keyboardImage.SetActive(false);
+            //    xboxImage.SetActive(isXboxBindings);
+            //    ps4Image.SetActive(!isXboxBindings);
+            //    keyboardImage.SetActive(false);
 
-                currentDelay = REPEAT_DELAY;
-            }
+            //    currentDelay = REPEAT_DELAY;
+            //}
 
             if (bindings.getStartDown || bindings.getSubmitDown) {
                 ready = true;

@@ -20,11 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4000010123889878}
   - component: {fileID: 114000011249166826}
-  - component: {fileID: 114000011048380482}
-  - component: {fileID: 114000011737676832}
-  - component: {fileID: 114000012135036892}
-  - component: {fileID: 114000012219358892}
-  - component: {fileID: 114000012855562620}
   m_Layer: 0
   m_Name: PlayerRegistration
   m_TagString: Untagged
@@ -45,17 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114000011048380482
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014168926464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65be4c66d84204f46b518cafbb02ecb3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011249166826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,15 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a2676dc00de53248bef7542785f35de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  requireMaxPlayerCount: 1
   registeredPlayerPrefab: {fileID: 1000013470432026, guid: b06cb6c7b52354c4ca8d947421baa44c,
     type: 2}
   nextScene: BossSelect
-  possibleBindings:
-  - {fileID: 114000011048380482}
-  - {fileID: 114000012135036892}
-  - {fileID: 114000012219358892}
-  - {fileID: 114000012855562620}
-  - {fileID: 114000011737676832}
+  possibleBindings: []
+  inputHolder: {fileID: 0}
+  XInputBindings: []
   pressStartPrompts:
   - {fileID: 0}
   - {fileID: 0}
@@ -84,63 +66,3 @@ MonoBehaviour:
   continuePrompt: {fileID: 0}
   vibrationDuration: 0.15
   vibrationStrength: 1
---- !u!114 &114000011737676832
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014168926464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1c63ec6d41d95645aa0ec97f0989975, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bindings:
-    controllerIndex: 0
-    axisStates: 
-    deadZone: 0.2
---- !u!114 &114000012135036892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014168926464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1c63ec6d41d95645aa0ec97f0989975, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bindings:
-    controllerIndex: 1
-    axisStates: 
-    deadZone: 0.2
---- !u!114 &114000012219358892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014168926464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1c63ec6d41d95645aa0ec97f0989975, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bindings:
-    controllerIndex: 2
-    axisStates: 
-    deadZone: 0.2
---- !u!114 &114000012855562620
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014168926464}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1c63ec6d41d95645aa0ec97f0989975, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bindings:
-    controllerIndex: 3
-    axisStates: 
-    deadZone: 0.2
