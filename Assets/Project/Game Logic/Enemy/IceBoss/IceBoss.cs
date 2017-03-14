@@ -17,12 +17,14 @@ public class IceBoss : BossBase {
     public GameObject iceCircleCenterPrefab;
     public GameObject iceShardPrefab;
     public GameObject iciclePrefab;
+    public GameObject bigIciclePrefab;
 
     public LayerMask playerLayer;
 
     CameraShakeScript camShaker;
     CameraController camController;
     EntityUIGroupHolder healthBar;
+    Health health;
     NavMeshAgent agent;
     AudioSource source;
     AudioSource music;
@@ -53,6 +55,8 @@ public class IceBoss : BossBase {
 
         agent.enabled = false;
         healthBar.SetGroupActive(false);
+
+        health = GetComponent<Health>();
 
         GameObject musicGO = GameObject.Find("Music");
         if (musicGO) {
@@ -355,6 +359,13 @@ public class IceBoss : BossBase {
                 Quaternion rot = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
                 GameObject go = Instantiate(iciclePrefab, pos, rot);
                 yield return Yielders.Get(1.0f);
+            }
+            //If below half health, summon a big icicle
+            if (health.health / health.maxHealth < 0.5f) {
+                Vector3 pos = Random.onUnitSphere * 30.0f;
+                pos.y = 20.0f;
+                Quaternion rot = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
+                GameObject go = Instantiate(bigIciclePrefab, pos, rot);
             }
         }
         //Spawns icicles every ice circle when commented out. Let's see how this plays.

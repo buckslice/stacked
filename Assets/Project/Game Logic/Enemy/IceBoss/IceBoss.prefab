@@ -3116,6 +3116,8 @@ MonoBehaviour:
     type: 2}
   iciclePrefab: {fileID: 1245739834809832, guid: 95b0a647caa521d458a4a990e3c4462f,
     type: 2}
+  bigIciclePrefab: {fileID: 1419030705739816, guid: 5581803955992a548a002a2164002c63,
+    type: 2}
   playerLayer:
     serializedVersion: 2
     m_Bits: 8192
