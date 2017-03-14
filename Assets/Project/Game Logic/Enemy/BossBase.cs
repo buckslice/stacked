@@ -5,28 +5,40 @@ using UnityEngine;
 // base class for bosses with some helper functions
 public class BossBase : MonoBehaviour {
 
-    protected List<Player> players = new List<Player>();  // filled and cleared by various functions
+    // filled once at beginning with the PlayerRefs of each player in game
+    List<PlayerRefs> playerRefs = new List<PlayerRefs>();
 
-    // find all living players (thought theres helper function for this but couldnt find)
-    public void FindAlivePlayers() {
+    protected List<PlayerRefs> players = new List<PlayerRefs>();  // filled and cleared by various functions
+
+    bool init = false;
+
+    protected virtual void Start() {
+        // init player refs to be list of PlayerRefs mirrored to player list
+        for(int i = 0; i < Player.Players.Count; ++i) {
+            playerRefs.Add(Player.Players[i].Holder.GetComponent<PlayerRefs>());
+        }
+        init = true;
+    }
+
+    // find all living players
+    protected void FindAlivePlayers() {
+        Debug.Assert(init, "BossBase Start() not called in child class!");
         players.Clear();
-        for (int i = 0; i < Player.Players.Count; ++i) {
+        for(int i = 0; i < Player.Players.Count; ++i) {
             if (!Player.Players[i].dead) {
-                players.Add(Player.Players[i]);
+                players.Add(playerRefs[i]);
             }
         }
     }
 
     // gets random player from current player list
-    public Player GetRandomPlayer() {
-        Player p = players[Random.Range(0, players.Count)];
-        PlayerRefs prefs = p.Holder.GetComponent<PlayerRefs>();
-        return p;
+    protected PlayerRefs GetRandomPlayer() {
+        return players[Random.Range(0, players.Count)];
     }
 
     // focus on a transforms position for an amount of time
     // turns at a rate degreesPerSec (not sure how well this works)
-    public IEnumerator FocusRoutine(Transform targ, float time, float degreesPerSec = 360.0f) {
+    protected IEnumerator FocusRoutine(Transform targ, float time, float degreesPerSec = 360.0f) {
         Quaternion startRot = transform.rotation;
         float t = 0.0f;
         Vector3 dir;
@@ -46,7 +58,7 @@ public class BossBase : MonoBehaviour {
 
     // look at a position at a rate of degreesPerSec
     // ends once you are looking at it
-    public IEnumerator LookAtRoutine(Vector3 targ, float degreesPerSec = 360.0f) {
+    protected IEnumerator LookAtRoutine(Vector3 targ, float degreesPerSec = 360.0f) {
         Quaternion startRot = transform.rotation;
         Vector3 dir = (targ - transform.position).normalized;
         float angle = Vector3.Angle(dir, transform.forward);
@@ -62,7 +74,7 @@ public class BossBase : MonoBehaviour {
     }
 
     // routine that throws away a player and restores movement once they hit ground
-    public IEnumerator KnockAway(PlayerRefs pr, bool random, float power = 12.0f) {
+    protected IEnumerator KnockAway(PlayerRefs pr, bool random, float power = 12.0f) {
         pr.pm.MovementInputEnabled.AddModifier(false);
         pr.pm.HaltMovement();
 
@@ -87,7 +99,7 @@ public class BossBase : MonoBehaviour {
 
     // routine meant to force a player to stay at target position
     // until they are either picked up or coroutine is killed
-    public IEnumerator TrapPlayer(Stackable stackable, Vector3 target) {
+    protected IEnumerator TrapPlayer(Stackable stackable, Vector3 target) {
         while (stackable.elevationInStack() == 0) { // as soon as they are picked up this disables
             stackable.transform.position = Vector3.Lerp(stackable.transform.position, target, Time.deltaTime * 10.0f);
             yield return null;
@@ -96,7 +108,7 @@ public class BossBase : MonoBehaviour {
 
     // locks player local position to certain offset
     // minor bug but for some reason players cant rotate while this is happening?
-    public IEnumerator LockPlayerLocal(Transform player, Vector3 offset) {
+    protected IEnumerator LockPlayerLocal(Transform player, Vector3 offset) {
         while (true) {
             player.localPosition = Vector3.Lerp(player.localPosition, offset, Time.deltaTime * 10.0f);
             yield return null;

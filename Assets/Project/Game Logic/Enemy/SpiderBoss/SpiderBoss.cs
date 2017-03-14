@@ -28,7 +28,9 @@ public class SpiderBoss : BossBase {
 
 
     // Use this for initialization
-    void Start() {
+    protected override void Start() {
+        base.Start();
+
         agent = GetComponent<NavMeshAgent>();
 
         legs = GetComponentsInChildren<IKLimb>();
@@ -72,8 +74,8 @@ public class SpiderBoss : BossBase {
 
     IEnumerator LookRoutine() {
         FindAlivePlayers();
-        Player p = GetRandomPlayer();
-        yield return StartCoroutine(FocusRoutine(p.Holder.transform, 5.0f));
+        PlayerRefs p = GetRandomPlayer();
+        yield return StartCoroutine(FocusRoutine(p.transform, 5.0f));
         timeSinceLook = 0.0f;
         newWalk = 0.0f;
         state = State.RANDOM_WALK;
