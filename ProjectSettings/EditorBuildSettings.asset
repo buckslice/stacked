@@ -11,11 +11,11 @@ EditorBuildSettings:
     path: Assets/Project/Scenes/MainMenu.unity
   - enabled: 1
     path: Assets/Project/Scenes/CharacterSelect.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/DevelopmentOnly/Derek.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/DevelopmentOnly/Roldan.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/DevelopmentOnly/John.unity
   - enabled: 1
     path: Assets/Project/Game Logic/Framework/GameEnd/DefeatPopup.unity
@@ -35,7 +35,7 @@ EditorBuildSettings:
     path: Assets/Project/DevelopmentOnly/Tutorial.unity
   - enabled: 1
     path: Assets/Project/Scenes/Tutorial.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/Project/Scenes/SpaceJamBoss.unity
   - enabled: 1
     path: Assets/Project/Scenes/SpiderBoss.unity
