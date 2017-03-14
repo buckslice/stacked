@@ -357,7 +357,8 @@ public class IceBoss : BossBase {
                 yield return Yielders.Get(1.0f);
             }
         }
-        shouldIcicles = !shouldIcicles;
+        //Spawns icicles every ice circle when commented out. Let's see how this plays.
+        //shouldIcicles = !shouldIcicles;
 
         timeSinceLastIceCircle = 0.0f;
         state = State.IDLE;
