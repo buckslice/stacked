@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Assertions;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class PlayerRegistration : MonoBehaviour {
 
@@ -56,7 +57,9 @@ public class PlayerRegistration : MonoBehaviour {
     protected RectTransform[] pressStartPrompts;
 
     [SerializeField]
-    protected GameObject continuePrompt;
+    protected Text continuePrompt;
+    [SerializeField]
+    protected Text skipPrompt;
 
     [SerializeField]
     protected float vibrationDuration = 0.15f;
@@ -75,7 +78,7 @@ public class PlayerRegistration : MonoBehaviour {
 
     void Awake() {
         registeredPlayers = new RegisteredPlayerGrouping[numPlayers];
-        registeredBindings = new bool[possibleBindings.Length+4];
+        registeredBindings = new bool[possibleBindings.Length + 4];
         XInputBindings = new PlayerInputHolder[4];
         for (int i = 0; i < 4; i++) {
             XInputBindings[i] = GameObject.Instantiate<PlayerInputHolder>(inputHolder);
@@ -91,6 +94,12 @@ public class PlayerRegistration : MonoBehaviour {
         Assert.IsNull(main);
         main = this;
         Assert.IsTrue(pressStartPrompts.Length == numPlayers);
+
+        // clear out all registered players on scene start (incase moved back to here with back button)
+        RegisteredPlayer[] playerObjects = FindObjectsOfType<RegisteredPlayer>();
+        for (int i = 0; i < playerObjects.Length; ++i) {
+            Destroy(playerObjects[i].gameObject);
+        }
     }
 
     void OnDestroy() {
@@ -127,8 +136,7 @@ public class PlayerRegistration : MonoBehaviour {
         //locally controlled player
         if (XInput) {
             registeredPlayer.Initalize(XInputBindings[bindingID - possibleBindings.Length].HeldInput, playerID, locallyControlled: true);
-        }
-        else {
+        } else {
             registeredPlayer.Initalize(possibleBindings[bindingID].HeldInput, playerID, locallyControlled: true);
         }
 
@@ -145,7 +153,6 @@ public class PlayerRegistration : MonoBehaviour {
 
 
         pressStartPrompts[playerID].gameObject.SetActive(false);
-        continuePrompt.SetActive(true);
     }
 
 
@@ -157,15 +164,6 @@ public class PlayerRegistration : MonoBehaviour {
         registeredPlayers[playerID] = null;
         pressStartPrompts[playerID].gameObject.SetActive(true);
 
-        for (int i = 0; i < registeredPlayers.Length; i++) {
-            if (registeredPlayers[i] != null) { //if someone is still registered
-                continuePrompt.SetActive(true);
-                return;
-            }
-        }
-
-        //else nobody is still registered
-        continuePrompt.SetActive(false);
     }
 
     public void setPlayerReady(byte playerID, bool ready) {
@@ -178,13 +176,16 @@ public class PlayerRegistration : MonoBehaviour {
     }
 
     void Update() {
-        string[] derp = Input.GetJoystickNames();
+        if (skipping) {
+            return;
+        }
+
         if (numJoySticks != Input.GetJoystickNames().Length) {
             RepopulateJoystickList();
         }
 
         for (int i = 0; i < possibleBindings.Length; i++) {
-            if (possibleBindings[i]!=null && possibleBindings[i].getAnyKeyDown && !registeredBindings[i]) {
+            if (possibleBindings[i] != null && possibleBindings[i].getAnyKeyDown && !registeredBindings[i]) {
                 int openPlayerID = getFirstAvailablePlayerID();
                 if (openPlayerID >= 0) {
                     //if there exists an open ID
@@ -215,9 +216,54 @@ public class PlayerRegistration : MonoBehaviour {
                 }
             }
         }
-        if (!requireMaxPlayerCount || ready == numPlayers) {
-            SceneManager.LoadScene(nextScene);
+
+        // set up menu text
+        continuePrompt.enabled = ready != 0 && ready == currentPlayers;
+        skipPrompt.enabled = continuePrompt.enabled;
+        if (requireMaxPlayerCount && ready != numPlayers) {
+            continuePrompt.text = "Waiting for " + numPlayers + " players";
+        } else {
+            continuePrompt.text = "Press start to continue";
+            skipPrompt.enabled = false;
         }
+
+        // check if skipping
+        if (skipPrompt.enabled) {
+            if (Input.GetKey(KeyCode.UpArrow)
+            && Input.GetKey(KeyCode.DownArrow)
+            && Input.GetKey(KeyCode.LeftArrow)
+            && Input.GetKey(KeyCode.RightArrow)) {
+                skipping = true;
+                StartCoroutine(SkipRoutine());
+            }
+        }
+
+        if (ready != 0 && ready == currentPlayers) {
+            if (!requireMaxPlayerCount || ready == numPlayers) {
+                for (int i = 0; i < possibleBindings.Length; ++i) {
+                    if (possibleBindings[i].getSubmitDown) {
+                        SceneManager.LoadScene(nextScene);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    bool skipping = false;
+    IEnumerator SkipRoutine() {
+        float t = 0.0f;
+        continuePrompt.enabled = false;
+        skipPrompt.text = "BADBOY MODE\nENGAGED";
+        Vector2 off = skipPrompt.rectTransform.offsetMax;
+        while (t < 1.0f) {
+            float newT = Mathf.Lerp(off.y, 0.0f, t);
+            skipPrompt.rectTransform.offsetMax = new Vector2(off.x, newT);
+            skipPrompt.fontSize = (int)Mathf.Lerp(15.0f, 100.0f, t);
+            t += Time.deltaTime * 0.5f;
+            yield return null;
+        }
+        SceneManager.LoadScene(nextScene);
     }
 
     private void RepopulateJoystickList() {
@@ -225,7 +271,7 @@ public class PlayerRegistration : MonoBehaviour {
         possibleBindings = new PlayerInputHolder[names.Length + 1];
         bool[] oldRegisteredBindings = registeredBindings;
         registeredBindings = new bool[possibleBindings.Length + 4];
-        for (int i=0; i<oldRegisteredBindings.Length; i++) {
+        for (int i = 0; i < oldRegisteredBindings.Length; i++) {
             if (i < registeredBindings.Length) {
                 registeredBindings[i] = oldRegisteredBindings[i];
             }
@@ -237,8 +283,7 @@ public class PlayerRegistration : MonoBehaviour {
                 possibleBindings[i].HeldInput = new KeyboardMousePlayerInput();
                 possibleBindings[i].HeldInput.Initialize(possibleBindings[i]);
                 possibleBindings[i].HeldInput.Player = possibleBindings[i].transform;
-            }
-            else {
+            } else {
                 if (names[i] != "Controller (XBOX 360 For Windows)" && names[i] != "Controller (Xbox One For Windows)") {
                     possibleBindings[i] = GameObject.Instantiate<PlayerInputHolder>(inputHolder);
                     possibleBindings[i].HeldInput = new ControllerPlayerInput((XInputDotNetPure.PlayerIndex)i);
@@ -256,8 +301,7 @@ public class PlayerRegistration : MonoBehaviour {
                 if (openPlayerID >= 0) {
                     //if there exists an open ID
                     CreateRegisteredPlayer((byte)i, false);
-                }
-                else {
+                } else {
                     Debug.LogError("There is no openPlayerID for a pre-registered player");
                 }
                 return;
