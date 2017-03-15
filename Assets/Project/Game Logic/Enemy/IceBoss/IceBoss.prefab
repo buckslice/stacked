@@ -3109,7 +3109,9 @@ MonoBehaviour:
   mandibles: {fileID: 114754459332045636}
   burrowingParticles: {fileID: 198781821696466386}
   mouthParticles: {fileID: 198938521756928130}
-  damageable: {fileID: 114652025401552162}
+  damageable:
+  - {fileID: 114806018781443988}
+  - {fileID: 114587912473631702}
   iceCircleCenterPrefab: {fileID: 1937432664916456, guid: 0f6cceb31d9afa44eaccfc8cf6ea6bc5,
     type: 2}
   iceShardPrefab: {fileID: 1815583028500644, guid: 58894ad62a0042944a6647a25ed83d2e,
@@ -3143,7 +3145,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135683264431088502
 SphereCollider:
@@ -19074,7 +19076,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -482216452
+  randomSeed: -633211960
   InitialModule:
     serializedVersion: 3
     enabled: 1

@@ -5,6 +5,10 @@ using UnityEngine;
 // base class for bosses with some helper functions
 public class BossBase : MonoBehaviour {
 
+    protected EntityUIGroupHolder healthBar;
+    protected Damageable[] damageable;
+    protected CameraController camController;
+
     // filled once at beginning with the PlayerRefs of each player in game
     List<PlayerRefs> playerRefs = new List<PlayerRefs>();
 
@@ -13,11 +17,32 @@ public class BossBase : MonoBehaviour {
     bool init = false;
 
     protected virtual void Start() {
+        healthBar = GetComponent<EntityUIGroupHolder>();
+        damageable = GetComponentsInChildren<Damageable>();
+
+        camController = Camera.main.transform.parent.GetComponent<CameraController>();
+
         // init player refs to be list of PlayerRefs mirrored to player list
-        for(int i = 0; i < Player.Players.Count; ++i) {
+        for (int i = 0; i < Player.Players.Count; ++i) {
             playerRefs.Add(Player.Players[i].Holder.GetComponent<PlayerRefs>());
         }
         init = true;
+    }
+
+    protected void SetImmune(bool immune) {
+        if (immune) {
+            for (int i = 0; i < damageable.Length; ++i) {
+                damageable[i].PhysicalVulnerabilityMultiplier.AddModifier(0);
+                damageable[i].MagicalVulnerabilityMultiplier.AddModifier(0);
+            }
+            healthBar.SetGroupActive(false);
+        } else {
+            for (int i = 0; i < damageable.Length; ++i) {
+                damageable[i].PhysicalVulnerabilityMultiplier.RemoveModifier(0);
+                damageable[i].MagicalVulnerabilityMultiplier.RemoveModifier(0);
+            }
+            healthBar.SetGroupActive(true);
+        }
     }
 
     // find all living players

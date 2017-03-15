@@ -9,8 +9,6 @@ public class IceBoss : BossBase {
     public ParticleSystem burrowingParticles;
     public ParticleSystem mouthParticles;
 
-    public Damageable damageable;
-
     const float iceCircleTime = 15.0f;     // time between phases
     const float iceCircleDuration = 10.0f; // how long phase lasts
 
@@ -22,8 +20,6 @@ public class IceBoss : BossBase {
     public LayerMask playerLayer;
 
     CameraShakeScript camShaker;
-    CameraController camController;
-    EntityUIGroupHolder healthBar;
     Health health;
     NavMeshAgent agent;
     AudioSource source;
@@ -50,11 +46,8 @@ public class IceBoss : BossBase {
 
         agent = GetComponent<NavMeshAgent>();
         camShaker = Camera.main.GetComponent<CameraShakeScript>();
-        camController = Camera.main.transform.parent.GetComponent<CameraController>();
-        healthBar = GetComponent<EntityUIGroupHolder>(); ;
 
         agent.enabled = false;
-        healthBar.SetGroupActive(false);
 
         health = GetComponent<Health>();
 
@@ -65,25 +58,14 @@ public class IceBoss : BossBase {
 
         source = GetComponent<AudioSource>();
 
+        SetImmune(true);
+
         StartCoroutine(IntroSequence());
         //StartCoroutine(ShortIntro());
     }
 
-    void SetImmune(bool immune) {
-        if (immune) {
-            damageable.PhysicalVulnerabilityMultiplier.AddModifier(0);
-            damageable.MagicalVulnerabilityMultiplier.AddModifier(0);
-            healthBar.SetGroupActive(false);
-        } else {
-            damageable.PhysicalVulnerabilityMultiplier.RemoveModifier(0);
-            damageable.MagicalVulnerabilityMultiplier.RemoveModifier(0);
-            healthBar.SetGroupActive(true);
-        }
-    }
 
     IEnumerator IntroSequence() {
-
-        SetImmune(true);
 
         yield return Yielders.Get(2.0f);
 
