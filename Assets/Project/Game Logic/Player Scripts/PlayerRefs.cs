@@ -14,4 +14,5 @@ public class PlayerRefs : MonoBehaviour {
     public GroundedChecker gc;
     public DamageHolder holder;
 
+    public bool knocked = false;
 }

@@ -8,6 +8,7 @@ public class BossBase : MonoBehaviour {
     protected EntityUIGroupHolder healthBar;
     protected Damageable[] damageable;
     protected CameraController camController;
+    protected int playerLayer = 1 << LayerMask.NameToLayer(Tags.Layers.Player);
 
     // filled once at beginning with the PlayerRefs of each player in game
     List<PlayerRefs> playerRefs = new List<PlayerRefs>();
@@ -120,7 +121,7 @@ public class BossBase : MonoBehaviour {
         }
 
         pr.pm.MovementInputEnabled.RemoveModifier(false);
-
+        pr.knocked = false;
     }
 
     // routine meant to force a player to stay at target position

@@ -13,7 +13,8 @@ public class SpiderBoss : BossBase {
     public float stepsPerSecond = 10.0f;
     public LineRenderer webLine;
 
-    const float trampleRadius = 4.0f;
+    const float trampleRadius = 5.0f;
+    float lazerTimer = 15.0f;
 
     NavMeshAgent agent;
 
@@ -21,15 +22,20 @@ public class SpiderBoss : BossBase {
     float timeSinceLook = 0.0f;
 
     IKLimb[] legs;
+    public ParticleSystem[] lazerParticles;
 
     CameraController cc;
     Coroutine focusRoutine = null;
+    Transform model;
+
+    RaycastHit[] hits = new RaycastHit[8];
 
     State state = State.INTRO;
     enum State {
         INTRO,
-        RANDOM_WALK,
+        IDLE,
         LOOKING,
+        LAZERING,
         CHARGING,
     }
 
@@ -41,6 +47,8 @@ public class SpiderBoss : BossBase {
         agent = GetComponent<NavMeshAgent>();
 
         legs = GetComponentsInChildren<IKLimb>();
+
+        model = transform.Find("Model");
 
         //SetWalking(true);
 
@@ -69,15 +77,15 @@ public class SpiderBoss : BossBase {
             yield return null;
         }
         cc.boss = transform;
-        yield return Yielders.Get(0.5f);
         webLine.gameObject.SetActive(false);
-        yield return StartCoroutine(LookAtRoutine(transform.position - transform.forward, 80.0f));
-
         yield return Yielders.Get(1.5f);
+        yield return StartCoroutine(LookAtRoutine(transform.position - transform.forward, 720.0f));
+
+        yield return Yielders.Get(0.5f);
         SetImmune(false);
         yield return Yielders.Get(0.5f);
         agent.enabled = true;
-        state = State.RANDOM_WALK;
+        state = State.IDLE;
     }
 
     // Update is called once per frame
@@ -93,24 +101,93 @@ public class SpiderBoss : BossBase {
             }
             timeSinceLook = 0.0f;
             newWalk = 0.0f;
-            state = State.RANDOM_WALK;
+            state = State.IDLE;
         }
 
-        if (state == State.RANDOM_WALK) {
-            timeSinceLook += Time.deltaTime;
-            if (timeSinceLook > 10.0f) {
+        lazerTimer -= Time.deltaTime;
+
+        if (state == State.IDLE) {
+            if (lazerTimer < 0.0f) {
+                state = State.LAZERING;
+                StartCoroutine(LazerRoutine());
+            } else {
                 state = State.LOOKING;
                 StartCoroutine(LookRoutine());
-            } else {
-                newWalk -= Time.deltaTime;
-                if (newWalk < 0.0f) {
-                    Vector2 r = Random.insideUnitCircle * 30.0f;
-                    agent.destination = new Vector3(r.x, 0.0f, r.y);
-                    newWalk = Random.value * 6.0f + 2.0f;
-                }
             }
+
+            //timeSinceLook += Time.deltaTime;
+            //if (timeSinceLook > 10.0f) {
+            //    state = State.LOOKING;
+            //    StartCoroutine(LookRoutine());
+            //} else {
+            //    newWalk -= Time.deltaTime;
+            //    if (newWalk < 0.0f) {
+            //        Vector2 r = Random.insideUnitCircle * 30.0f;
+            //        agent.destination = new Vector3(r.x, 0.0f, r.y);
+            //        newWalk = Random.value * 6.0f + 2.0f;
+            //    }
+            //}
         }
 
+    }
+
+    void ShootLazer(int index) {
+        lazerParticles[index].Stop();
+        lazerParticles[index].Play();
+
+        Transform t = lazerParticles[index].transform.parent;
+
+        int count = Physics.SphereCastNonAlloc(t.position, 1.5f, t.forward, hits, 30.0f, playerLayer);
+        for(int i = 0; i < count; ++i) {
+            hits[i].collider.GetComponent<Damageable>().Damage(30.0f);
+        }
+        
+    }
+
+    IEnumerator LazerRoutine() {
+        agent.destination = Vector3.zero;
+        yield return Yielders.Get(0.5f);
+        while (!agent.isOnNavMesh || agent.remainingDistance > agent.stoppingDistance) {
+            yield return null;
+        }
+        Vector3 start = new Vector3(0.0f, 4.0f, 0.0f);
+        Vector3 end = new Vector3(0.0f, 1.5f, 0.0f);
+        float t = 0.0f;
+        while (t < 1.0f) {
+            model.localPosition = Vector3.Lerp(start, end, t);
+            t += Time.deltaTime * 2.0f;
+            yield return null;
+        }
+        model.localPosition = end;
+
+        for (int i = 0; i < 8; ++i) {
+            Vector3 dir = Random.onUnitSphere;
+            dir.y = 0.0f;
+            dir.Normalize();
+
+            yield return StartCoroutine(LookAtRoutine(transform.position + dir * 5.0f, 180.0f));
+
+            yield return Yielders.Get(0.25f);
+
+            ShootLazer(0);
+            ShootLazer(1);
+            yield return Yielders.Get(0.25f);
+            ShootLazer(2);
+            ShootLazer(3);
+
+            yield return Yielders.Get(0.25f);
+        }
+
+        t = 0.0f;
+        while (t < 1.0f) {
+            model.localPosition = Vector3.Lerp(end, start, t);
+            t += Time.deltaTime * 2.0f;
+            yield return null;
+        }
+        model.localPosition = start;
+        
+        state = State.IDLE;
+        lazerTimer = Random.value * 5.0f + 15.0f;
     }
 
     // check if near enough to any player and if so knockback and damage
@@ -124,9 +201,10 @@ public class SpiderBoss : BossBase {
             p.y = 0.0f;
             // sqr distance check is cheaper and same result
             if ((p - me).sqrMagnitude < trampleRadius * trampleRadius) {
-                if (pr.pm.MovementInputEnabled.Value) { // if not being knocked back already
+                if (!pr.knocked) { // if not being knocked back already
+                    pr.knocked = true;
                     StartCoroutine(KnockAway(pr));
-                    pr.dmg.Damage(10.0f);
+                    pr.dmg.Damage(20.0f);
                 }
             }
         }
@@ -144,8 +222,8 @@ public class SpiderBoss : BossBase {
 
         yield return Yielders.Get(1.0f);    // wait for a bit then either charge this player or another
 
-        // chance to run towards someone else
-        if (players.Count > 1 && Random.value < 0.5f) {
+        // chance to run towards someone else (while still focusing first player
+        if (players.Count > 1 && Random.value > 0.8f) {
             players.Remove(p);
             p = GetRandomPlayer();
         }
