@@ -10,14 +10,12 @@ public class IceBoss : BossBase {
     public ParticleSystem mouthParticles;
 
     const float iceCircleTime = 15.0f;     // time between phases
-    const float iceCircleDuration = 10.0f; // how long phase lasts
+    const float iceCircleDuration = 8.0f; // how long phase lasts
 
     public GameObject iceCircleCenterPrefab;
     public GameObject iceShardPrefab;
     public GameObject iciclePrefab;
     public GameObject bigIciclePrefab;
-
-    public LayerMask playerLayer;
 
     CameraShakeScript camShaker;
     Health health;

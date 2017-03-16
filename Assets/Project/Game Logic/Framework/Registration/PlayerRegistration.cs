@@ -219,7 +219,7 @@ public class PlayerRegistration : MonoBehaviour {
 
         // set up menu text
         continuePrompt.enabled = ready != 0 && ready == currentPlayers;
-        skipPrompt.enabled = continuePrompt.enabled;
+        skipPrompt.enabled = ready > 0;
         if (requireMaxPlayerCount && ready != numPlayers) {
             continuePrompt.text = "Waiting for " + numPlayers + " players";
         } else {
@@ -229,8 +229,7 @@ public class PlayerRegistration : MonoBehaviour {
 
         // check if skipping
         if (skipPrompt.enabled) {
-            if (Input.GetKey(KeyCode.UpArrow)
-            && Input.GetKey(KeyCode.DownArrow)
+            if(Input.GetKey(KeyCode.DownArrow)
             && Input.GetKey(KeyCode.LeftArrow)
             && Input.GetKey(KeyCode.RightArrow)) {
                 skipping = true;
@@ -241,7 +240,7 @@ public class PlayerRegistration : MonoBehaviour {
         if (ready != 0 && ready == currentPlayers) {
             if (!requireMaxPlayerCount || ready == numPlayers) {
                 for (int i = 0; i < possibleBindings.Length; ++i) {
-                    if (possibleBindings[i].getSubmitDown) {
+                    if (possibleBindings[i] != null && possibleBindings[i].getSubmitDown) {
                         SceneManager.LoadScene(nextScene);
                         break;
                     }

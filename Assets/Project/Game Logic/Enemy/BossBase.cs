@@ -8,7 +8,7 @@ public class BossBase : MonoBehaviour {
     protected EntityUIGroupHolder healthBar;
     protected Damageable[] damageable;
     protected CameraController camController;
-    protected int playerLayer = 1 << LayerMask.NameToLayer(Tags.Layers.Player);
+    protected int playerLayer;
 
     // filled once at beginning with the PlayerRefs of each player in game
     List<PlayerRefs> playerRefs = new List<PlayerRefs>();
@@ -18,6 +18,7 @@ public class BossBase : MonoBehaviour {
     bool init = false;
 
     protected virtual void Start() {
+        playerLayer = 1 << LayerMask.NameToLayer(Tags.Layers.Player);
         healthBar = GetComponent<EntityUIGroupHolder>();
         damageable = GetComponentsInChildren<Damageable>();
 
@@ -50,7 +51,7 @@ public class BossBase : MonoBehaviour {
     protected void FindAlivePlayers() {
         Debug.Assert(init, "BossBase Start() not called in child class!");
         players.Clear();
-        for(int i = 0; i < Player.Players.Count; ++i) {
+        for (int i = 0; i < Player.Players.Count; ++i) {
             if (!Player.Players[i].dead) {
                 players.Add(playerRefs[i]);
             }
