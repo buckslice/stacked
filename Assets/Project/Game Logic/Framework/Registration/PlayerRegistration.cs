@@ -245,6 +245,12 @@ public class PlayerRegistration : MonoBehaviour {
                         break;
                     }
                 }
+                for (int i = 0; i < XInputBindings.Length; ++i) {
+                    if(XInputBindings[i] != null && XInputBindings[i].getSubmitDown) {
+                        SceneManager.LoadScene(nextScene);
+                        break;
+                    }
+                }
             }
         }
     }

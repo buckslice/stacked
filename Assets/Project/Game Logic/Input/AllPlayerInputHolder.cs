@@ -16,6 +16,16 @@ public class AllPlayerInputHolder : MonoBehaviour, IPlayerInputHolder {
     void Start() {
         foreach(RegisteredPlayer player in GameObject.FindObjectsOfType<RegisteredPlayer>()) {
             heldInputs.Add(player.inputBindings);
+            //Debug.Log(player.inputBindings);
+        }
+        
+    }
+
+    void Update() {
+        for(int i = 0; i < heldInputs.Count; ++i) {
+            if(heldInputs[i] != null) {
+                heldInputs[i].Update();
+            }
         }
     }
 

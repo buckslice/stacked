@@ -3731,11 +3731,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   playerData:
-    basicAttacks: 
-    firstAbilities: 
-    secondAbilities: 
-    abilities: 10111206
     playerClass: 0
+    firstAbility: 0
+    secondAbility: 0
+    defaultAbilities: 
   AIPlayer: 0
   bindings: 1
   controllerIndex: 2
@@ -4968,7 +4967,7 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1811420099}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 79d2ed02036a9644381c527508debdd1, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -5194,11 +5193,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 0
   playerData:
-    basicAttacks: 
-    firstAbilities: 0b
-    secondAbilities: 0d
-    abilities: 10111206060606
     playerClass: 0
+    firstAbility: 0
+    secondAbility: 0
+    defaultAbilities: 
   AIPlayer: 0
 --- !u!4 &1860955635
 Transform:
