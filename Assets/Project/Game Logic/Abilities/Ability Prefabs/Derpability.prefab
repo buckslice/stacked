@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 114000011273705320}
   - component: {fileID: 114000010353135120}
   - component: {fileID: 114000011679503924}
-  - component: {fileID: 114252598056109742}
   - component: {fileID: 114029926432886486}
   - component: {fileID: 114092254576805032}
   - component: {fileID: 114626845558086164}
@@ -159,7 +158,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityActions:
   - {fileID: 114000010353135120}
-  - {fileID: 114252598056109742}
   - {fileID: 114029926432886486}
   - {fileID: 114626845558086164}
 --- !u!114 &114029926432886486
@@ -189,18 +187,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius:
     baseValue: 5
---- !u!114 &114252598056109742
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010313918382}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac204da975476a24db30e3cb52a4c61d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  screenShakeDuration: 0.5
 --- !u!114 &114626845558086164
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -248,7 +234,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1000606733432296}
   serializedVersion: 5
   lengthInSec: 1
-  speed: 1
+  simulationSpeed: 1
   looping: 0
   prewarm: 0
   playOnAwake: 0

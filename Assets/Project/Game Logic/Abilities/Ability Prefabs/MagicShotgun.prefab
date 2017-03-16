@@ -129,7 +129,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4000012158961742}
   - component: {fileID: 114000011337695518}
-  - component: {fileID: 114000014195103426}
   - component: {fileID: 114000011168911768}
   m_Layer: 0
   m_Name: Effect
@@ -430,7 +429,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityActions:
-  - {fileID: 114000014195103426}
   - {fileID: 114000011168911768}
 --- !u!114 &114000011418458442
 MonoBehaviour:
@@ -515,20 +513,6 @@ MonoBehaviour:
   layermask:
     serializedVersion: 2
     m_Bits: 1081344
---- !u!114 &114000014195103426
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014159532874}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9fc25fa315faef468781a599d0c8746, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layermask:
-    serializedVersion: 2
-    m_Bits: 1081344
 --- !u!198 &198000010711745104
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -537,7 +521,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1000013956648166}
   serializedVersion: 5
   lengthInSec: 1
-  speed: 1
+  simulationSpeed: 1
   looping: 0
   prewarm: 0
   playOnAwake: 0
@@ -3150,7 +3134,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1000013404444552}
   serializedVersion: 5
   lengthInSec: 1
-  speed: 1
+  simulationSpeed: 1
   looping: 0
   prewarm: 0
   playOnAwake: 0
@@ -5739,7 +5723,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1000010608219708}
   serializedVersion: 5
   lengthInSec: 1
-  speed: 1
+  simulationSpeed: 1
   looping: 0
   prewarm: 0
   playOnAwake: 0
@@ -8352,7 +8336,7 @@ ParticleSystem:
   m_GameObject: {fileID: 1000012526953662}
   serializedVersion: 5
   lengthInSec: 1
-  speed: 1
+  simulationSpeed: 1
   looping: 0
   prewarm: 0
   playOnAwake: 0

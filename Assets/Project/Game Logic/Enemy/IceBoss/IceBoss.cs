@@ -80,6 +80,15 @@ public class IceBoss : BossBase {
         if (music) {
             music.Play();
         }
+
+        // spawn icicles on either side of boss
+        Vector3 pos = transform.position + Vector3.up * 20.0f;
+        Quaternion rot = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
+        Quaternion rot2 = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
+        Instantiate(iciclePrefab, pos + transform.right * 10.0f, rot);
+        yield return Yielders.Get(1.0f);
+        Instantiate(iciclePrefab, pos - transform.right * 10.0f, rot2);
+
     }
 
     IEnumerator ShortIntro() {
@@ -331,28 +340,24 @@ public class IceBoss : BossBase {
         agent.enabled = true;
         mandibles.autoSound = true;
 
-        // every other time spawn some icicles afterwards
-        if (shouldIcicles) {
-            for (int i = 0; i < 2; ++i) {
-                Vector3 pos = Random.onUnitSphere * 30.0f;
-                pos.y = 20.0f;
-                Quaternion rot = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
-                GameObject go = Instantiate(iciclePrefab, pos, rot);
-                yield return Yielders.Get(1.0f);
-            }
-            //If below half health, summon a big icicle
-            if (health.health / health.maxHealth < 0.5f) {
-                Vector3 pos = Random.onUnitSphere * 30.0f;
-                pos.y = 20.0f;
-                Quaternion rot = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
-                GameObject go = Instantiate(bigIciclePrefab, pos, rot);
-            }
+        // spawn icicle after each circle phase
+        SpawnIcicle(false);
+        yield return Yielders.Get(1.0f);
+
+        //If below half health, also summon a big icicle!
+        if (health.health / health.maxHealth < 0.5f) {
+            SpawnIcicle(true);
         }
-        //Spawns icicles every ice circle when commented out. Let's see how this plays.
-        //shouldIcicles = !shouldIcicles;
 
         timeSinceLastIceCircle = 0.0f;
         state = State.IDLE;
+    }
+
+    void SpawnIcicle(bool big) {
+        Vector3 pos = Random.onUnitSphere * 30.0f;
+        pos.y = 20.0f;  // drop from sky
+        Quaternion rot = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
+        GameObject go = Instantiate(big ? bigIciclePrefab : iciclePrefab, pos, rot);
     }
 
     IEnumerator EatSequence(Collider eatenPlayerCol) { // given the players collider gameObject

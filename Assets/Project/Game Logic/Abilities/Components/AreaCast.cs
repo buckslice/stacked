@@ -24,7 +24,15 @@ public class AreaCast : AbstractAbilityAction, ITargetedAbilityTrigger {
     }
 
     public override bool Activate(PhotonStream stream) {
+        bool hitBoss = false;
         foreach (Collider collider in shape.Cast(layermask)) {
+            if (collider.CompareTag(Tags.Boss)) {
+                if (hitBoss) {
+                    continue;   // only hit and damage boss once per cast
+                    // so bear cant double dip on iceboss really easily
+                }
+                hitBoss = true;
+            }
             targetedAbilityTriggerEvent(collider.gameObject);
         }
 
