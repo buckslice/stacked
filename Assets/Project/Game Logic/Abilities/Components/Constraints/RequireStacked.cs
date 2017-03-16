@@ -7,6 +7,9 @@ public class RequireStacked : UntargetedAbilityConstraint {
 
     Stackable stackable;
 
+    [SerializeField]
+    protected bool requiredStackedState = true;
+
     protected override void Start() {
         base.Start();
         stackable = GetComponentInParent<Stackable>();
@@ -14,7 +17,7 @@ public class RequireStacked : UntargetedAbilityConstraint {
     }
 
     public override bool isAbilityActivatible() {
-        return stackable.Below != null || stackable.Above != null;
+        return requiredStackedState == (stackable.Below != null || stackable.Above != null);
     }
 
     public override void Activate() { }
