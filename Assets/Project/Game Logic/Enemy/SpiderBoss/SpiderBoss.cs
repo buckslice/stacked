@@ -23,6 +23,8 @@ public class SpiderBoss : BossBase {
 
     IKLimb[] legs;
     public ParticleSystem[] lazerParticles;
+    public Gradient lazerGrad1;
+    public Gradient lazerGrad2;
     public AudioClip spiderLaugh;
     public AudioClip shootLazer;
 
@@ -119,55 +121,53 @@ public class SpiderBoss : BossBase {
                 state = State.LOOKING;
                 StartCoroutine(LookRoutine());
             }
-
-            //timeSinceLook += Time.deltaTime;
-            //if (timeSinceLook > 10.0f) {
-            //    state = State.LOOKING;
-            //    StartCoroutine(LookRoutine());
-            //} else {
-            //    newWalk -= Time.deltaTime;
-            //    if (newWalk < 0.0f) {
-            //        Vector2 r = Random.insideUnitCircle * 30.0f;
-            //        agent.destination = new Vector3(r.x, 0.0f, r.y);
-            //        newWalk = Random.value * 6.0f + 2.0f;
-            //    }
-            //}
         }
 
     }
 
-    void ShootLazer(int index) {
+    void ShootLazer(int index, Gradient grad) {
         source.clip = shootLazer;
         source.pitch = Random.Range(0.8f, 1.2f);
         source.Play();
 
-        lazerParticles[index].Stop();
-        lazerParticles[index].Play();
+        ParticleSystem ps = lazerParticles[index];
+        ParticleSystem.ColorOverLifetimeModule col = ps.colorOverLifetime;
+        col.color = grad;
+        ps.Stop();
+        ps.Play();
 
-        Transform t = lazerParticles[index].transform.parent;
+        Transform t = ps.transform.parent;
 
         int count = Physics.SphereCastNonAlloc(t.position, 1.5f, t.forward, hits, 30.0f, playerLayer);
-        for(int i = 0; i < count; ++i) {
+        for (int i = 0; i < count; ++i) {
             hits[i].collider.GetComponent<Damageable>().Damage(30.0f);
         }
-        
+
     }
 
-    IEnumerator LazerRoutine() {
-        agent.destination = Vector3.zero;
-        yield return Yielders.Get(0.5f);
-        while (!agent.isOnNavMesh || agent.remainingDistance > agent.stoppingDistance) {
-            yield return null;
-        }
-        Vector3 start = new Vector3(0.0f, 4.0f, 0.0f);
-        Vector3 end = new Vector3(0.0f, 1.5f, 0.0f);
+    // lerps model to target height over time
+    IEnumerator ChangeHeight(float height, float time) {
+        Vector3 start = model.localPosition;
+        Vector3 end = new Vector3(0.0f, height, 0.0f);
         float t = 0.0f;
-        while (t < 1.0f) {
-            model.localPosition = Vector3.Lerp(start, end, t);
-            t += Time.deltaTime * 2.0f;
+        while (t < time) {
+            model.localPosition = Vector3.Lerp(start, end, t / time);
+            t += Time.deltaTime;
             yield return null;
         }
         model.localPosition = end;
+    }
+
+    IEnumerator LazerRoutine() {
+        // walk to center of map
+        agent.destination = Vector3.zero;
+        yield return Yielders.Get(0.5f);
+        // wait until spider is at center
+        while (!agent.isOnNavMesh || agent.remainingDistance > agent.stoppingDistance) {
+            yield return null;
+        }
+        // crouch down
+        yield return StartCoroutine(ChangeHeight(1.5f, 0.5f));
 
         for (int i = 0; i < 8; ++i) {
             Vector3 dir = Random.onUnitSphere;
@@ -177,24 +177,32 @@ public class SpiderBoss : BossBase {
             yield return StartCoroutine(LookAtRoutine(transform.position + dir * 5.0f, 180.0f));
 
             yield return Yielders.Get(0.25f);
-
-            ShootLazer(0);
-            ShootLazer(1);
+            // outer eyes
+            ShootLazer(0, lazerGrad1);
+            ShootLazer(1, lazerGrad1);
             yield return Yielders.Get(0.25f);
-            ShootLazer(2);
-            ShootLazer(3);
-
+            // inner eyes
+            ShootLazer(2, lazerGrad1);
+            ShootLazer(3, lazerGrad1);
             yield return Yielders.Get(0.25f);
         }
 
-        t = 0.0f;
-        while (t < 1.0f) {
-            model.localPosition = Vector3.Lerp(end, start, t);
-            t += Time.deltaTime * 2.0f;
-            yield return null;
+        // final spin
+        for (int i = 0; i < 8; ++i) {
+            Vector3 p = transform.position + transform.forward + transform.right;
+            yield return StartCoroutine(LookAtRoutine(p, 360.0f));
+            ShootLazer(1, lazerGrad2);
+            yield return Yielders.Get(0.1f);
+            ShootLazer(3, lazerGrad2);
+            yield return Yielders.Get(0.1f);
+            ShootLazer(2, lazerGrad2);
+            yield return Yielders.Get(0.1f);
+            ShootLazer(0, lazerGrad2);
+            yield return Yielders.Get(0.1f);
         }
-        model.localPosition = start;
-        
+
+        yield return StartCoroutine(ChangeHeight(4.0f, 0.5f));
+
         state = State.IDLE;
         lazerTimer = Random.value * 5.0f + 15.0f;
     }

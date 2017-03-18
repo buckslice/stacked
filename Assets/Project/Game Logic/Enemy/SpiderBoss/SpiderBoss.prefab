@@ -4248,9 +4248,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 2e7449c2279518c46813e76b9e392b8d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b761d1bc89487e84090eca09c619e3c7, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.287
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -4288,7 +4288,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 0.5
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4368,7 +4368,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 2
       time: 0
-      value: 0
+      value: 0.2
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -4716,6 +4716,94 @@ MonoBehaviour:
   - {fileID: 198975748225046102}
   - {fileID: 198479388427634228}
   - {fileID: 198463566340335410}
+  lazerGrad1:
+    key0:
+      serializedVersion: 2
+      rgba: 4294964480
+    key1:
+      serializedVersion: 2
+      rgba: 4284940292
+    key2:
+      serializedVersion: 2
+      rgba: 16711935
+    key3:
+      serializedVersion: 2
+      rgba: 16711935
+    key4:
+      serializedVersion: 2
+      rgba: 0
+    key5:
+      serializedVersion: 2
+      rgba: 0
+    key6:
+      serializedVersion: 2
+      rgba: 0
+    key7:
+      serializedVersion: 2
+      rgba: 0
+    ctime0: 4608
+    ctime1: 9045
+    ctime2: 65535
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  lazerGrad2:
+    key0:
+      serializedVersion: 2
+      rgba: 4294967295
+    key1:
+      serializedVersion: 2
+      rgba: 4278255615
+    key2:
+      serializedVersion: 2
+      rgba: 2514175
+    key3:
+      serializedVersion: 2
+      rgba: 16711935
+    key4:
+      serializedVersion: 2
+      rgba: 0
+    key5:
+      serializedVersion: 2
+      rgba: 0
+    key6:
+      serializedVersion: 2
+      rgba: 0
+    key7:
+      serializedVersion: 2
+      rgba: 0
+    ctime0: 0
+    ctime1: 19853
+    ctime2: 42983
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 4
+    m_NumAlphaKeys: 2
   spiderLaugh: {fileID: 8300000, guid: bde2c986c559e2a47a8c8fa81a04f83e, type: 3}
   shootLazer: {fileID: 8300000, guid: 0d9d911794fbc6f41bf6d1aaab869fba, type: 3}
 --- !u!114 &114857203889435198
@@ -5256,7 +5344,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 440589461
+  randomSeed: -665633884
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6048,13 +6136,13 @@ ParticleSystem:
       maxGradient:
         key0:
           serializedVersion: 2
-          rgba: 4294967295
+          rgba: 4294964480
         key1:
           serializedVersion: 2
-          rgba: 4278255615
+          rgba: 4284940292
         key2:
           serializedVersion: 2
-          rgba: 740711679
+          rgba: 744947716
         key3:
           serializedVersion: 2
           rgba: 16711935
@@ -6070,9 +6158,9 @@ ParticleSystem:
         key7:
           serializedVersion: 2
           rgba: 0
-        ctime0: 0
-        ctime1: 19853
-        ctime2: 42983
+        ctime0: 4608
+        ctime1: 7680
+        ctime2: 7680
         ctime3: 65535
         ctime4: 65535
         ctime5: 0
@@ -6087,7 +6175,7 @@ ParticleSystem:
         atime6: 0
         atime7: 0
         m_Mode: 0
-        m_NumColorKeys: 4
+        m_NumColorKeys: 2
         m_NumAlphaKeys: 2
       minGradient:
         key0:
@@ -10506,7 +10594,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1168600951
+  randomSeed: -18624216
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13119,7 +13207,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -521956312
+  randomSeed: 221424057
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -21006,7 +21094,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1536985859
+  randomSeed: -649679513
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -23643,7 +23731,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 810169520
+  randomSeed: -1559624440
   InitialModule:
     serializedVersion: 3
     enabled: 1
