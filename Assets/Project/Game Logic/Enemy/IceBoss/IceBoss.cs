@@ -20,7 +20,6 @@ public class IceBoss : BossBase {
     CameraShakeScript camShaker;
     Health health;
     NavMeshAgent agent;
-    AudioSource source;
     AudioSource music;
 
     bool shouldIcicles = true; // every other time after ice circle. spawn some icicles
@@ -53,8 +52,6 @@ public class IceBoss : BossBase {
         if (musicGO) {
             music = musicGO.GetComponent<AudioSource>();
         }
-
-        source = GetComponent<AudioSource>();
 
         SetImmune(true);
 

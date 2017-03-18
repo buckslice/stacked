@@ -37,10 +37,14 @@ public class IKLimb : MonoBehaviour {
     Vector3 lastElbowOffset;
     Vector3 posAtLastStep;
 
+    AudioSource source;
+
     void Start() {
         parent = transform.root;
         spider = parent.GetComponent<SpiderBoss>();
         stepTarget = target;
+
+        source = transform.parent.parent.parent.GetComponent<AudioSource>();  // cuz its on model... not even bothered
 
         upperArmStartRotation = upperArm.rotation;
         forearmStartRotation = forearm.rotation;
@@ -122,6 +126,9 @@ public class IKLimb : MonoBehaviour {
             target = Vector3.Lerp(targetStart, extrapTarget, targetLerpTime);
             target += Vector3.up * spider.legHeightCurve.Evaluate(targetLerpTime) * stepHeight;
         } else if (stepping) {
+            source.pitch = Random.Range(0.8f, 1.2f);
+            source.Play();
+
             target = extrapTarget;
             stepping = false;
         }

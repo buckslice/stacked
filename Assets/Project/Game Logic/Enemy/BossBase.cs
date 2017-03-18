@@ -8,6 +8,7 @@ public class BossBase : MonoBehaviour {
     protected EntityUIGroupHolder healthBar;
     protected Damageable[] damageable;
     protected CameraController camController;
+    protected AudioSource source;
     protected int playerLayer;
 
     // filled once at beginning with the PlayerRefs of each player in game
@@ -21,6 +22,7 @@ public class BossBase : MonoBehaviour {
         playerLayer = 1 << LayerMask.NameToLayer(Tags.Layers.Player);
         healthBar = GetComponent<EntityUIGroupHolder>();
         damageable = GetComponentsInChildren<Damageable>();
+        source = GetComponent<AudioSource>();
 
         camController = Camera.main.transform.parent.GetComponent<CameraController>();
 

@@ -23,6 +23,8 @@ public class SpiderBoss : BossBase {
 
     IKLimb[] legs;
     public ParticleSystem[] lazerParticles;
+    public AudioClip spiderLaugh;
+    public AudioClip shootLazer;
 
     CameraController cc;
     Coroutine focusRoutine = null;
@@ -72,6 +74,10 @@ public class SpiderBoss : BossBase {
             t += Time.deltaTime * 1.0f / descentTime;
             transform.position = Vector3.Lerp(startPos, endPos, t);
             if (t > 0.5f) {
+                if (!source.isPlaying) {
+                    source.clip = spiderLaugh;
+                    source.Play();
+                }
                 cc.boss = transform;
             }
             yield return null;
@@ -80,7 +86,6 @@ public class SpiderBoss : BossBase {
         webLine.gameObject.SetActive(false);
         yield return Yielders.Get(1.5f);
         yield return StartCoroutine(LookAtRoutine(transform.position - transform.forward, 720.0f));
-
         yield return Yielders.Get(0.5f);
         SetImmune(false);
         yield return Yielders.Get(0.5f);
@@ -132,6 +137,10 @@ public class SpiderBoss : BossBase {
     }
 
     void ShootLazer(int index) {
+        source.clip = shootLazer;
+        source.pitch = Random.Range(0.8f, 1.2f);
+        source.Play();
+
         lazerParticles[index].Stop();
         lazerParticles[index].Play();
 
