@@ -12,25 +12,25 @@ public class SpiderBoss : BossBase {
 
     public float stepsPerSecond = 10.0f;
     public LineRenderer webLine;
-
-    const float trampleRadius = 5.0f;
-    float lazerTimer = 15.0f;
-
-    NavMeshAgent agent;
-
-    float newWalk = 0.0f;
-    float timeSinceLook = 0.0f;
-
-    IKLimb[] legs;
+    public Light spotLight;
+    public ParticleSystem spinParticles;
     public ParticleSystem[] lazerParticles;
     public Gradient lazerGrad1;
     public Gradient lazerGrad2;
     public AudioClip spiderLaugh;
     public AudioClip shootLazer;
 
+    float trampleRadius = 5.0f;
+    float trampleDamage = 20.0f;
+    float idleTimer = 10.0f;
+    bool lazerNext = false;  // if true do lazer, else do spin
+
+    IKLimb[] legs;
+
     CameraController cc;
     Coroutine focusRoutine = null;
     Transform model;
+    bool overridingLegs = true;
 
     RaycastHit[] hits = new RaycastHit[8];
 
@@ -40,6 +40,8 @@ public class SpiderBoss : BossBase {
         IDLE,
         LOOKING,
         LAZERING,
+        SPINNING,
+        AIRBORNE,
         CHARGING,
     }
 
@@ -47,8 +49,6 @@ public class SpiderBoss : BossBase {
     // Use this for initialization
     protected override void Start() {
         base.Start();
-
-        agent = GetComponent<NavMeshAgent>();
 
         legs = GetComponentsInChildren<IKLimb>();
 
@@ -86,6 +86,7 @@ public class SpiderBoss : BossBase {
         }
         cc.boss = transform;
         webLine.gameObject.SetActive(false);
+        SetOverride(false);
         yield return Yielders.Get(1.5f);
         yield return StartCoroutine(LookAtRoutine(transform.position - transform.forward, 720.0f));
         yield return Yielders.Get(0.5f);
@@ -97,28 +98,57 @@ public class SpiderBoss : BossBase {
         //StartCoroutine(ChangeHeight(8.0f, 1.0f));
     }
 
+    void SetOverride(bool b) {
+        overridingLegs = b;
+        if (!overridingLegs) {
+            for (int i = 0; i < legs.Length; ++i) {
+                legs[i].RemoveTargetOverride();
+                legs[i].TakeStep();
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update() {
-        UpdateLegs();
+        if (Input.GetKeyDown(KeyCode.I)) {
+            SetOverride(!overridingLegs);
+        }
 
-        TrampleNearbyPlayers();
+        if (!overridingLegs) {
+            UpdateLegs();
+        } else {
+            // make legs stick straight out when overriding
+            for (int i = 0; i < legs.Length; ++i) {
+                legs[i].SetTargetOverride(model.position + legs[i].transform.parent.right * 20.0f);
+            }
+        }
+
+        if (state != State.AIRBORNE) {
+            TrampleNearbyPlayers();
+        }
+
+        if (state == State.IDLE || state == State.CHARGING || state == State.LOOKING) {
+            idleTimer -= Time.deltaTime;
+        }
 
         // if reached end of charge
         if (state == State.CHARGING && agent.isOnNavMesh && agent.remainingDistance <= agent.stoppingDistance) {
             if (focusRoutine != null) {
                 StopCoroutine(focusRoutine);
             }
-            timeSinceLook = 0.0f;
-            newWalk = 0.0f;
             state = State.IDLE;
         }
 
-        lazerTimer -= Time.deltaTime;
-
         if (state == State.IDLE) {
-            if (lazerTimer < 0.0f) {
-                state = State.LAZERING;
-                StartCoroutine(LazerRoutine());
+            if (idleTimer < 0.0f) {
+                if (lazerNext) {
+                    state = State.LAZERING;
+                    StartCoroutine(LazerRoutine());
+                } else {
+                    state = State.SPINNING;
+                    StartCoroutine(SpinRoutine());
+                }
+                lazerNext = !lazerNext;
             } else {
                 state = State.LOOKING;
                 StartCoroutine(LookRoutine());
@@ -145,19 +175,6 @@ public class SpiderBoss : BossBase {
             hits[i].collider.GetComponent<Damageable>().Damage(30.0f);
         }
 
-    }
-
-    // lerps model to target height over time
-    IEnumerator ChangeHeight(float height, float time) {
-        Vector3 start = model.localPosition;
-        Vector3 end = new Vector3(0.0f, height, 0.0f);
-        float t = 0.0f;
-        while (t < time) {
-            model.localPosition = Vector3.Lerp(start, end, t / time);
-            t += Time.deltaTime;
-            yield return null;
-        }
-        model.localPosition = end;
     }
 
     IEnumerator LazerRoutine() {
@@ -206,7 +223,103 @@ public class SpiderBoss : BossBase {
         yield return StartCoroutine(ChangeHeight(4.0f, 0.5f));
 
         state = State.IDLE;
-        lazerTimer = Random.value * 5.0f + 15.0f;
+        idleTimer = Random.value * 4.0f + 8.0f;
+    }
+
+
+    IEnumerator SpinRoutine() {
+        webLine.gameObject.SetActive(true);
+        SetOverride(true);
+        cc.boss = null; // make camera stop following boss
+        state = State.AIRBORNE;
+        spotLight.gameObject.SetActive(true);
+        yield return StartCoroutine(ChangeHeight(30.0f, 2.0f));
+        webLine.gameObject.SetActive(false);
+        FindAlivePlayers();
+        if (players.Count == 0) {
+            yield break;
+        }
+        // follow random player while in air
+        PlayerRefs p = GetRandomPlayer();
+        agent.destination = p.transform.position;
+        agent.autoBraking = false;
+        yield return Yielders.Get(0.5f);
+        float t = 0.0f;
+        while (t < 5.0f) {
+            t += Time.deltaTime;
+            if (agent.remainingDistance < agent.stoppingDistance) {
+                break;
+            }
+            agent.destination = p.transform.position;
+            yield return null;
+        }
+        agent.autoBraking = true;
+        agent.ResetPath();
+        Color c = spotLight.color;  //save current color
+        spotLight.color = new Color(1.0f, 0.4f, 0.0f);
+        spotLight.range = 160.0f;
+        yield return Yielders.Get(1.0f);    // wait for a sec before dropping
+        yield return StartCoroutine(ChangeHeight(4.0f, 1.0f));  // drop down on player
+        camShaker.screenShake(1.0f, 1.0f); // slam dunk
+        cc.boss = transform;
+        spotLight.gameObject.SetActive(false);
+        spotLight.color = c;    // restore original color
+        spotLight.range = 80.0f;
+        trampleDamage = 50.0f;
+        // start spinning, following the same player still
+        // slowly increase speed and spin rate
+        state = State.SPINNING;
+        float initSpeed = agent.speed;
+        float initTrample = trampleRadius;
+        agent.speed = 2.0f;
+        float rotSpeed = 100.0f;
+        trampleRadius = 12.0f;
+        t = 0.0f;
+        agent.angularSpeed = 0.0f;
+        spinParticles.Play();
+        bool switched = false;
+        while (t < 10.0f) {
+            if(t > 0.5f) {  // set trample damage back to normal value
+                trampleDamage = 20.0f;
+            }
+            // switch targets halfway through
+            if (!switched && t > 5.0f && players.Count > 1) {
+                players.Remove(p);
+                p = GetRandomPlayer();
+                switched = true;
+            }
+            t += Time.deltaTime;
+            agent.speed += Time.deltaTime;
+            agent.destination = p.transform.position;
+            rotSpeed += Time.deltaTime * 30.0f;
+            transform.Rotate(0.0f, rotSpeed * Time.deltaTime, 0.0f);
+            yield return null;
+        }
+        agent.angularSpeed = 720.0f;
+        agent.ResetPath();
+        spinParticles.Stop();
+
+        agent.speed = initSpeed;
+        trampleRadius = initTrample;
+
+        SetOverride(false);
+        yield return Yielders.Get(1.0f);
+
+        state = State.IDLE;
+        idleTimer = Random.value * 4.0f + 8.0f;
+    }
+
+    // lerps model to target height over time
+    IEnumerator ChangeHeight(float height, float time) {
+        Vector3 start = model.localPosition;
+        Vector3 end = new Vector3(0.0f, height, 0.0f);
+        float t = 0.0f;
+        while (t < time) {
+            model.localPosition = Vector3.Lerp(start, end, t / time);
+            t += Time.deltaTime;
+            yield return null;
+        }
+        model.localPosition = end;
     }
 
     // check if near enough to any player and if so knockback and damage
@@ -223,7 +336,7 @@ public class SpiderBoss : BossBase {
                 if (!pr.knocked) { // if not being knocked back already
                     pr.knocked = true;
                     StartCoroutine(KnockAway(pr));
-                    pr.dmg.Damage(20.0f);
+                    pr.dmg.Damage(trampleDamage);
                 }
             }
         }
@@ -237,7 +350,7 @@ public class SpiderBoss : BossBase {
 
         PlayerRefs p = GetRandomPlayer();
 
-        focusRoutine = StartCoroutine(FocusRoutine(p.transform, 30.0f, 60.0f));
+        focusRoutine = StartCoroutine(FocusRoutine(p.transform, 30.0f, 180.0f));
 
         yield return Yielders.Get(1.0f);    // wait for a bit then either charge this player or another
 
@@ -286,6 +399,11 @@ public class SpiderBoss : BossBase {
         }
     }
 
+    void StepAllLegs() {
+        for (int i = 0; i < legs.Length; ++i) {
+            legs[i].TakeStep();
+        }
+    }
 
     public void SetWalking(bool walking) {
         if (walking) {

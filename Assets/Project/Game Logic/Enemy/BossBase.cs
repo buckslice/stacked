@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 // base class for bosses with some helper functions
 public class BossBase : MonoBehaviour {
@@ -8,7 +9,9 @@ public class BossBase : MonoBehaviour {
     protected EntityUIGroupHolder healthBar;
     protected Damageable[] damageable;
     protected CameraController camController;
+    protected CameraShakeScript camShaker;
     protected AudioSource source;
+    protected NavMeshAgent agent;
     protected int playerLayer;
 
     // filled once at beginning with the PlayerRefs of each player in game
@@ -23,8 +26,9 @@ public class BossBase : MonoBehaviour {
         healthBar = GetComponent<EntityUIGroupHolder>();
         damageable = GetComponentsInChildren<Damageable>();
         source = GetComponent<AudioSource>();
-
+        agent = GetComponent<NavMeshAgent>();
         camController = Camera.main.transform.parent.GetComponent<CameraController>();
+        camShaker = Camera.main.GetComponent<CameraShakeScript>();
 
         // init player refs to be list of PlayerRefs mirrored to player list
         for (int i = 0; i < Player.Players.Count; ++i) {
@@ -63,6 +67,33 @@ public class BossBase : MonoBehaviour {
     // gets random player from current player list
     protected PlayerRefs GetRandomPlayer() {
         return players[Random.Range(0, players.Count)];
+    }
+
+    protected PlayerRefs GetFurthestPlayer() {
+        Debug.Assert(players.Count > 0);
+        float maxSqrDist = -1.0f;
+        int index = -1;
+        for(int i = 0; i < players.Count; ++i) {
+            float sqrDist = (transform.position - players[i].transform.position).sqrMagnitude;
+            if(sqrDist > maxSqrDist) {
+                maxSqrDist = sqrDist;
+                index = i;
+            }
+        }
+        return players[index];
+    }
+    protected PlayerRefs GetNearestPlayer() {
+        Debug.Assert(players.Count > 0);
+        float maxSqrDist = float.PositiveInfinity;
+        int index = -1;
+        for (int i = 0; i < players.Count; ++i) {
+            float sqrDist = (transform.position - players[i].transform.position).sqrMagnitude;
+            if (sqrDist < maxSqrDist) {
+                maxSqrDist = sqrDist;
+                index = i;
+            }
+        }
+        return players[index];
     }
 
     // focus on a transforms position for an amount of time

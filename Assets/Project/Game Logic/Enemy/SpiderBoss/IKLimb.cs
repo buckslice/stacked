@@ -36,6 +36,7 @@ public class IKLimb : MonoBehaviour {
     SpiderBoss spider;
     Vector3 lastElbowOffset;
     Vector3 posAtLastStep;
+    bool targetOverride = false;
 
     AudioSource source;
 
@@ -78,9 +79,21 @@ public class IKLimb : MonoBehaviour {
             return;
         }
 
-        CheckStep();
+        if (!targetOverride) {
+            CheckStep();
+        }
 
         CalculateIK();
+    }
+
+    public void SetTargetOverride(Vector3 to) {
+        target = to;
+        transition = 0.1f;
+        targetOverride = true;
+    }
+    public void RemoveTargetOverride() {
+        transition = 1.0f;
+        targetOverride = false;
     }
 
     void CheckStep() {

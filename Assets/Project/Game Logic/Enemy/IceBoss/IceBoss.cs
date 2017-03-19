@@ -17,9 +17,7 @@ public class IceBoss : BossBase {
     public GameObject iciclePrefab;
     public GameObject bigIciclePrefab;
 
-    CameraShakeScript camShaker;
     Health health;
-    NavMeshAgent agent;
     AudioSource music;
 
     bool shouldIcicles = true; // every other time after ice circle. spawn some icicles
@@ -40,9 +38,6 @@ public class IceBoss : BossBase {
     // Use this for initialization
     protected override void Start() {
         base.Start();
-
-        agent = GetComponent<NavMeshAgent>();
-        camShaker = Camera.main.GetComponent<CameraShakeScript>();
 
         agent.enabled = false;
 
@@ -86,9 +81,10 @@ public class IceBoss : BossBase {
         Instantiate(iciclePrefab, pos + transform.right * 10.0f, rot);
         yield return Yielders.Get(1.0f);
         Instantiate(iciclePrefab, pos - transform.right * 10.0f, rot2);
-        yield return Yielders.Get(1.0f);
-        Instantiate(bigIciclePrefab, pos + transform.forward * 30.0f, rot3);
 
+        // i think this is too op
+        //yield return Yielders.Get(1.0f);
+        //Instantiate(bigIciclePrefab, pos + transform.forward * 30.0f, rot3);
 
     }
 
