@@ -114,9 +114,7 @@ public class IKLimb : MonoBehaviour {
                 }
             }
 
-
         }
-
 
         // lerp leg to new target and lift it up
         const float stepHeight = 3.0f;
@@ -156,18 +154,32 @@ public class IKLimb : MonoBehaviour {
         return Physics.Raycast(GetStepRay(), out hit, 100.0f, spider.legCollisionLayer);
     }
 
-    Ray GetStepRay() {
+    Ray GetStepRay(bool normal = true) {
         Vector3 offset = Vector3.zero;
-        if (legIndex == 0) {
-            offset = parent.forward * 0.75f;
-        } else if (legIndex == 1) {
-            offset = parent.forward * 0.4f;
-        } else if (legIndex == 1) {
-            offset = parent.forward * 0.15f;
-        } else if (legIndex == 3) {
-            offset = -parent.forward * 0.25f;
+
+        if (normal) {
+            if (legIndex == 0) {
+                offset = parent.forward * 0.75f;
+            } else if (legIndex == 1) {
+                offset = parent.forward * 0.4f;
+            } else if (legIndex == 1) {
+                offset = parent.forward * 0.15f;
+            } else if (legIndex == 3) {
+                offset = -parent.forward * 0.25f;
+            }
+        } else {    // experimenting with offsets for when spider is standing tall
+            if (legIndex == 0) {
+                offset = parent.forward * 0.3f;
+            } else if (legIndex == 1) {
+                offset = parent.forward * 0.2f;
+            } else if (legIndex == 1) {
+                offset = parent.forward * 0.0f;
+            } else if (legIndex == 3) {
+                offset = -parent.forward * 0.1f;
+            }
         }
         return new Ray(elbowTarget.position, (Vector3.down + offset).normalized);
+
     }
 
     void CalculateIK() {

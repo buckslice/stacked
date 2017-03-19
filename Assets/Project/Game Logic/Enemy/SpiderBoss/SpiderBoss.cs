@@ -66,7 +66,7 @@ public class SpiderBoss : BossBase {
     }
 
     IEnumerator IntroSequence() {
-        yield return Yielders.Get(2.0f);
+        yield return Yielders.Get(1.0f);
         Vector3 startPos = transform.position;
         Vector3 endPos = startPos;
         endPos.y = 0.0f;
@@ -93,6 +93,8 @@ public class SpiderBoss : BossBase {
         yield return Yielders.Get(0.5f);
         agent.enabled = true;
         state = State.IDLE;
+
+        //StartCoroutine(ChangeHeight(8.0f, 1.0f));
     }
 
     // Update is called once per frame
