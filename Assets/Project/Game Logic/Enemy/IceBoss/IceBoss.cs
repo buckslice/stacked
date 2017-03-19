@@ -82,9 +82,13 @@ public class IceBoss : BossBase {
         Vector3 pos = transform.position + Vector3.up * 20.0f;
         Quaternion rot = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
         Quaternion rot2 = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
+        Quaternion rot3 = Quaternion.Euler(0.0f, Random.Range(0, 90.0f), 0.0f);
         Instantiate(iciclePrefab, pos + transform.right * 10.0f, rot);
         yield return Yielders.Get(1.0f);
         Instantiate(iciclePrefab, pos - transform.right * 10.0f, rot2);
+        yield return Yielders.Get(1.0f);
+        Instantiate(bigIciclePrefab, pos + transform.forward * 30.0f, rot3);
+
 
     }
 

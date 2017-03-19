@@ -5,6 +5,7 @@ using UnityEngine;
 public class Icicle : MonoBehaviour {
 
     public ParticleSystem ps;
+    public float maxSlowRadius = 20.0f;
 
     float rateScale;
 
@@ -52,10 +53,9 @@ public class Icicle : MonoBehaviour {
             // slowly increase size of damage/slow zone
             Transform t = ps.transform.parent;
             Vector3 s = t.localScale;
-            s += Vector3.one * Time.deltaTime * 0.5f;
-            const float maxRad = 20.0f;
-            if (s.x > maxRad) {
-                s = Vector3.one * maxRad;
+            s += Vector3.one * Time.deltaTime * 0.75f;
+            if (s.x > maxSlowRadius) {
+                s = Vector3.one * maxSlowRadius;
             }
             t.localScale = s;
 
