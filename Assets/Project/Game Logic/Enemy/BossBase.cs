@@ -33,6 +33,7 @@ public class BossBase : MonoBehaviour {
         // init player refs to be list of PlayerRefs mirrored to player list
         for (int i = 0; i < Player.Players.Count; ++i) {
             playerRefs.Add(Player.Players[i].Holder.GetComponent<PlayerRefs>());
+            playerRefs[i].player = Player.Players[i];
         }
         init = true;
     }

@@ -37,6 +37,7 @@ public class IKLimb : MonoBehaviour {
     Vector3 lastElbowOffset;
     Vector3 posAtLastStep;
     bool targetOverride = false;
+    public bool normalStepHeight = true; // if true do normal heigh, else do a tall
 
     AudioSource source;
 
@@ -167,10 +168,10 @@ public class IKLimb : MonoBehaviour {
         return Physics.Raycast(GetStepRay(), out hit, 100.0f, spider.legCollisionLayer);
     }
 
-    Ray GetStepRay(bool normal = true) {
+    Ray GetStepRay() {
         Vector3 offset = Vector3.zero;
 
-        if (normal) {
+        if (normalStepHeight) {
             if (legIndex == 0) {
                 offset = parent.forward * 0.75f;
             } else if (legIndex == 1) {
@@ -182,13 +183,13 @@ public class IKLimb : MonoBehaviour {
             }
         } else {    // experimenting with offsets for when spider is standing tall
             if (legIndex == 0) {
-                offset = parent.forward * 0.3f;
-            } else if (legIndex == 1) {
                 offset = parent.forward * 0.2f;
             } else if (legIndex == 1) {
-                offset = parent.forward * 0.0f;
+                offset = parent.forward * 0.05f;
+            } else if (legIndex == 1) {
+                offset = parent.forward * -0.05f;
             } else if (legIndex == 3) {
-                offset = -parent.forward * 0.1f;
+                offset = parent.forward * -0.1f;
             }
         }
         return new Ray(elbowTarget.position, (Vector3.down + offset).normalized);

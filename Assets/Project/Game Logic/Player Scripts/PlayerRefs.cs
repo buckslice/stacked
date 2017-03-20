@@ -13,6 +13,6 @@ public class PlayerRefs : MonoBehaviour {
     public Stackable stck;
     public GroundedChecker gc;
     public DamageHolder holder;
-
+    public Player player;        // reference to player
     public bool knocked = false;
 }

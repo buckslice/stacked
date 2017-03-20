@@ -15,15 +15,19 @@ public class SpiderBoss : BossBase {
     public Light spotLight;
     public ParticleSystem spinParticles;
     public ParticleSystem[] lazerParticles;
+    public ParticleSystem[] eyeParticles;
     public Gradient lazerGrad1;
     public Gradient lazerGrad2;
+    public Gradient normalEyes;
+    public Gradient crazyEyes;
     public AudioClip spiderLaugh;
     public AudioClip shootLazer;
 
     float trampleRadius = 5.0f;
     float trampleDamage = 20.0f;
-    float idleTimer = 10.0f;
-    bool lazerNext = false;  // if true do lazer, else do spin
+    bool mainPhase = true;  // if true do lazer, else do spin
+    bool basicPhase = true;   // if true do look/charge, else do tall run around
+    bool phase = false;  // if true gonna be an ability phase next, else gonna be a basic phase
 
     IKLimb[] legs;
 
@@ -37,12 +41,13 @@ public class SpiderBoss : BossBase {
     State state = State.INTRO;
     enum State {
         INTRO,
-        IDLE,
+        INTERIM,    // phase between abilities
         LOOKING,
         LAZERING,
         SPINNING,
         AIRBORNE,
-        CHARGING,
+        CHARGING,   //  dont really need this anymore but leaving just incase
+        PSYCHOTIC,
     }
 
 
@@ -63,6 +68,7 @@ public class SpiderBoss : BossBase {
 
         SetImmune(true);
         StartCoroutine(IntroSequence());
+        //StartCoroutine(ShortIntro());
     }
 
     IEnumerator IntroSequence() {
@@ -93,9 +99,34 @@ public class SpiderBoss : BossBase {
         SetImmune(false);
         yield return Yielders.Get(0.5f);
         agent.enabled = true;
-        state = State.IDLE;
+        state = State.INTERIM;
+    }
 
-        //StartCoroutine(ChangeHeight(8.0f, 1.0f));
+    IEnumerator ShortIntro() {
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startPos;
+        endPos.y = 0.0f;
+        const float descentTime = 0.5f;
+        float t = 0.0f;
+        while (t < 1.0f) {
+            t += Time.deltaTime * 1.0f / descentTime;
+            transform.position = Vector3.Lerp(startPos, endPos, t);
+            if (t > 0.5f) {
+                if (!source.isPlaying) {
+                    source.clip = spiderLaugh;
+                    source.Play();
+                }
+                cc.boss = transform;
+            }
+            yield return null;
+        }
+        cc.boss = transform;
+        webLine.gameObject.SetActive(false);
+        SetOverride(false);
+        yield return StartCoroutine(LookAtRoutine(transform.position - transform.forward, 720.0f));
+        SetImmune(false);
+        agent.enabled = true;
+        state = State.INTERIM;
     }
 
     void SetOverride(bool b) {
@@ -110,9 +141,6 @@ public class SpiderBoss : BossBase {
 
     // Update is called once per frame
     void Update() {
-        if (Input.GetKeyDown(KeyCode.I)) {
-            SetOverride(!overridingLegs);
-        }
 
         if (!overridingLegs) {
             UpdateLegs();
@@ -123,48 +151,50 @@ public class SpiderBoss : BossBase {
             }
         }
 
+        // trample players in all situations except when flying
         if (state != State.AIRBORNE) {
             TrampleNearbyPlayers();
         }
 
-        if (state == State.IDLE || state == State.CHARGING || state == State.LOOKING) {
-            idleTimer -= Time.deltaTime;
-        }
-
-        // if reached end of charge
-        if (state == State.CHARGING && agent.isOnNavMesh && agent.remainingDistance <= agent.stoppingDistance) {
-            if (focusRoutine != null) {
-                StopCoroutine(focusRoutine);
-            }
-            state = State.IDLE;
-        }
-
-        if (state == State.IDLE) {
-            if (idleTimer < 0.0f) {
-                if (lazerNext) {
+        if (state == State.INTERIM) {
+            if (phase) {
+                if (mainPhase) {
                     state = State.LAZERING;
                     StartCoroutine(LazerRoutine());
                 } else {
                     state = State.SPINNING;
                     StartCoroutine(SpinRoutine());
                 }
-                lazerNext = !lazerNext;
+                mainPhase = !mainPhase;
             } else {
-                state = State.LOOKING;
-                StartCoroutine(LookRoutine());
+                if (basicPhase) {
+                    state = State.LOOKING;
+                    StartCoroutine(LookAndChargeRoutine(Random.Range(8.0f, 12.0f)));
+                } else {
+                    state = State.PSYCHOTIC;
+                    StartCoroutine(PsychoticRunning(Random.Range(12.0f, 15.0f)));
+                }
+                basicPhase = !basicPhase;
             }
+            phase = !phase;
         }
 
     }
 
-    void ShootLazer(int index, Gradient grad) {
+    // given array of particles, change all their colors over time
+    void ChangeParticlesColorOverTime(ParticleSystem[] p, Gradient grad) {
+        for(int i = 0; i < p.Length; ++i) {
+            ParticleSystem.ColorOverLifetimeModule col = p[i].colorOverLifetime;
+            col.color = grad;
+        }
+    }
+
+    void ShootLazer(int index) {
         source.clip = shootLazer;
         source.pitch = Random.Range(0.8f, 1.2f);
         source.Play();
 
         ParticleSystem ps = lazerParticles[index];
-        ParticleSystem.ColorOverLifetimeModule col = ps.colorOverLifetime;
-        col.color = grad;
         ps.Stop();
         ps.Play();
 
@@ -188,6 +218,8 @@ public class SpiderBoss : BossBase {
         // crouch down
         yield return StartCoroutine(ChangeHeight(1.5f, 0.5f));
 
+        ChangeParticlesColorOverTime(lazerParticles, lazerGrad1);
+
         for (int i = 0; i < 8; ++i) {
             Vector3 dir = Random.onUnitSphere;
             dir.y = 0.0f;
@@ -196,34 +228,39 @@ public class SpiderBoss : BossBase {
             yield return StartCoroutine(LookAtRoutine(transform.position + dir * 5.0f, 180.0f));
 
             yield return Yielders.Get(0.25f);
+
             // outer eyes
-            ShootLazer(0, lazerGrad1);
-            ShootLazer(1, lazerGrad1);
+            ShootLazer(0);
+            ShootLazer(1);
             yield return Yielders.Get(0.25f);
             // inner eyes
-            ShootLazer(2, lazerGrad1);
-            ShootLazer(3, lazerGrad1);
+            ShootLazer(2);
+            ShootLazer(3);
             yield return Yielders.Get(0.25f);
         }
+
+        ChangeParticlesColorOverTime(eyeParticles, lazerGrad2);
+        yield return Yielders.Get(1.0f);
+        ChangeParticlesColorOverTime(lazerParticles, lazerGrad2);
 
         // final spin
         for (int i = 0; i < 8; ++i) {
             Vector3 p = transform.position + transform.forward + transform.right;
             yield return StartCoroutine(LookAtRoutine(p, 360.0f));
-            ShootLazer(1, lazerGrad2);
+            ShootLazer(1);
             yield return Yielders.Get(0.1f);
-            ShootLazer(3, lazerGrad2);
+            ShootLazer(3);
             yield return Yielders.Get(0.1f);
-            ShootLazer(2, lazerGrad2);
+            ShootLazer(2);
             yield return Yielders.Get(0.1f);
-            ShootLazer(0, lazerGrad2);
+            ShootLazer(0);
             yield return Yielders.Get(0.1f);
         }
 
         yield return StartCoroutine(ChangeHeight(4.0f, 0.5f));
-
-        state = State.IDLE;
-        idleTimer = Random.value * 4.0f + 8.0f;
+        ChangeParticlesColorOverTime(eyeParticles, normalEyes);
+        yield return Yielders.Get(1.0f);    // short pause at end of phase
+        state = State.INTERIM;
     }
 
 
@@ -267,7 +304,6 @@ public class SpiderBoss : BossBase {
         spotLight.range = 80.0f;
         trampleDamage = 50.0f;
         // start spinning, following the same player still
-        // slowly increase speed and spin rate
         state = State.SPINNING;
         float initSpeed = agent.speed;
         float initTrample = trampleRadius;
@@ -279,15 +315,23 @@ public class SpiderBoss : BossBase {
         spinParticles.Play();
         bool switched = false;
         while (t < 10.0f) {
-            if(t > 0.5f) {  // set trample damage back to normal value
+            if (t > 0.5f) {  // set trample damage back to normal value
                 trampleDamage = 20.0f;
             }
-            // switch targets halfway through
-            if (!switched && t > 5.0f && players.Count > 1) {
-                players.Remove(p);
-                p = GetRandomPlayer();
-                switched = true;
+            
+            if(players.Count > 1) { // if can switch targets
+                if (p.player.dead) {    // if player died then switch
+                    players.Remove(p);
+                    p = GetRandomPlayer();
+                }
+
+                if (!switched && t > 5.0f) {    // halfway thru switch too
+                    players.Remove(p);
+                    p = GetRandomPlayer();
+                    switched = true;
+                }
             }
+            // slowly increase speed and spin rate
             t += Time.deltaTime;
             agent.speed += Time.deltaTime;
             agent.destination = p.transform.position;
@@ -303,10 +347,8 @@ public class SpiderBoss : BossBase {
         trampleRadius = initTrample;
 
         SetOverride(false);
-        yield return Yielders.Get(1.0f);
-
-        state = State.IDLE;
-        idleTimer = Random.value * 4.0f + 8.0f;
+        yield return Yielders.Get(1.0f);    // short pause at end of phase
+        state = State.INTERIM;
     }
 
     // lerps model to target height over time
@@ -342,33 +384,80 @@ public class SpiderBoss : BossBase {
         }
     }
 
-    IEnumerator LookRoutine() {
-        FindAlivePlayers();
-        if (players.Count == 0) {
-            yield break;
+    IEnumerator LookAndChargeRoutine(float duration) {
+        float timeAtStart = Time.time;
+
+        while (Time.time - duration < timeAtStart) {
+
+            FindAlivePlayers();
+            if (players.Count == 0) {
+                yield break;
+            }
+
+            PlayerRefs p = GetRandomPlayer();
+
+            focusRoutine = StartCoroutine(FocusRoutine(p.transform, 30.0f, 180.0f));
+
+            yield return Yielders.Get(1.0f);    // wait for a bit then either charge this player or another
+
+            // chance to run towards someone else (while still focusing first player
+            if (players.Count > 1 && Random.value > 0.8f) {
+                players.Remove(p);
+                p = GetRandomPlayer();
+            }
+
+            // get direction to player (run through them a little)
+            Vector3 pos = p.transform.position;
+            Vector3 runThrough = (pos - transform.position).normalized * 10.0f;
+
+            if (agent.enabled) {
+                agent.SetDestination(p.transform.position + runThrough);
+            }
+
+            state = State.CHARGING;
+            yield return Yielders.Get(0.5f);    // give agent time to calculate destination
+            // wait until get to destination
+            while (!agent.isOnNavMesh || agent.remainingDistance > agent.stoppingDistance) {
+                yield return null;
+            }
+
+            // if reached end of charge then cancel focus and repeat
+            if (focusRoutine != null) {
+                StopCoroutine(focusRoutine);
+            }
         }
 
-        PlayerRefs p = GetRandomPlayer();
+        state = State.INTERIM;
+    }
 
-        focusRoutine = StartCoroutine(FocusRoutine(p.transform, 30.0f, 180.0f));
-
-        yield return Yielders.Get(1.0f);    // wait for a bit then either charge this player or another
-
-        // chance to run towards someone else (while still focusing first player
-        if (players.Count > 1 && Random.value > 0.8f) {
-            players.Remove(p);
-            p = GetRandomPlayer();
+    IEnumerator PsychoticRunning(float duration) {
+        //todo run to bugs instead
+        ChangeStepHeight(false);
+        ChangeParticlesColorOverTime(eyeParticles, crazyEyes);
+        StartCoroutine(ChangeHeight(8.0f, 0.5f));
+        float origSpeed = agent.speed;
+        agent.speed = 25.0f;
+        float t = 0.0f;
+        float newTime = 0.0f;
+        while (t < duration) {
+            newTime -= Time.deltaTime;
+            if (newTime < 0.0f) {
+                Vector3 d = Random.insideUnitSphere;
+                d.y = 0.0f;
+                d.Normalize();
+                agent.destination = d * 30.0f;
+                newTime = Random.Range(4.0f, 6.0f);
+            }
+            t += Time.deltaTime;
+            yield return null;
         }
-
-        // get direction to player (run through them a little)
-        Vector3 pos = p.transform.position;
-        Vector3 runThrough = (pos - transform.position).normalized * 10.0f;
-
-        if (agent.enabled) {
-            agent.SetDestination(p.transform.position + runThrough);
-        }
-
-        state = State.CHARGING;
+        agent.ResetPath();
+        agent.speed = origSpeed;
+        ChangeParticlesColorOverTime(eyeParticles, normalEyes);
+        StartCoroutine(ChangeHeight(4.0f, 0.5f));
+        ChangeStepHeight(true);
+        yield return Yielders.Get(2.0f);    // short pause at end of phase
+        state = State.INTERIM;
     }
 
     // updates legs and chooses which one to step next
@@ -402,6 +491,12 @@ public class SpiderBoss : BossBase {
     void StepAllLegs() {
         for (int i = 0; i < legs.Length; ++i) {
             legs[i].TakeStep();
+        }
+    }
+
+    void ChangeStepHeight(bool normal) {
+        for (int i = 0; i < legs.Length; ++i) {
+            legs[i].normalStepHeight = normal;
         }
     }
 
