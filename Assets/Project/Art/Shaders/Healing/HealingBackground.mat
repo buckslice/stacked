@@ -144,7 +144,7 @@ Material:
       second: 255
     - first:
         name: _Strength
-      second: 0.3
+      second: 2.87
     - first:
         name: _TimeScale
       second: 0.4

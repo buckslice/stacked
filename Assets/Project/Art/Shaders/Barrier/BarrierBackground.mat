@@ -144,10 +144,10 @@ Material:
       second: 255
     - first:
         name: _Strength
-      second: 0.5
+      second: 1.16
     - first:
         name: _TimeScale
-      second: 0.5
+      second: 0.35
     - first:
         name: _UVSec
       second: 0
