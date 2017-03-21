@@ -19,23 +19,32 @@ public class ScaryMenuLightning : MonoBehaviour {
 	void Update () {
         nextLightningTime -= Time.deltaTime;
         if(nextLightningTime < 0.0f) {
-            StartCoroutine(LightningRoutine(Random.Range(0.5f, 1.0f)));
-            nextLightningTime = Random.Range(2.0f, 5.0f);
+            StartCoroutine(LightningRoutine(Random.Range(1.0f, 1.5f)));
+            nextLightningTime = Random.Range(3.0f, 5.0f);
         }
 	}
 
+    List<int> valids = new List<int>();
+    int curIndex = 0;
     IEnumerator LightningRoutine(float time) {
-        int index = Random.Range(0, 3);
-        models[index].SetActive(true);
+        valids.Clear();
+        for(int i = 0; i < 3; ++i) {    // no repeats
+            if(i != curIndex) {
+                valids.Add(i);
+            }
+        }
+        curIndex = valids[Random.Range(0, 2)];
+        
+        models[curIndex].SetActive(true);
         dirLight.enabled = true;
         float t = 0.0f;
         while(t < time) {
             t += Time.deltaTime;
-            dirLight.intensity = Mathf.PerlinNoise(Time.time * 10.0f,100.0f)*7.0f + 1.0f;
+            dirLight.intensity = Mathf.PerlinNoise(Time.time * 10.0f,100.0f)*1.0f + 1.0f;
             yield return null;
         }
-        dirLight.intensity = 8.0f;
-        models[index].SetActive(false);
+        dirLight.intensity = 2.0f;
+        models[curIndex].SetActive(false);
         dirLight.enabled = false;
     }
 }
