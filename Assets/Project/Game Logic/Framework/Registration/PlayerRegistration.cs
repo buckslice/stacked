@@ -223,7 +223,7 @@ public class PlayerRegistration : MonoBehaviour {
         if (requireMaxPlayerCount && ready != numPlayers) {
             continuePrompt.text = "Waiting for " + numPlayers + " players";
         } else {
-            continuePrompt.text = "Press start to continue";
+            continuePrompt.text = "Press A to continue";
             skipPrompt.enabled = false;
         }
 
