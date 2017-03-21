@@ -20,10 +20,10 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.022058845, g: 0.022058845, b: 0.022058845, a: 1}
+  m_AmbientSkyColor: {r: 0.102941155, g: 0.102941155, b: 0.102941155, a: 1}
   m_AmbientEquatorColor: {r: 0, g: 0.57894707, b: 1, a: 1}
   m_AmbientGroundColor: {r: 0.8897059, g: 0.8897059, b: 0.8897059, a: 1}
-  m_AmbientIntensity: 0.11
+  m_AmbientIntensity: 1.99
   m_AmbientMode: 3
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
@@ -591,7 +591,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 132667593}
   m_LocalRotation: {x: 0.026495839, y: 0.9602429, z: -0.06177853, w: 0.27095196}
-  m_LocalPosition: {x: -27.4, y: -2.2, z: 33.2}
+  m_LocalPosition: {x: -27.56, y: -4.11, z: 33.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1045494731}
@@ -7516,14 +7516,14 @@ Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 546085d9aaeae7e4887420ddcd134273, type: 3}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 523268418}
-  m_LocalRotation: {x: 0.03220933, y: -0.9444513, z: 0.23666748, w: 0.22574957}
+  m_LocalRotation: {x: 0.043029048, y: -0.9538106, z: 0.23494133, w: 0.18219936}
   m_LocalPosition: {x: 2.12, y: -1.48, z: 11.57}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 684261339}
   m_Father: {fileID: 0}
   m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 27.489002, y: -152.38701, z: 2.973}
+  m_LocalEulerAnglesHint: {x: 27.636002, y: -158.315, z: 0.22800002}
 --- !u!114 &523268420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8120,7 +8120,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 2
-  randomSeed: 345102447
+  randomSeed: 161211666
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -12403,7 +12403,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     type: 1
-    radius: 0.5
+    radius: 0.8
     angle: 25
     length: 5
     boxX: 1
@@ -18327,15 +18327,15 @@ Light:
   serializedVersion: 7
   m_Type: 1
   m_Color: {r: 0.83823526, g: 1, b: 0.9799189, a: 1}
-  m_Intensity: 2
+  m_Intensity: 3
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.8
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -18357,13 +18357,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1178217667}
-  m_LocalRotation: {x: 0.22330746, y: -0.72471535, z: 0.5430678, w: 0.3605536}
+  m_LocalRotation: {x: 0.70142615, y: -0.46482173, z: 0.066909716, w: 0.53615785}
   m_LocalPosition: {x: 0, y: 24.76, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
-  m_LocalEulerAnglesHint: {x: 71.472, y: 241.801, z: 372.346}
+  m_LocalEulerAnglesHint: {x: 54.523003, y: 224.194, z: 270.69598}
 --- !u!1 &1185031178
 GameObject:
   m_ObjectHideFlags: 0
@@ -22860,7 +22860,7 @@ ParticleSystem:
     serializedVersion: 3
     enabled: 1
     type: 1
-    radius: 0.5
+    radius: 0.8
     angle: 25
     length: 5
     boxX: 1
