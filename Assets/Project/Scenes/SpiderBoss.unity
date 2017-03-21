@@ -6899,9 +6899,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 1
   playerData:
-    playerClass: 1
-    firstAbility: 11
-    secondAbility: 6
+    playerClass: 0
+    firstAbility: 0
+    secondAbility: 15
     defaultAbilities: 101112
   AIPlayer: 0
   bindings: 0
@@ -6948,9 +6948,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 0
   playerData:
-    playerClass: 0
-    firstAbility: 6
-    secondAbility: 11
+    playerClass: 1
+    firstAbility: 11
+    secondAbility: 6
     defaultAbilities: 101112
   AIPlayer: 0
 --- !u!4 &2137640759
