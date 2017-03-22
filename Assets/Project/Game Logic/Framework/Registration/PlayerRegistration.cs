@@ -265,7 +265,7 @@ public class PlayerRegistration : MonoBehaviour {
             skipPrompt.color = (int)(t * 10.0f) % 2 == 0 ? Color.yellow : Color.white;
             float newT = Mathf.Lerp(off.y, 0.0f, t);
             skipPrompt.rectTransform.offsetMax = new Vector2(off.x, newT);
-            skipPrompt.fontSize = (int)Mathf.Lerp(15.0f, 100.0f, t);
+            skipPrompt.fontSize = (int)Mathf.Lerp(15.0f, 80.0f, t);
             t += Time.deltaTime;
             yield return null;
         }
