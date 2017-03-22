@@ -259,7 +259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93dfbe1035438294fa1bda9432b9e7ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyPlayerSetups: 1
+  destroyPlayerSetups: 0
   destroyBossSetups: 1
 --- !u!114 &334568550
 MonoBehaviour:
