@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44145334, g: 0.4902563, b: 0.57023835, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -218,6 +218,7 @@ GameObject:
   - component: {fileID: 84602690}
   - component: {fileID: 84602689}
   - component: {fileID: 84602688}
+  - component: {fileID: 84602691}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: AbilityIcon
@@ -290,6 +291,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 84602686}
+--- !u!114 &84602691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 84602686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &204995593
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,6 +1400,7 @@ GameObject:
   - component: {fileID: 1128373658}
   - component: {fileID: 1128373657}
   - component: {fileID: 1128373656}
+  - component: {fileID: 1128373659}
   m_Layer: 5
   m_Name: IceBoss
   m_TagString: AbilityIcon
@@ -1457,6 +1473,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1128373654}
+--- !u!114 &1128373659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1128373654}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1130043074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1551,6 +1581,7 @@ GameObject:
   - component: {fileID: 1142520199}
   - component: {fileID: 1142520198}
   - component: {fileID: 1142520197}
+  - component: {fileID: 1142520200}
   m_Layer: 5
   m_Name: Tutorial
   m_TagString: AbilityIcon
@@ -1623,6 +1654,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1142520195}
+--- !u!114 &1142520200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1142520195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1001 &1229679213
 Prefab:
   m_ObjectHideFlags: 0
@@ -1819,6 +1864,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelToLoad: CharacterSelect
+  fadeOutMusic: 0
   countDownTime: 0
   text: {fileID: 2046929190}
   panel: {fileID: 2045057400}
@@ -1893,6 +1939,7 @@ GameObject:
   - component: {fileID: 1530577943}
   - component: {fileID: 1530577942}
   - component: {fileID: 1530577941}
+  - component: {fileID: 1530577944}
   m_Layer: 5
   m_Name: SpiderBoss
   m_TagString: AbilityIcon
@@ -1965,6 +2012,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1530577939}
+--- !u!114 &1530577944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1530577939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1663641095
 GameObject:
   m_ObjectHideFlags: 0
@@ -2042,6 +2103,7 @@ GameObject:
   - component: {fileID: 1731694145}
   - component: {fileID: 1731694144}
   - component: {fileID: 1731694143}
+  - component: {fileID: 1731694146}
   m_Layer: 5
   m_Name: RockOnRockOnRockOnRock
   m_TagString: AbilityIcon
@@ -2114,6 +2176,20 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1731694141}
+--- !u!114 &1731694146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1731694141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -900027084, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1
 --- !u!224 &1788399754
 RectTransform:
   m_ObjectHideFlags: 0

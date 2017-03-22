@@ -219,7 +219,7 @@ public class PlayerRegistration : MonoBehaviour {
 
         // set up menu text
         continuePrompt.enabled = ready != 0 && ready == currentPlayers;
-        skipPrompt.enabled = ready > 0;
+        skipPrompt.enabled = ready > 1;
         if (requireMaxPlayerCount && ready != numPlayers) {
             continuePrompt.text = "Waiting for " + numPlayers + " players";
         } else {
