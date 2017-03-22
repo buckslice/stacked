@@ -507,7 +507,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6821b0fc037cdd342937dd7ea2b7a6fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthpersecond: 20
+  healthpersecond: 5
 --- !u!114 &114249704557051864
 MonoBehaviour:
   m_ObjectHideFlags: 1
