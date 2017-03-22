@@ -136,7 +136,7 @@ public class CameraController : MonoBehaviour {
 
     void UpdateCamTypeFixed() {
         // return early if 1 or less tracked target
-        if (trackingList.Count <= 1) {
+        if (trackingList.Count == 0) {
             return;
         }
         // return early if all targets are really close to eachother
@@ -144,7 +144,9 @@ public class CameraController : MonoBehaviour {
         for (int i = 0; i < trackingList.Count - 1; ++i) {
             totalDist += (trackingList[i] - trackingList[i + 1]).sqrMagnitude;
         }
-        if (totalDist < 1.0f) {
+        if (totalDist < 1.0f) { // will happen if too close, or just one guy on list as well
+            targetPos = trackingList[0] - transform.forward * 20.0f;
+            LerpTowardsTarget();
             return;
         }
         // make sure camera is never looking up

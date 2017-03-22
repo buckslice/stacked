@@ -25,9 +25,7 @@ public class SpiderBoss : BossBase {
 
     float trampleRadius = 5.0f;
     float trampleDamage = 20.0f;
-    bool mainPhase = true;  // if true do lazer, else do spin
-    bool basicPhase = true;   // if true do look/charge, else do tall run around
-    bool phase = false;  // if true gonna be an ability phase next, else gonna be a basic phase
+    int phase = 0;
 
     IKLimb[] legs;
 
@@ -160,26 +158,32 @@ public class SpiderBoss : BossBase {
         }
 
         if (state == State.INTERIM) {
-            if (phase) {
-                if (mainPhase) {
-                    state = State.LAZERING;
-                    StartCoroutine(LazerRoutine());
-                } else {
-                    state = State.SPINNING;
-                    StartCoroutine(SpinRoutine());
-                }
-                mainPhase = !mainPhase;
-            } else {
-                if (basicPhase) {
+            switch (phase) {
+                case 0:
                     state = State.LOOKING;
                     StartCoroutine(LookAndChargeRoutine(Random.Range(8.0f, 12.0f)));
-                } else {
+                    break;
+                case 1:
+                    state = State.LAZERING;
+                    StartCoroutine(LazerRoutine());
+                    break;
+                case 2:
                     state = State.PSYCHOTIC;
                     StartCoroutine(PsychoticRunning(Random.Range(12.0f, 15.0f)));
-                }
-                basicPhase = !basicPhase;
+                    break;
+                case 3:
+                    state = State.SPINNING;
+                    StartCoroutine(SpinRoutine());
+                    break;
+                default:
+                    Debug.LogWarning("Spiderboss in unknown phase: " + phase);
+                    phase = 0;
+                    break;
             }
-            phase = !phase;
+            phase++;
+            if(phase > 3) {
+                phase = 0;
+            }
         }
 
     }
