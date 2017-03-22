@@ -15,8 +15,14 @@ public class ActivateButtonAfterTime : MonoBehaviour {
 
     protected float startTime = 0;
 
-    void Awake() {
+    AudioSource music;
+
+    void Start() {
         startTime = Time.realtimeSinceStartup;
+        if (MusicSingleton.Main) {
+            MusicSingleton.Main.FadeAndDestroy(time);
+            MusicSingleton.Main.GetComponent<AudioSource>();
+        }
     }
 
     protected virtual void Update() {

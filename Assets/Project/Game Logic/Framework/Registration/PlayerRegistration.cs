@@ -229,7 +229,7 @@ public class PlayerRegistration : MonoBehaviour {
 
         // check if skipping
         if (skipPrompt.enabled) {
-            if(Input.GetKey(KeyCode.DownArrow)
+            if (Input.GetKey(KeyCode.DownArrow)
             && Input.GetKey(KeyCode.LeftArrow)
             && Input.GetKey(KeyCode.RightArrow)) {
                 skipping = true;
@@ -246,7 +246,7 @@ public class PlayerRegistration : MonoBehaviour {
                     }
                 }
                 for (int i = 0; i < XInputBindings.Length; ++i) {
-                    if(XInputBindings[i] != null && XInputBindings[i].getSubmitDown) {
+                    if (XInputBindings[i] != null && XInputBindings[i].getSubmitDown) {
                         SceneManager.LoadScene(nextScene);
                         break;
                     }
@@ -259,9 +259,10 @@ public class PlayerRegistration : MonoBehaviour {
     IEnumerator SkipRoutine() {
         float t = 0.0f;
         continuePrompt.enabled = false;
-        skipPrompt.text = "BADBOY MODE\nENGAGED";
+        skipPrompt.text = "HARD MODE\nENGAGED";
         Vector2 off = skipPrompt.rectTransform.offsetMax;
         while (t < 1.0f) {
+            skipPrompt.color = (int)(t * 10.0f) % 2 == 0 ? Color.yellow : Color.white;
             float newT = Mathf.Lerp(off.y, 0.0f, t);
             skipPrompt.rectTransform.offsetMax = new Vector2(off.x, newT);
             skipPrompt.fontSize = (int)Mathf.Lerp(15.0f, 100.0f, t);

@@ -12,6 +12,7 @@ public class BossBase : MonoBehaviour {
     protected CameraShakeScript camShaker;
     protected AudioSource source;
     protected NavMeshAgent agent;
+    protected AudioSource music;
     protected int playerLayer;
 
     // filled once at beginning with the PlayerRefs of each player in game
@@ -29,7 +30,7 @@ public class BossBase : MonoBehaviour {
         agent = GetComponent<NavMeshAgent>();
         camController = Camera.main.transform.parent.GetComponent<CameraController>();
         camShaker = Camera.main.GetComponent<CameraShakeScript>();
-
+        music = MusicSingleton.Main.GetComponent<AudioSource>();
         // init player refs to be list of PlayerRefs mirrored to player list
         for (int i = 0; i < Player.Players.Count; ++i) {
             playerRefs.Add(Player.Players[i].Holder.GetComponent<PlayerRefs>());

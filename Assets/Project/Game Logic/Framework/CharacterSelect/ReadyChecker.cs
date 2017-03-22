@@ -15,6 +15,7 @@ public class ReadyChecker : MonoBehaviour {
     [SerializeField]
     protected string levelToLoad;
     public string LevelToLoad { get { return levelToLoad; } set { levelToLoad = value; } }
+    public bool fadeOutMusic = false;
 
     List<ISelection> players = new List<ISelection>();
     State state = State.NOTREADY;
@@ -24,6 +25,7 @@ public class ReadyChecker : MonoBehaviour {
     public Text text;
     public Image panel;
     float startingPanelAlpha;
+    AudioSource music;
 
     public void AddPlayer(ISelection player) {
         players.Add(player);
@@ -31,6 +33,7 @@ public class ReadyChecker : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
+        music = MusicSingleton.Main.GetComponent<AudioSource>();
         startingPanelAlpha = panel.color.a;
         timer = countDownTime;
         if (!PhotonNetwork.isMasterClient) {
@@ -48,6 +51,7 @@ public class ReadyChecker : MonoBehaviour {
         if (!AllPlayersReady()) {
             state = State.NOTREADY;
             timer = countDownTime;
+            music.volume = 1.0f;
             text.text = "";
             panel.enabled = false;
         }
@@ -83,7 +87,9 @@ public class ReadyChecker : MonoBehaviour {
 
             case State.COUNTINGDOWN:
                 timer -= Time.deltaTime * 1.5f; // speed up time a little bit
-
+                if (fadeOutMusic) {
+                    music.volume = timer / countDownTime;   // fade out menu music
+                }
                 Color c = panel.color;
                 c.a = Mathf.Lerp(startingPanelAlpha, 1.0f, (countDownTime - timer) / countDownTime);
                 panel.color = c;

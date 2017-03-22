@@ -24,8 +24,8 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_AmbientMode: 3
+  m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -51,7 +51,7 @@ LightmapSettings:
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 0
-    m_EnableRealtimeLightmaps: 1
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 4
     m_Resolution: 2
@@ -72,7 +72,8 @@ LightmapSettings:
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
     m_ReflectionCompression: 2
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000001, guid: 3b05b520e32468446bac8224c7071b99,
+    type: 2}
   m_RuntimeCPUUsage: 25
 --- !u!196 &4
 NavMeshSettings:
@@ -514,9 +515,27 @@ Prefab:
       propertyPath: m_RootOrder
       value: 17
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114717994084856522, guid: c03cc86e92747724c816d27931ac00e1, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: c03cc86e92747724c816d27931ac00e1, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &256423153 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1081753587359524, guid: c03cc86e92747724c816d27931ac00e1,
+    type: 2}
+  m_PrefabInternal: {fileID: 256423152}
+--- !u!114 &256423154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 256423153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3db2ec9ec179f36418bc5a0241ab6ba5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideSingleton: 1
 --- !u!1001 &268415910
 Prefab:
   m_ObjectHideFlags: 0
@@ -1102,6 +1121,21 @@ Prefab:
     - target: {fileID: 4000014070986834, guid: 5bf269969c303ec4f8f9fc85a07c1f8a, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20000013728310478, guid: 5bf269969c303ec4f8f9fc85a07c1f8a,
+        type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20000013728310478, guid: 5bf269969c303ec4f8f9fc85a07c1f8a,
+        type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0.11151958
+      objectReference: {fileID: 0}
+    - target: {fileID: 20000013728310478, guid: 5bf269969c303ec4f8f9fc85a07c1f8a,
+        type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: 0.28676468
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5bf269969c303ec4f8f9fc85a07c1f8a, type: 2}

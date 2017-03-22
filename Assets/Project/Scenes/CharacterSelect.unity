@@ -780,6 +780,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelToLoad: RockOnRockOnRockOnRock
+  fadeOutMusic: 1
   countDownTime: 3
   text: {fileID: 970788544}
   panel: {fileID: 249769403}

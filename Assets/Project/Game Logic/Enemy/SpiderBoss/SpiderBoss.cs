@@ -97,6 +97,9 @@ public class SpiderBoss : BossBase {
         yield return StartCoroutine(LookAtRoutine(transform.position - transform.forward, 720.0f));
         yield return Yielders.Get(0.5f);
         SetImmune(false);
+        if (music) {
+            music.Play();
+        }
         yield return Yielders.Get(0.5f);
         agent.enabled = true;
         state = State.INTERIM;

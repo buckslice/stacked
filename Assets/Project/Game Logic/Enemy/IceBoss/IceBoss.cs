@@ -18,7 +18,6 @@ public class IceBoss : BossBase {
     public GameObject bigIciclePrefab;
 
     Health health;
-    AudioSource music;
 
     bool shouldIcicles = true; // every other time after ice circle. spawn some icicles
 
@@ -42,11 +41,6 @@ public class IceBoss : BossBase {
         agent.enabled = false;
 
         health = GetComponent<Health>();
-
-        GameObject musicGO = GameObject.Find("Music");
-        if (musicGO) {
-            music = musicGO.GetComponent<AudioSource>();
-        }
 
         SetImmune(true);
 
